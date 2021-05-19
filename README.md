@@ -24,11 +24,42 @@ or add it to your `home.packages` or `environment.systemPackages` with
 
 Also available as an overlay if you prefer that.
 
-**NOTE**: This wine version is available on [Cachix](https://app.cachix.org/cache/fufexan). Add it to your
-binary caches to avoid building wine.
+**NOTE**: This wine version is available on
+[Cachix](https://app.cachix.org/cache/osu-nix). Add it to your binary caches
+to avoid building wine.
 
-## Credits
+## PipeWire low latency
 
+PipeWire is a new audio backend that replaces ALSA, PulseAudio and Jack. It
+achieves lower latency than possible previously with Pulse, for lower CPU
+overhead.
+
+This module extends the PipeWire module from nixpkgs and makes it easy to
+enable the low latency settings from a single line.
+
+Add it as a module to your configuration and enable it along with PipeWire:
+```nix
+{
+  services.pipewire = {
+    enable = true;
+    # alsa is optional
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    # needed for osu
+    pulse.enable = true;
+    lowLatency = true;
+  }
+  
+  # make pipewire realtime-capable
+  services.rtkit.enable = true;
+}
+```
+
+## Credits & Resources
+ 
 Thank you
 - [gonX](https://github.com/gonX) for providing the wine patch
 - [yusdacra](https://github.com/yusdacra) for helping me debug this flake
+
+Find more info here
+- [Flakes Wiki](https://nixos.wiki/wiki/Flakes)

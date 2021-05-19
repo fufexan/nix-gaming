@@ -28,5 +28,10 @@
               inherit packages;
               defaultPackage = packages.wine-osu;
             }
-      ) // { inherit overlay; };
+      ) // {
+        inherit overlay;
+
+        nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
+        nixosModule = self.nixosModules.pipewireLowLatency;
+      };
 }
