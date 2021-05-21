@@ -8,7 +8,7 @@ let
 in
 {
   options = {
-    services.pipewire.lowLatency = lib.mkEnableOption "Configure low latency.a";
+    services.pipewire.lowLatency = lib.mkEnableOption "Enable low latency.";
   };
 
   config = lib.mkIf cfg {
