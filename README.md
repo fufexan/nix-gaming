@@ -58,7 +58,10 @@ Add it as a module to your configuration and enable it along with PipeWire:
 ## Credits & Resources
  
 Thank you
-- [gonX](https://github.com/gonX) for providing the wine patch
+- [gonX](https://github.com/gonX) for providing the
+[pulse patch](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
+- [openglfreak](https://github.com/openglfreak) for provivding the
+[secur32 patch](https://github.com/openglfreak/wine-tkg-userpatches/blob/next/patches/0010-crypto/ps0004-secur32-Fix-crash-from-invalid-context-in-InitializeSecurityConte.patch)
 - [yusdacra](https://github.com/yusdacra) for helping me debug this flake
 
 Find more info here
