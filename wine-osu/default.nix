@@ -5,7 +5,9 @@
     old: {
       patches = old.patches ++ [
         # fixes latency on pulse backend
-        ./wine-pulse.patch
+        ./patches/wine-pulse.patch
+        # fixes game crashing sometimes in song select screen
+        ./patches/wine-secur32.patch
       ];
     }
   )

@@ -10,7 +10,7 @@
     let
       # expose overlay outside of fu so it doesn't get output as overlay.${system}
       overlay = final: prev: {
-        wine-osu = prev.callPackage ./wine-osu.nix {};
+        wine-osu = prev.callPackage ./wine-osu {};
       };
     in
       # only x86 linux is supported by wine
