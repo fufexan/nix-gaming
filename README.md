@@ -35,7 +35,7 @@ achieves lower latency than possible previously with Pulse, for lower CPU
 overhead.
 
 This module extends the PipeWire module from nixpkgs and makes it easy to
-enable the low latency settings from a single line.
+enable the low latency settings from a single line (or more).
 
 Add it as a module to your configuration and enable it along with PipeWire:
 ```nix
@@ -47,13 +47,21 @@ Add it as a module to your configuration and enable it along with PipeWire:
     alsa.support32Bit = true;
     # needed for osu
     pulse.enable = true;
-    lowLatency = true;
+    lowLatency = {
+      enable = true;
+      # defaults
+      quantum = 32;
+      rate = 48000;
+    };
   }
   
   # make pipewire realtime-capable
   services.rtkit.enable = true;
 }
 ```
+
+If you get no sound, you may want to increase `quantum`, usually to a power of
+2 or the prefix of the `rate` (`48/48000` is exactly 1ms).
 
 ## Credits & Resources
  
