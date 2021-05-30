@@ -8,18 +8,20 @@ let
 in
 {
   options = {
-    services.pipewire.lowLatency.enable = lib.mkEnableOption "Enable low latency";
-    services.pipewire.lowLatency.quantum = lib.mkOption {
-      description = "Minimum quantum to set";
-      type = lib.types.int;
-      default = 32;
-      example = 48;
-    };
-    services.pipewire.lowLatency.rate = lib.mkOption {
-      description = "Rate to set";
-      type = lib.types.int;
-      default = 48000;
-      example = 96000;
+    services.pipewire.lowLatency = {
+      enable = lib.mkEnableOption "Enable low latency";
+      quantum = lib.mkOption {
+        description = "Minimum quantum to set";
+        type = lib.types.int;
+        default = 32;
+        example = 48;
+      };
+      rate = lib.mkOption {
+        description = "Rate to set";
+        type = lib.types.int;
+        default = 48000;
+        example = 96000;
+      };
     };
   };
 
@@ -79,7 +81,7 @@ in
                   update-props = {
                     "audio.format" = "S32LE";
                     "audio.rate" = cfg.rate * 2;
-                    "api.alsa.period-size" = cfg.quantum;
+                    "api.alsa.period-size" = 2;
                   };
                 };
               }
