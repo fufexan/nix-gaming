@@ -49,14 +49,14 @@ Add it as a module to your configuration and enable it along with PipeWire:
     pulse.enable = true;
     lowLatency = {
       enable = true;
-      # defaults
+      # defaults (no need to be set unless modified)
       quantum = 32;
       rate = 48000;
     };
   }
   
   # make pipewire realtime-capable
-  services.rtkit.enable = true;
+  security.rtkit.enable = true;
 }
 ```
 
