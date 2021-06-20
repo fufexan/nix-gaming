@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "discord-ipc-bridge": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607757308,
+        "narHash": "sha256-hLdlvH0QITJjD3HQOnu/+7FKWFDsYqpr5h7AOcG+8k8=",
+        "owner": "hitomi-team",
+        "repo": "discord-ipc-bridge",
+        "rev": "7004fd3e073e5d44bde2101cd26203b10c6fa9a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hitomi-team",
+        "repo": "discord-ipc-bridge",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1621361101,
@@ -17,6 +33,7 @@
     },
     "root": {
       "inputs": {
+        "discord-ipc-bridge": "discord-ipc-bridge",
         "nixpkgs": "nixpkgs",
         "utils": "utils"
       }
