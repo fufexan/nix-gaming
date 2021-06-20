@@ -9,6 +9,11 @@ jobs:
   cachix:
     name: Build Wine
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+        - discord-ipc-bridge
+        - wine-osu
     steps:
       - uses: actions/checkout@v2.3.4
       - uses: cachix/install-nix-action@v13
@@ -19,4 +24,4 @@ jobs:
         with:
           name: osu-nix
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - run: nix build -L .#wine-osu
+      - run: nix build -L .#${{ matrix.package }}
