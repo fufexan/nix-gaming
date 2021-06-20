@@ -18,6 +18,11 @@
           dib = inputs.discord-ipc-bridge;
         };
 
+        osu = prev.callPackage ./pkgs/osu {
+          wine = final.wine-osu;
+          dib = final.discord-ipc-bridge;
+        };
+
         wine-osu = prev.callPackage ./pkgs/wine-osu {};
       };
     in
@@ -30,11 +35,11 @@
               overlays = [ overlay ];
             };
 
-            packages = { inherit (pkgs) discord-ipc-bridge wine-osu; };
+            packages = { inherit (pkgs) discord-ipc-bridge osu wine-osu; };
           in
             {
               inherit packages;
-              defaultPackage = packages.wine-osu;
+              defaultPackage = packages.osu;
             }
       ) // {
         inherit overlay;
