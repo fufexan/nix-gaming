@@ -23,7 +23,7 @@
           dib = inputs.discord-ipc-bridge;
         };
 
-        osu = prev.callPackage ./pkgs/osu {
+        osu-stable = prev.callPackage ./pkgs/osu-stable {
           wine = final.wine-osu;
           dib = final.discord-ipc-bridge;
         };
@@ -40,14 +40,14 @@
               overlays = [ overlay ];
             };
 
-            apps.osu = utils.lib.mkApp { drv = packages.osu; };
-            packages = { inherit (pkgs) discord-ipc-bridge osu wine-osu; };
+            apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
+            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu; };
           in
             {
               inherit apps packages;
 
-              defaultApp = apps.osu;
-              defaultPackage = packages.osu;
+              defaultApp = apps.osu-stable;
+              defaultPackage = packages.osu-stable;
             }
       ) // {
         inherit overlay;

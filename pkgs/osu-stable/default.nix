@@ -5,7 +5,7 @@
 , symlinkJoin
 , wine ? null
 , wineFlags ? ""
-, name ? "osu-stable"
+, pname ? "osu-stable"
 , verbose ? false
 , location ? "$HOME/.osu"
 , tricks ? [ "gdiplus" "dotnet40" "meiryo" ]
@@ -37,7 +37,7 @@ let
 
   silent = lib.optionalString (!verbose) ">/dev/null 2>&1";
 
-  script = writeShellScriptBin name ''
+  script = writeShellScriptBin pname ''
     export WINEARCH="win32"
     export WINEPREFIX="${location}"
 
@@ -66,15 +66,15 @@ let
   '';
 
   desktopItems = makeDesktopItem {
-    name = "osu-stable";
-    desktopName = "osu!";
-    genericName = "osu!";
-    exec = "${script}/bin/osu-stable";
+    name = pname;
+    desktopName = "osu!stable";
+    genericName = "osu!stable";
+    exec = "${script}/bin/${pname}";
     categories = "Game;";
     icon = osuicon;
   };
 in
 symlinkJoin {
-  inherit name;
+  name = pname;
   paths = [ script desktopItems ];
 }

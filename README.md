@@ -13,25 +13,25 @@ The default app automatically installs osu! to `~/.osu`, then runs it:
 ```
 nix run github:fufexan/osu.nix
 ```
-The app is powered by the `osu` package, which provides a script called
-`osu-stable` that installs/runs osu! automatically.
+The app is powered by the `osu-stable` package, which provides a script that
+installs/runs osu! automatically.
 
 This will take a bit of time, depending on your internet speed. It will download
 about 400MB of files and install them. In any case, **do not stop the command!**
 
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
-directory and re-run the `osu-stable` script.
+directory and re-run `osu-stable`.
 
-`osu` itself uses a specialized version of `wine`, called `wine-osu`. It
+`osu-stable` itself uses a specialized version of `wine`, called `wine-osu`. It
 is tailored for the best osu! experience. It is patched to have low audio
 latency and to prevent crashes.
 
 On top of everything, there's `discord-ipc-bridge` which provides bridging
-between osu! under wine and Discord running on Linux. In `osu`, it's installed
+between osu! under wine and Discord running on Linux. In `osu-stable`, it's installed
 as a Windows service that runs automatically when you start osu!.
 
 ### Package list:
-- `osu`
+- `osu-stable` (default package)
 - `discord-ipc-bridge`
 - `wine-osu`
 
@@ -55,8 +55,8 @@ Then, add the package(s):
 {
   environment.systemPackages = [
     ...
+    inputs.osu-nix.defaultPackage.x86_64-linux     # installs osu-stable
     inputs.osu-nix.packages.x86_64-linux.<package> # installs a package
-    inputs.osu-nix.defaultPackage.x86_64-linux # installs osu
   ];
 }
 ```
@@ -70,7 +70,7 @@ The osu derivation was written with versatility in mind. There are args that can
 {
   wine      ? wine-osu     # controls the wine package used to run osu
   wineFlags ? null         # which flags to run wine with
-  name      ? "osu-stable" # name of the script and package
+  pname     ? "osu-stable" # name of the script and package
   verbose   ? false        # whether to output anything when running osu (verbose by default for the install process)
   location  ? "$HOME/.osu" # where to install the wine prefix
   tricks    ? [ "gdiplus" "dotnet40" "meiryo" ] # which tricks to install
@@ -128,8 +128,8 @@ It's recommended to set up [Cachix](#cachix).
 To install packages with `nix-env`, run
 ```
 cd path/to/osu.nix
-nix-env -if . # to install osu
-nix-env -if . -A packages.x86_64-linux.<package> # osu/wine-osu/discord-ipc-bridge
+nix-env -if . # to install osu-stable
+nix-env -if . -A packages.x86_64-linux.<package> # osu-stable/wine-osu/discord-ipc-bridge
 ```
 
 To add them to your `environment.systemPackages` or `home.packages`, add this in
@@ -140,7 +140,8 @@ let
 in
 {
   environment.systemPackages = [ # home.packages
-    osu-nix.packages.x86_64-linux.<package> # osu/wine-osu/discord-ipc-bridge
+    osu-nix.defultPackage.x86_64-linux      # installs osu-stable
+    osu-nix.packages.x86_64-linux.<package> # osu-stable/wine-osu/discord-ipc-bridge
   ];
 }
 ```
