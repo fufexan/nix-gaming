@@ -48,15 +48,15 @@ let
 
     if [ ! -d "$WINEPREFIX" ]; then
       # install tricks
-      winetricks -q -f ${tricksStmt} ${silent}
+      winetricks -q -f ${tricksStmt}
       wineserver -k
 
       # install ipcbridge
       cp ${dib}/bin/${wdib} $WINEPREFIX/drive_c/windows/${wdib}
-      wine reg add '${REGKEY}' /v winediscordipcbridge /d 'C:\windows\${wdib}' /f ${silent}
+      wine reg add '${REGKEY}' /v winediscordipcbridge /d 'C:\windows\${wdib}' /f
 
       # install osu
-      wine ${osusrc} ${silent}
+      wine ${osusrc}
       wineserver -k
       mv "$WINEPREFIX/drive_c/users/$USER/Local Settings/Application Data/osu!" $WINEPREFIX/drive_c/osu
     fi
