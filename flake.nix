@@ -10,6 +10,11 @@
     };
   };
 
+  nixConfig = {
+    substituters = [ "https://app.cachix.org/cache/osu-nix" ];
+    trusted-public-keys = [ "osu-nix.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg=" ];
+  };
+
   outputs = { self, nixpkgs, utils, ... }@inputs:
     let
       # expose overlay outside of fu so it doesn't get output as overlay.${system}
