@@ -35,10 +35,13 @@
               overlays = [ overlay ];
             };
 
+            apps.osu = utils.lib.mkApp { drv = packages.osu; };
             packages = { inherit (pkgs) discord-ipc-bridge osu wine-osu; };
           in
             {
-              inherit packages;
+              inherit apps packages;
+
+              defaultApp = apps.osu;
               defaultPackage = packages.osu;
             }
       ) // {
