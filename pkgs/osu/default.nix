@@ -1,10 +1,12 @@
-{ writeShellScriptBin
+{ lib
+, writeShellScriptBin
 , winetricks
 , makeDesktopItem
 , symlinkJoin
 , wine ? null
 , wineFlags ? ""
 , name ? "osu-stable"
+, verbose ? false
 , location ? "$HOME/.osu"
 , tricks ? [ "gdiplus" "dotnet40" "meiryo" ]
 , dib
@@ -25,9 +27,6 @@ let
   # discord ipc bridge stuff
   REGKEY = "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\RunServices";
   wdib = "winediscordipcbridge.exe";
-  dibInstall = ''
-    cp ${dib}/bin/${wdib} $WINEPREFIX/drive_c/windows/${wdib}
-  '';
 
   # concat winetricks args
   tricksStmt = with builtins;
@@ -35,6 +34,8 @@ let
       concatStringsSep " " tricks
     else
       "-V";
+
+  silent = lib.optionalString (!verbose) ">/dev/null 2>&1";
 
   script = writeShellScriptBin name ''
     export WINEARCH="win32"
@@ -47,20 +48,20 @@ let
 
     if [ ! -d "$WINEPREFIX" ]; then
       # install tricks
-      winetricks -q -f ${tricksStmt}
+      winetricks -q -f ${tricksStmt} ${silent}
       wineserver -k
 
       # install ipcbridge
-      ${dibInstall}
+      cp ${dib}/bin/${wdib} $WINEPREFIX/drive_c/windows/${wdib}
+      wine reg add '${REGKEY}' /v winediscordipcbridge /d 'C:\windows\${wdib}' /f ${silent}
 
       # install osu
-      wine ${osusrc}
+      wine ${osusrc} ${silent}
       wineserver -k
       mv "$WINEPREFIX/drive_c/users/$USER/Local Settings/Application Data/osu!" $WINEPREFIX/drive_c/osu
     fi
 
-    wine ${wdib}.exe &
-    wine ${wineFlags} "$OSU" "$@"
+    wine ${wineFlags} "$OSU" "$@" ${silent}
     wineserver -w
   '';
 
