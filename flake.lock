@@ -31,11 +31,63 @@
         "type": "github"
       }
     },
+    "nixpkgs-tkg": {
+      "locked": {
+        "lastModified": 1625833080,
+        "narHash": "sha256-9WtdZlqg4W+luSWnFNdDutpID0g2TsiN6urk6l4qFPQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3191d4f0af44159e6f215b7fa975a41fd00b8f01",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "oglfPatches": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624106954,
+        "narHash": "sha256-PPchKKmTcGqCSMzmOcj2PhTeWcLgfzuCOU/yMAQh6mU=",
+        "owner": "openglfreak",
+        "repo": "wine-tkg-userpatches",
+        "rev": "ff6328a6b5e36dd8a007a7273290aa30ab3164d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openglfreak",
+        "repo": "wine-tkg-userpatches",
+        "rev": "ff6328a6b5e36dd8a007a7273290aa30ab3164d9",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "discord-ipc-bridge": "discord-ipc-bridge",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-tkg": "nixpkgs-tkg",
+        "oglfPatches": "oglfPatches",
+        "tkgPatches": "tkgPatches",
         "utils": "utils"
+      }
+    },
+    "tkgPatches": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624646123,
+        "narHash": "sha256-MjN479YSlyhLt9fxoishGVCuQLg1SRMLF4TWh7cRuIQ=",
+        "owner": "Frogging-Family",
+        "repo": "wine-tkg-git",
+        "rev": "257bfe71c045db0fbbb9f3896f9697068b9f482a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Frogging-Family",
+        "repo": "wine-tkg-git",
+        "rev": "257bfe71c045db0fbbb9f3896f9697068b9f482a",
+        "type": "github"
       }
     },
     "utils": {

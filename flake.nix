@@ -4,10 +4,16 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs;
     utils.url = github:numtide/flake-utils;
+
     discord-ipc-bridge = {
       url = github:hitomi-team/discord-ipc-bridge;
       flake = false;
     };
+
+    nixpkgs-tkg.url = "github:NixOS/nixpkgs";
+
+    oglfPatches = { url = "github:openglfreak/wine-tkg-userpatches/ff6328a6b5e36dd8a007a7273290aa30ab3164d9"; flake = false; };
+    tkgPatches = { url = "github:Frogging-Family/wine-tkg-git/257bfe71c045db0fbbb9f3896f9697068b9f482a"; flake = false; };
   };
 
   nixConfig = {
@@ -24,13 +30,16 @@
         };
 
         osu-stable = prev.callPackage ./pkgs/osu-stable {
-          wine = final.wine-osu;
-          dib = final.discord-ipc-bridge;
+          wine = final.wine-tkg;
+          winetricks = prev.winetricks.override { wine = final.wine-tkg; };
+          inherit (final) winestreamproxy;
         };
 
         wine-osu = prev.callPackage ./pkgs/wine-osu {};
 
-        winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = nixpkgs.legacyPackages.x86_64-linux.wineWowPackages.minimal; };
+        winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = final.wineWowPackages.minimal; };
+
+        wine-tkg = prev.callPackage ./pkgs/wine-tkg { inherit (inputs) tkgPatches oglfPatches; };
       };
     in
       # only x86 linux is supported by wine
@@ -43,7 +52,7 @@
             };
 
             apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
-            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu winestreamproxy; };
+            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu wine-tkg winestreamproxy; };
           in
             {
               inherit apps packages;
