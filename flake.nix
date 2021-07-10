@@ -35,35 +35,36 @@
           inherit (final) winestreamproxy;
         };
 
-        wine-osu = prev.callPackage ./pkgs/wine-osu {};
+        wine-osu = prev.callPackage ./pkgs/wine-osu { };
 
         winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = final.wineWowPackages.minimal; };
 
-        wine-tkg = prev.callPackage ./pkgs/wine-tkg { inherit (inputs) tkgPatches oglfPatches; };
+        wine-tkg = inputs.nixpkgs-tkg.legacyPackages.x86_64-linux.callPackage ./pkgs/wine-tkg { inherit (inputs) tkgPatches oglfPatches; };
       };
     in
-      # only x86 linux is supported by wine
-      utils.lib.eachSystem [ "i686-linux" "x86_64-linux" ] (
+    # only x86 linux is supported by wine
+    utils.lib.eachSystem [ "i686-linux" "x86_64-linux" ]
+      (
         system:
-          let
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [ overlay ];
-            };
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ overlay ];
+          };
 
-            apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
-            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu wine-tkg winestreamproxy; };
-          in
-            {
-              inherit apps packages;
+          apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
+          packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu wine-tkg winestreamproxy; };
+        in
+        {
+          inherit apps packages;
 
-              defaultApp = apps.osu-stable;
-              defaultPackage = packages.osu-stable;
-            }
+          defaultApp = apps.osu-stable;
+          defaultPackage = packages.osu-stable;
+        }
       ) // {
-        inherit overlay;
+      inherit overlay;
 
-        nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
-        nixosModule = self.nixosModules.pipewireLowLatency;
-      };
+      nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
+      nixosModule = self.nixosModules.pipewireLowLatency;
+    };
 }
