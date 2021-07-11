@@ -3,41 +3,60 @@
 [osu!](https://osu.ppy.sh)-related stuff for Nix and NixOS. Easily install
 everything you need in order to have the best osu! experience.
 
-The following instructions assume you use [flakes](https://nixos.wiki/wiki/Flakes).
-If you don't (or you're not sure), skip to [here](#nix-stable), but you may
-want to read everything until [Install](#install) for context.
+## What's in here?
 
-## App & Packages
+Package              | Description
+---------------------|---
+`osu-stable`         | Default package
+`winestreamproxy`    | Wine-Discord RPC
+`wine-tkg`           | Wine optimized for games
+`discord-ipc-bridge` | Older RPC
+`wine-osu`           | Older Wine with osu-only patches
 
-The default app automatically installs osu! to `~/.osu`, then runs it:
-```
-nix run github:fufexan/osu.nix
-```
-The app is powered by the `osu-stable` package, which provides a script that
-installs/runs osu! automatically.
+`osu-stable` provides a script that installs/runs osu! automatically, in
+addition to a desktop entry.
 
-This will take a bit of time, depending on your internet speed. It will download
-about 400MB of files and install them. In any case, **do not stop the command!**
+Installation will take a bit of time. It will download and install about 400MB
+of files. In any case, **do not stop the command!**
 
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
 
-`osu-stable` itself uses a specialized version of `wine`, called `wine-osu`. It
-is tailored for the best osu! experience. It is patched to have low audio
-latency and to prevent crashes.
+`osu-stable` uses a specialized version of `wine`, called `wine-tkg`, tailored
+for the best gaming experience. In addition to
+[the tkg patches](https://github.com/Frogging-Family/wine-tkg-git),I have added
+[openglfreak's patches](https://github.com/openglfreak/wine-tkg-userpatches) and
+[gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
+which make everything buttery smooth.
 
-On top of everything, there's `discord-ipc-bridge` which provides bridging
-between osu! under wine and Discord running on Linux. In `osu-stable`, it's installed
-as a Windows service that runs automatically when you start osu!.
+`winestreamproxy` provides bridging between osu! under Wine and Discord running
+on Linux.
 
-### Package list:
-- `osu-stable` (default package)
-- `discord-ipc-bridge`
-- `wine-osu`
+## Install & Run
 
-### Install
+It's recommended to set up [Cachix](#cachix) so you don't have to build packages.
+```nix
+# configuration.nix
+{
+  nix = {
+    binaryCaches = [
+      "https://cache.nixos.org"
+      ...
+      "https://app.cachix.org/cache/osu-nix"
+    ];
+    binaryCachePublicKeys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ...
+      "osu-nix.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
+    ];
+  };
+}
+```
+Now, rebuild your configuration and continue reading for install instructions.
 
-It's recommended to set up [Cachix](#cachix) so you don't have to build wine.
+#### If you're not using flakes, [skip to here](#nix-stable).
+
+### Flakes
 
 Add these packages to your `home.packages` or `environment.systemPackages` by
 adding `osu-nix` as an input:
@@ -51,7 +70,7 @@ adding `osu-nix` as an input:
 
 Then, add the package(s):
 ```nix
-# configuration.nix / home.nix
+#
 {
   environment.systemPackages = [
     ...
@@ -60,24 +79,43 @@ Then, add the package(s):
   ];
 }
 ```
+Everything is available as an overlay if you prefer that, though your results
+will greatly differ from the packages.
 
-Everything is available as an overlay if you prefer that.
+### Nix Stable
 
-### Overrides for osu
+The following instructions assume you have this repo cloned somewhere.
 
-The osu derivation was written with versatility in mind. There are args that can be modified in order to get the result one wants.
+#### Packages
+
+To install packages with `nix-env`, run
+```
+cd directory/of/osu.nix
+nix-env -if . # to install osu-stable
+nix-env -if . -A packages.x86_64-linux.<package> # osu-stable/wine-osu/discord-ipc-bridge
+```
+
+To install packages to `environment.systemPackages`, add this in `configuration.nix`:
 ```nix
+let
+  osu-nix = import (builtins.fetchTarball "https://github.com/fufexan/osu.nix/archive/master.tar.gz");
+in
 {
-  wine      ? wine-osu     # controls the wine package used to run osu
-  wineFlags ? null         # which flags to run wine with
-  pname     ? "osu-stable" # name of the script and package
-  verbose   ? false        # whether to output anything when running osu (verbose by default for the install process)
-  location  ? "$HOME/.osu" # where to install the wine prefix
-  tricks    ? [ "gdiplus" "dotnet40" "meiryo" ] # which tricks to install
-  # gdiplus - necessary for osu
-  # dotnet40 - minimum version needed. if you want to run something like gosumemory, you should use dotnet45, though you'll be on your own
-  # meiryo - CJK fonts for map names
-}:
+  # import the low latency module
+  imports = [
+    ...
+    "osu-nix/modules/pipewireLowLatency.nix"
+  ];
+  
+  # install packages
+  environment.systemPackages = [ # home.packages
+    osu-nix.defultPackage.x86_64-linux      # installs osu-stable
+    osu-nix.packages.x86_64-linux.<package>
+  ];
+  
+  # enable module (see below)
+  services.pipewire = ...;
+}
 ```
 
 ## PipeWire low latency
@@ -105,7 +143,7 @@ Add it as a module to your configuration and enable it along with PipeWire:
 
     # defaults (no need to be set unless modified)
     lowLatency = {
-      quantum = 32; # usually a power of 2
+      quantum = 64; # usually a power of 2
       rate = 48000;
     };
   };
@@ -118,83 +156,27 @@ Add it as a module to your configuration and enable it along with PipeWire:
 If you get no sound, you may want to increase `quantum`, usually to a power of
 2 or the prefix of the `rate` (`48/48000` is exactly 1ms).
 
-## Nix Stable
+### Overrides for osu
 
-The following instructions assume you have this repo cloned somewhere.
-It's recommended to set up [Cachix](#cachix).
-
-### Packages
-
-To install packages with `nix-env`, run
-```
-cd path/to/osu.nix
-nix-env -if . # to install osu-stable
-nix-env -if . -A packages.x86_64-linux.<package> # osu-stable/wine-osu/discord-ipc-bridge
-```
-
-To add them to your `environment.systemPackages` or `home.packages`, add this in
-any of those locations:
+The osu derivation was written with versatility in mind. There are args that can be modified in order to get the result one wants.
 ```nix
-let
-  osu-nix = import (builtins.fetchTarball "https://github.com/fufexan/osu.nix/archive/master.tar.gz");
-in
 {
-  environment.systemPackages = [ # home.packages
-    osu-nix.defultPackage.x86_64-linux      # installs osu-stable
-    osu-nix.packages.x86_64-linux.<package> # osu-stable/wine-osu/discord-ipc-bridge
-  ];
-}
+  wine      ? null         # controls the wine package used to run osu
+  wineFlags ? null         # which flags to run wine with
+  pname     ? "osu-stable" # name of the script and package
+  verbose   ? false        # whether to output anything when running osu (verbose by default for the install process)
+  location  ? "$HOME/.osu" # where to install the wine prefix
+  tricks    ? [ "gdiplus" "dotnet40" "meiryo" ] # which wine tricks to install
+  
+  # gdiplus - necessary for osu
+  # dotnet40 - minimum version needed. if you want to run something like gosumemory, you should use dotnet45, though you'll be on your own
+  # meiryo - CJK fonts for map names
+}:
 ```
-
-### Module
-
-```nix
-# configuration.nix
-let
-  osu-nix = builtins.fetchTarball "https://github.com/fufexan/osu.nix/archive/master.tar.gz";
-in
-{
-  imports = [
-    ...
-    "osu-nix/modules/pipewireLowLatency.nix"
-  ];
-
-  services.pipewire = ...;
-}
-```
-
-**NOTE**: The above snippets weren't tested (as they won't work with flakes) but they
-should work fine. Feel free to open an issue if there are any problems.
-
-### Cachix
-
-To allow you to download the already-built version of wine and
-discord-ipc-bridge, you need to add this repo's Cachix to your
-binaryCaches **before** trying to install this repo's packages:
-```nix
-# configuration.nix
-{
-  nix = {
-    binaryCaches = [
-      "https://cache.nixos.org"
-      ...
-      "https://app.cachix.org/cache/osu-nix"
-    ];
-    binaryCachePublicKeys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      ...
-      "osu-nix.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
-    ];
-  };
-}
-```
-Now, rebuild your configuration and add your preferred packages.
 
 ## Credits & Resources
  
 Thank you
-- [gonX](https://github.com/gonX) for providing the
-[pulse patch](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
-- [openglfreak](https://github.com/openglfreak) for provivding the
-[secur32 patch](https://github.com/openglfreak/wine-tkg-userpatches/blob/next/patches/0010-crypto/ps0004-secur32-Fix-crash-from-invalid-context-in-InitializeSecurityConte.patch)
-- [yusdacra](https://github.com/yusdacra) for helping me debug this flake
+- [gonX](https://github.com/gonX)
+- [openglfreak](https://github.com/openglfreak)
+- [yusdacra](https://github.com/yusdacra)
