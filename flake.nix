@@ -29,6 +29,8 @@
         };
 
         wine-osu = prev.callPackage ./pkgs/wine-osu {};
+
+        winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = nixpkgs.legacyPackages.x86_64-linux.wineWowPackages.minimal; };
       };
     in
       # only x86 linux is supported by wine
@@ -41,7 +43,7 @@
             };
 
             apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
-            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu; };
+            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu winestreamproxy; };
           in
             {
               inherit apps packages;
