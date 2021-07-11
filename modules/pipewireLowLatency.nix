@@ -13,8 +13,8 @@ in
       quantum = lib.mkOption {
         description = "Minimum quantum to set";
         type = lib.types.int;
-        default = 32;
-        example = 48;
+        default = 64;
+        example = 32;
       };
       rate = lib.mkOption {
         description = "Rate to set";
