@@ -14,6 +14,7 @@ jobs:
         package:
         - discord-ipc-bridge
         - wine-osu
+        - wine-tkg
         - winestreamproxy
     steps:
       - uses: actions/checkout@v2.3.4

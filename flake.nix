@@ -2,12 +2,14 @@
   description = "osu! on Nix";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs;
-    utils.url = github:numtide/flake-utils;
-    discord-ipc-bridge = {
-      url = github:hitomi-team/discord-ipc-bridge;
-      flake = false;
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    utils.url = "github:numtide/flake-utils";
+
+    nixpkgs-wine-osu.url = "github:NixOS/nixpkgs/73b982e62194a5d85827d87b0851aee06932979f";
+
+    discord-ipc-bridge = { url = github:hitomi-team/discord-ipc-bridge; flake = false; };
+    oglfPatches = { url = "github:openglfreak/wine-tkg-userpatches/ff6328a6b5e36dd8a007a7273290aa30ab3164d9"; flake = false; };
+    tkgPatches = { url = "github:Frogging-Family/wine-tkg-git/257bfe71c045db0fbbb9f3896f9697068b9f482a"; flake = false; };
   };
 
   nixConfig = {
@@ -19,42 +21,55 @@
     let
       # expose overlay outside of fu so it doesn't get output as overlay.${system}
       overlay = final: prev: {
-        discord-ipc-bridge = prev.pkgsCross.mingw32.callPackage ./pkgs/discord-ipc-bridge {
-          dib = inputs.discord-ipc-bridge;
-        };
-
         osu-stable = prev.callPackage ./pkgs/osu-stable {
-          wine = final.wine-osu;
-          dib = final.discord-ipc-bridge;
+          wine = final.wine-tkg;
+          winetricks = prev.winetricks.override { wine = final.wine-tkg; };
+          inherit (final) winestreamproxy;
         };
 
-        wine-osu = prev.callPackage ./pkgs/wine-osu {};
+        winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = final.wine-tkg; };
 
-        winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = nixpkgs.legacyPackages.x86_64-linux.wineWowPackages.minimal; };
+        wine-tkg = prev.callPackage ./pkgs/wine-tkg {
+          wine =
+            if prev.system == "x86_64-linux"
+            then final.wineWowPackages.unstable
+            else final.wineUnstable;
+          inherit (inputs) tkgPatches oglfPatches;
+        };
+
+        # --- deprecated ---
+        discord-ipc-bridge = prev.pkgsCross.mingw32.callPackage ./pkgs/discord-ipc-bridge { dib = inputs.discord-ipc-bridge; };
+
+        wine-osu =
+          let
+            nwo = inputs.nixpkgs-wine-osu.legacyPackages.${prev.system};
+          in
+          nwo.callPackage ./pkgs/wine-osu { wine = nwo.wineUnstable; };
       };
     in
-      # only x86 linux is supported by wine
-      utils.lib.eachSystem [ "i686-linux" "x86_64-linux" ] (
+    # only x86 linux is supported by wine
+    utils.lib.eachSystem [ "i686-linux" "x86_64-linux" ]
+      (
         system:
-          let
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [ overlay ];
-            };
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ overlay ];
+          };
 
-            apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
-            packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu winestreamproxy; };
-          in
-            {
-              inherit apps packages;
+          apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
+          packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu wine-tkg winestreamproxy; };
+        in
+        {
+          inherit apps packages;
 
-              defaultApp = apps.osu-stable;
-              defaultPackage = packages.osu-stable;
-            }
+          defaultApp = apps.osu-stable;
+          defaultPackage = packages.osu-stable;
+        }
       ) // {
-        inherit overlay;
+      inherit overlay;
 
-        nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
-        nixosModule = self.nixosModules.pipewireLowLatency;
-      };
+      nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
+      nixosModule = self.nixosModules.pipewireLowLatency;
+    };
 }
