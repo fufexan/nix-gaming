@@ -40,7 +40,11 @@
         # --- deprecated ---
         discord-ipc-bridge = prev.pkgsCross.mingw32.callPackage ./pkgs/discord-ipc-bridge { dib = inputs.discord-ipc-bridge; };
 
-        wine-osu = prev.callPackage ./pkgs/wine-osu { wine = inputs.nixpkgs-wine-osu.legacyPackages.${prev.system}.wineUnstable; };
+        wine-osu =
+          let
+            nwo = inputs.nixpkgs-wine-osu.legacyPackages.${prev.system};
+          in
+          nwo.callPackage ./pkgs/wine-osu { wine = nwo.wineUnstable; };
       };
     in
     # only x86 linux is supported by wine
