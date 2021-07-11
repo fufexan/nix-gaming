@@ -31,18 +31,19 @@
         "type": "github"
       }
     },
-    "nixpkgs-tkg": {
+    "nixpkgs-wine-osu": {
       "locked": {
-        "lastModified": 1625833080,
-        "narHash": "sha256-9WtdZlqg4W+luSWnFNdDutpID0g2TsiN6urk6l4qFPQ=",
+        "lastModified": 1621361101,
+        "narHash": "sha256-jH4vlCdaWgTDMeNU/NUJXmSs+xrpBVPWzwb5xzq2aec=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3191d4f0af44159e6f215b7fa975a41fd00b8f01",
+        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
+        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
         "type": "github"
       }
     },
@@ -67,7 +68,7 @@
       "inputs": {
         "discord-ipc-bridge": "discord-ipc-bridge",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-tkg": "nixpkgs-tkg",
+        "nixpkgs-wine-osu": "nixpkgs-wine-osu",
         "oglfPatches": "oglfPatches",
         "tkgPatches": "tkgPatches",
         "utils": "utils"

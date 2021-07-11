@@ -1,15 +1,10 @@
 { lib
-, wineWow ? true
-, wineUnstable
-, wineWowPackages
+, wine
 , tkgPatches
 , oglfPatches
 , ...
 }:
 
-let
-  wine = if wineWow then wineWowPackages.unstable else wineUnstable;
-in
 (
   wine.overrideAttrs (
     old: rec {
