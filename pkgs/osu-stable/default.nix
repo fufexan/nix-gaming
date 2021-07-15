@@ -51,7 +51,7 @@ let
       # install osu
       wine ${osusrc}
       wineserver -k
-      mv "$WINEPREFIX/drive_c/users/$USER/Local Settings/Application Data/osu!" $WINEPREFIX/drive_c/osu
+      mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
     fi
 
     winestreamproxy -f &
