@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
-    utils.url = "github:numtide/flake-utils";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
 
     nixpkgs-wine-osu.url = "github:NixOS/nixpkgs/73b982e62194a5d85827d87b0851aee06932979f";
 
@@ -18,58 +18,27 @@
   };
 
   outputs = { self, nixpkgs, utils, ... }@inputs:
-    let
-      # expose overlay outside of fu so it doesn't get output as overlay.${system}
-      overlay = final: prev: {
-        osu-stable = prev.callPackage ./pkgs/osu-stable {
-          wine = final.wine-tkg;
-          winetricks = prev.winetricks.override { wine = final.wine-tkg; };
-          inherit (final) winestreamproxy;
-        };
+    utils.lib.mkFlake {
+      inherit self inputs;
+      # only x86 linux is supported by wine
+      supportedSystems = [ "i686-linux" "x86_64-linux" ];
 
-        winestreamproxy = prev.callPackage ./pkgs/winestreamproxy { wine = final.wine-tkg; };
+      # add overlay to channel
+      channels.nixpkgs.overlaysBuilder = _: [ (import ./pkgs { inherit inputs; }) ];
 
-        wine-tkg = prev.callPackage ./pkgs/wine-tkg {
-          wine =
-            if prev.system == "x86_64-linux"
-            then final.wineWowPackages.unstable
-            else final.wineUnstable;
-          inherit (inputs) tkgPatches oglfPatches;
-        };
+      # output each overlay in its own set
+      overlays = utils.lib.exportOverlays { inherit (self) pkgs inputs; };
 
-        # --- deprecated ---
-        discord-ipc-bridge = prev.pkgsCross.mingw32.callPackage ./pkgs/discord-ipc-bridge { dib = inputs.discord-ipc-bridge; };
-
-        wine-osu =
-          let
-            nwo = inputs.nixpkgs-wine-osu.legacyPackages.${prev.system};
-          in
-          nwo.callPackage ./pkgs/wine-osu { wine = nwo.wineUnstable; };
+      # build outputs
+      outputsBuilder = channels: rec {
+        apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
+        defaultApp = apps.osu-stable;
+        defaultPackage = packages.osu-stable;
+        packages = utils.lib.exportPackages self.overlays channels;
       };
-    in
-    # only x86 linux is supported by wine
-    utils.lib.eachSystem [ "i686-linux" "x86_64-linux" ]
-      (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ overlay ];
-          };
 
-          apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
-          packages = { inherit (pkgs) discord-ipc-bridge osu-stable wine-osu wine-tkg winestreamproxy; };
-        in
-        {
-          inherit apps packages;
-
-          defaultApp = apps.osu-stable;
-          defaultPackage = packages.osu-stable;
-        }
-      ) // {
-      inherit overlay;
-
-      nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
+      # create module by path
+      nixosModules = utils.lib.exportModules [ ./modules/pipewireLowLatency.nix ];
       nixosModule = self.nixosModules.pipewireLowLatency;
     };
 }
