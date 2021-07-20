@@ -37,6 +37,8 @@ let
   script = writeShellScriptBin pname ''
     export WINEARCH="win32"
     export WINEPREFIX="${location}"
+    # disables vsync for OpenGL
+    export vblank_mode=0
 
     PATH=$PATH:${wine}/bin:${winetricks}/bin:${winestreamproxy}/bin
     HOME="$(echo ~)"
