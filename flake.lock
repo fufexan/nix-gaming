@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "discord-ipc-bridge": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1607757308,
-        "narHash": "sha256-hLdlvH0QITJjD3HQOnu/+7FKWFDsYqpr5h7AOcG+8k8=",
-        "owner": "hitomi-team",
-        "repo": "discord-ipc-bridge",
-        "rev": "7004fd3e073e5d44bde2101cd26203b10c6fa9a4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hitomi-team",
-        "repo": "discord-ipc-bridge",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1623875721,
@@ -46,22 +30,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-wine-osu": {
-      "locked": {
-        "lastModified": 1621361101,
-        "narHash": "sha256-jH4vlCdaWgTDMeNU/NUJXmSs+xrpBVPWzwb5xzq2aec=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
-        "type": "github"
-      }
-    },
     "oglfPatches": {
       "flake": false,
       "locked": {
@@ -81,9 +49,7 @@
     },
     "root": {
       "inputs": {
-        "discord-ipc-bridge": "discord-ipc-bridge",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-wine-osu": "nixpkgs-wine-osu",
         "oglfPatches": "oglfPatches",
         "tkgPatches": "tkgPatches",
         "utils": "utils"

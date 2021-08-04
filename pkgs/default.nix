@@ -15,13 +15,4 @@ final: prev: {
       else final.wineUnstable;
     inherit (inputs) tkgPatches oglfPatches;
   };
-
-  # --- deprecated ---
-  discord-ipc-bridge = prev.pkgsCross.mingw32.callPackage ./discord-ipc-bridge { dib = inputs.discord-ipc-bridge; };
-
-  wine-osu =
-    let
-      nwo = inputs.nixpkgs-wine-osu.legacyPackages.${prev.system};
-    in
-    nwo.callPackage ./wine-osu { wine = nwo.wineUnstable; };
 }
