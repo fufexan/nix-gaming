@@ -12,8 +12,6 @@ jobs:
     strategy:
       matrix:
         package:
-        - discord-ipc-bridge
-        - wine-osu
         - wine-tkg
         - winestreamproxy
     steps:

@@ -5,9 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
 
-    nixpkgs-wine-osu.url = "github:NixOS/nixpkgs/73b982e62194a5d85827d87b0851aee06932979f";
-
-    discord-ipc-bridge = { url = github:hitomi-team/discord-ipc-bridge; flake = false; };
     oglfPatches = { url = "github:openglfreak/wine-tkg-userpatches/ff6328a6b5e36dd8a007a7273290aa30ab3164d9"; flake = false; };
     tkgPatches = { url = "github:Frogging-Family/wine-tkg-git/257bfe71c045db0fbbb9f3896f9697068b9f482a"; flake = false; };
   };
