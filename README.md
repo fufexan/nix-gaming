@@ -1,19 +1,16 @@
-# osu.nix
+# nix-gaming
 
-[osu!](https://osu.ppy.sh)-related stuff for Nix and NixOS. Easily install
-everything you need in order to have the best osu! experience.
+Gaming related stuff for Nix and NixOS.
 
 ## What's in here?
 
 Package              | Description
 ---------------------|---
-`osu-stable`         | Default package
+`osu-stable`         | osu! stable version
 `winestreamproxy`    | Wine-Discord RPC
 `wine-tkg`           | Wine optimized for games
-`discord-ipc-bridge` | Older RPC
-`wine-osu`           | Older Wine with osu-only patches
 
-`osu-stable` provides a script that installs/runs osu! automatically, in
+* `osu-stable` provides a script that installs/runs osu! automatically, in
 addition to a desktop entry.
 
 Installation will take a bit of time. It will download and install about 400MB
@@ -22,19 +19,19 @@ of files. In any case, **do not stop the command!**
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
 
-`osu-stable` uses a specialized version of `wine`, called `wine-tkg`, tailored
-for the best gaming experience. In addition to
+* `wine-tkg` is a special wine version used by `osu-stable`, tailored for the
+best gaming experience. In addition to
 [the tkg patches](https://github.com/Frogging-Family/wine-tkg-git),I have added
 [openglfreak's patches](https://github.com/openglfreak/wine-tkg-userpatches) and
 [gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
 which make everything buttery smooth.
 
-`winestreamproxy` provides bridging between osu! under Wine and Discord running
+* `winestreamproxy` provides bridging between games under Wine and Discord running
 on Linux.
 
 ## Install & Run
 
-It's recommended to set up [Cachix](#cachix) so you don't have to build packages.
+It's recommended to set up [Cachix]() so you don't have to build packages.
 ```nix
 # configuration.nix
 {
@@ -42,12 +39,12 @@ It's recommended to set up [Cachix](#cachix) so you don't have to build packages
     binaryCaches = [
       "https://cache.nixos.org"
       ...
-      "https://app.cachix.org/cache/osu-nix"
+      "https://app.cachix.org/cache/nix-gaming"
     ];
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ...
-      "osu-nix.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
+      "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
     ];
   };
 }
@@ -59,12 +56,12 @@ Now, rebuild your configuration and continue reading for install instructions.
 ### Flakes
 
 Add these packages to your `home.packages` or `environment.systemPackages` by
-adding `osu-nix` as an input:
+adding `nix-gaming` as an input:
 ```nix
 # flake.nix
 {
   ...
-  inputs.osu-nix.url = github:fufexan/osu.nix;
+  inputs.nix-gaming.url = github:fufexan/nix-gaming;
 }
 ```
 
@@ -74,13 +71,12 @@ Then, add the package(s):
 {
   environment.systemPackages = [
     ...
-    inputs.osu-nix.defaultPackage.x86_64-linux     # installs osu-stable
-    inputs.osu-nix.packages.x86_64-linux.<package> # installs a package
+    inputs.nix-gaming.packages.x86_64-linux.<package> # installs a package
   ];
 }
 ```
 Everything is available as an overlay if you prefer that, though your results
-will greatly differ from the packages.
+may greatly differ from the packages.
 
 ### Nix Stable
 
@@ -90,27 +86,25 @@ The following instructions assume you have this repo cloned somewhere.
 
 To install packages with `nix-env`, run
 ```
-cd directory/of/osu.nix
-nix-env -if . # to install osu-stable
-nix-env -if . -A packages.x86_64-linux.<package> # osu-stable/wine-osu/discord-ipc-bridge
+cd directory/of/nix-gaming
+nix-env -if . -A packages.x86_64-linux.<package>
 ```
 
 To install packages to `environment.systemPackages`, add this in `configuration.nix`:
 ```nix
 let
-  osu-nix = import (builtins.fetchTarball "https://github.com/fufexan/osu.nix/archive/master.tar.gz");
+  nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
 in
 {
   # import the low latency module
   imports = [
     ...
-    "osu-nix/modules/pipewireLowLatency.nix"
+    "nix-gaming/modules/pipewireLowLatency.nix"
   ];
   
   # install packages
   environment.systemPackages = [ # home.packages
-    osu-nix.defultPackage.x86_64-linux      # installs osu-stable
-    osu-nix.packages.x86_64-linux.<package>
+    nix-gaming.packages.x86_64-linux.<package>
   ];
   
   # enable module (see below)
@@ -156,22 +150,17 @@ Add it as a module to your configuration and enable it along with PipeWire:
 If you get no sound, you may want to increase `quantum`, usually to a power of
 2 or the prefix of the `rate` (`48/48000` is exactly 1ms).
 
-### Overrides for osu
+### Game overrides
 
-The osu derivation was written with versatility in mind. There are args that can be modified in order to get the result one wants.
+The game derivations were written with versatility in mind. There are args that can be modified in order to get the result one wants.
 ```nix
 {
-  wine      ? null         # controls the wine package used to run osu
-  wineFlags ? null         # which flags to run wine with
-  pname     ? "osu-stable" # name of the script and package
-  verbose   ? false        # whether to output anything when running osu (verbose by default for the install process)
-  location  ? "$HOME/.osu" # where to install the wine prefix
-  tricks    ? [ "gdiplus" "dotnet40" "meiryo" ] # which wine tricks to install
-  
-  # gdiplus - necessary for osu
-  # dotnet40 - minimum version needed. if you want to run something like gosumemory, you should use dotnet45, though you'll be on your own
-  # meiryo - CJK fonts for map names
-}:
+  wine      ? wine-tkg         # controls the wine package used to run wine games
+  wineFlags ? null             # which flags to run wine with
+  pname     ? "game-name"      # name of the script and package
+  location  ? "$HOME/${pname}" # where to install the game/wine prefix
+  tricks    ? null             # which wine tricks to install
+}
 ```
 
 ## Credits & Resources
