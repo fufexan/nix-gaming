@@ -1,15 +1,14 @@
 { lib
 , makeDesktopItem
 , symlinkJoin
-, wine ? null
 , winestreamproxy
 , winetricks
 , writeShellScriptBin
 
+, wine ? null
 , location ? "$HOME/.osu"
 , pname ? "osu-stable"
 , tricks ? [ "gdiplus" "dotnet40" "meiryo" ]
-, verbose ? false
 , wineFlags ? ""
 }:
 
@@ -31,8 +30,6 @@ let
       concatStringsSep " " tricks
     else
       "-V";
-
-  silent = lib.optionalString (!verbose) ">/dev/null 2>&1";
 
   script = writeShellScriptBin pname ''
     export WINEARCH="win32"
@@ -57,7 +54,7 @@ let
     fi
 
     winestreamproxy -f &
-    wine ${wineFlags} "$OSU" "$@" ${silent}
+    wine ${wineFlags} "$OSU" "$@"
     wineserver -w
   '';
 
