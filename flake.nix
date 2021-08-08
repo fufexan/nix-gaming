@@ -1,5 +1,5 @@
 {
-  description = "osu! on Nix";
+  description = "Gaming on Nix";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
@@ -10,13 +10,14 @@
   };
 
   nixConfig = {
-    substituters = [ "https://app.cachix.org/cache/osu-nix" ];
-    trusted-public-keys = [ "osu-nix.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg=" ];
+    substituters = [ "https://app.cachix.org/cache/nix-gaming" ];
+    trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
   };
 
   outputs = { self, nixpkgs, utils, ... }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
+
       # only x86 linux is supported by wine
       supportedSystems = [ "i686-linux" "x86_64-linux" ];
 
@@ -29,8 +30,6 @@
       # build outputs
       outputsBuilder = channels: rec {
         apps.osu-stable = utils.lib.mkApp { drv = packages.osu-stable; };
-        defaultApp = apps.osu-stable;
-        defaultPackage = packages.osu-stable;
         packages = utils.lib.exportPackages self.overlays channels;
       };
 

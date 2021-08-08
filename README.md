@@ -21,7 +21,7 @@ directory and re-run `osu-stable`.
 
 * `wine-tkg` is a special wine version used by `osu-stable`, tailored for the
 best gaming experience. In addition to
-[the tkg patches](https://github.com/Frogging-Family/wine-tkg-git),I have added
+[the tkg patches](https://github.com/Frogging-Family/wine-tkg-git), I have added
 [openglfreak's patches](https://github.com/openglfreak/wine-tkg-userpatches) and
 [gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
 which make everything buttery smooth.
