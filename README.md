@@ -26,12 +26,13 @@ best gaming experience. In addition to
 [gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
 which make everything buttery smooth.
 
-* `winestreamproxy` provides bridging between games under Wine and Discord running
-on Linux.
+* `winestreamproxy` provides bridging between games under Wine and Discord
+running on Linux.
 
 ## Install & Run
 
-It's recommended to set up [Cachix]() so you don't have to build packages.
+It's recommended to set up [Cachix](https://app.cachix.org/cache/nix-gaming) so
+you don't have to build packages.
 ```nix
 # configuration.nix
 {
@@ -75,6 +76,14 @@ Then, add the package(s):
   ];
 }
 ```
+
+If you want to install packages to your profile instead, do it like this
+```
+  nix profile install github:fufexan/nix-gaming#<package>
+```
+**NOTE**: the above snippet will bork your Home-Manager configuration, if it's
+installed standalone. In order to avoid that, use the old `nix-env` syntax.
+
 Everything is available as an overlay if you prefer that, though your results
 may greatly differ from the packages.
 
@@ -90,7 +99,8 @@ cd directory/of/nix-gaming
 nix-env -if . -A packages.x86_64-linux.<package>
 ```
 
-To install packages to `environment.systemPackages`, add this in `configuration.nix`:
+To install packages to `environment.systemPackages`, add this in
+`configuration.nix`:
 ```nix
 let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
@@ -152,7 +162,8 @@ If you get no sound, you may want to increase `quantum`, usually to a power of
 
 ### Game overrides
 
-The game derivations were written with versatility in mind. There are args that can be modified in order to get the result one wants.
+The game derivations were written with versatility in mind. There are args that
+can be modified in order to get the result one wants.
 ```nix
 {
   wine      ? wine-tkg         # controls the wine package used to run wine games
