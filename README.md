@@ -7,6 +7,8 @@ Gaming related stuff for Nix and NixOS.
 Package              | Description
 ---------------------|---
 `osu-stable`         | osu! stable version
+`rocket-league`      | Rocket League from Epic Games
+`technic-launcher`   | Technic Launcher
 `winestreamproxy`    | Wine-Discord RPC
 `wine-tkg`           | Wine optimized for games
 
@@ -18,6 +20,16 @@ of files. In any case, **do not stop the command!**
 
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
+
+* `rocket-league` relies on `legendary-gl`, which expects you to log in. It's
+best to do that before running RL, by adding `legendary-gl` in a nix shell and
+logging in.
+
+* `technic-launcher` will guide you through the install process, just like it
+normally would. Some modpacks will complain about libraries, and that is
+expected. In such cases you may want to enable the `withSteamRun = true;`
+override flag. This will run `technic-launcher` with `steam-run` and prevent
+those errors.
 
 * `wine-tkg` is a special wine version used by `osu-stable`, tailored for the
 best gaming experience. In addition to
