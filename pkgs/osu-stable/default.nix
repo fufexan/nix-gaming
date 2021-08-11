@@ -1,24 +1,25 @@
 { lib
 , makeDesktopItem
 , symlinkJoin
-, winestreamproxy
-, winetricks
 , writeShellScriptBin
 
-, wine ? null
-, location ? "$HOME/.osu"
-, pname ? "osu-stable"
-, tricks ? [ "gdiplus" "dotnet40" "meiryo" ]
+, winestreamproxy
+, winetricks
+
+, wine
 , wineFlags ? ""
+, pname ? "osu-stable"
+, location ? "$HOME/.osu"
+, tricks ? [ "gdiplus" "dotnet40" "meiryo" ]
 }:
 
 let
-  osusrc = builtins.fetchurl {
+  src = builtins.fetchurl {
     url = "https://m1.ppy.sh/r/osu!install.exe";
     name = "osuinstall.exe";
     sha256 = "sha256-Cr8/FRoPv+q9uL+fBJFeaM0oQ1ROzHJxPM661gT+MKM=";
   };
-  osuicon = builtins.fetchurl {
+  icon = builtins.fetchurl {
     url = "https://i.ppy.sh/013ed2c11b34720790e74035d9f49078d5e9aa64/68747470733a2f2f6f73752e7070792e73682f77696b692f696d616765732f4272616e645f6964656e746974795f67756964656c696e65732f696d672f75736167652d66756c6c2d636f6c6f75722e706e67";
     name = "osu.png";
     sha256 = "sha256-TwaRVz2gl7TBqA9JcvG51bNVVlI7Xkc/l3VtoDXE2W8=";
@@ -38,7 +39,6 @@ let
     export vblank_mode=0
 
     PATH=$PATH:${wine}/bin:${winetricks}/bin:${winestreamproxy}/bin
-    HOME="$(echo ~)"
     USER="$(whoami)"
     OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
@@ -48,7 +48,7 @@ let
       wineserver -k
 
       # install osu
-      wine ${osusrc}
+      wine ${src}
       wineserver -k
       mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
     fi
@@ -60,11 +60,11 @@ let
 
   desktopItems = makeDesktopItem {
     name = pname;
-    desktopName = "osu!stable";
-    genericName = "osu!stable";
     exec = "${script}/bin/${pname}";
+    inherit icon;
+    comment = "Rhythm is just a *click* away";
+    desktopName = "osu!stable";
     categories = "Game;";
-    icon = osuicon;
   };
 
 in

@@ -7,6 +7,8 @@ Gaming related stuff for Nix and NixOS.
 Package              | Description
 ---------------------|---
 `osu-stable`         | osu! stable version
+`rocket-league`      | Rocket League from Epic Games
+`technic-launcher`   | Technic Launcher
 `winestreamproxy`    | Wine-Discord RPC
 `wine-tkg`           | Wine optimized for games
 
@@ -19,6 +21,16 @@ of files. In any case, **do not stop the command!**
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
 
+* `rocket-league` relies on `legendary-gl`, which expects you to log in. It's
+best to do that before running RL, by adding `legendary-gl` in a nix shell and
+logging in.
+
+* `technic-launcher` will guide you through the install process, just like it
+normally would. Some modpacks will complain about libraries, and that is
+expected. In such cases you may want to enable the `withSteamRun = true;`
+override flag. This will run `technic-launcher` with `steam-run` and prevent
+those errors.
+
 * `wine-tkg` is a special wine version used by `osu-stable`, tailored for the
 best gaming experience. In addition to
 [the tkg patches](https://github.com/Frogging-Family/wine-tkg-git), I have added
@@ -26,12 +38,13 @@ best gaming experience. In addition to
 [gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
 which make everything buttery smooth.
 
-* `winestreamproxy` provides bridging between games under Wine and Discord running
-on Linux.
+* `winestreamproxy` provides bridging between games under Wine and Discord
+running on Linux.
 
 ## Install & Run
 
-It's recommended to set up [Cachix]() so you don't have to build packages.
+It's recommended to set up [Cachix](https://app.cachix.org/cache/nix-gaming) so
+you don't have to build packages.
 ```nix
 # configuration.nix
 {
@@ -75,6 +88,14 @@ Then, add the package(s):
   ];
 }
 ```
+
+If you want to install packages to your profile instead, do it like this
+```
+  nix profile install github:fufexan/nix-gaming#<package>
+```
+**NOTE**: the above snippet will bork your Home-Manager configuration, if it's
+installed standalone. In order to avoid that, use the old `nix-env` syntax.
+
 Everything is available as an overlay if you prefer that, though your results
 may greatly differ from the packages.
 
@@ -90,7 +111,8 @@ cd directory/of/nix-gaming
 nix-env -if . -A packages.x86_64-linux.<package>
 ```
 
-To install packages to `environment.systemPackages`, add this in `configuration.nix`:
+To install packages to `environment.systemPackages`, add this in
+`configuration.nix`:
 ```nix
 let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
@@ -152,7 +174,8 @@ If you get no sound, you may want to increase `quantum`, usually to a power of
 
 ### Game overrides
 
-The game derivations were written with versatility in mind. There are args that can be modified in order to get the result one wants.
+The game derivations were written with versatility in mind. There are args that
+can be modified in order to get the result one wants.
 ```nix
 {
   wine      ? wine-tkg         # controls the wine package used to run wine games
