@@ -35,6 +35,8 @@ let
   script = writeShellScriptBin pname ''
     export WINEARCH="win32"
     export WINEPREFIX="${location}"
+    # sets realtime priority for wine
+    export STAGING_RT_PRIORITY_SERVER=1
     # disables vsync for OpenGL
     export vblank_mode=0
 
