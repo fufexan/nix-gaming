@@ -23,7 +23,7 @@ directory and re-run `osu-stable`.
 
 * `rocket-league` relies on `legendary-gl`, which expects you to log in. It's
 best to do that before running RL, by adding `legendary-gl` in a nix shell and
-logging in. You can do this by running `legendary auth`.
+running `legendary auth`.
 
 * `technic-launcher` will guide you through the install process, just like it
 normally would. Some modpacks will complain about libraries, and that is
