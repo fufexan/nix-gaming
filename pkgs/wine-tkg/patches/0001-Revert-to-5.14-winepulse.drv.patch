@@ -1,7 +1,7 @@
-From a57533f62c21da6029504267288d2cc429b17f9a Mon Sep 17 00:00:00 2001
+From b3b49ebadd80e241d2db029057f49a94523762ae Mon Sep 17 00:00:00 2001
 From: Sebastian 'gonX' Jensen <gonx@gonx.dk>
 Date: Sun, 20 Jun 2021 17:00:22 +0200
-Subject: [PATCH 1/4] Revert to 5.14 winepulse.drv
+Subject: [PATCH 1/5] Revert to 5.14 winepulse.drv
 
 ---
  dlls/mmdevapi/devenum.c           |    3 +-
@@ -22,7 +22,7 @@ Subject: [PATCH 1/4] Revert to 5.14 winepulse.drv
  delete mode 100644 dlls/winepulse.drv/unixlib.h
 
 diff --git a/dlls/mmdevapi/devenum.c b/dlls/mmdevapi/devenum.c
-index b17572425f32b603ddec1cc592350b8440bde706..89ca13102804746d0caed9b4b72ee61ac84c8ad9 100644
+index b17572425f3..89ca1310280 100644
 --- a/dlls/mmdevapi/devenum.c
 +++ b/dlls/mmdevapi/devenum.c
 @@ -554,8 +554,7 @@ static HRESULT WINAPI MMDevice_Activate(IMMDevice *iface, REFIID riid, DWORD cls
@@ -36,7 +36,7 @@ index b17572425f32b603ddec1cc592350b8440bde706..89ca13102804746d0caed9b4b72ee61a
      }else if (IsEqualIID(riid, &IID_IAudioEndpointVolume) ||
              IsEqualIID(riid, &IID_IAudioEndpointVolumeEx))
 diff --git a/dlls/mmdevapi/tests/render.c b/dlls/mmdevapi/tests/render.c
-index 495c1c6f496f73e7e9b2ba31735b66fd03690a22..2ae777b5ac585c02bf1a95073a9508831b887bda 100644
+index 495c1c6f496..2ae777b5ac5 100644
 --- a/dlls/mmdevapi/tests/render.c
 +++ b/dlls/mmdevapi/tests/render.c
 @@ -134,7 +134,6 @@ static void test_audioclient(void)
@@ -113,7 +113,7 @@ index 495c1c6f496f73e7e9b2ba31735b66fd03690a22..2ae777b5ac585c02bf1a95073a950883
  
      hr = IAudioClient_Initialize(ac, 3, 0, 5000000, 0, pwfx, NULL);
 diff --git a/dlls/winealsa.drv/mmdevdrv.c b/dlls/winealsa.drv/mmdevdrv.c
-index 5f7d277ce9a354194123dbf3b01ef04f1c31db2d..636a04058056b4a83fd4657a0914c795c244463d 100644
+index 5f7d277ce9a..636a0405805 100644
 --- a/dlls/winealsa.drv/mmdevdrv.c
 +++ b/dlls/winealsa.drv/mmdevdrv.c
 @@ -90,7 +90,7 @@ typedef struct _AudioSessionWrapper {
@@ -601,7 +601,7 @@ index 5f7d277ce9a354194123dbf3b01ef04f1c31db2d..636a04058056b4a83fd4657a0914c795
  
  static HRESULT WINAPI AudioStreamVolume_GetChannelCount(
 diff --git a/dlls/wineandroid.drv/mmdevdrv.c b/dlls/wineandroid.drv/mmdevdrv.c
-index d9b7cde2c80af90cf44cfe33945a2a43fa41dd4b..aa32c49185501a58941c6065482928654541b6a2 100644
+index d9b7cde2c80..aa32c491855 100644
 --- a/dlls/wineandroid.drv/mmdevdrv.c
 +++ b/dlls/wineandroid.drv/mmdevdrv.c
 @@ -107,7 +107,7 @@ typedef struct _AudioSessionWrapper {
@@ -1098,7 +1098,7 @@ index d9b7cde2c80af90cf44cfe33945a2a43fa41dd4b..aa32c49185501a58941c606548292865
  
  static HRESULT WINAPI AudioStreamVolume_GetChannelCount(
 diff --git a/dlls/winecoreaudio.drv/mmdevdrv.c b/dlls/winecoreaudio.drv/mmdevdrv.c
-index f07f4bae5fb211dabd23ddfc12c889aafb701ab9..03f8a0c030e8fe4ea3a33d8ecfffe428cb181843 100644
+index f07f4bae5fb..03f8a0c030e 100644
 --- a/dlls/winecoreaudio.drv/mmdevdrv.c
 +++ b/dlls/winecoreaudio.drv/mmdevdrv.c
 @@ -108,7 +108,7 @@ typedef struct _AudioSessionWrapper {
@@ -1586,7 +1586,7 @@ index f07f4bae5fb211dabd23ddfc12c889aafb701ab9..03f8a0c030e8fe4ea3a33d8ecfffe428
  
  static HRESULT WINAPI AudioStreamVolume_GetChannelCount(
 diff --git a/dlls/wineoss.drv/mmdevdrv.c b/dlls/wineoss.drv/mmdevdrv.c
-index db2c6b23914d5e49ed7f125f16749f1f4cee45d2..3a3cb57b642493f5bc2cc01f002300497e78a625 100644
+index db2c6b23914..3a3cb57b642 100644
 --- a/dlls/wineoss.drv/mmdevdrv.c
 +++ b/dlls/wineoss.drv/mmdevdrv.c
 @@ -90,7 +90,7 @@ typedef struct _AudioSessionWrapper {
@@ -2074,7 +2074,7 @@ index db2c6b23914d5e49ed7f125f16749f1f4cee45d2..3a3cb57b642493f5bc2cc01f00230049
  
  static HRESULT WINAPI AudioStreamVolume_GetChannelCount(
 diff --git a/dlls/winepulse.drv/Makefile.in b/dlls/winepulse.drv/Makefile.in
-index 4bf053d4e54f1790ef08bba4ef8330bd41a1f133..3082ed8a69ef642da648b1311b601e6d69a60d7c 100644
+index 4bf053d4e54..3082ed8a69e 100644
 --- a/dlls/winepulse.drv/Makefile.in
 +++ b/dlls/winepulse.drv/Makefile.in
 @@ -1,11 +1,8 @@
@@ -2093,7 +2093,7 @@ index 4bf053d4e54f1790ef08bba4ef8330bd41a1f133..3082ed8a69ef642da648b1311b601e6d
 -	pulse.c
 +	mmdevdrv.c
 diff --git a/dlls/winepulse.drv/mmdevdrv.c b/dlls/winepulse.drv/mmdevdrv.c
-index 67a42de97f96278b32988bdad5d168547edbe8f8..07407089ac5af65eb13d6e00b6d0969a61ec5589 100644
+index 67a42de97f9..07407089ac5 100644
 --- a/dlls/winepulse.drv/mmdevdrv.c
 +++ b/dlls/winepulse.drv/mmdevdrv.c
 @@ -18,15 +18,28 @@
@@ -6991,7 +6991,7 @@ index 67a42de97f96278b32988bdad5d168547edbe8f8..07407089ac5af65eb13d6e00b6d0969a
 +}
 diff --git a/dlls/winepulse.drv/mult.c b/dlls/winepulse.drv/mult.c
 deleted file mode 100644
-index 26b5e83c9cafad674bf80747bae1f5992538ee1c..0000000000000000000000000000000000000000
+index 26b5e83c9ca..00000000000
 --- a/dlls/winepulse.drv/mult.c
 +++ /dev/null
 @@ -1,2015 +0,0 @@
@@ -9012,7 +9012,7 @@ index 26b5e83c9cafad674bf80747bae1f5992538ee1c..00000000000000000000000000000000
 -}
 diff --git a/dlls/winepulse.drv/pulse.c b/dlls/winepulse.drv/pulse.c
 deleted file mode 100644
-index 55579ecda80bc557c00b2adba783d7d4b001f52e..0000000000000000000000000000000000000000
+index 55579ecda80..00000000000
 --- a/dlls/winepulse.drv/pulse.c
 +++ /dev/null
 @@ -1,1984 +0,0 @@
@@ -11002,7 +11002,7 @@ index 55579ecda80bc557c00b2adba783d7d4b001f52e..00000000000000000000000000000000
 -}
 diff --git a/dlls/winepulse.drv/unixlib.h b/dlls/winepulse.drv/unixlib.h
 deleted file mode 100644
-index 9e7af57b716e8d3edc4793ead64b35d4993a4a94..0000000000000000000000000000000000000000
+index 9e7af57b716..00000000000
 --- a/dlls/winepulse.drv/unixlib.h
 +++ /dev/null
 @@ -1,211 +0,0 @@
@@ -11218,7 +11218,7 @@ index 9e7af57b716e8d3edc4793ead64b35d4993a4a94..00000000000000000000000000000000
 -    is_started,
 -};
 diff --git a/include/audioclient.idl b/include/audioclient.idl
-index 754ae58f78c9a014c5990250fa739c711902c819..c69a4116789190bc5ed025dc32176dd8b2081c07 100644
+index 754ae58f78c..c69a4116789 100644
 --- a/include/audioclient.idl
 +++ b/include/audioclient.idl
 @@ -128,14 +128,6 @@ typedef struct _AudioClientProperties
