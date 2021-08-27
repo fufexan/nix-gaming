@@ -5,8 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
 
-    oglfPatches = { url = "github:openglfreak/wine-tkg-userpatches/ff6328a6b5e36dd8a007a7273290aa30ab3164d9"; flake = false; };
-    tkgPatches = { url = "github:Frogging-Family/wine-tkg-git/257bfe71c045db0fbbb9f3896f9697068b9f482a"; flake = false; };
+    oglfPatches = { url = "github:openglfreak/wine-tkg-userpatches/c5d849279c8a90123162d92413aa249c2f044dc0"; flake = false; };
+    tkgPatches = { url = "github:Frogging-Family/wine-tkg-git/6.14.r6.g1bc4da9d"; flake = false; };
   };
 
   nixConfig = {
