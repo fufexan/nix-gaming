@@ -50,13 +50,9 @@ you don't have to build packages.
 {
   nix = {
     binaryCaches = [
-      "https://cache.nixos.org"
-      ...
-      "https://app.cachix.org/cache/nix-gaming"
+      "https://nix-community.cachix.org"
     ];
     binaryCachePublicKeys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      ...
       "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
     ];
   };
