@@ -50,7 +50,7 @@ you don't have to build packages.
 {
   nix = {
     binaryCaches = [
-      "https://nix-community.cachix.org"
+      "https://nix-gaming.cachix.org"
     ];
     binaryCachePublicKeys = [
       "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
