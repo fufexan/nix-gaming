@@ -53,7 +53,7 @@ you don't have to build packages.
       "https://nix-gaming.cachix.org"
     ];
     binaryCachePublicKeys = [
-      "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
   };
 }
