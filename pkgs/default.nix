@@ -1,4 +1,4 @@
-{ inputs }:
+{ inputs, self }:
 final: prev: {
   wowtricks = prev.winetricks.override { wine = final.wine-tkg; };
 
@@ -23,5 +23,6 @@ final: prev: {
       then final.wineWowPackages.unstable
       else final.wineUnstable;
     inherit (inputs) tkgPatches oglfPatches;
+    inherit self;
   };
 }
