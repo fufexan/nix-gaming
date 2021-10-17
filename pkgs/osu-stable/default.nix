@@ -17,7 +17,7 @@ let
   src = builtins.fetchurl {
     url = "https://m1.ppy.sh/r/osu!install.exe";
     name = "osuinstall.exe";
-    sha256 = "14dwvwhwdpri3ygxw62gcy7d524dpjk9r2b1z6cql1zyaylnfakp";
+    sha256 = "sha256-4/dq8FxZN6D1URDd/4W9q7gTGH2+za7AO4OPmy6ubuA=";
   };
   icon = builtins.fetchurl {
     url = "https://i.ppy.sh/013ed2c11b34720790e74035d9f49078d5e9aa64/68747470733a2f2f6f73752e7070792e73682f77696b692f696d616765732f4272616e645f6964656e746974795f67756964656c696e65732f696d672f75736167652d66756c6c2d636f6c6f75722e706e67";
