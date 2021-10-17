@@ -14,10 +14,8 @@ Package              | Description
 
 * `osu-stable` provides a script that installs/runs osu! automatically, in
 addition to a desktop entry.
-
 Installation will take a bit of time. It will download and install about 400MB
 of files. In any case, **do not stop the command!**
-
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
 
@@ -31,12 +29,14 @@ expected. In such cases you may want to enable the `withSteamRun = true;`
 override flag. This will run `technic-launcher` with `steam-run` and prevent
 those errors.
 
-* `wine-tkg` is a special wine version used by `osu-stable`, tailored for the
-best gaming experience. In addition to
-[the tkg patches](https://github.com/Frogging-Family/wine-tkg-git), I have added
-[openglfreak's patches](https://github.com/openglfreak/wine-tkg-userpatches) and
+* `wine-tkg` is a special wine version, tailored for the best gaming experience.
+In addition to [the tkg patches](https://github.com/Frogging-Family/wine-tkg-git),
+I have added [openglfreak's patches](https://github.com/openglfreak/wine-tkg-userpatches) and
 [gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
 which make everything buttery smooth.
+**NOTE:** I was not aware of this until now, but it's very likely that the built
+`wine` isn't actually `tkg`. Because of the way nixpkgs handles `patches` currently,
+I will have to find a better way to patch everything in.
 
 * `winestreamproxy` provides bridging between games under Wine and Discord
 running on Linux.
@@ -49,12 +49,8 @@ you don't have to build packages.
 # configuration.nix
 {
   nix = {
-    binaryCaches = [
-      "https://nix-gaming.cachix.org"
-    ];
-    binaryCachePublicKeys = [
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-    ];
+    binaryCaches = [ "https://nix-gaming.cachix.org" ];
+    binaryCachePublicKeys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
   };
 }
 ```
@@ -69,7 +65,6 @@ adding `nix-gaming` as an input:
 ```nix
 # flake.nix
 {
-  ...
   inputs.nix-gaming.url = github:fufexan/nix-gaming;
 }
 ```
@@ -78,8 +73,7 @@ Then, add the package(s):
 ```nix
 #
 {
-  environment.systemPackages = [
-    ...
+  environment.systemPackages = [ # or home.packages
     inputs.nix-gaming.packages.x86_64-linux.<package> # installs a package
   ];
 }
@@ -89,8 +83,8 @@ If you want to install packages to your profile instead, do it like this
 ```
   nix profile install github:fufexan/nix-gaming#<package>
 ```
-**NOTE**: the above snippet will bork your Home-Manager configuration, if it's
-installed standalone. In order to avoid that, use the old `nix-env` syntax.
+**NOTE**: the above snippet won't work if you use Home-Manager. You can use the
+old `nix-env` syntax.
 
 Everything is available as an overlay if you prefer that, though your results
 may greatly differ from the packages.
@@ -132,9 +126,9 @@ in
 
 ## PipeWire low latency
 
-PipeWire is a new audio backend that replaces ALSA, PulseAudio and Jack. It
-achieves lower latency than possible previously with Pulse, for lower CPU
-overhead.
+[PipeWire](https://nixos.wiki/wiki/PipeWire) is a new audio backend that
+replaces ALSA, PulseAudio and Jack. It achieves lower latency than possible
+previously with Pulse, for lower CPU overhead.
 
 This module extends the PipeWire module from nixpkgs and makes it easy to
 enable the low latency settings from a single line (or more).
@@ -155,7 +149,7 @@ Add it as a module to your configuration and enable it along with PipeWire:
 
     # defaults (no need to be set unless modified)
     lowLatency = {
-      quantum = 64; # usually a power of 2
+      quantum = 64;
       rate = 48000;
     };
   };
@@ -165,8 +159,8 @@ Add it as a module to your configuration and enable it along with PipeWire:
 }
 ```
 
-If you get no sound, you may want to increase `quantum`, usually to a power of
-2 or the prefix of the `rate` (`48/48000` is exactly 1ms).
+If you get no sound, you may want to increase `quantum`, usually to an even
+number or the prefix of the `rate` (`48/48000` is exactly 1ms).
 
 ### Game overrides
 
@@ -181,6 +175,21 @@ can be modified in order to get the result one wants.
   tricks    ? null             # which wine tricks to install
 }
 ```
+
+## Tips
+
+In order to get the most performance out of your machine, you could use the
+following tweaks:
+
+- custom/gaming kernel: `linux_xanmod` is the recommended one for games, since
+it provides many patches that aid wine and other games.
+**NOTE:** Xanmod is not preferred on laptops and other power-constrained devices,
+as the tick scheduler draws a lot of power (at least 3W alone).
+- [gamemode](https://github.com/FeralInteractive/gamemode): lets you achieve lower
+nice values and higher realtime privileges at game start. It can either detect
+games or be told to start with `gamemode-run`.
+- `pw-jack`: can force games such as `osu-lazer` to a lower quant value which provides
+lower latencies than using the `pulse` backend.
 
 ## Credits & Resources
  
