@@ -1,0 +1,61 @@
+rec {
+  base = {
+    pngSupport = true;
+    jpegSupport = true;
+    tiffSupport = true;
+    gettextSupport = true;
+    fontconfigSupport = true;
+    alsaSupport = true;
+    openglSupport = true;
+    vulkanSupport = true;
+    tlsSupport = true;
+    cupsSupport = true;
+    dbusSupport = true;
+    cairoSupport = true;
+    cursesSupport = true;
+    saneSupport = true;
+    pulseaudioSupport = true;
+    udevSupport = true;
+    xineramaSupport = true;
+    xmlSupport = true;
+    sdlSupport = true;
+    mingwSupport = true;
+    gtkSupport = false;
+    gstreamerSupport = false;
+    colorManagementSupport = false;
+    mpg123Support = false;
+    openalSupport = false;
+    openclSupport = false;
+    odbcSupport = false;
+    netapiSupport = false;
+    vaSupport = false;
+    pcapSupport = false;
+    v4lSupport = false;
+    gsmSupport = false;
+    gphoto2Support = false;
+    ldapSupport = false;
+    faudioSupport = false;
+    vkd3dSupport = false;
+    embedInstallers = false;
+  };
+
+  full = base // {
+    gtkSupport = true;
+    gstreamerSupport = true;
+    colorManagementSupport = true;
+    mpg123Support = true;
+    openalSupport = true;
+    openclSupport = true;
+    odbcSupport = true;
+    netapiSupport = true;
+    vaSupport = true;
+    pcapSupport = true;
+    v4lSupport = true;
+    gsmSupport = true;
+    gphoto2Support = true;
+    ldapSupport = true;
+    faudioSupport = true;
+    vkd3dSupport = true;
+    embedInstallers = true;
+  };
+}

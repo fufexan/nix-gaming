@@ -1,0 +1,87 @@
+From 34b3a239b26e6f24e0d38d2c5565ec0580ab5f97 Mon Sep 17 00:00:00 2001
+From: Torge Matthies <openglfreak@googlemail.com>
+Date: Mon, 5 Apr 2021 05:48:28 +0200
+Subject: [PATCH 4/5] kernelbase: Cache last used locale->sortguid mapping.
+
+get_language_sort reads from the registry, which is not particularly fast.
+Staging's implementation of CompareStringEx calls this function, and if
+CompareStringEx is used in a loop over many elements, it will slow down the
+application by a lot (> 30 seconds vs a few hundred ms in osu!, depends
+on the CPU and the number of installed beatmaps).
+
+Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=50923
+Signed-off-by: Torge Matthies <openglfreak@googlemail.com>
+---
+ dlls/kernelbase/locale.c | 42 +++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/dlls/kernelbase/locale.c b/dlls/kernelbase/locale.c
+index 89b35775053..db97383f285 100644
+--- a/dlls/kernelbase/locale.c
++++ b/dlls/kernelbase/locale.c
+@@ -619,6 +619,21 @@ static CRITICAL_SECTION_DEBUG critsect_debug =
+ };
+ static CRITICAL_SECTION locale_section = { &critsect_debug, -1, 0, 0, 0, 0 };
+ 
++static struct
++{
++    WCHAR                  locale[LOCALE_NAME_MAX_LENGTH]; /* The locale name */
++    const struct sortguid *guid;                           /* The cached associated GUID */
++} sortguid_cache;
++
++static CRITICAL_SECTION sortguid_cache_section;
++static CRITICAL_SECTION_DEBUG sortguid_cache_section_debug =
++{
++    0, 0, &sortguid_cache_section,
++    { &sortguid_cache_section_debug.ProcessLocksList, &sortguid_cache_section_debug.ProcessLocksList },
++      0, 0, { (DWORD_PTR)(__FILE__ ": sortguid_cache_section") }
++};
++static CRITICAL_SECTION sortguid_cache_section = { &sortguid_cache_section_debug, -1, 0, 0, 0, 0 };
++
+ 
+ static void init_sortkeys( DWORD *ptr )
+ {
+@@ -656,7 +671,7 @@ static const struct sortguid *find_sortguid( const GUID *guid )
+ }
+ 
+ 
+-static const struct sortguid *get_language_sort( const WCHAR *locale )
++static const struct sortguid *get_language_sort_uncached( const WCHAR *locale )
+ {
+     WCHAR *p, *end, buffer[LOCALE_NAME_MAX_LENGTH], guidstr[39];
+     const struct sortguid *ret;
+@@ -699,6 +714,31 @@ done:
+ }
+ 
+ 
++static const struct sortguid *get_language_sort( const WCHAR *locale )
++{
++    const struct sortguid *ret = NULL;
++
++    if (!locale) return get_language_sort_uncached( locale );
++
++    RtlEnterCriticalSection( &sortguid_cache_section );
++
++    if (sortguid_cache.guid && !wcsncmp( sortguid_cache.locale, locale, LOCALE_NAME_MAX_LENGTH ))
++    {
++        ret = sortguid_cache.guid;
++        goto done;
++    }
++
++    ret = get_language_sort_uncached( locale );
++
++    lstrcpynW( sortguid_cache.locale, locale, LOCALE_NAME_MAX_LENGTH );
++    sortguid_cache.guid = ret;
++
++done:
++    RtlLeaveCriticalSection( &sortguid_cache_section );
++    return ret;
++}
++
++
+ static LCID locale_to_lcid( WCHAR *win_name )
+ {
+     WCHAR *p;
+-- 
+2.32.0
+

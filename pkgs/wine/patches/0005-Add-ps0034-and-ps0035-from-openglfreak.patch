@@ -1,0 +1,126 @@
+From 35a63d27795298dffca79ee8e2a3d1d28ff32c61 Mon Sep 17 00:00:00 2001
+From: Sebastian 'gonX' Jensen <gonx@gonx.dk>
+Date: Tue, 10 Aug 2021 13:56:44 +0200
+Subject: [PATCH 5/5] Add ps0034 and ps0035 from openglfreak
+
+---
+ dlls/ntdll/unix/server.c |  1 +
+ server/process.c         | 26 ++++++++++++++++----------
+ 2 files changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/dlls/ntdll/unix/server.c b/dlls/ntdll/unix/server.c
+index 2ec70db9390..83a6337b68d 100644
+--- a/dlls/ntdll/unix/server.c
++++ b/dlls/ntdll/unix/server.c
+@@ -1476,6 +1476,7 @@ size_t server_init_process(void)
+     sigaddset( &server_block_set, SIGUSR1 );
+     sigaddset( &server_block_set, SIGUSR2 );
+     sigaddset( &server_block_set, SIGCHLD );
++    sigaddset( &server_block_set, SIGQUIT );
+     pthread_sigmask( SIG_BLOCK, &server_block_set, NULL );
+ 
+     /* receive the first thread request fd on the main socket */
+diff --git a/server/process.c b/server/process.c
+index 0870de5bb26..13a64e48c57 100644
+--- a/server/process.c
++++ b/server/process.c
+@@ -81,7 +81,7 @@ static struct security_descriptor *process_get_sd( struct object *obj );
+ static void process_poll_event( struct fd *fd, int event );
+ static struct list *process_get_kernel_obj_list( struct object *obj );
+ static void process_destroy( struct object *obj );
+-static void terminate_process( struct process *process, struct thread *skip, int exit_code );
++static void terminate_process( struct process *process, struct thread *skip, int exit_code, int force );
+ 
+ static const struct object_ops process_ops =
+ {
+@@ -372,7 +372,7 @@ static void terminate_job( struct job *job, int exit_code )
+     LIST_FOR_EACH_ENTRY_SAFE( process, next_process, &job->process_list, struct process, job_entry )
+     {
+         assert( process->job == job );
+-        if (process->running_threads) terminate_process( process, NULL, exit_code );
++        if (process->running_threads) terminate_process( process, NULL, exit_code, 1 );
+     }
+     job->terminating = 0;
+     job->signaled = 1;
+@@ -871,7 +871,7 @@ struct process *get_process_from_handle( obj_handle_t handle, unsigned int acces
+ }
+ 
+ /* terminate a process with the given exit code */
+-static void terminate_process( struct process *process, struct thread *skip, int exit_code )
++static void terminate_process( struct process *process, struct thread *skip, int exit_code, int force )
+ {
+     struct thread *thread;
+ 
+@@ -884,7 +884,7 @@ restart:
+         if (exit_code) thread->exit_code = exit_code;
+         if (thread == skip) continue;
+         if (thread->state == TERMINATED) continue;
+-        kill_thread( thread, 1 );
++        kill_thread( thread, force );
+         goto restart;
+     }
+     release_object( process );
+@@ -898,7 +898,7 @@ static void kill_all_processes(void)
+     while ((ptr = list_head( &process_list )))
+     {
+         struct process *process = LIST_ENTRY( ptr, struct process, entry );
+-        terminate_process( process, NULL, 1 );
++        terminate_process( process, NULL, 1, 1 );
+     }
+ }
+ 
+@@ -916,7 +916,7 @@ void kill_console_processes( struct thread *renderer, int exit_code )
+             if (process->console && console_get_renderer( process->console ) == renderer) break;
+         }
+         if (&process->entry == &process_list) break;  /* no process found */
+-        terminate_process( process, NULL, exit_code );
++        terminate_process( process, NULL, exit_code, 1 );
+     }
+ }
+ 
+@@ -1035,7 +1035,7 @@ void kill_process( struct process *process, int violent_death )
+ 
+     if (process->sigkill_timeout) return;  /* already waiting for it to die */
+ 
+-    if (violent_death) terminate_process( process, NULL, 1 );
++    if (violent_death) terminate_process( process, NULL, 1, 1 );
+     else
+     {
+         struct list *ptr;
+@@ -1065,7 +1065,7 @@ void detach_debugged_processes( struct debug_obj *debug_obj, int exit_code )
+         if (exit_code)
+         {
+             process->debug_obj = NULL;
+-            terminate_process( process, NULL, exit_code );
++            terminate_process( process, NULL, exit_code, 1 );
+         }
+         else debugger_detach( process, debug_obj );
+     }
+@@ -1428,16 +1428,22 @@ DECL_HANDLER(open_process)
+ DECL_HANDLER(terminate_process)
+ {
+     struct process *process;
++    int force;
+ 
+     if (req->handle)
+     {
+         process = get_process_from_handle( req->handle, PROCESS_TERMINATE );
+         if (!process) return;
++        force = 1;
++    }
++    else
++    {
++        process = (struct process *)grab_object( current->process );
++        force = 0;
+     }
+-    else process = (struct process *)grab_object( current->process );
+ 
+     reply->self = (current->process == process);
+-    terminate_process( process, current, req->exit_code );
++    terminate_process( process, current, req->exit_code, force );
+     release_object( process );
+ }
+ 
+-- 
+2.32.0
+

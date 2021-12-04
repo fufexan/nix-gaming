@@ -3,10 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
-
-    oglfPatches = { url = "github:openglfreak/wine-tkg-userpatches/c5d849279c8a90123162d92413aa249c2f044dc0"; flake = false; };
-    tkgPatches = { url = "github:Frogging-Family/wine-tkg-git/6.14.r6.g1bc4da9d"; flake = false; };
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
 
   nixConfig = {

@@ -1,28 +1,29 @@
 { inputs, self }:
-final: prev: {
-  wowtricks = prev.winetricks.override { wine = final.wine-tkg; };
 
+final: prev:
+let
+  wineBuilder = wine: build: extra: (import ./wine ({
+    inherit inputs build;
+    inherit (prev) lib pkgsCross pkgsi686Linux fetchFromGitHub callPackage stdenv_32bit;
+    pkgs = prev;
+    supportFlags = (import ./wine/supportFlags.nix).${build};
+  } // extra)).${wine};
+in
+{
   osu-stable = prev.callPackage ./osu-stable {
-    wine = final.wine-tkg;
-    winetricks = final.wowtricks;
+    wine = final.wine-osu;
     inherit (final) winestreamproxy;
   };
 
-  rocket-league = prev.callPackage ./rocket-league {
-    wine = final.wine-tkg;
-    winetricks = final.wowtricks;
-  };
+  rocket-league = prev.callPackage ./rocket-league { wine = final.wine-tkg; };
 
   technic-launcher = prev.callPackage ./technic-launcher { };
 
   winestreamproxy = prev.callPackage ./winestreamproxy { wine = final.wine-tkg; };
 
-  wine-tkg = prev.callPackage ./wine-tkg {
-    wine =
-      if prev.system == "x86_64-linux"
-      then final.wineWowPackages.unstable
-      else final.wineUnstable;
-    inherit (inputs) tkgPatches oglfPatches;
-    inherit self;
-  };
+  wine-osu = wineBuilder "wine-osu" "base" { };
+
+  wine-tkg = wineBuilder "wine-tkg" "base" { };
+
+  wine-tkg-full = wineBuilder "wine-tkg" "full" { };
 }
