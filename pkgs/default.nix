@@ -10,6 +10,8 @@ let
   } // extra)).${wine};
 in
 {
+  osu-lazer-bin = prev.callPackage ./osu-lazer-bin { };
+
   osu-stable = prev.callPackage ./osu-stable {
     wine = final.wine-osu;
     inherit (final) winestreamproxy;
