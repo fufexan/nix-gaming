@@ -30,16 +30,11 @@ override flag. This will run `technic-launcher` with `steam-run` and prevent
 those errors.
 
 * `wine-tkg` is a special wine version, tailored for the best gaming experience.
-In addition to [the tkg patches](https://github.com/Frogging-Family/wine-tkg-git),
-I have added [openglfreak's patches](https://github.com/openglfreak/wine-tkg-userpatches) and
-[gonX's patches](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5)
-which make everything buttery smooth.
-**NOTE:** I was not aware of this until now, but it's very likely that the built
-`wine` isn't actually `tkg`. Because of the way nixpkgs handles `patches` currently,
-I will have to find a better way to patch everything in.
+It consists of a wine tree generated with
+[the tkg patches](https://github.com/Frogging-Family/wine-tkg-git).
 
 * `winestreamproxy` provides bridging between games under Wine and Discord
-running on Linux.
+running on Linux. (**currently broken, help with building would be appreciated**)
 
 ## Install & Run
 
@@ -176,6 +171,24 @@ can be modified in order to get the result one wants.
 }
 ```
 
+### Troubleshooting
+
+The `osu!install.exe` is periodically updated upstream, but it's not versioned.
+Due to this, we have to update its hash constantly.
+
+When there's a hash mismatch between your system and upstream, the fix is to
+signal the new version (either in an issue, PR or messaging me on Discord @
+fufexan#1006).
+After the flake has been updated, the steps to fix the mismatch on your system
+are as follows:
+1. update your inputs, remove osu from your config and rebuild
+2. reboot
+3. do a store garbage collect (`nix-collect-garbage -d` specifically)
+4. re-add osu in your config and rebuild
+
+This should fix it, even though it's quite troublesome. I'll think of a better
+strategy in the meantime.
+
 ## Tips
 
 In order to get the most performance out of your machine, you could use the
@@ -194,6 +207,9 @@ lower latencies than using the `pulse` backend.
 ## Credits & Resources
  
 Thank you
+- [boppyt](https://github.com/boppyt)
 - [gonX](https://github.com/gonX)
+- [InfinityGhost](https://github.com/InfinityGhost)
+- [LavaDesu](https://github.com/LavaDesu)
 - [openglfreak](https://github.com/openglfreak)
 - [yusdacra](https://github.com/yusdacra)
