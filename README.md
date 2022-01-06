@@ -6,11 +6,15 @@ Gaming related stuff for Nix and NixOS.
 
 Package              | Description
 ---------------------|---
+`osu-lazer-bin`      | osu! lazer, extracted from the official AppImage
 `osu-stable`         | osu! stable version
 `rocket-league`      | Rocket League from Epic Games
 `technic-launcher`   | Technic Launcher
 `winestreamproxy`    | Wine-Discord RPC
 `wine-tkg`           | Wine optimized for games
+
+* `osu-lazer-bin` is an osu!lazer build that is extracted from official binary
+AppImage releases in order to preserve multiplayer functions.
 
 * `osu-stable` provides a script that installs/runs osu! automatically, in
 addition to a desktop entry.
