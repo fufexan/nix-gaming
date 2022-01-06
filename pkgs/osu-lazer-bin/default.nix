@@ -12,7 +12,7 @@
 , makeWrapper
 , numactl
 , openssl
-, stdenv
+, stdenvNoCC
 , symlinkJoin
 }:
 let
@@ -59,7 +59,7 @@ let
     '';
     fixupPhase = ''
       runHook preFixup
-      ln -sft $out/lib/osu ${SDL2}/lib/libSDL2${stdenv.hostPlatform.extensions.sharedLibrary}
+      ln -sft $out/lib/osu ${SDL2}/lib/libSDL2${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
       runHook postFixup
     '';
   };
