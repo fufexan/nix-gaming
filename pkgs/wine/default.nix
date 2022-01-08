@@ -1,5 +1,4 @@
-{ self
-, inputs
+{ inputs
 , lib
 , build
 , pkgs
@@ -88,7 +87,7 @@ in
         rev = "wine-${version}";
         sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
       };
-      patches = [ "${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch" ] ++ self.lib.mkPatches ./patches;
+      patches = [ "${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch" ] ++ inputs.self.lib.mkPatches ./patches;
     })).overrideDerivation (self: {
       prePatch = ''
         patchShebangs tools
