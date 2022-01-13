@@ -20,6 +20,7 @@
 
       # add overlay to channel
       channels.nixpkgs.overlaysBuilder = _: [ (import ./pkgs { inherit inputs self; }) ];
+      channelsConfig.allowUnfree = true;
 
       # output each overlay in its own set
       overlays = utils.lib.exportOverlays { inherit (self) pkgs inputs; };
