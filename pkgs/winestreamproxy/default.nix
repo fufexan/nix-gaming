@@ -3,20 +3,21 @@
 , fetchFromGitHub
 , pkg-config
 , wine
+, pkgsCross
 }:
 
 stdenv.mkDerivation rec {
   pname = "winestreamproxy";
-  version = "unstable-2020-10-17";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "openglfreak";
     repo = pname;
-    rev = "075622872bbff0621791296137edb616af680297";
-    sha256 = "sha256-I579RJ9iBREYnqEiEgFXWbPSatbVv0cjMHloK2l5D6Q=";
+    rev = "v${version}";
+    sha256 = "sha256-KaI8sXAoeNqxueJ8BTvt4qZmxUOFwBVkevV0nqHOAsQ=";
   };
 
-  nativeBuildInputs = [ pkg-config wine ];
+  nativeBuildInputs = [ pkgsCross.mingwW64.stdenv.cc pkg-config wine ];
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -25,5 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/openglfreak/winestreamproxy";
     maintainers = with lib.maintainers; [ fufexan ];
     platforms = with lib.platforms; [ "i686-linux" "x86_64-linux" ];
+    broken = true;
   };
 }

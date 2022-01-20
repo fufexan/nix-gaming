@@ -4,14 +4,15 @@ Gaming related stuff for Nix and NixOS.
 
 ## What's in here?
 
-Package              | Description
----------------------|---
-`osu-lazer-bin`      | osu! lazer, extracted from the official AppImage
-`osu-stable`         | osu! stable version
-`rocket-league`      | Rocket League from Epic Games
-`technic-launcher`   | Technic Launcher
-`winestreamproxy`    | Wine-Discord RPC
-`wine-tkg`           | Wine optimized for games
+Package                   | Description
+--------------------------|---
+`osu-lazer-bin`           | osu! lazer, extracted from the official AppImage
+`osu-stable`              | osu! stable version
+`rocket-league`           | Rocket League from Epic Games
+`technic-launcher`        | Technic Launcher
+`wine-discord-ipc-bridge` | Wine-Discord RPC Bridge
+`wine-tkg`                | Wine optimized for games
+`winestreamproxy`         | Wine-Discord RPC (broken)
 
 * `osu-lazer-bin` is an osu!lazer build that is extracted from official binary
 AppImage releases in order to preserve multiplayer functions.
@@ -32,6 +33,9 @@ normally would. Some modpacks will complain about libraries, and that is
 expected. In such cases you may want to enable the `withSteamRun = true;`
 override flag. This will run `technic-launcher` with `steam-run` and prevent
 those errors.
+
+* `wine-discord-ipc-bridge` provides bridging between games under Wine and
+Discord running on Linux.
 
 * `wine-tkg` is a special wine version, tailored for the best gaming experience.
 It consists of a wine tree generated with
@@ -68,9 +72,13 @@ adding `nix-gaming` as an input:
 }
 ```
 
+Also, add `inputs` or `nix-gaming` to `specialArgs` when building your system
+config, or to `extraSpecialArgs` when building your Home Manager configuration.
+
 Then, add the package(s):
 ```nix
-#
+{ pkgs, config, inputs, ... }:
+
 {
   environment.systemPackages = [ # or home.packages
     inputs.nix-gaming.packages.x86_64-linux.<package> # installs a package

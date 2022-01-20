@@ -3,7 +3,7 @@
 , symlinkJoin
 , writeShellScriptBin
 
-, winestreamproxy
+, wine-discord-ipc-bridge
 , winetricks
 
 , wine
@@ -40,7 +40,7 @@ let
     # disables vsync for OpenGL
     export vblank_mode=0
 
-    PATH=$PATH:${wine}/bin:${winetricks}/bin:${winestreamproxy}/bin
+    PATH=$PATH:${wine}/bin:${winetricks}/bin
     USER="$(whoami)"
     OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
@@ -55,7 +55,7 @@ let
       mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
     fi
 
-    winestreamproxy -f &
+    wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
     wine ${wineFlags} "$OSU" "$@"
     wineserver -w
   '';

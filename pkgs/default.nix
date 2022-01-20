@@ -14,18 +14,20 @@ in
 
   osu-stable = prev.callPackage ./osu-stable {
     wine = final.wine-osu;
-    inherit (final) winestreamproxy;
+    wine-discord-ipc-bridge = final.wine-discord-ipc-bridge.override { wine = final.wine-osu; };
   };
 
   rocket-league = prev.callPackage ./rocket-league { wine = final.wine-tkg; };
 
   technic-launcher = prev.callPackage ./technic-launcher { };
 
-  winestreamproxy = prev.callPackage ./winestreamproxy { wine = final.wine-tkg; };
+  wine-discord-ipc-bridge = prev.callPackage ./wine-discord-ipc-bridge { wine = final.wine-tkg; };
 
   wine-osu = wineBuilder "wine-osu" "base" { };
 
   wine-tkg = wineBuilder "wine-tkg" "base" { };
 
   wine-tkg-full = wineBuilder "wine-tkg" "full" { };
+
+  winestreamproxy = prev.callPackage ./winestreamproxy { wine = final.wine-tkg; };
 }
