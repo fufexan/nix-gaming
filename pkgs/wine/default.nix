@@ -6,11 +6,31 @@
 , pkgsi686Linux
 , callPackage
 , fetchFromGitHub
+, fetchurl
 , supportFlags
 , stdenv_32bit
 }:
 
 let
+  fetchurl = args@{ url, sha256, ... }:
+    pkgs.fetchurl { inherit url sha256; } // args;
+
+  gecko32 = fetchurl rec {
+    version = "2.47.2";
+    url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
+    sha256 = "07d6nrk2g0614kvwdjym1wq21d2bwy3pscwikk80qhnd6rrww875";
+  };
+  gecko64 = fetchurl rec {
+    version = "2.47.2";
+    url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
+    sha256 = "0iffhvdawc499nbn4k99k33cr7g8sdfcvq8k3z1g6gw24h87d5h5";
+  };
+  mono = fetchurl rec {
+    version = "5.1.1";
+    url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+    sha256 = "09wjrfxbw0072iv6d2vqnkc3y7dzj15vp8mv4ay44n1qp5ji4m3l";
+  };
+
   defaults = with pkgs; {
     inherit supportFlags;
     patches = [ ];

@@ -78,6 +78,6 @@ symlinkJoin {
     description = "osu!stable installer and runner";
     homepage = "https://osu.ppy.sh";
     maintainer = lib.maintainers.fufexan;
-    platforms = with lib.platforms; [ "i686-linux" "x86_64-linux" ];
+    platforms = with lib.platforms; [ "x86_64-linux" ];
   };
 }

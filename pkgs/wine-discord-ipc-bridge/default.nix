@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/0e4ef622/wine-discord-ipc-bridge";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.fufexan ];
-    platforms = with lib.platforms; [ "i686-linux" "x86_64-linux" ];
+    platforms = with lib.platforms; [ "x86_64-linux" ];
   };
 }
