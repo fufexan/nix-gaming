@@ -16,10 +16,10 @@
 , symlinkJoin
 }:
 let
-  version = "2021.1225.0";
+  version = "2022.118.0";
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "12a4hmqdfpdghpqnb6i9x1c05hlw16z9h3mkfq3pbsdc6x5cflmc";
+    sha256 = "sha256-6yuOtWX3xl6Q7NJ7VdV0fBQZelqzqgpx5OX5eSZTejE=";
   };
   extracted = appimageTools.extract {
     inherit version;
