@@ -3,6 +3,7 @@
 , symlinkJoin
 , writeShellScriptBin
 
+, gamemode
 , wine-discord-ipc-bridge
 , winetricks
 
@@ -56,7 +57,7 @@ let
     fi
 
     wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
-    wine ${wineFlags} "$OSU" "$@"
+    ${gamemode}/bin/gamemoderun wine ${wineFlags} "$OSU" "$@"
     wineserver -w
   '';
 
@@ -77,6 +78,7 @@ symlinkJoin {
   meta = {
     description = "osu!stable installer and runner";
     homepage = "https://osu.ppy.sh";
+    license = lib.licenses.unfree;
     maintainer = lib.maintainers.fufexan;
     platforms = with lib.platforms; [ "x86_64-linux" ];
   };

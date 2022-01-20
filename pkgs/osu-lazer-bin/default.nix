@@ -5,6 +5,7 @@
 , autoPatchelfHook
 , fetchurl
 , ffmpeg_4
+, gamemode
 , icu
 , libkrb5
 , lttngUst
@@ -14,6 +15,7 @@
 , openssl
 , stdenvNoCC
 , symlinkJoin
+, writeShellScript
 }:
 let
   version = "2022.118.0";
@@ -45,7 +47,13 @@ let
       makeWrapper
     ];
     autoPatchelfIgnoreMissingDeps = true;
-    installPhase = ''
+    installPhase = let
+      # dirty hack to infiltrate gamemoderun in the wrapper
+      gmrun = writeShellScript "gmrun" ''
+        shift
+        exec ${gamemode}/bin/gamemoderun "''$@"
+      '';
+    in ''
       runHook preInstall
       install -d $out/bin $out/lib
       install osu\!.png $out/osu.png
@@ -54,7 +62,8 @@ let
         --set COMPlus_GCGen0MaxBudget "600000" \
         --set PIPEWIRE_LATENCY "24/96000" \
         --set vblank_mode "0" \
-        --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
+        --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}" \
+        --run "${gmrun} \\"
       runHook postInstall
     '';
     fixupPhase = ''

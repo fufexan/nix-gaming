@@ -3,6 +3,7 @@
 , symlinkJoin
 , writeShellScriptBin
 
+, gamemode
 , jdk8
 , steam-run
 , withSteamRun ? false
@@ -32,7 +33,7 @@ let
 
 
   script = writeShellScriptBin pname ''
-    ${if withSteamRun then steam-run + "/bin/steam-run" else ""} ${jdk8}/bin/java -jar ${src}
+    PATH=$PATH:${gamemode} ${if withSteamRun then "${steam-run}/bin/steam-run" else ""} ${gamemode}/bin/gamemoderun ${jdk8}/bin/java -jar ${src}
   '';
 in
 
@@ -44,6 +45,7 @@ symlinkJoin {
   meta = {
     description = "Minecraft Launcher with support for Technic Modpacks";
     homepage = "https://technicpack.net";
+    license = lib.licenses.unfree;
     maintainers = lib.maintainers.fufexan;
     platforms = lib.platforms.linux;
   };

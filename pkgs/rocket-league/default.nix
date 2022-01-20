@@ -3,6 +3,7 @@
 , symlinkJoin
 , writeShellScriptBin
 
+, gamemode
 , legendary-gl
 , winetricks
 
@@ -42,7 +43,7 @@ let
     fi
 
     legendary update Sugar --base-path ${location}
-    legendary launch Sugar --base-path ${location}
+    gamemoderun legendary launch Sugar --base-path ${location}
     wineserver -w
   '';
 
@@ -61,6 +62,7 @@ symlinkJoin {
   meta = {
     description = "Rocket League installer and runner (using legendary)";
     homepage = "https://rocketleague.com";
+    license = lib.licenses.unfree;
     maintainer = lib.maintainers.fufexan;
     platforms = with lib.platforms; [ "x86_64-linux" ];
   };
