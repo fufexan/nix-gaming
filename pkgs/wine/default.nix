@@ -41,9 +41,13 @@ let
     pkgArches = [ pkgs pkgsi686Linux ];
     platforms = [ "x86_64-linux" ];
     stdenv = stdenv_32bit;
+    vkd3dArches = lib.optionals supportFlags.vkd3dSupport [ vkd3d vkd3d_i686 ];
   };
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
+
+  vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/vkd3d.nix" { };
+  vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/vkd3d.nix" { };
 in
 {
   wine-tkg =
