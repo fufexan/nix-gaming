@@ -37,6 +37,7 @@ rec {
     faudioSupport = false;
     vkd3dSupport = false;
     embedInstallers = false;
+    waylandSupport = false;
   };
 
   full = base // {
