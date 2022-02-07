@@ -11,6 +11,7 @@ Package                   | Description
 `rocket-league`           | Rocket League from Epic Games
 `technic-launcher`        | Technic Launcher
 `wine-discord-ipc-bridge` | Wine-Discord RPC Bridge
+`wine-osu`                | Wine optimized for low latency
 `wine-tkg`                | Wine optimized for games
 `winestreamproxy`         | Wine-Discord RPC (broken)
 
@@ -37,6 +38,10 @@ those errors.
 * `wine-discord-ipc-bridge` provides bridging between games under Wine and
 Discord running on Linux.
 
+* `wine-osu` is wine-staging, with patches applied to make it low-latency.
+The patches can be found
+[here](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5).
+
 * `wine-tkg` is a special wine version, tailored for the best gaming experience.
 It consists of a wine tree generated with
 [the tkg patches](https://github.com/Frogging-Family/wine-tkg-git).
@@ -51,9 +56,9 @@ you don't have to build packages.
 ```nix
 # configuration.nix
 {
-  nix = {
-    binaryCaches = [ "https://nix-gaming.cachix.org" ];
-    binaryCachePublicKeys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
+  nix.settings = {
+    substituters = [ "https://nix-gaming.cachix.org" ];
+    trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
   };
 }
 ```
