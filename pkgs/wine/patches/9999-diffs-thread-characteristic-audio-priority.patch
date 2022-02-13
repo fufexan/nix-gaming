@@ -1,0 +1,14 @@
+diff --git a/dlls/avrt/main.c b/dlls/avrt/main.c
+index abcf0ab68ab..f85b76fc1be 100644
+--- a/dlls/avrt/main.c
++++ b/dlls/avrt/main.c
+@@ -71,6 +71,9 @@ HANDLE WINAPI AvSetMmThreadCharacteristicsW(const WCHAR *name, DWORD *index)
+         return NULL;
+     }
+ 
++    if (!wcscmp(name, L"Audio") || !wcscmp(name, L"Pro Audio"))
++        SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
++
+     return (HANDLE)0x12345678;
+ }
+ 

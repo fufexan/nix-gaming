@@ -1,7 +1,7 @@
-From 8f97f84f27423e78b2a34feb8bb9b500064328e9 Mon Sep 17 00:00:00 2001
+From 4a2c23db4eddd827ac81513af43bc92475ad7d3a Mon Sep 17 00:00:00 2001
 From: Sebastian 'gonX' Jensen <gonx@gonx.dk>
 Date: Sun, 20 Jun 2021 17:02:15 +0200
-Subject: [PATCH 2/5] 5.14 Latency Fix
+Subject: [PATCH 2/2] 5.14 Latency Fix
 
 ---
  dlls/winepulse.drv/mmdevdrv.c | 22 ++++++++++++++--------

@@ -3,7 +3,7 @@
 final: prev:
 let
   wineBuilder = wine: build: extra: (import ./wine ({
-    inherit inputs build;
+    inherit self inputs build;
     inherit (prev) lib pkgsCross pkgsi686Linux fetchFromGitHub fetchurl callPackage stdenv_32bit;
     pkgs = prev;
     supportFlags = (import ./wine/supportFlags.nix).${build};

@@ -1,4 +1,5 @@
-{ inputs
+{ self
+, inputs
 , lib
 , build
 , pkgs
@@ -35,6 +36,7 @@ let
     inherit supportFlags;
     patches = [ ];
     buildScript = "${inputs.nixpkgs}/pkgs/misc/emulators/wine/builder-wow.sh";
+    configureFlags = [ "--disable-tests" ];
     geckos = [ gecko32 gecko64 ];
     mingwGccs = with pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
     monos = [ mono ];
@@ -56,35 +58,45 @@ in
     in
     callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/base.nix" (defaults // rec {
       name = "${pname}-${version}";
-      version = "6.22";
+      version = "7.0";
       src = fetchFromGitHub {
         owner = "Tk-Glitch";
         repo = "wine-tkg";
-        rev = "8b6c44352c188872eb0e12372ebe77ea569b873c";
-        sha256 = "sha256-8HiuNsSVfmIXv+mw+5/N8gJ0g3vpx1nfm22MynYQKFQ=";
+        rev = "8205d63f3e14cd0d7cedbf8edf0e17f8f1e8e3f8";
+        sha256 = "sha256-ehuagZjykQEXotZHvRkYr2UMjnKvmcaWXRCmqxuELCU=";
       };
     });
 
   wine-osu =
     let
       pname = pnameGen "wine-osu";
+      version = "7.0";
+      staging = fetchFromGitHub {
+        owner = "wine-staging";
+        repo = "wine-staging";
+        rev = "v${version}";
+        sha256 = "sha256-2gBfsutKG0ok2ISnnAUhJit7H2TLPDpuP5gvfMVE44o=";
+      };
     in
-    callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/base.nix" (defaults // rec {
+    (callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/base.nix" (defaults // rec {
       name = "${pname}-${version}";
-      version = "6.14";
+      inherit version;
       src = fetchFromGitHub {
         owner = "wine-mirror";
         repo = "wine";
         rev = "wine-${version}";
-        sha256 = "sha256-Ij0NtLp9Vq8HBkAeMrv2x0YdiPxEYgYc6lpn5dqbtzk=";
+        sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
       };
-      patches = [
-        "${inputs.nixpkgs}/pkgs/misc/emulators/wine/cert-path.patch"
-        ./patches/0001-Revert-to-5.14-winepulse.drv.patch
-        ./patches/0002-5.14-Latency-Fix.patch
-        ./patches/0003-secur32-Fix-crash-from-invalid-context-in-Initialize.patch
-        ./patches/0004-kernelbase-Cache-last-used-locale-sortguid-mapping.patch
-        ./patches/0005-Add-ps0034-and-ps0035-from-openglfreak.patch
-      ];
+      patches = [ "${inputs.nixpkgs}/pkgs/misc/emulators/wine/cert-path.patch" ] ++ self.lib.mkPatches ./patches;
+    })).overrideDerivation (self: {
+      prePatch = ''
+        patchShebangs tools
+        cp -r ${staging}/patches .
+        chmod +w patches
+        cd patches
+        patchShebangs gitapply.sh
+        ./patchinstall.sh DESTDIR="$PWD/.." --all ${lib.concatMapStringsSep " " (ps: "-W ${ps}") [ ]}
+        cd ..           
+      '';
     });
 }
