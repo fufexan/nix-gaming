@@ -12,10 +12,10 @@ jobs:
         - wine-osu
         - wine-tkg
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: cachix/install-nix-action@v13
+      - uses: actions/checkout@v2.4.0
+      - uses: cachix/install-nix-action@v16
         with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.4pre20210823_af94b54/install
+          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.7.0pre20220209_52f5231/install
           extra_nix_config: experimental-features = nix-command flakes
       - uses: cachix/cachix-action@v10
         with:
@@ -27,9 +27,9 @@ jobs:
     name: Check expressions
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: cachix/install-nix-action@v13
+      - uses: actions/checkout@v2.4.0
+      - uses: cachix/install-nix-action@v16
         with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.4pre20210823_af94b54/install
+          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.7.0pre20220209_52f5231/install
           extra_nix_config: experimental-features = nix-command flakes
       - run: nix flake check
