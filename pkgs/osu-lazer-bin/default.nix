@@ -18,10 +18,10 @@
 , writeShellScript
 }:
 let
-  version = "2022.118.0";
+  version = "2022.217.0";
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "sha256-6yuOtWX3xl6Q7NJ7VdV0fBQZelqzqgpx5OX5eSZTejE=";
+    sha256 = "sha256-RIDzIkAmdD47xMCR8xgBPDaC7WFZaJtrK45qqSxcN4k=";
   };
   extracted = appimageTools.extract {
     inherit version;
