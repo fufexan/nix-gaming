@@ -35,7 +35,7 @@ let
   defaults = with pkgs; {
     inherit supportFlags;
     patches = [ ];
-    buildScript = "${inputs.nixpkgs}/pkgs/misc/emulators/wine/builder-wow.sh";
+    buildScript = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/builder-wow.sh";
     configureFlags = [ "--disable-tests" ];
     geckos = [ gecko32 gecko64 ];
     mingwGccs = with pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
@@ -48,15 +48,15 @@ let
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 
-  vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/vkd3d.nix" { };
-  vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/vkd3d.nix" { };
+  vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" { };
+  vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" { };
 in
 {
   wine-tkg =
     let
       pname = pnameGen "wine-tkg";
     in
-    callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/base.nix" (defaults // rec {
+    callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults // rec {
       name = "${pname}-${version}";
       version = "7.0";
       src = fetchFromGitHub {
@@ -78,7 +78,7 @@ in
         sha256 = "sha256-2gBfsutKG0ok2ISnnAUhJit7H2TLPDpuP5gvfMVE44o=";
       };
     in
-    (callPackage "${inputs.nixpkgs}/pkgs/misc/emulators/wine/base.nix" (defaults // rec {
+    (callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults // rec {
       name = "${pname}-${version}";
       inherit version;
       src = fetchFromGitHub {
@@ -87,7 +87,7 @@ in
         rev = "wine-${version}";
         sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
       };
-      patches = [ "${inputs.nixpkgs}/pkgs/misc/emulators/wine/cert-path.patch" ] ++ self.lib.mkPatches ./patches;
+      patches = [ "${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch" ] ++ self.lib.mkPatches ./patches;
     })).overrideDerivation (self: {
       prePatch = ''
         patchShebangs tools
