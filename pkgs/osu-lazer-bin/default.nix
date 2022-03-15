@@ -20,10 +20,10 @@
 , gmrun_enable ? true
 }:
 let
-  version = "2022.226.0";
+  version = "2022.314.0";
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "sha256-UZZEubx6byADBJ1THcZL541l5n7TqoKgEgbchxMv/RY=";
+    sha256 = "sha256-o0BCXAE2pcBoGgP/qJ18fUmFWobYCKG8YYipb6Qb0bo=";
   };
   extracted = appimageTools.extract {
     inherit version;
