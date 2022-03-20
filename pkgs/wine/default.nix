@@ -8,6 +8,7 @@
 , callPackage
 , fetchFromGitHub
 , fetchurl
+, moltenvk
 , supportFlags
 , stdenv_32bit
 }:
@@ -33,7 +34,7 @@ let
   };
 
   defaults = with pkgs; {
-    inherit supportFlags;
+    inherit supportFlags moltenvk;
     patches = [ ];
     buildScript = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/builder-wow.sh";
     configureFlags = [ "--disable-tests" ];
@@ -48,8 +49,8 @@ let
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 
-  vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" { };
-  vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" { };
+  vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" { inherit moltenvk; };
+  vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" { inherit moltenvk; };
 in
 {
   wine-tkg =

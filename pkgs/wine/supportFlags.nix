@@ -1,8 +1,5 @@
 rec {
   base = {
-    pngSupport = true;
-    jpegSupport = true;
-    tiffSupport = true;
     gettextSupport = true;
     fontconfigSupport = true;
     alsaSupport = true;
@@ -17,13 +14,10 @@ rec {
     pulseaudioSupport = true;
     udevSupport = true;
     xineramaSupport = true;
-    xmlSupport = true;
     sdlSupport = true;
     mingwSupport = true;
     gtkSupport = false;
     gstreamerSupport = false;
-    colorManagementSupport = false;
-    mpg123Support = false;
     openalSupport = false;
     openclSupport = false;
     odbcSupport = false;
@@ -31,20 +25,18 @@ rec {
     vaSupport = false;
     pcapSupport = false;
     v4lSupport = false;
-    gsmSupport = false;
     gphoto2Support = false;
+    krb5Support = false;
     ldapSupport = false;
-    faudioSupport = false;
     vkd3dSupport = false;
     embedInstallers = false;
     waylandSupport = false;
+    usbSupport = true;
   };
 
   full = base // {
     gtkSupport = true;
     gstreamerSupport = true;
-    colorManagementSupport = true;
-    mpg123Support = true;
     openalSupport = true;
     openclSupport = true;
     odbcSupport = true;
@@ -52,10 +44,8 @@ rec {
     vaSupport = true;
     pcapSupport = true;
     v4lSupport = true;
-    gsmSupport = true;
     gphoto2Support = true;
     ldapSupport = true;
-    faudioSupport = true;
     vkd3dSupport = true;
     embedInstallers = true;
   };
