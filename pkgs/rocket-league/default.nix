@@ -52,7 +52,7 @@ let
     exec = "${script}/bin/${pname}";
     inherit icon;
     desktopName = "Rocket League";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 in
 symlinkJoin {

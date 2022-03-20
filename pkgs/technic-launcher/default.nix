@@ -23,7 +23,7 @@ let
     inherit icon;
     comment = "Technic Platform Launcher";
     desktopName = "Technic Launcher";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 
   icon = builtins.fetchurl {

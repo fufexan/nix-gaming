@@ -67,7 +67,7 @@ let
     inherit icon;
     comment = "Rhythm is just a *click* away";
     desktopName = "osu!stable";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 
 in
