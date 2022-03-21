@@ -16,8 +16,8 @@
 , stdenvNoCC
 , symlinkJoin
 , writeShellScript
-, pipewire_latency ? "24/96000"
-, gmrun_enable ? true
+, pipewire_latency ? "64/48000" # reasonable default
+, gmrun_enable ? true           # won't hurt users even if they don't have it set up
 }:
 let
   version = "2022.319.0";
