@@ -20,6 +20,11 @@
         };
       });
 
+      overlays.default = final: prev: import ./pkgs {
+        inherit inputs;
+        pkgs = prev;
+      };
+
       packages = lib.forAllSystems (system:
         (import ./pkgs {
           inherit inputs;
@@ -27,7 +32,7 @@
         }));
     in
     {
-      inherit apps lib packages;
+      inherit apps lib overlays packages;
 
       nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
       nixosModule = inputs.self.nixosModules.pipewireLowLatency;
