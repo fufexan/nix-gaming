@@ -23,7 +23,8 @@ rec {
 
   wine-discord-ipc-bridge = callPackage ./wine-discord-ipc-bridge { wine = wine-tkg; };
 
-  winestreamproxy = callPackage ./winestreamproxy { wine = wine-tkg; };
+  # broken
+  #winestreamproxy = callPackage ./winestreamproxy { wine = wine-tkg; };
 
   wine-osu = wineBuilder "wine-osu" "base" { };
 
