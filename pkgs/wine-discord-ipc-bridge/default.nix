@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "wine-discord-ipc-bridge";
-  version = "unstable-2022-01-05";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     repo = pname;
     owner = "0e4ef622";
-    rev = "a61da30aad3edfccc084097dff621565f70535f3";
-    sha256 = "sha256-X9g81SIs7pp0I3Ft7/1QzEIXhWXqMmLhv7lQoBPi3fY=";
+    rev = "v${version}";
+    sha256 = "sha256-D0N9iHwRHGmnve12Z8Lgz4NTXpv4HBL1Q5IKOP06P5g=";
   };
 
   nativeBuildInputs = [ pkgsCross.mingw32.stdenv.cc wine ];
