@@ -13,8 +13,8 @@
 
 let
   src = builtins.fetchurl {
-    url = "https://launcher.technicpack.net/launcher4/680/TechnicLauncher.jar";
-    sha256 = "sha256-NyWHCvz1CrCET8DZ40Y7qXZZTSBuL1bpoou/1Rc05Eg=";
+    url = "https://launcher.technicpack.net/launcher4/725/TechnicLauncher.jar";
+    sha256 = "04jgk6cpdq2jdjlzb3f6ycjm7gf91gmkwfcj779fygfs4pf9s9dr";
   };
 
   desktopItems = makeDesktopItem {
@@ -39,7 +39,7 @@ in
 
 symlinkJoin {
   name = pname;
-  version = "680";
+  version = "725";
   paths = [ desktopItems script ];
 
   meta = {
