@@ -20,10 +20,10 @@
 , gmrun_enable ? true           # won't hurt users even if they don't have it set up
 }:
 let
-  version = "2022.319.0";
+  version = "2022.409.0";
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "sha256-WC5IaM1/wLL52fr/7qhSCH6sZQH49eZDDebMwCL3W1I=";
+    sha256 = "sha256-D1fw2uyu2ULeet0oEYiNQyxHWEP3CEr+2kdaZsW43x0=";
   };
   extracted = appimageTools.extract {
     inherit version;
