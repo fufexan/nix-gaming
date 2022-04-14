@@ -57,7 +57,7 @@ in
       pname = pnameGen "wine-tkg";
     in
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults // rec {
-      name = "${pname}-${version}";
+      inherit pname;
       version = "7.0";
       src = fetchFromGitHub {
         owner = "Tk-Glitch";
@@ -79,8 +79,7 @@ in
       };
     in
     (callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults // rec {
-      name = "${pname}-${version}";
-      inherit version;
+      inherit version pname;
       src = fetchFromGitHub {
         owner = "wine-mirror";
         repo = "wine";
