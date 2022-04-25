@@ -20,10 +20,11 @@
 , gmrun_enable ? true           # won't hurt users even if they don't have it set up
 }:
 let
-  version = "2022.409.0";
+  pname = "osu-lazer-bin";
+  version = "2022.424.1";
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "sha256-D1fw2uyu2ULeet0oEYiNQyxHWEP3CEr+2kdaZsW43x0=";
+    sha256 = "sha256-7ly89rO6WYEk6pxhqkQo6LGW94AtEUZvnNIC+mCM1jc=";
   };
   extracted = appimageTools.extract {
     inherit version;
@@ -31,8 +32,7 @@ let
     src = appimageBin;
   };
   derivation = stdenvNoCC.mkDerivation rec {
-    inherit version;
-    name = "osu-lazer-bin";
+    inherit version pname;
     src = extracted;
     buildInputs = [
       SDL2
@@ -76,7 +76,7 @@ let
     '';
   };
   desktopItem = makeDesktopItem {
-    name = "osu-lazer-bin";
+    name = pname;
     exec = "${derivation.outPath}/bin/osu-lazer";
     icon = "${derivation.outPath}/osu.png";
     comment = "A free-to-win rhythm game. Rhythm is just a *click* away!";
@@ -85,8 +85,7 @@ let
   };
 in
 symlinkJoin {
-  inherit version;
-  name = "osu-lazer-bin";
+  name = "${pname}-${version}";
   paths = [ derivation desktopItem ];
 
   meta = {
