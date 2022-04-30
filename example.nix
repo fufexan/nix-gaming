@@ -1,22 +1,46 @@
-inputs: let
-  rocket-league = inputs.self.lib.legendaryBuilder {
-    games = {
-      rocket-league = {
-        desktopName = "Rocket League";
-        tricks = ["dxvk" "win10"];
-        icon = builtins.fetchurl {
-          url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
-          name = "rocket-league.png";
-          sha256 = "09n90zvv8i8bk3b620b6qzhj37jsrhmxxf7wqlsgkifs4k2q8qpf";
-        };
-        discordIntegration = false;
-      };
-    };
+{
+  environment.systemPackages =
+    [
+      # or home.packages
+      # ...
+    ]
+    ++ builtins.attrValues # construct a list from the output attrset
 
-    opts = {
-      wine = packages.wine-tkg;
-      inherit (packages) wine-discord-ipc-bridge;
-    };
-  };
-in
-  rocket-league
+    (inputs.nix-gaming.packages.${pkgs.system}.legendaryBuilder {
+      games = {
+        rocket-league = {
+          # find names with `legendary list`
+          desktopName = "Rocket League";
+
+          # find out on lutris/winedb/protondb
+          tricks = ["dxvk" "win10"];
+
+          # google "<game name> logo"
+          icon = builtins.fetchurl {
+            url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
+            name = "rocket-league.png";
+            sha256 = "09n90zvv8i8bk3b620b6qzhj37jsrhmxxf7wqlsgkifs4k2q8qpf";
+          };
+
+          # if you don't want winediscordipcbridge running for this game
+          discordIntegration = false;
+          # if you dont' want to launch the game using gamemode
+          gamemodeIntegration = false;
+
+          preCommands = ''
+            echo "the game will start!"
+          '';
+
+          postCommands = ''
+            the game has stopped!
+          '';
+        };
+      };
+
+      opts = {
+        # same options as above can be provided here, and will be applied to all games
+        # NOTE: game-specific options take precedence
+        wine = packages.wine-tkg;
+      };
+    });
+}

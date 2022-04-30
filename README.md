@@ -15,6 +15,14 @@ Package                   | Description
 `wine-tkg`                | Wine optimized for games
 `winestreamproxy`         | Wine-Discord RPC (broken)
 
+* `legendaryBuilder` is a function that installs games with `legendary-gl`. You
+are expected to log in before using it, with `legendary auth`.
+The function takes an attrset containing at least the attrset `games` which
+includes the games you want installed. Optionally, you can set an `opts`
+attrset that will set the options you set inside for all games listed.
+
+You can find a usage example in [example.nix](./example.nix).
+
 * `osu-lazer-bin` is an osu!lazer build that is extracted from official binary
 AppImage releases in order to preserve multiplayer functions.
 
@@ -24,10 +32,6 @@ Installation will take a bit of time. It will download and install about 400MB
 of files. In any case, **do not stop the command!**
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
-
-* `rocket-league` relies on `legendary-gl`, which expects you to log in. It's
-best to do that before running RL, by adding `legendary-gl` in a nix shell and
-running `legendary auth`.
 
 * `technic-launcher` will guide you through the install process, just like it
 normally would. Some modpacks will complain about libraries, and that is
