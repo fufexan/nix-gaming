@@ -99,6 +99,7 @@ in
         cc-by-nc-40
         unfreeRedistributable # osu-framework contains libbass.so in repository
       ];
+      mainProgram = "osu-lazer";
       platforms = ["x86_64-linux"];
     };
   }

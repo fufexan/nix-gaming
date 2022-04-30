@@ -1,46 +1,35 @@
 {
   description = "Gaming on Nix";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
-    ...
-  } @ inputs: let
+  }: let
     # helper functions
     lib = import ./lib inputs;
 
-    # the rest of packages should work automatically
-    apps = lib.genSystems (system: {
-      osu-lazer = {
-        program = packages.${system}.osu-lazer-bin.outPath + "/bin/osu-lazer";
-        type = "app";
-      };
-    });
-
     # in case you want to add the packages to your pkgs
-    overlays.default = final: prev:
+    overlays.default = _: prev:
       import ./pkgs {
         inherit inputs;
         pkgs = prev;
       };
 
-    packages = lib.genSystems (system: (import ./pkgs {
-      inherit inputs;
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    }));
+    packages = lib.genSystems (system:
+      import ./pkgs {
+        inherit inputs;
+        pkgs = lib.pkgs.${system};
+      });
   in {
-    inherit apps lib overlays packages;
+    inherit lib overlays packages;
 
     nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
-    nixosModule = inputs.self.nixosModules.pipewireLowLatency;
+    nixosModules.default = inputs.self.nixosModules.pipewireLowLatency;
   };
 
-  # auto-fetch wine when `nix run/shell`ing
+  # auto-fetch deps when `nix run/shell`ing
   nixConfig = {
     substituters = [
       "https://cache.nixos.org"
