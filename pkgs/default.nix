@@ -13,25 +13,7 @@
       // extra))
     .${wine};
 
-  legendaryBuilder = {
-    games ? {},
-    opts ? {},
-  }:
-    builtins.mapAttrs (
-      name: value:
-        callPackage ./legendary
-        ({
-            inherit (packages) wine-discord-ipc-bridge;
-            pname = name;
-          }
-          // opts
-          // value)
-    )
-    games;
-
   packages = rec {
-    inherit legendaryBuilder;
-
     osu-lazer-bin = callPackage ./osu-lazer-bin {};
 
     osu-stable = callPackage ./osu-stable {

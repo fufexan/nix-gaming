@@ -90,7 +90,7 @@ in {
         };
         patches = ["${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch"] ++ inputs.self.lib.mkPatches ./patches;
       }))
-    .overrideDerivation (self: {
+    .overrideDerivation (_: {
       prePatch = ''
         patchShebangs tools
         cp -r ${staging}/patches .
