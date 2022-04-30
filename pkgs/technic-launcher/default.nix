@@ -27,8 +27,8 @@ let
   };
 
   icon = builtins.fetchurl {
-    url = "https://worldvectorlogo.com/download/technic-launcher.svg";
-    sha256 = "sha256-hZpqxNGCPWDGw1v2y1vMnvo6qGfqI9AfcmU+Q2u/KBc=";
+    url = "https://cdn.freebiesupply.com/logos/large/2x/technic-launcher-logo-png-transparent.png";
+    sha256 = "0zav6hk3m8gyirz2qwg6f08d4z4ijh3bbw09p9y6cgihzwsmv0f1";
   };
 
 
