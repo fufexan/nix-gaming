@@ -12,7 +12,7 @@
     lib = import ./lib inputs;
 
     # the rest of packages should work automatically
-    apps = lib.forAllSystems (system: {
+    apps = lib.genSystems (system: {
       osu-lazer = {
         program = packages.${system}.osu-lazer-bin.outPath + "/bin/osu-lazer";
         type = "app";
@@ -26,7 +26,7 @@
         pkgs = prev;
       };
 
-    packages = lib.forAllSystems (system: (import ./pkgs {
+    packages = lib.genSystems (system: (import ./pkgs {
       inherit inputs;
       pkgs = import nixpkgs {
         inherit system;
