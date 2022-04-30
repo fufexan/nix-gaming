@@ -1,20 +1,17 @@
-{ lib
-, makeDesktopItem
-, symlinkJoin
-, writeShellScriptBin
-
-, gamemode
-, wine-discord-ipc-bridge
-, winetricks
-
-, wine
-, wineFlags ? ""
-, pname ? "osu-stable"
-, location ? "$HOME/.osu"
-, tricks ? [ "gdiplus" "dotnet40" "meiryo" ]
-}:
-
-let
+{
+  lib,
+  makeDesktopItem,
+  symlinkJoin,
+  writeShellScriptBin,
+  gamemode,
+  wine-discord-ipc-bridge,
+  winetricks,
+  wine,
+  wineFlags ? "",
+  pname ? "osu-stable",
+  location ? "$HOME/.osu",
+  tricks ? ["gdiplus" "dotnet40" "meiryo"],
+}: let
   src = builtins.fetchurl rec {
     url = "https://m1.ppy.sh/r/osu!install.exe";
     name = "osuinstall-${sha256}.exe";
@@ -28,10 +25,9 @@ let
 
   # concat winetricks args
   tricksFmt = with builtins;
-    if (length tricks) > 0 then
-      concatStringsSep " " tricks
-    else
-      "-V";
+    if (length tricks) > 0
+    then concatStringsSep " " tricks
+    else "-V";
 
   script = writeShellScriptBin pname ''
     export WINEARCH="win32"
@@ -67,19 +63,18 @@ let
     inherit icon;
     comment = "Rhythm is just a *click* away";
     desktopName = "osu!stable";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
-
 in
-symlinkJoin {
-  name = pname;
-  paths = [ desktopItems script ];
+  symlinkJoin {
+    name = pname;
+    paths = [desktopItems script];
 
-  meta = {
-    description = "osu!stable installer and runner";
-    homepage = "https://osu.ppy.sh";
-    license = lib.licenses.unfree;
-    maintainer = lib.maintainers.fufexan;
-    platforms = with lib.platforms; [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "osu!stable installer and runner";
+      homepage = "https://osu.ppy.sh";
+      license = lib.licenses.unfree;
+      maintainer = lib.maintainers.fufexan;
+      platforms = with lib.platforms; ["x86_64-linux"];
+    };
+  }

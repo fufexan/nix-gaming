@@ -12,10 +12,10 @@ jobs:
         - wine-osu
         - wine-tkg
     steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: cachix/install-nix-action@v16
+      - uses: actions/checkout@v3.0.2
+      - uses: cachix/install-nix-action@v17
         with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.7.0pre20220209_52f5231/install
+          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.9.0pre20220422_7f814d6/install
           extra_nix_config: experimental-features = nix-command flakes
       - uses: cachix/cachix-action@v10
         with:
@@ -26,10 +26,15 @@ jobs:
   checks:
     name: Check expressions
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command:
+          - 'nix flake check'
+          - 'nix run nixpkgs#alejandra -- -c .'
     steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: cachix/install-nix-action@v16
+      - uses: actions/checkout@v3.0.2
+      - uses: cachix/install-nix-action@v17
         with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.7.0pre20220209_52f5231/install
+          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.9.0pre20220422_7f814d6/install
           extra_nix_config: experimental-features = nix-command flakes
-      - run: nix flake check
+      - run: ${{ matrix.command }}

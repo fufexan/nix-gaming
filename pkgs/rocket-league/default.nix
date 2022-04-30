@@ -1,20 +1,17 @@
-{ lib
-, makeDesktopItem
-, symlinkJoin
-, writeShellScriptBin
-
-, gamemode
-, legendary-gl
-, winetricks
-
-, wine
-, wineFlags ? ""
-, pname ? "rocket-league"
-, location ? "$HOME/Games/${pname}"
-, tricks ? [ "dxvk" "win10" ]
-}:
-
-let
+{
+  lib,
+  makeDesktopItem,
+  symlinkJoin,
+  writeShellScriptBin,
+  gamemode,
+  legendary-gl,
+  winetricks,
+  wine,
+  wineFlags ? "",
+  pname ? "rocket-league",
+  location ? "$HOME/Games/${pname}",
+  tricks ? ["dxvk" "win10"],
+}: let
   icon = builtins.fetchurl {
     url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
     name = "rocket-league.png";
@@ -23,10 +20,9 @@ let
 
   # concat winetricks args
   tricksString = with builtins;
-    if (length tricks) > 0 then
-      concatStringsSep " " tricks
-    else
-      "-V";
+    if (length tricks) > 0
+    then concatStringsSep " " tricks
+    else "-V";
 
   script = writeShellScriptBin pname ''
     export WINEPREFIX="${location}"
@@ -52,18 +48,18 @@ let
     exec = "${script}/bin/${pname}";
     inherit icon;
     desktopName = "Rocket League";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
-symlinkJoin {
-  name = pname;
-  paths = [ desktopItems script ];
+  symlinkJoin {
+    name = pname;
+    paths = [desktopItems script];
 
-  meta = {
-    description = "Rocket League installer and runner (using legendary)";
-    homepage = "https://rocketleague.com";
-    license = lib.licenses.unfree;
-    maintainer = lib.maintainers.fufexan;
-    platforms = with lib.platforms; [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Rocket League installer and runner (using legendary)";
+      homepage = "https://rocketleague.com";
+      license = lib.licenses.unfree;
+      maintainer = lib.maintainers.fufexan;
+      platforms = with lib.platforms; ["x86_64-linux"];
+    };
+  }

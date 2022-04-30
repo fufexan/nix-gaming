@@ -34,19 +34,21 @@ rec {
     usbSupport = true;
   };
 
-  full = base // {
-    gtkSupport = true;
-    gstreamerSupport = true;
-    openalSupport = true;
-    openclSupport = true;
-    odbcSupport = true;
-    netapiSupport = true;
-    vaSupport = true;
-    pcapSupport = true;
-    v4lSupport = true;
-    gphoto2Support = true;
-    ldapSupport = true;
-    vkd3dSupport = true;
-    embedInstallers = true;
-  };
+  full =
+    base
+    // {
+      gtkSupport = true;
+      gstreamerSupport = true;
+      openalSupport = true;
+      openclSupport = true;
+      odbcSupport = true;
+      netapiSupport = true;
+      vaSupport = true;
+      pcapSupport = true;
+      v4lSupport = true;
+      gphoto2Support = true;
+      ldapSupport = true;
+      vkd3dSupport = true;
+      embedInstallers = true;
+    };
 }

@@ -1,12 +1,13 @@
-{ config, lib, ... }:
-
+{
+  config,
+  lib,
+  ...
+}:
 # low-latency PipeWire configuration
 # extends the nixpkgs module
-
 let
   cfg = config.services.pipewire.lowLatency;
-in
-{
+in {
   options = {
     services.pipewire.lowLatency = {
       enable = lib.mkEnableOption "Enable low latency";
@@ -25,21 +26,20 @@ in
     };
   };
 
-  config =
-    let
-      qr = "${toString cfg.quantum}/${toString cfg.rate}";
-    in
+  config = let
+    qr = "${toString cfg.quantum}/${toString cfg.rate}";
+  in
     lib.mkIf cfg.enable {
       services.pipewire = {
         config = {
           # pipewire native config
           pipewire = {
-            "context.properties" = { "default.clock.min-quantum" = cfg.quantum; };
+            "context.properties" = {"default.clock.min-quantum" = cfg.quantum;};
           };
 
           # pulse clients config
           pipewire-pulse = {
-            "context.properties" = { };
+            "context.properties" = {};
             "context.modules" = [
               {
                 name = "libpipewire-module-rtkit";
@@ -49,19 +49,19 @@ in
                   "rt.time.soft" = 200000;
                   "rt.time.hard" = 200000;
                 };
-                flags = [ "ifexists" "nofail" ];
+                flags = ["ifexists" "nofail"];
               }
-              { name = "libpipewire-module-protocol-native"; }
-              { name = "libpipewire-module-client-node"; }
-              { name = "libpipewire-module-adapter"; }
-              { name = "libpipewire-module-metadata"; }
+              {name = "libpipewire-module-protocol-native";}
+              {name = "libpipewire-module-client-node";}
+              {name = "libpipewire-module-adapter";}
+              {name = "libpipewire-module-metadata";}
               {
                 name = "libpipewire-module-protocol-pulse";
                 args = {
                   "pulse.min.req" = qr;
                   "pulse.min.quantum" = qr;
                   "pulse.min.frag" = qr;
-                  "server.address" = [ "unix:native" ];
+                  "server.address" = ["unix:native"];
                 };
               }
             ];
@@ -76,7 +76,7 @@ in
         media-session.config.alsa-monitor = {
           rules = [
             {
-              matches = [{ node.name = "alsa_output.*"; }];
+              matches = [{node.name = "alsa_output.*";}];
               actions = {
                 update-props = {
                   "audio.format" = "S32LE";

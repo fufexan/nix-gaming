@@ -3,40 +3,42 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      # helper functions
-      lib = import ./lib inputs;
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    # helper functions
+    lib = import ./lib inputs;
 
-      # the rest of packages should work automatically
-      apps = lib.forAllSystems (system: {
-        osu-lazer = {
-          program = packages.${system}.osu-lazer-bin.outPath + "/bin/osu-lazer";
-          type = "app";
-        };
-      });
+    # the rest of packages should work automatically
+    apps = lib.forAllSystems (system: {
+      osu-lazer = {
+        program = packages.${system}.osu-lazer-bin.outPath + "/bin/osu-lazer";
+        type = "app";
+      };
+    });
 
-      # in case you want to add the packages to your pkgs
-      overlays.default = final: prev: import ./pkgs {
+    # in case you want to add the packages to your pkgs
+    overlays.default = final: prev:
+      import ./pkgs {
         inherit inputs;
         pkgs = prev;
       };
 
-      packages = lib.forAllSystems (system:
-        (import ./pkgs {
-          inherit inputs;
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        }));
-    in
-    {
-      inherit apps lib overlays packages;
+    packages = lib.forAllSystems (system: (import ./pkgs {
+      inherit inputs;
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    }));
+  in {
+    inherit apps lib overlays packages;
 
-      nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
-      nixosModule = inputs.self.nixosModules.pipewireLowLatency;
-    };
+    nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
+    nixosModule = inputs.self.nixosModules.pipewireLowLatency;
+  };
 
   # auto-fetch wine when `nix run/shell`ing
   nixConfig = {
