@@ -11,6 +11,8 @@
   pname ? "osu-stable",
   location ? "$HOME/.osu",
   tricks ? ["gdiplus" "dotnet40" "meiryo"],
+  preCommands ? "",
+  postCommands ? "",
 }: let
   src = builtins.fetchurl rec {
     url = "https://m1.ppy.sh/r/osu!install.exe";
@@ -52,9 +54,13 @@
       mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
     fi
 
+    ${preCommands}
+
     wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
     ${gamemode}/bin/gamemoderun wine ${wineFlags} "$OSU" "$@"
     wineserver -w
+
+    ${postCommands}
   '';
 
   desktopItems = makeDesktopItem {

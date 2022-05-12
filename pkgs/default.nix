@@ -5,7 +5,7 @@
   wineBuilder = wine: build: extra:
     (import ./wine ({
         inherit inputs build pkgs;
-        inherit (pkgs) lib pkgsCross pkgsi686Linux fetchFromGitHub fetchurl moltenvk callPackage stdenv_32bit;
+        inherit (pkgs) callPackage fetchFromGitHub fetchurl lib moltenvk pkgsCross pkgsi686Linux stdenv_32bit;
         supportFlags = (import ./wine/supportFlags.nix).${build};
       }
       // extra))
@@ -15,9 +15,9 @@
 in rec {
   osu-lazer-bin = callPackage ./osu-lazer-bin {};
 
-  osu-stable = callPackage ./osu-stable {
+  osu-stable = callPackage ./osu-stable rec {
     wine = wine-osu;
-    wine-discord-ipc-bridge = wine-discord-ipc-bridge.override {wine = wine-osu;};
+    wine-discord-ipc-bridge = callPackage ./wine-discord-ipc-bridge {inherit wine;};
   };
 
   rocket-league = callPackage ./rocket-league {wine = wine-tkg;};
