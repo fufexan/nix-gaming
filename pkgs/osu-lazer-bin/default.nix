@@ -21,10 +21,10 @@
   gmrun_enable ? true, # won't hurt users even if they don't have it set up
 }: let
   pname = "osu-lazer-bin";
-  version = "2022.501.0";
+  version = "2022.509.0";
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "sha256-lmwnBzJrgwCa5YCcoXV4Y3hBV5HJJYDwE8GxVeMWiN8=";
+    sha256 = "sha256-PTj9wBIJ/u1rLp+C8CgZbomjHUUOYTaNdLCJzjryAAw=";
   };
   extracted = appimageTools.extract {
     inherit version;
