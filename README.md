@@ -86,7 +86,7 @@ Then, add the package(s):
 
 {
   environment.systemPackages = [ # or home.packages
-    inputs.nix-gaming.packages.x86_64-linux.<package> # installs a package
+    inputs.nix-gaming.packages.${pkgs.system}.<package> # installs a package
   ];
 }
 ```
@@ -95,8 +95,6 @@ If you want to install packages to your profile instead, do it like this
 ```
   nix profile install github:fufexan/nix-gaming#<package>
 ```
-**NOTE**: the above snippet won't work if you use Home-Manager. You can use the
-old `nix-env` syntax.
 
 Everything is available as an overlay if you prefer that, though your results
 may greatly differ from the packages.
@@ -185,26 +183,25 @@ can be modified in order to get the result one wants.
   pname     ? "game-name"      # name of the script and package
   location  ? "$HOME/${pname}" # where to install the game/wine prefix
   tricks    ? null             # which wine tricks to install
+  
+  preCommands  ? "" # run commands before the game is started
+  postCommands ? "" # run commands after the game is closed
 }
 ```
 
-### Troubleshooting
+### `osu-stable` `wine-discord-ipc-bridge` wine overriding
 
-The `osu!install.exe` is periodically updated upstream, but it's not versioned.
-Due to this, we have to update its hash constantly.
-
-When there's a hash mismatch between your system and upstream, the fix is to
-signal the new version (either in an issue, PR or messaging me on Discord @
-fufexan#1006).
-After the flake has been updated, the steps to fix the mismatch on your system
-are as follows:
-1. update your inputs, remove osu from your config and rebuild
-2. reboot
-3. do a store garbage collect (`nix-collect-garbage -d` specifically)
-4. re-add osu in your config and rebuild
-
-This should fix it, even though it's quite troublesome. I'll think of a better
-strategy in the meantime.
+Sometimes you want to override `wine` for various reasons. Here's how to do it:
+```nix
+{
+  environment.systemPackages = [ # or home.packages
+    inputs.nix-gaming.packages.${pkgs.system}.osu-stable.override rec {
+      wine = <your-wine>;
+      wine-discord-ipc-bridge = wine-discord-ipc-bridge.override {inherit wine;}; # or override this one as well
+    };
+  ];
+}
+```
 
 ## Tips
 
@@ -212,14 +209,11 @@ In order to get the most performance out of your machine, you could use the
 following tweaks:
 
 - custom/gaming kernel: `linux_xanmod` is the recommended one for games, since
-it provides many patches that aid wine and other games.
-**NOTE:** Xanmod is not preferred on laptops and other power-constrained devices,
-as the tick scheduler draws a lot of power (at least 3W alone).
-- [gamemode](https://github.com/FeralInteractive/gamemode): lets you achieve lower
-nice values and higher realtime privileges at game start. It can either detect
-games or be told to start with `gamemode-run`.
-- `pw-jack`: can force games such as `osu-lazer` to a lower quant value which provides
-lower latencies than using the `pulse` backend.
+it provides many patches that aid wine and other games. It also provides a
+better desktop experience due to its PREEMPTive nature and tickless scheduler.
+- [gamemode](https://github.com/FeralInteractive/gamemode): lets you achieve
+lower nice values and higher realtime privileges at game start. It can either
+detect games or be told to start with `gamemode-run`.
 
 ## Credits & Resources
  
