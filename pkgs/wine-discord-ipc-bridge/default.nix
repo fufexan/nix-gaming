@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Enable games running under wine to use Discord Rich Presence";
     homepage = "https://github.com/0e4ef622/wine-discord-ipc-bridge";
     license = lib.licenses.mit;
-    maintainers = [lib.maintainers.fufexan];
+    maintainers = with lib.maintainers; [fufexan];
     platforms = with lib.platforms; ["x86_64-linux"];
   };
 }

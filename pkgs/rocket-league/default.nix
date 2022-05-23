@@ -59,7 +59,7 @@ in
       description = "Rocket League installer and runner (using legendary)";
       homepage = "https://rocketleague.com";
       license = lib.licenses.unfree;
-      maintainer = lib.maintainers.fufexan;
+      maintainer = with lib.maintainers; [fufexan];
       platforms = with lib.platforms; ["x86_64-linux"];
     };
   }

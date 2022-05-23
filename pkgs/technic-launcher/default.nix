@@ -45,7 +45,7 @@ in
       description = "Minecraft Launcher with support for Technic Modpacks";
       homepage = "https://technicpack.net";
       license = lib.licenses.unfree;
-      maintainers = lib.maintainers.fufexan;
+      maintainers = with lib.maintainers; [fufexan];
       platforms = lib.platforms.linux;
     };
   }
