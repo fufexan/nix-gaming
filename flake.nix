@@ -27,6 +27,8 @@
 
     nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
     nixosModules.default = inputs.self.nixosModules.pipewireLowLatency;
+
+    formatter = lib.genSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 
   # auto-fetch deps when `nix run/shell`ing
