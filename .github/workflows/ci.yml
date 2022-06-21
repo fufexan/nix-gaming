@@ -30,7 +30,7 @@ jobs:
       matrix:
         command:
           - 'nix flake check'
-          - 'nix fmt'
+          - 'nix run nixpkgs#alejandra -- -c .'
     steps:
       - uses: actions/checkout@v3.0.2
       - uses: cachix/install-nix-action@v17
