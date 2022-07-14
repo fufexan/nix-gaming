@@ -10,6 +10,7 @@ jobs:
       matrix:
         package:
         - wine-osu
+        - wine-ge
         - wine-tkg
     steps:
       - uses: actions/checkout@v3.0.2

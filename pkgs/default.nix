@@ -28,6 +28,8 @@
     # broken
     #winestreamproxy = callPackage ./winestreamproxy { wine = wine-tkg; };
 
+    wine-ge = wineBuilder "wine-ge" "base" {};
+
     wine-osu = wineBuilder "wine-osu" "base" {};
 
     wine-tkg = wineBuilder "wine-tkg" "base" {};

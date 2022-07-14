@@ -54,6 +54,21 @@
   vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
   vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
 in {
+  wine-ge = let
+    pname = pnameGen "wine-ge";
+  in
+    callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
+      // rec {
+        inherit pname;
+        version = "7.20";
+        src = fetchFromGitHub {
+          owner = "GloriousEggroll";
+          repo = "proton-wine";
+          rev = "Proton7-20";
+          sha256 = "sha256-eMcBtXKc1PcB4yb8jD8V+tQKVWeuK+JjGlg2/ijZRd0=";
+        };
+      });
+
   wine-tkg = let
     pname = pnameGen "wine-tkg";
   in
