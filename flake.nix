@@ -6,29 +6,25 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-  }: let
-    # helper functions
+  }: {
     lib = import ./lib inputs;
 
-    # in case you want to add the packages to your pkgs
     overlays.default = _: prev:
       import ./pkgs {
         inherit inputs;
         pkgs = prev;
       };
 
-    packages = lib.genSystems (system:
-      import ./pkgs {
-        inherit inputs;
-        pkgs = lib.pkgs.${system};
-      });
-  in {
-    inherit lib overlays packages;
+    packages = self.lib.genSystems (system:
+      self.overlays.default null (import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      }));
 
     nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
     nixosModules.default = inputs.self.nixosModules.pipewireLowLatency;
 
-    formatter = lib.genSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    formatter = self.lib.genSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 
   # auto-fetch deps when `nix run/shell`ing
