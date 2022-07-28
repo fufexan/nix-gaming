@@ -11,6 +11,7 @@ Package                   | Description
 `rocket-league`           | Rocket League from Epic Games
 `technic-launcher`        | Technic Launcher
 `wine-discord-ipc-bridge` | Wine-Discord RPC Bridge
+`wine-ge`                 | Wine version of Proton-GE
 `wine-osu`                | Wine optimized for low latency
 `wine-tkg`                | Wine optimized for games
 `winestreamproxy`         | Wine-Discord RPC (broken)
@@ -41,6 +42,9 @@ those errors.
 
 * `wine-discord-ipc-bridge` provides bridging between games under Wine and
 Discord running on Linux.
+
+* `wine-ge` is the wine equivalent of the famous Proton-GE. It is based on
+`wine-tkg`, and is expected to work better than it.
 
 * `wine-osu` is wine-staging, with patches applied to make it low-latency.
 The patches can be found
