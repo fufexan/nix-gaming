@@ -60,11 +60,11 @@ in {
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
       // rec {
         inherit pname;
-        version = "7.20";
+        version = "7.0";
         src = fetchFromGitHub {
           owner = "GloriousEggroll";
           repo = "proton-wine";
-          rev = "Proton7-20";
+          rev = "Proton7-22";
           sha256 = "sha256-eMcBtXKc1PcB4yb8jD8V+tQKVWeuK+JjGlg2/ijZRd0=";
         };
       });
@@ -75,7 +75,7 @@ in {
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
       // rec {
         inherit pname;
-        version = "7.11";
+        version = "7.13";
         src = fetchFromGitHub {
           owner = "Tk-Glitch";
           repo = "wine-tkg";
