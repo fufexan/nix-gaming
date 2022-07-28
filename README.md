@@ -129,7 +129,7 @@ in
   # import the low latency module
   imports = [
     ...
-    "nix-gaming/modules/pipewireLowLatency.nix"
+    "${nix-gaming}/modules/pipewireLowLatency.nix"
   ];
   
   # install packages
