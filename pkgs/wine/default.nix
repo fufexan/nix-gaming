@@ -58,14 +58,14 @@ in {
     pname = pnameGen "wine-ge";
   in
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
-      // rec {
+      // {
         inherit pname;
         version = "7.0";
         src = fetchFromGitHub {
           owner = "GloriousEggroll";
           repo = "proton-wine";
-          rev = "Proton7-22";
-          sha256 = "sha256-eMcBtXKc1PcB4yb8jD8V+tQKVWeuK+JjGlg2/ijZRd0=";
+          rev = "Proton7-25";
+          sha256 = "sha256-eAF65WQU77b6MHCi6vqjXd6gywlrHsEWgpybWuze0iw=";
         };
       });
 
@@ -73,7 +73,7 @@ in {
     pname = pnameGen "wine-tkg";
   in
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
-      // rec {
+      // {
         inherit pname;
         version = "7.13";
         src = fetchFromGitHub {
