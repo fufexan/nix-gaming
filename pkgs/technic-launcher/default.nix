@@ -9,9 +9,10 @@
   withSteamRun ? false,
   pname ? "technic-launcher",
 }: let
+  version = "757";
   src = builtins.fetchurl {
-    url = "https://launcher.technicpack.net/launcher4/725/TechnicLauncher.jar";
-    sha256 = "04jgk6cpdq2jdjlzb3f6ycjm7gf91gmkwfcj779fygfs4pf9s9dr";
+    url = "https://launcher.technicpack.net/launcher4/${version}/TechnicLauncher.jar";
+    sha256 = "038dq2gm0v707pjwbg13vyjx56mh0yqv7g9c9hp2m58k8rqhaaxr";
   };
 
   desktopItems = makeDesktopItem {
@@ -37,8 +38,7 @@
   '';
 in
   symlinkJoin {
-    name = pname;
-    version = "725";
+    name = "pname-${version}";
     paths = [desktopItems script];
 
     meta = {
