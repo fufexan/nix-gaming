@@ -64,8 +64,8 @@ in {
         src = fetchFromGitHub {
           owner = "GloriousEggroll";
           repo = "proton-wine";
-          rev = "Proton7-25";
-          sha256 = "sha256-eAF65WQU77b6MHCi6vqjXd6gywlrHsEWgpybWuze0iw=";
+          rev = "Proton7-27";
+          sha256 = "sha256-UPXGfAI8vJBmfAUpOCIFxB8Q6yHlxyN7/xb42czkTNU=";
         };
       });
 
