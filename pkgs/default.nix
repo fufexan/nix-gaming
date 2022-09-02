@@ -32,9 +32,9 @@
 
     wine-osu = wineBuilder "wine-osu" "base" {};
 
-    wine-tkg = wineBuilder "wine-tkg" "base" {};
+    wine-tkg = wineBuilder "wine-tkg" "full" {};
 
-    wine-tkg-full = wineBuilder "wine-tkg" "full" {};
+    wine-tkg-full = builtins.trace "nix-gaming: wine-tkg-full has been renamed to wine-tkg" wine-tkg;
   };
 in
   packages
