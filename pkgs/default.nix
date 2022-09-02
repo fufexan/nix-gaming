@@ -28,7 +28,7 @@
     # broken
     #winestreamproxy = callPackage ./winestreamproxy { wine = wine-tkg; };
 
-    wine-ge = wineBuilder "wine-ge" "base" {};
+    wine-ge = wineBuilder "wine-ge" "full" {};
 
     wine-osu = wineBuilder "wine-osu" "base" {};
 
