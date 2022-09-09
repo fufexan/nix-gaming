@@ -1,4 +1,8 @@
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   environment.systemPackages =
     # or home.packages
     [
@@ -42,7 +46,7 @@
         opts = {
           # same options as above can be provided here, and will be applied to all games
           # NOTE: game-specific options take precedence
-          wine = packages.wine-tkg;
+          wine = inputs.nix-gaming.packages.${pkgs.system}.wine-tkg;
         };
       });
 }
