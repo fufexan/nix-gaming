@@ -79,8 +79,8 @@ in {
         src = fetchFromGitHub {
           owner = "Tk-Glitch";
           repo = "wine-tkg";
-          rev = "af025a6db4e8c7392a241c7747a11fc6ede52d77";
-          sha256 = "sha256-DOeoZJBgKnExawXBOd+FIpZPGagSXkqf3z78+jMOvyQ=";
+          rev = "e70427c7a3380068860279937d13501f59ff72ad";
+          hash = "sha256-LqWSJNXYqbCYYo9tHfUkJmc3Nj+x8xWdiIJ6n9wKpKg=";
         };
       });
 
