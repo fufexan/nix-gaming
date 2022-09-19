@@ -30,9 +30,9 @@
     sha256 = "0iffhvdawc499nbn4k99k33cr7g8sdfcvq8k3z1g6gw24h87d5h5";
   };
   mono = fetchurl rec {
-    version = "5.1.1";
+    version = "7.3.0";
     url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
-    sha256 = "09wjrfxbw0072iv6d2vqnkc3y7dzj15vp8mv4ay44n1qp5ji4m3l";
+    sha256 = "1zr29qkfla8yb1z4sp1qmsvk66m149k441g3qw7hs3bjd5b2z7lk";
   };
 
   defaults = with pkgs; {
