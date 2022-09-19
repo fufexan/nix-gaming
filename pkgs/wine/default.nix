@@ -20,14 +20,14 @@
     pkgs.fetchurl {inherit url sha256;} // args;
 
   gecko32 = fetchurl rec {
-    version = "2.47.2";
+    version = "2.47.3";
     url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
-    sha256 = "07d6nrk2g0614kvwdjym1wq21d2bwy3pscwikk80qhnd6rrww875";
+    sha256 = "00cfyjkqglfwbacb2kj6326hq7kywd2f0wifimm68mg37inv1fg5";
   };
   gecko64 = fetchurl rec {
-    version = "2.47.2";
+    version = "2.47.3";
     url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
-    sha256 = "0iffhvdawc499nbn4k99k33cr7g8sdfcvq8k3z1g6gw24h87d5h5";
+    sha256 = "0xcn2g74b59l8fsah0wbvk4gnym9wbjgcic5sviiyv9b75afjgm5";
   };
   mono = fetchurl rec {
     version = "7.3.0";
