@@ -80,7 +80,7 @@ in
       description = "osu!stable installer and runner";
       homepage = "https://osu.ppy.sh";
       license = lib.licenses.unfree;
-      maintainer = with lib.maintainers; [fufexan];
+      maintainers = with lib.maintainers; [fufexan];
       platforms = with lib.platforms; ["x86_64-linux"];
     };
   }
