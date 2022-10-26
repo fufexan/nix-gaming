@@ -21,6 +21,11 @@
       wine-discord-ipc-bridge = wine-discord-ipc-bridge.override {wine = wine-osu;};
     };
 
+    roblox-player = callPackage ./roblox-player {
+      wine = wine-tkg;
+      inherit wine-discord-ipc-bridge;
+    };
+
     technic-launcher = callPackage ./technic-launcher {};
 
     wine-discord-ipc-bridge = callPackage ./wine-discord-ipc-bridge {wine = wine-tkg;};
