@@ -43,14 +43,14 @@ in {
     pname = pnameGen "wine-ge";
   in
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
-      // {
+      // rec {
         inherit pname;
-        version = "7.0";
+        version = "Proton7-33";
         src = fetchFromGitHub {
           owner = "GloriousEggroll";
           repo = "proton-wine";
-          rev = "Proton7-29";
-          hash = "sha256-IEsJ11TUlOx1ySVSk+P8j8LheWA7UZ2+HBsGLlAJWfQ=";
+          rev = version;
+          hash = "sha256-9KWAjbmT5ofUtMY+4hsjJwKjO+2uETx61krh/mgnSM8=";
         };
       });
 
