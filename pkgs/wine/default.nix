@@ -60,12 +60,12 @@ in {
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
       // {
         inherit pname;
-        version = "7.13";
+        version = "7.19";
         src = fetchFromGitHub {
           owner = "Tk-Glitch";
           repo = "wine-tkg";
-          rev = "e70427c7a3380068860279937d13501f59ff72ad";
-          hash = "sha256-LqWSJNXYqbCYYo9tHfUkJmc3Nj+x8xWdiIJ6n9wKpKg=";
+          rev = "9f965945972a0342b56ecb4aa058b9be88d06745";
+          hash = "sha256-Ledpy7e/dieBsrm7DmjoO1gv3MVFpJhCma/gboB9gzo=";
         };
       });
 
