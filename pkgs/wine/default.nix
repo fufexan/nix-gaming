@@ -19,30 +19,18 @@
   }:
     pkgs.fetchurl {inherit url sha256;} // args;
 
-  gecko32 = fetchurl rec {
-    version = "2.47.3";
-    url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
-    sha256 = "00cfyjkqglfwbacb2kj6326hq7kywd2f0wifimm68mg37inv1fg5";
-  };
-  gecko64 = fetchurl rec {
-    version = "2.47.3";
-    url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
-    sha256 = "0xcn2g74b59l8fsah0wbvk4gnym9wbjgcic5sviiyv9b75afjgm5";
-  };
-  mono = fetchurl rec {
-    version = "7.3.0";
-    url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
-    sha256 = "1zr29qkfla8yb1z4sp1qmsvk66m149k441g3qw7hs3bjd5b2z7lk";
-  };
-
-  defaults = with pkgs; {
+  defaults = let
+    sources = (import "${inputs.nixpkgs}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
+    vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
+    vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
+  in {
     inherit supportFlags moltenvk;
     patches = [];
     buildScript = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/builder-wow.sh";
     configureFlags = ["--disable-tests"];
-    geckos = [gecko32 gecko64];
+    geckos = with sources; [gecko32 gecko64];
     mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
-    monos = [mono];
+    monos = with sources; [mono];
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
     stdenv = stdenv_32bit;
@@ -50,9 +38,6 @@
   };
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
-
-  vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
-  vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
 in {
   wine-ge = let
     pname = pnameGen "wine-ge";
