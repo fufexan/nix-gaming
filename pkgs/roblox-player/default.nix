@@ -23,7 +23,7 @@
   };
   icon = builtins.fetchurl {
     url = "https://static.wikia.nocookie.net/logopedia/images/1/1e/Roblox_2022_%28Icon%29.png/revision/latest/scale-to-width-down/200?cb=20220831193228";
-    name = "roblox-player.png";
+    name = "roblox-player-${sha}.png";
     sha256 = "0gjkzcs05l45034q7g6r7s1983pkx83wgynqdabgdvh03jh1wx0j";
   };
 
