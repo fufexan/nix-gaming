@@ -22,9 +22,10 @@
     sha256 = "1gjgrznv44hi9pk2acagzbd2agw31l3h7jn95pzxrgjnryribqv8";
   };
   icon = builtins.fetchurl {
-    url = "https://static.wikia.nocookie.net/logopedia/images/1/1e/Roblox_2022_%28Icon%29.png/revision/latest/scale-to-width-down/200?cb=20220831193228";
+    # original url = "https://static.wikia.nocookie.net/logopedia/images/1/1e/Roblox_2022_%28Icon%29.png/revision/latest/scale-to-width-down/200?cb=20220831193228";
+    url = "https://user-images.githubusercontent.com/36706276/203341006-a75060b5-a718-4e30-a78c-ecc39d7ea5e7.png";
     name = "roblox-player.png";
-    sha256 = "0a40sp5va7bfnkwdq9ass22d72ssmfsr3b2861204rbc8salhabg";
+    sha256 = "1mhi0s40nsqka2xmhl8bs4043dzs4n1ivkh6psdysh3ylhcdh44g";
   };
 
   # concat winetricks args

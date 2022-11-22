@@ -25,8 +25,9 @@
   };
 
   icon = builtins.fetchurl {
-    url = "https://cdn.freebiesupply.com/logos/large/2x/technic-launcher-logo-png-transparent.png";
-    sha256 = "0zav6hk3m8gyirz2qwg6f08d4z4ijh3bbw09p9y6cgihzwsmv0f1";
+    # original url = "https://cdn.freebiesupply.com/logos/large/2x/technic-launcher-logo-png-transparent.png";
+    url = "https://user-images.githubusercontent.com/36706276/203341849-0b049d7a-8c00-4ff1-b916-1a8aacee7ffb.png";
+    sha256 = "0p18sfwaral8f6f5h9r5y9sxrzij2ks9zzyhfmzjldldladrwznq";
   };
 
   script = writeShellScriptBin pname ''
