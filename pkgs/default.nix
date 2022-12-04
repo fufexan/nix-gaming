@@ -14,6 +14,10 @@
     .${wine};
 
   packages = rec {
+    dxvk = callPackage ./dxvk {};
+    dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {};
+    dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {};
+
     osu-lazer-bin = callPackage ./osu-lazer-bin {};
 
     osu-stable = callPackage ./osu-stable {
@@ -28,6 +32,10 @@
 
     technic-launcher = callPackage ./technic-launcher {};
 
+    vkd3d-proton = callPackage ./vkd3d-proton {};
+    vkd3d-proton-w32 = pkgs.pkgsCross.mingw32.callPackage ./vkd3d-proton {};
+    vkd3d-proton-w64 = pkgs.pkgsCross.mingwW64.callPackage ./vkd3d-proton {};
+
     wine-discord-ipc-bridge = callPackage ./wine-discord-ipc-bridge {wine = wine-tkg;};
 
     # broken
@@ -38,6 +46,8 @@
     wine-osu = wineBuilder "wine-osu" "base" {};
 
     wine-tkg = wineBuilder "wine-tkg" "full" {};
+
+    wineprefix-preparer = callPackage ./wineprefix-preparer {inherit dxvk-w32 vkd3d-proton-w32 dxvk-w64 vkd3d-proton-w64;};
   };
 in
   packages
