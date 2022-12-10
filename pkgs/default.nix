@@ -3,10 +3,11 @@
   pkgs,
 }: let
   inherit (pkgs) callPackage;
+  pins = import ../npins;
 
   wineBuilder = wine: build: extra:
     (import ./wine ({
-        inherit inputs build pkgs;
+        inherit inputs build pkgs pins;
         inherit (pkgs) callPackage fetchFromGitHub fetchurl lib moltenvk pkgsCross pkgsi686Linux stdenv_32bit;
         supportFlags = (import ./wine/supportFlags.nix).${build};
       }
@@ -14,11 +15,11 @@
     .${wine};
 
   packages = rec {
-    dxvk = callPackage ./dxvk {};
-    dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {};
-    dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {};
+    dxvk = callPackage ./dxvk {inherit pins;};
+    dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
+    dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
 
-    osu-lazer-bin = callPackage ./osu-lazer-bin {};
+    osu-lazer-bin = callPackage ./osu-lazer-bin {inherit pins;};
 
     osu-stable = callPackage ./osu-stable {
       wine = wine-osu;
@@ -32,11 +33,14 @@
 
     technic-launcher = callPackage ./technic-launcher {};
 
-    vkd3d-proton = callPackage ./vkd3d-proton {};
-    vkd3d-proton-w32 = pkgs.pkgsCross.mingw32.callPackage ./vkd3d-proton {};
-    vkd3d-proton-w64 = pkgs.pkgsCross.mingwW64.callPackage ./vkd3d-proton {};
+    vkd3d-proton = callPackage ./vkd3d-proton {inherit pins;};
+    vkd3d-proton-w32 = pkgs.pkgsCross.mingw32.callPackage ./vkd3d-proton {inherit pins;};
+    vkd3d-proton-w64 = pkgs.pkgsCross.mingwW64.callPackage ./vkd3d-proton {inherit pins;};
 
-    wine-discord-ipc-bridge = callPackage ./wine-discord-ipc-bridge {wine = wine-tkg;};
+    wine-discord-ipc-bridge = callPackage ./wine-discord-ipc-bridge {
+      inherit pins;
+      wine = wine-tkg;
+    };
 
     # broken
     #winestreamproxy = callPackage ./winestreamproxy { wine = wine-tkg; };

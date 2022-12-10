@@ -1,16 +1,19 @@
-name: Checks
+name: Update
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
-  checks:
-    name: Check expressions
+  cachix:
+    name: Update sources
     runs-on: ubuntu-latest
     strategy:
       matrix:
         command:
-          - 'nix flake check --accept-flake-config'
-          - 'nix run nixpkgs#alejandra -- -c . -e ./npins'
+          - nix run nixpkgs#npins update
+          - pkgs/osu-lazer-bin/update.sh
+          - pkgs/osu-stable/update.sh
     steps:
       - uses: actions/checkout@v3.0.2
       - uses: cachix/install-nix-action@v17
@@ -20,3 +23,6 @@ jobs:
             auto-optimise-store = true
             experimental-features = nix-command flakes
       - run: ${{ matrix.command }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[gha] bump npins inputs"

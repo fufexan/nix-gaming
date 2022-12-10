@@ -9,18 +9,13 @@
   SDL2,
   windows,
   stdenv,
+  pins,
 }: let
-  version = "2.0";
-  dxvk-async = fetchFromGitHub {
-    owner = "Sporif";
-    repo = "dxvk-async";
-    rev = version;
-    hash = "sha256-meXii3aWKG2FM8FABaLC9Wo9DG+detr+HtDkmO1nuyw=";
-  };
+  inherit (pins) dxvk dxvk-async;
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation {
     name = "dxvk";
-    inherit version;
+    inherit (dxvk) version;
 
     enableParallelBuilding = true;
     separateDebugInfo = true;
@@ -45,13 +40,7 @@ in
       ln -s ${windows.mcfgthreads}/bin/mcfgthread-12.dll $out/bin/mcfgthread-12.dll
     '';
 
-    src = fetchFromGitHub {
-      owner = "doitsujin";
-      repo = "dxvk";
-      rev = "v" + version;
-      fetchSubmodules = true;
-      hash = "sha256-mSNFvoILsvm+CpWV7uRlb7DkjV7ctClSUdteNcF5EAY=";
-    };
+    src = dxvk;
 
     meta = with lib; {
       license = licenses.zlib;

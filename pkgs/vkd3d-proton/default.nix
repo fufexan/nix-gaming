@@ -9,21 +9,16 @@
   # cross compile inputs:
   stdenv,
   windows,
+  pins,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "vkd3d-proton";
-  version = "2.7";
+  inherit (pins.vkd3d-proton) version;
 
   enableParallelBuilding = true;
   separateDebugInfo = true;
 
-  src = fetchFromGitHub {
-    owner = "HansKristian-Work";
-    repo = "vkd3d-proton";
-    rev = "v${version}";
-    fetchSubmodules = true;
-    hash = "sha256-FlH0t1DO01CCLdvH0U/IXgUq1gFpc4krEbu/Tlv/pLI=";
-  };
+  src = pins.vkd3d-proton;
 
   buildInputs = lib.optionals stdenv.targetPlatform.isWindows [
     windows.mcfgthreads
