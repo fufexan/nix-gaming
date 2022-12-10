@@ -16,9 +16,10 @@
 }: let
   src = builtins.fetchurl rec {
     url = "https://m1.ppy.sh/r/osu!install.exe";
-    name = "osuinstall-${sha256}.exe";
-    sha256 = "09klh6l2zhibhyrfr6r4s6n5mbanzywbdqk0yywwl5smc8za1cph";
+    name = "osuinstall-${lib.strings.sanitizeDerivationName sha256}.exe";
+    sha256 = (builtins.fromJSON (builtins.readFile ./info.json)).hash;
   };
+
   icon = builtins.fetchurl {
     # original url = "https://i.ppy.sh/013ed2c11b34720790e74035d9f49078d5e9aa64/68747470733a2f2f6f73752e7070792e73682f77696b692f696d616765732f4272616e645f6964656e746974795f67756964656c696e65732f696d672f75736167652d66756c6c2d636f6c6f75722e706e67";
     url = "https://user-images.githubusercontent.com/36706276/203341604-085a1896-539e-4401-a458-ad6ee4209df8.png";
@@ -82,6 +83,7 @@ in
       homepage = "https://osu.ppy.sh";
       license = lib.licenses.unfree;
       maintainers = with lib.maintainers; [fufexan];
+      passthru.updateScript = ./update.sh;
       platforms = with lib.platforms; ["x86_64-linux"];
     };
   }

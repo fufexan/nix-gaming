@@ -1,5 +1,6 @@
 {
   lib,
+  pins,
   SDL2,
   alsa-lib,
   appimageTools,
@@ -21,10 +22,11 @@
   gmrun_enable ? true, # won't hurt users even if they don't have it set up
 }: let
   pname = "osu-lazer-bin";
-  version = "2023.207.0";
+  inherit (pins.osu) version;
+
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    sha256 = "sha256-xJQcqNV/Pr3gEGStczc3gv8AYrEKFsAo2g4WtA59fwk=";
+    inherit (builtins.fromJSON (builtins.readFile ./info.json)) hash;
   };
   extracted = appimageTools.extract {
     inherit version;
@@ -100,6 +102,7 @@ in
         unfreeRedistributable # osu-framework contains libbass.so in repository
       ];
       mainProgram = "osu-lazer";
+      passthru.updateScript = ./update.sh;
       platforms = ["x86_64-linux"];
     };
   }

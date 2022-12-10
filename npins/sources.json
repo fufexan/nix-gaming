@@ -1,0 +1,99 @@
+{
+  "pins": {
+    "dxvk": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "doitsujin",
+        "repo": "dxvk"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v2.1",
+      "revision": "fa49ca7cefb4fdc9c29da613293a8442ea15810b",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.1",
+      "hash": "1db9gmy63wjbml7yd7zhw78352fpp1cpymxxza8sn6xhfl0r6qyf"
+    },
+    "dxvk-async": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Sporif",
+        "repo": "dxvk-async"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "2.0",
+      "revision": "8665e600c04f9df2958f1b7aa348fa63f2ae24a9",
+      "url": "https://api.github.com/repos/Sporif/dxvk-async/tarball/2.0",
+      "hash": "0b5vcznrir6h3vzdlylxdw63sspmqai0ah616f2nsa4nfs5y5rcr"
+    },
+    "osu": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ppy",
+        "repo": "osu"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "2023.207.0",
+      "revision": "12f6d461b9aea229d806947ea5bd27d33f7d9826",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.207.0",
+      "hash": "12aqbadqdar90i2qvnaq4av1lf0s36plpfw4iqvikyzqz14k6j5k"
+    },
+    "proton-wine": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "GloriousEggroll",
+        "repo": "proton-wine"
+      },
+      "branch": "Proton7-37",
+      "revision": "32b54e575c08e9041ce65e24b8d16d1ca7cb15dc",
+      "url": "https://github.com/GloriousEggroll/proton-wine/archive/32b54e575c08e9041ce65e24b8d16d1ca7cb15dc.tar.gz",
+      "hash": "15gldlp3smmijx19qmj16zkh19i2fb7zx47j6hk51dnh9i70g5nz"
+    },
+    "vkd3d-proton": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "HansKristian-Work",
+        "repo": "vkd3d-proton"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v2.8",
+      "revision": "ac8760c00534b0c28a1de51af38844718e068119",
+      "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.8",
+      "hash": "1j6mz4i3791xn45bxay6v93s3dingrnf1l7avpwfwxq5dandv3iz"
+    },
+    "wine-discord-ipc-bridge": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "0e4ef622",
+        "repo": "wine-discord-ipc-bridge"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v0.0.2",
+      "revision": "dd649284cdbb41927e504b122a478aa5ae5ece60",
+      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.2",
+      "hash": "161z7bykh2lj8gsi477qkdg570ygw316fxpdpnknj70igj47shqg"
+    },
+    "wine-tkg": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tk-Glitch",
+        "repo": "wine-tkg"
+      },
+      "branch": "master",
+      "revision": "f5c727c8828a7713471a99e836b44545924f8092",
+      "url": "https://github.com/Tk-Glitch/wine-tkg/archive/f5c727c8828a7713471a99e836b44545924f8092.tar.gz",
+      "hash": "0x73s3qv8hzpxxll8hq95fadzf81v8v85wfmf1kd5nk9lykv709q"
+    }
+  },
+  "version": 3
+}

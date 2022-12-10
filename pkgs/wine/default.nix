@@ -1,5 +1,6 @@
 {
   inputs,
+  pins,
   lib,
   build,
   pkgs,
@@ -12,13 +13,6 @@
   supportFlags,
   stdenv_32bit,
 }: let
-  fetchurl = args @ {
-    url,
-    sha256,
-    ...
-  }:
-    pkgs.fetchurl {inherit url sha256;} // args;
-
   defaults = let
     sources = (import "${inputs.nixpkgs}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
   in {
@@ -36,35 +30,19 @@
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 in {
-  wine-ge = let
-    pname = pnameGen "wine-ge";
-  in
-    callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
-      // rec {
-        inherit pname;
-        version = "Proton7-37";
-        src = fetchFromGitHub {
-          owner = "GloriousEggroll";
-          repo = "proton-wine";
-          rev = version;
-          hash = "sha256-35YHTkzQtlAmNPKQ/s9yIqYA5zdBVpxCl7FWPS5t9JU=";
-        };
-      });
+  wine-ge = callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
+    // {
+      pname = pnameGen "wine-ge";
+      version = pins.proton-wine.branch;
+      src = pins.proton-wine;
+    });
 
-  wine-tkg = let
-    pname = pnameGen "wine-tkg";
-  in
-    callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
-      // {
-        inherit pname;
-        version = "8.0-rc1";
-        src = fetchFromGitHub {
-          owner = "Tk-Glitch";
-          repo = "wine-tkg";
-          rev = "f5c727c8828a7713471a99e836b44545924f8092";
-          hash = "sha256-OIGzp6dp2tJmcNXxgjbaAbnflCsJQ0Rp7/dDtPHQ43Q=";
-        };
-      });
+  wine-tkg = callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
+    // rec {
+      pname = pnameGen "wine-tkg";
+      version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
+      src = pins.wine-tkg;
+    });
 
   wine-osu = let
     pname = pnameGen "wine-osu";
