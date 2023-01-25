@@ -14,12 +14,12 @@
   preCommands ? "",
   postCommands ? "",
 }: let
-  version = "fc5e24b515354061";
+  version = "af653eb90d574aa0";
 
   src = builtins.fetchurl rec {
     url = "https://setup.rbxcdn.com/version-${version}-Roblox.exe";
     name = "robloxinstall-${sha256}.exe";
-    sha256 = "1gjgrznv44hi9pk2acagzbd2agw31l3h7jn95pzxrgjnryribqv8";
+    sha256 = "1h4k2dsw98lsdlsma0mwaiqzqdlijg1lkw37gf2a4vcv0bn176r1";
   };
   icon = builtins.fetchurl {
     # original url = "https://static.wikia.nocookie.net/logopedia/images/1/1e/Roblox_2022_%28Icon%29.png/revision/latest/scale-to-width-down/200?cb=20220831193228";
