@@ -45,12 +45,12 @@ in {
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
       // rec {
         inherit pname;
-        version = "Proton7-33";
+        version = "Proton7-36";
         src = fetchFromGitHub {
           owner = "GloriousEggroll";
           repo = "proton-wine";
           rev = version;
-          hash = "sha256-9KWAjbmT5ofUtMY+4hsjJwKjO+2uETx61krh/mgnSM8=";
+          hash = "sha256-K/yr+nTq4LnhCzCxfLivxBfSeGyoL6ta6CAPOOr0yPA=";
         };
       });
 
