@@ -21,8 +21,6 @@
 
   defaults = let
     sources = (import "${inputs.nixpkgs}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
-    vkd3d = pkgs.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
-    vkd3d_i686 = pkgsi686Linux.callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/vkd3d.nix" {inherit moltenvk;};
   in {
     inherit supportFlags moltenvk;
     patches = [];
@@ -34,7 +32,6 @@
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
     stdenv = stdenv_32bit;
-    vkd3dArches = lib.optionals supportFlags.vkd3dSupport [vkd3d vkd3d_i686];
   };
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";

@@ -27,8 +27,6 @@ rec {
     v4lSupport = false;
     gphoto2Support = false;
     krb5Support = false;
-    ldapSupport = false;
-    vkd3dSupport = false;
     embedInstallers = false;
     waylandSupport = false;
     usbSupport = true;
@@ -47,8 +45,6 @@ rec {
       pcapSupport = true;
       v4lSupport = true;
       gphoto2Support = true;
-      ldapSupport = true;
-      vkd3dSupport = true;
       embedInstallers = true;
     };
 }
