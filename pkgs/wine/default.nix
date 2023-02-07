@@ -42,12 +42,12 @@ in {
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
       // rec {
         inherit pname;
-        version = "Proton7-36";
+        version = "Proton7-37";
         src = fetchFromGitHub {
           owner = "GloriousEggroll";
           repo = "proton-wine";
           rev = version;
-          hash = "sha256-K/yr+nTq4LnhCzCxfLivxBfSeGyoL6ta6CAPOOr0yPA=";
+          hash = "sha256-35YHTkzQtlAmNPKQ/s9yIqYA5zdBVpxCl7FWPS5t9JU=";
         };
       });
 
@@ -57,12 +57,12 @@ in {
     callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
       // {
         inherit pname;
-        version = "7.19";
+        version = "8.0-rc1";
         src = fetchFromGitHub {
           owner = "Tk-Glitch";
           repo = "wine-tkg";
-          rev = "9f965945972a0342b56ecb4aa058b9be88d06745";
-          hash = "sha256-Ledpy7e/dieBsrm7DmjoO1gv3MVFpJhCma/gboB9gzo=";
+          rev = "f5c727c8828a7713471a99e836b44545924f8092";
+          hash = "sha256-OIGzp6dp2tJmcNXxgjbaAbnflCsJQ0Rp7/dDtPHQ43Q=";
         };
       });
 
