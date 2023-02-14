@@ -14,6 +14,7 @@ jobs:
           - nix run nixpkgs#npins update
           - pkgs/osu-lazer-bin/update.sh
           - pkgs/osu-stable/update.sh
+          - pkgs/faf-client/update.sh
     steps:
       - uses: actions/checkout@v3.0.2
       - uses: cachix/install-nix-action@v17

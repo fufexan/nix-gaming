@@ -6,6 +6,8 @@ Gaming related stuff for Nix and NixOS.
 
 Package                   | Description
 --------------------------|---
+`faf-client`              | Forged Alliance Forever client (using the official binary build)
+`faf-client-unstable`     | Same as above, but use unstable version if available
 `osu-lazer-bin`           | osu! lazer, extracted from the official AppImage
 `osu-stable`              | osu! stable version
 `rocket-league`           | Rocket League from Epic Games
@@ -15,6 +17,10 @@ Package                   | Description
 `wine-osu`                | Wine optimized for low latency
 `wine-tkg`                | Wine optimized for games
 `winestreamproxy`         | Wine-Discord RPC (broken)
+
+* To run FAF, first run Supreme Commander: Forged Alliance via Steam normally at
+least once. After you make sure it works, run `faf-client-setup` to set up the
+path to game data, settings and Proton wrapper correctly.
 
 * `legendaryBuilder` is a function that installs games with `legendary-gl`. You
 are expected to log in before using it, with `legendary auth`.

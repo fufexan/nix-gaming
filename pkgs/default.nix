@@ -19,6 +19,9 @@
     dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
     dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
 
+    faf-client = callPackage ./faf-client {};
+    faf-client-unstable = callPackage ./faf-client {unstable = true;};
+
     osu-lazer-bin = callPackage ./osu-lazer-bin {inherit pins;};
 
     osu-stable = callPackage ./osu-stable {
