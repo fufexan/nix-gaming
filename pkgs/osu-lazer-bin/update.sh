@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq moreutils
+#!/usr/bin/env -S nix shell nixpkgs#jq nixpkgs#moreutils -c bash
 
 info="pkgs/osu-lazer-bin/info.json"
 version=$(jq -r '.pins.osu.version' npins/sources.json)
