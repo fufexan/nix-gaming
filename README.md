@@ -1,8 +1,11 @@
-# nix-gaming
+<h1 align="center">nix-gaming</h1>
 
 Gaming related stuff for Nix and NixOS.
 
-## What's in here?
+See an overview of the flake outputs by running
+`nix flake show github:fufexan/nix-gaming`.
+
+## 🗃️ What's in here?
 
 Package                   | Description
 --------------------------|---
@@ -31,7 +34,7 @@ attrset that will set the options you set inside for all games listed.
 You can find a usage example in [example.nix](./example.nix).
 
 * `osu-lazer-bin` is an osu!lazer build that is extracted from official binary
-AppImage releases in order to preserve multiplayer functions.
+releases in order to preserve multiplayer functions.
 
 * `osu-stable` provides a script that installs/runs osu! automatically, in
 addition to a desktop entry.
@@ -71,16 +74,16 @@ you don't have to build packages.
 # configuration.nix
 {
   nix.settings = {
-    substituters = [ "https://nix-gaming.cachix.org" ];
-    trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
+    substituters = ["https://nix-gaming.cachix.org"];
+    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
   };
 }
 ```
 Now, rebuild your configuration and continue reading for install instructions.
 
-#### If you're not using flakes, [skip to here](#nix-stable).
+#### If you're not using flakes, [go here](#nix-stable).
 
-### Flakes
+### ❄️ Flakes
 
 Add these packages to your `home.packages` or `environment.systemPackages` by
 adding `nix-gaming` as an input:
@@ -96,11 +99,9 @@ config, or to `extraSpecialArgs` when building your Home Manager configuration.
 
 Then, add the package(s):
 ```nix
-{ pkgs, config, inputs, ... }:
-
-{
+{pkgs, config, inputs, ...}: {
   environment.systemPackages = [ # or home.packages
-    inputs.nix-gaming.packages.${pkgs.system}.<package> # installs a package
+    inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.<package> # installs a package
   ];
 }
 ```
@@ -115,23 +116,12 @@ may greatly differ from the packages.
 
 ### Nix Stable
 
-The following instructions assume you have this repo cloned somewhere.
-
-#### Packages
-
-To install packages with `nix-env`, run
-```
-cd directory/of/nix-gaming
-nix-env -if . -A packages.x86_64-linux.<package>
-```
-
 To install packages to `environment.systemPackages`, add this in
 `configuration.nix`:
 ```nix
-let
+{pkgs, ...}: let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
-in
-{
+in {
   # import the low latency module
   imports = [
     ...
@@ -139,8 +129,8 @@ in
   ];
   
   # install packages
-  environment.systemPackages = [ # home.packages
-    nix-gaming.packages.x86_64-linux.<package>
+  environment.systemPackages = [ # or home.packages
+    nix-gaming.packages.${pkgs.hostPlatform.system}.<package>
   ];
   
   # enable module (see below)
@@ -151,28 +141,25 @@ in
 ## PipeWire low latency
 
 [PipeWire](https://nixos.wiki/wiki/PipeWire) is a new audio backend that
-replaces ALSA, PulseAudio and Jack. It achieves lower latency than possible
-previously with Pulse, for lower CPU overhead.
+replaces ALSA, PulseAudio and JACK. It is as low latency as JACK and as easy to
+use as Pulse.
 
-This module extends the PipeWire module from nixpkgs and makes it easy to
-enable the low latency settings from a single line (or more).
+This module extends the PipeWire module from Nixpkgs and makes it easy to enable
+the low latency settings in a few lines.
 
-Add it as a module to your configuration and enable it along with PipeWire:
+Import the module in your configuration and enable it along with PipeWire:
 ```nix
 {
   services.pipewire = {
     enable = true;
-    # alsa is optional
     alsa.enable = true;
     alsa.support32Bit = true;
-    # needed for osu
     pulse.enable = true;
 
-    # the star of the show
-    lowLatency.enable = true;
-
-    # defaults (no need to be set unless modified)
     lowLatency = {
+      # enable this module      
+      enable = true;
+      # defaults (no need to be set unless modified)
       quantum = 64;
       rate = 48000;
     };
@@ -188,19 +175,19 @@ number or the prefix of the `rate` (`48/48000` is exactly 1ms).
 
 ### Game overrides
 
-The game derivations were written with versatility in mind. There are args that
-can be modified in order to get the result one wants.
+The game derivations were written with versatility in mind. There are arguments
+that can be modified in order to get the desired result.
 ```nix
 {
-  wine      ? wine-tkg         # controls the wine package used to run wine games
-  wineFlags ? null             # which flags to run wine with
-  pname     ? "game-name"      # name of the script and package
-  location  ? "$HOME/${pname}" # where to install the game/wine prefix
-  tricks    ? null             # which wine tricks to install
-  
-  preCommands  ? "" # run commands before the game is started
-  postCommands ? "" # run commands after the game is closed
-}
+  wine      ? wine-tkg,         # controls the wine package used to run wine games
+  wineFlags ? null,             # which flags to run wine with
+  pname     ? "game-name",      # name of the script and package
+  location  ? "$HOME/${pname}", # where to install the game/wine prefix
+  tricks    ? null,             # which wine tricks to install
+
+  preCommands  ? "",            # run commands before the game is started
+  postCommands ? "",            # run commands after the game is closed
+}:
 ```
 
 ### `osu-stable` `wine-discord-ipc-bridge` wine overriding
@@ -224,17 +211,12 @@ following tweaks:
 
 - custom/gaming kernel: `linux_xanmod` is the recommended one for games, since
 it provides many patches that aid wine and other games. It also provides a
-better desktop experience due to its PREEMPTive nature and tickless scheduler.
+better desktop experience due to its preemptive build and tickless scheduler.
 - [gamemode](https://github.com/FeralInteractive/gamemode): lets you achieve
 lower nice values and higher realtime privileges at game start. It can either
 detect games or be told to start with `gamemode-run`.
 
-## Credits & Resources
+## 👥 Credits & Resources
  
-Thank you
-- [boppyt](https://github.com/boppyt)
-- [gonX](https://github.com/gonX)
-- [InfinityGhost](https://github.com/InfinityGhost)
-- [LavaDesu](https://github.com/LavaDesu)
-- [openglfreak](https://github.com/openglfreak)
-- [yusdacra](https://github.com/yusdacra)
+Thank you: boppyt - gonX - InfinityGhost - LavaDesu - openglfreak - yusdacra
+and to all the contributors and users of this repo!
