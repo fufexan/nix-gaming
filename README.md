@@ -30,7 +30,6 @@ are expected to log in before using it, with `legendary auth`.
 The function takes an attrset containing at least the attrset `games` which
 includes the games you want installed. Optionally, you can set an `opts`
 attrset that will set the options you set inside for all games listed.
-
 You can find a usage example in [example.nix](./example.nix).
 
 * `osu-lazer-bin` is an osu!lazer build that is extracted from official binary
@@ -195,10 +194,12 @@ that can be modified in order to get the desired result.
 Sometimes you want to override `wine` for various reasons. Here's how to do it:
 ```nix
 {
-  environment.systemPackages = [ # or home.packages
-    inputs.nix-gaming.packages.${pkgs.system}.osu-stable.override rec {
+  environment.systemPackages = let
+    nix-gaming = inputs.nix-gaming.packages.${pkgs.hostPlatform.system};
+  in [ # or home.packages
+    nix-gaming.osu-stable.override rec {
       wine = <your-wine>;
-      wine-discord-ipc-bridge = wine-discord-ipc-bridge.override {inherit wine;}; # or override this one as well
+      wine-discord-ipc-bridge = nix-gaming.wine-discord-ipc-bridge.override {inherit wine;}; # or override this one as well
     };
   ];
 }
