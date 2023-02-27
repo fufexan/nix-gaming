@@ -9,21 +9,20 @@
           (hasSuffix ".patch")
           (filesystem.listFilesRecursive dir));
 
-  legendaryBuilder = {
-    games ? {},
-    opts ? {},
-    system ? "",
-  }:
-    builtins.mapAttrs (
-      name: value:
-        pkgs.${system}.callPackage ../pkgs/legendary
-        ({
-            inherit (inputs.self.packages.${system}) wine-discord-ipc-bridge;
-            pname = name;
-          }
-          // opts
-          // value)
-    )
-    games;
+    legendaryBuilder = pkgs: {
+      games ? {},
+      opts ? {},
+    }:
+      builtins.attrValues (builtins.mapAttrs (
+          name: value:
+            pkgs.callPackage ../pkgs/legendary
+            ({
+                inherit (inputs.self.packages.${pkgs.hostPlatform.system}) wine-discord-ipc-bridge;
+                pname = name;
+              }
+              // opts
+              // value)
+        )
+        games);
   };
 }

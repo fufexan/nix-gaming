@@ -9,10 +9,8 @@
       # ...
     ]
     # construct a list from the output attrset
-    ++ builtins.attrValues (inputs.nix-gaming.lib.legendaryBuilder
+    ++ (inputs.nix-gaming.lib.legendaryBuilder pkgs
       {
-        inherit (pkgs) system;
-
         games = {
           rocket-league = {
             # find names with `legendary list`
