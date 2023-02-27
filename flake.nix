@@ -1,31 +1,27 @@
 {
   description = "Gaming on Nix";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+  };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-  }: {
-    lib = import ./lib inputs;
-
-    overlays.default = _: prev:
-      import ./pkgs {
-        inherit inputs;
-        pkgs = prev;
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      flake.nixosModules = {
+        pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
+        default = inputs.self.nixosModules.pipewireLowLatency;
       };
 
-    packages = self.lib.genSystems (system:
-      self.overlays.default null (import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      }));
+      imports = [
+        ./lib
+        ./pkgs
+      ];
 
-    nixosModules.pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
-    nixosModules.default = inputs.self.nixosModules.pipewireLowLatency;
-
-    formatter = self.lib.genSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-  };
+      perSystem = {pkgs, ...}: {
+        formatter = pkgs.alejandra;
+      };
+    };
 
   # auto-fetch deps when `nix run/shell`ing
   nixConfig = {

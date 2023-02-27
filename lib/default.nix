@@ -1,20 +1,13 @@
-inputs: let
-  inherit (inputs.nixpkgs.lib) hasSuffix filesystem genAttrs;
-
-  pkgs = genSystems (system:
-    import inputs.nixpkgs
-    {
-      inherit system;
-      config.allowUnfree = true;
-    });
-
-  mkPatches = dir:
-    map (e: /. + e)
-    (builtins.filter
-      (hasSuffix ".patch")
-      (filesystem.listFilesRecursive dir));
-
-  genSystems = genAttrs supportedSystems;
+{inputs, ...}: {
+  flake.lib = {
+    mkPatches = let
+      inherit (inputs.nixpkgs.lib) hasSuffix filesystem;
+    in
+      dir:
+        map (e: /. + e)
+        (builtins.filter
+          (hasSuffix ".patch")
+          (filesystem.listFilesRecursive dir));
 
   legendaryBuilder = {
     games ? {},
@@ -32,6 +25,5 @@ inputs: let
           // value)
     )
     games;
-
-  supportedSystems = ["x86_64-linux"];
-in {inherit mkPatches genSystems legendaryBuilder pkgs;}
+  };
+}

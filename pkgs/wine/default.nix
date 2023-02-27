@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   pins,
   lib,
   build,
@@ -9,10 +10,7 @@
   callPackage,
   fetchFromGitHub,
   fetchurl,
-  autoconf,
-  perl,
   moltenvk,
-  hexdump,
   supportFlags,
   stdenv_32bit,
 }: let
@@ -67,10 +65,10 @@ in {
           rev = "wine-${version}";
           sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
         };
-        patches = ["${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch"] ++ inputs.self.lib.mkPatches ./patches;
+        patches = ["${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch"] ++ self.lib.mkPatches ./patches;
       }))
     .overrideDerivation (old: {
-      nativeBuildInputs = [autoconf perl hexdump] ++ old.nativeBuildInputs;
+      nativeBuildInputs = with pkgs; [autoconf perl hexdump] ++ old.nativeBuildInputs;
       prePatch = ''
         patchShebangs tools
         cp -r ${staging}/patches .
