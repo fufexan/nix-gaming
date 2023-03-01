@@ -13,7 +13,7 @@ jobs:
           - 'nix run nixpkgs#alejandra -- -c . -e ./npins'
     steps:
       - uses: actions/checkout@v3.0.2
-      - uses: cachix/install-nix-action@v17
+      - uses: cachix/install-nix-action@v20
         with:
           install_url: https://nixos.org/nix/install
           extra_nix_config: |
