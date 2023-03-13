@@ -13,6 +13,8 @@ jobs:
         - wine-ge
         - wine-tkg
         - proton-ge
+        - faf-client
+        - faf-client-unstable
     steps:
       - uses: actions/checkout@v3.0.2
       - uses: cachix/install-nix-action@v20
