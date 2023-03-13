@@ -1,5 +1,33 @@
 {
   "pins": {
+    "downlords-faf-client": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "FAForever",
+        "repo": "downlords-faf-client"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v2023.5.0",
+      "revision": "984fae6ecb94b242fcb1ca943a96983310d6c9f7",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.5.0",
+      "hash": "1rvs683fxrb6ynj1vkw0vk4z6llww3js35w14i5vckjf359dig85"
+    },
+    "downlords-faf-client-unstable": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "FAForever",
+        "repo": "downlords-faf-client"
+      },
+      "pre_releases": true,
+      "version_upper_bound": null,
+      "version": "v2023.5.0",
+      "revision": "984fae6ecb94b242fcb1ca943a96983310d6c9f7",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.5.0",
+      "hash": "1rvs683fxrb6ynj1vkw0vk4z6llww3js35w14i5vckjf359dig85"
+    },
     "dxvk": {
       "type": "GitRelease",
       "repository": {
@@ -27,6 +55,34 @@
       "revision": "8665e600c04f9df2958f1b7aa348fa63f2ae24a9",
       "url": "https://api.github.com/repos/Sporif/dxvk-async/tarball/2.0",
       "hash": "0b5vcznrir6h3vzdlylxdw63sspmqai0ah616f2nsa4nfs5y5rcr"
+    },
+    "faf-ice-adapter": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "FAForever",
+        "repo": "java-ice-adapter"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v3.3.1",
+      "revision": "64634afacb1a077eb87fcfe84684b6c160dfad7c",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.1",
+      "hash": "1kwszvhbn8ir5a4yzhf9bix9628l7dw1hxgf21zgp6qcks5pnhi6"
+    },
+    "faf-uid": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "FAForever",
+        "repo": "uid"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v4.0.5",
+      "revision": "5a2c98d2213492287b724429707f0bc7f6fa017f",
+      "url": "https://api.github.com/repos/FAForever/uid/tarball/v4.0.5",
+      "hash": "055khjjcpx4z5lvx9dqi069kr4y3wdsk4dkd9djmkh1ffdhkm3rw"
     },
     "osu": {
       "type": "GitRelease",

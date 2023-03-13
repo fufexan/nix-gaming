@@ -1,32 +1,47 @@
 {
   lib,
+  pins,
   stdenvNoCC,
-  makeWrapper,
   makeDesktopItem,
-  # regular jdk doesnt work due to problems with JavaFX even with .override { enableJavaFX = true; }
+  # TODO: preferably get rid of this and use regular openjdk
+  # might require patches to nixpkgs
   openjdk17-bootstrap,
-  xorg,
-  libGL,
-  gtk3,
-  glib,
+  gradle,
+  perl,
+  substituteAll,
+  runtimeShell,
+  gawk,
+  # can't we somehow patchelf the openjfx runtime during build phase?
   alsa-lib,
+  libGL,
+  glib,
+  gtk3,
+  xorg,
+  fontconfig,
+  freetype,
+  pango,
+  callPackage,
+  deps ? null,
+  uid ? callPackage ./uid.nix {inherit pins;},
+  ice-adapter ?
+    callPackage ./ice-adapter.nix {
+      inherit pins;
+      enableJfx = false;
+    },
   unstable ? false,
+  enablePatches ? true,
+  enableUpdateCheck ? (!enablePatches),
 }: let
+  deps' = deps;
+in let
   pname = "faf-client";
 
-  versionStable = "2023.5.0";
-  sha256Stable = "0w26lplnfph8hs9jxvs4xa5rrx3jpbgl6vdk2w8qfpcgxv9ym8i6";
-  srcStable = builtins.fetchTarball {
-    url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionStable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionStable}.tar.gz";
-    sha256 = sha256Stable;
-  };
+  version = builtins.replaceStrings ["v"] [""] src.version;
 
-  versionUnstable = "2023.6.0-alpha-1";
-  sha256Unstable = "1n9rkgblmcs3pcm8fjf0k0pfbga7fkkal5mpf63m5i173i1x5fca";
-  srcUnstable = builtins.fetchTarball {
-    url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionUnstable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionUnstable}.tar.gz";
-    sha256 = sha256Unstable;
-  };
+  src =
+    if unstable
+    then pins.downlords-faf-client-unstable
+    else pins.downlords-faf-client;
 
   meta = with lib; {
     description = "Official client for Forged Alliance Forever";
@@ -34,11 +49,8 @@
     license = licenses.mit;
   };
 
-  icon = builtins.fetchurl {
-    url = "https://github.com/FAForever/downlords-faf-client/raw/11f5d9a7a728883374510cdc0bec51c9aa4126d7/src/media/appicon/256.png";
-    name = "faf-client.png";
-    sha256 = "0zc2npsiqanw1kwm78n25g26f9f0avr9w05fd8aisk191zi7mj5r";
-  };
+  icon = "faf-client";
+
   desktopItem = makeDesktopItem {
     inherit icon;
     name = "faf-client";
@@ -51,46 +63,184 @@
 
   libs = [
     alsa-lib
+    fontconfig
+    freetype
     glib
-    gtk3.out
+    gtk3
     libGL
+    pango
+    xorg.libX11
+    xorg.libXtst
     xorg.libXxf86vm
   ];
+
+  depsHashStable = "sha256:xNCpoQNg0ppIRFiXzitPyWYM4nrXuMdrhmRER/Vo528=";
+  depsHashUnstable = "sha256:xNCpoQNg0ppIRFiXzitPyWYM4nrXuMdrhmRER/Vo528=";
+
+  deps =
+    if deps' != null
+    then deps'
+    else
+      stdenvNoCC.mkDerivation {
+        pname = "${pname}-deps";
+        java_home = openjdk17-bootstrap;
+        inherit src version;
+        gradle_lockfile =
+          if unstable
+          then ./gradle-unstable.lockfile
+          else ./gradle-stable.lockfile;
+        postPatch = ''
+          cp $gradle_lockfile gradle.lockfile
+        '';
+        nativeBuildInputs = [gradle perl];
+        preBuild = ''
+          export GRADLE_USER_HOME=$(mktemp -d)
+          sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
+          sed -i "s/mavenLocal()//g" build.gradle
+          cat <<END >> build.gradle
+          dependencyLocking {
+            lockAllConfigurations()
+          }
+          task downloadDependencies {
+            doLast {
+              configurations.findAll{it.canBeResolved}.each{it.resolve()}
+              buildscript.configurations.findAll{it.canBeResolved}.each{it.resolve()}
+            }
+          }
+          END
+        '';
+        buildPhase = ''
+          runHook preBuild
+          gradle --no-daemon -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
+          runHook postBuild
+        '';
+        installPhase = ''
+          find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
+            | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
+            | sh
+          cp gradle.lockfile $out
+        '';
+        outputHashMode = "recursive";
+        outputHash =
+          if unstable
+          then depsHashUnstable
+          else depsHashStable;
+        passthru.updateLockfile = deps.overrideAttrs (old: {
+          gradle_lockfile = "";
+          postPatch = "";
+          # sadly, we have to do it twice to make sure the hashes match
+          # (we have to download more pom files than we will need at build time before we can generate the lockfile)
+          buildPhase = ''
+            runHook preBuild
+            gradle --write-locks --no-daemon -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
+            rm -rf $GRADLE_USER_HOME
+            export GRADLE_USER_HOME=$(mktemp -d)
+            gradle --no-daemon -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
+            runHook postBuild
+          '';
+        });
+      };
+  gradleInit = substituteAll {
+    src = ./init.gradle;
+    inherit deps;
+  };
+  jfxPlatform =
+    if stdenvNoCC.isDarwin
+    then
+      (
+        if stdenvNoCC.isAarch64
+        then "mac-aarch64"
+        else if stdenvNoCC.isx86_64
+        then "mac"
+        else null
+      )
+    else if stdenvNoCC.isLinux
+    then
+      (
+        if stdenvNoCC.isAarch64
+        then "linux-aarch64"
+        else if stdenvNoCC.isx86_64
+        then "linux"
+        else null
+      )
+    else null;
 in
   stdenvNoCC.mkDerivation {
-    inherit pname meta desktopItem;
-    version =
-      if unstable
-      then versionUnstable
-      else versionStable;
-    src =
-      if unstable
-      then srcUnstable
-      else srcStable;
+    inherit pname version meta src desktopItem gawk runtimeShell;
+    java_home = openjdk17-bootstrap;
+    libs = lib.makeLibraryPath libs;
 
-    preferLocalBuild = true;
-    nativeBuildInputs = [makeWrapper];
+    postPatch = ''
+      cp ${deps}/gradle.lockfile gradle.lockfile
+      chmod +w gradle.lockfile
+      sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
+    '';
+
+    patches = lib.optionals (!enableUpdateCheck) [./disable-update-check.patch];
+
+    nativeBuildInputs = [
+      gradle
+    ];
+
+    buildPhase = ''
+      runHook preBuild
+      export GRADLE_USER_HOME=$(mktemp -d)
+      sed -i "s#downloadWindowsUid, ##" build.gradle
+      sed -i "s#downloadWindowsUid.outputs.files##" build.gradle
+      mkdir -p build/resources/native
+      cp ${uid}/bin/faf-uid build/resources/native/
+      cp ${ice-adapter} build/resources/native/faf-ice-adapter.jar
+      gradle --offline --no-daemon \
+        -Dorg.gradle.java.home=$java_home \
+        -Pversion=$version \
+        -PjavafxPlatform=${jfxPlatform} \
+        --init-script ${gradleInit} \
+        installDist
+      runHook postBuild
+    '';
+
+    # tests are somewhat unstable so they're disabled by default
+    # nonetheless, they are helpful to see if something is very wrong
+    doCheck = false;
+    checkPhase = ''
+      LD_LIBRARY_PATH=${lib.makeLibraryPath libs} gradle --offline --no-daemon \
+        -Dorg.gradle.java.home=$java_home \
+        -Pversion=$version \
+        -PjavafxPlatform=${jfxPlatform} \
+        test
+    '';
 
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out
-      cp -rfv * .install4j $out
+      mkdir -p $out/bin $out/lib/faf-client/lib $out/lib/faf-client/natives $out/share
+      cp build/install/faf-client/* $out/lib/faf-client/lib
 
-      mkdir $out/bin
-      makeWrapper $out/faf-client $out/bin/faf-client \
-        --chdir $out \
-        --set INSTALL4J_JAVA_HOME ${openjdk17-bootstrap} \
-        --suffix LD_LIBRARY_PATH : ${lib.strings.makeLibraryPath libs}
+      mv $out/lib/faf-client/lib/faf-uid $out/lib/faf-client/lib/faf-ice-adapter.jar $out/lib/faf-client/natives
+      ln -s ../natives/faf-uid $out/lib/faf-client/lib/faf-uid
+      ln -s ../natives/faf-ice-adapter.jar $out/lib/faf-client/lib/faf-ice-adapter.jar
 
-      ln -s ../natives/faf-uid $out/lib/faf-uid
-      ln -s ${./faf-client-setup.py} $out/bin/faf-client-setup
+      cp -r $desktopItem/share/* $out/share/
+      pushd src/media/appicon
+      for icon in *.png; do
+        dir=$out/share/icons/hicolor/"''${icon%.png}x''${icon%.png}"/apps
+        mkdir -p "$dir"
+        cp "$icon" "$dir"/${icon}.png
+      done
+      popd
 
-      mkdir $out/share
-      cp -r ${desktopItem}/share/* $out/share/
+      cp build/resources/main/steam_appid.txt $out/lib/faf-client
+
+      substituteAll ${./start.sh} $out/bin/faf-client
+      chmod +x $out/bin/faf-client
+      cp ${./faf-client-setup.py} $out/bin/faf-client-setup
+      chmod +x $out/bin/faf-client-setup
 
       runHook postInstall
     '';
 
-    passthru.updateScript = ./update.sh;
+    passthru = {
+      inherit deps uid ice-adapter;
+      updateScript = ./update-src.sh;
+    };
   }

@@ -34,8 +34,13 @@
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
 
-      faf-client = pkgs.callPackage ./faf-client {};
-      faf-client-unstable = pkgs.callPackage ./faf-client {unstable = true;};
+      faf-client = pkgs.callPackage ./faf-client {inherit pins;};
+      faf-client-unstable = pkgs.callPackage ./faf-client {
+        inherit pins;
+        unstable = true;
+      };
+      faf-client-bin = pkgs.callPackage ./faf-client/bin.nix {};
+      faf-client-unstable-bin = pkgs.callPackage ./faf-client/bin.nix {unstable = true;};
 
       osu-mime = pkgs.callPackage ./osu-mime {};
 

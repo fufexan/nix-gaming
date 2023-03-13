@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-filePath="pkgs/faf-client/default.nix"
+filePath="pkgs/faf-client/bin.nix"
 
 dry_run=
 while test $# != 0
@@ -18,7 +18,7 @@ function getValue()
 {
     grep "$1 = " $filePath | sed 's/.*= "//g' | sed 's/".*//g'
 }
-function calcHash()
+function calcSha256()
 {
     (nix-build --no-out-link -A "$1" || true) |& grep --perl-regexp --only-matching 'got: +.+[:-]\K.+'
 }
@@ -27,7 +27,7 @@ function replaceInFile()
     if [ -n "$dry_run" ]; then
         echo "will replace "'`'"$1"'`'" with "'`'"$2"'`'
     else
-        sed -i "s/$1/$2/g" "$filePath"
+        sed -i "s%$1%$2%g" "$filePath"
     fi
 }
 
@@ -67,7 +67,7 @@ else
 
     replaceInFile "$oldSha256Stable" "$fakeSha256_1"
     if [ -z "$dry_run" ]; then
-        sha256Stable=$(calcHash "packages.$system.faf-client")
+        sha256Stable=$(calcSha256 "packages.$system.faf-client-bin")
         replaceInFile "$fakeSha256_1" "$sha256Stable"
     fi
 fi
@@ -83,7 +83,7 @@ else
 
     replaceInFile "sha256Unstable = \"$oldSha256Unstable" "sha256Unstable = \"$fakeSha256_2"
     if [ -z "$dry_run" ]; then
-        sha256Unstable=$(calcHash "packages.$system.faf-client-unstable")
+        sha256Unstable=$(calcSha256 "packages.$system.faf-client-unstable-bin")
         replaceInFile "$fakeSha256_2" "$sha256Unstable" $filePath
     fi
 fi

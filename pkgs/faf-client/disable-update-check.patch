@@ -1,0 +1,12 @@
+diff --git a/src/main/java/com/faforever/client/update/Version.java b/src/main/java/com/faforever/client/update/Version.java
+--- a/src/main/java/com/faforever/client/update/Version.java
++++ b/src/main/java/com/faforever/client/update/Version.java
+@@ -74,7 +74,7 @@ public final class Version {
+     } else {
+       log.info("fromVersion version '{}' is newer than toVersion '{}'. fromVersion should be updated.",
+           toComparableVersion.getCanonical(), fromComparableVersion.getCanonical());
+-      return true;
++      return false;
+     }
+   }
+
