@@ -37,11 +37,12 @@ in {
       src = pins.proton-wine;
     });
 
-  wine-tkg = callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
-    // rec {
+  wine-tkg = callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
+    rec {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
       src = pins.wine-tkg;
+      supportFlags.waylandSupport = true;
     });
 
   wine-osu = let
