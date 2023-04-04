@@ -49,10 +49,10 @@
         "owner": "GloriousEggroll",
         "repo": "proton-wine"
       },
-      "branch": "Proton7-37",
-      "revision": "32b54e575c08e9041ce65e24b8d16d1ca7cb15dc",
-      "url": "https://github.com/GloriousEggroll/proton-wine/archive/32b54e575c08e9041ce65e24b8d16d1ca7cb15dc.tar.gz",
-      "hash": "15gldlp3smmijx19qmj16zkh19i2fb7zx47j6hk51dnh9i70g5nz"
+      "branch": "Proton7-42",
+      "revision": "9ee5c1b71ee160877dcf8bd3a927ca7e27751cd5",
+      "url": "https://github.com/GloriousEggroll/proton-wine/archive/9ee5c1b71ee160877dcf8bd3a927ca7e27751cd5.tar.gz",
+      "hash": "0i4lykczsqf6yyk6zbjgk3n9v8x9mgby527v0bh2hbzq83mxkfj1"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -86,13 +86,13 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "Tk-Glitch",
+        "owner": "Kron4ek",
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "f5c727c8828a7713471a99e836b44545924f8092",
-      "url": "https://github.com/Tk-Glitch/wine-tkg/archive/f5c727c8828a7713471a99e836b44545924f8092.tar.gz",
-      "hash": "0x73s3qv8hzpxxll8hq95fadzf81v8v85wfmf1kd5nk9lykv709q"
+      "revision": "ab4b3788ff29f126062d5d537d4d242726b80971",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/ab4b3788ff29f126062d5d537d4d242726b80971.tar.gz",
+      "hash": "0b4z568xwb6qsx6rh6qnk884b2hfbigbdqpmj168ll5k2xqmv7iw"
     }
   },
   "version": 3
