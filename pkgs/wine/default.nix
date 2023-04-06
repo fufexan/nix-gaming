@@ -9,7 +9,10 @@
   callPackage,
   fetchFromGitHub,
   fetchurl,
+  autoconf,
+  perl,
   moltenvk,
+  hexdump,
   supportFlags,
   stdenv_32bit,
 }: let
@@ -66,7 +69,8 @@ in {
         };
         patches = ["${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch"] ++ inputs.self.lib.mkPatches ./patches;
       }))
-    .overrideDerivation (_: {
+    .overrideDerivation (old: {
+      nativeBuildInputs = [autoconf perl hexdump] ++ old.nativeBuildInputs;
       prePatch = ''
         patchShebangs tools
         cp -r ${staging}/patches .
