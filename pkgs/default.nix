@@ -28,7 +28,7 @@
       wine = wine-osu;
       wine-discord-ipc-bridge = wine-discord-ipc-bridge.override {wine = wine-osu;};
     };
-    
+
     proton-ge = callPackage ./proton-ge {};
 
     roblox-player = callPackage ./roblox-player {
