@@ -20,6 +20,7 @@ Package                   | Description
 `wine-osu`                | Wine optimized for low latency
 `wine-tkg`                | Wine optimized for games
 `winestreamproxy`         | Wine-Discord RPC (broken)
+`proton-ge`               | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
 
 * To run FAF, first run Supreme Commander: Forged Alliance via Steam normally at
 least once. After you make sure it works, run `faf-client-setup` to set up the
@@ -64,6 +65,9 @@ It consists of a wine tree generated with
 
 * `winestreamproxy` provides bridging between games under Wine and Discord
 running on Linux. (**currently broken, help with building would be appreciated**)
+
+* To use `proton-ge`, you must add it to your steam compatibility tools path.
+More info can be found [here](https://github.com/NixOS/nixpkgs/issues/73323#issuecomment-1079939987).
 
 ## Install & Run
 
