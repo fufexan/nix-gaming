@@ -7,24 +7,20 @@ See an overview of the flake outputs by running
 
 ## 🗃️ What's in here?
 
-Package                   | Description
---------------------------|---
-`faf-client`              | Forged Alliance Forever client (using the official binary build)
-`faf-client-unstable`     | Same as above, but use unstable version if available
-`osu-lazer-bin`           | osu! lazer, extracted from the official AppImage
-`osu-stable`              | osu! stable version
-`rocket-league`           | Rocket League from Epic Games
-`technic-launcher`        | Technic Launcher
-`wine-discord-ipc-bridge` | Wine-Discord RPC Bridge
-`wine-ge`                 | Wine version of Proton-GE
-`wine-osu`                | Wine optimized for low latency
-`wine-tkg`                | Wine optimized for games
-`winestreamproxy`         | Wine-Discord RPC (broken)
-`proton-ge`               | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
-
-* To run FAF, first run Supreme Commander: Forged Alliance via Steam normally at
-least once. After you make sure it works, run `faf-client-setup` to set up the
-path to game data, settings and Proton wrapper correctly.
+Package                                                     | Description
+------------------------------------------------------------|------------
+[`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (using the official binary build)
+[`faf-client-unstable`](./pkgs/faf-client)                  | Same as above, but use unstable version if available
+[`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
+[`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
+`rocket-league`                                             | Rocket League from Epic Games
+[`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher
+[`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge
+[`wine-ge`](./pkgs/wine)                                    | Wine version of Proton-GE
+[`wine-osu`](./pkgs/wine)                                   | Wine optimized for low latency
+[`wine-tkg`](./pkgs/wine)                                   | Wine optimized for games
+[`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)
+[`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
 
 * `legendaryBuilder` is a function that installs games with `legendary-gl`. You
 are expected to log in before using it, with `legendary auth`.
@@ -33,46 +29,10 @@ includes the games you want installed. Optionally, you can set an `opts`
 attrset that will set the options you set inside for all games listed.
 You can find a usage example in [example.nix](./example.nix).
 
-* `osu-lazer-bin` is an osu!lazer build that is extracted from official binary
-releases in order to preserve multiplayer functions.
-
-* `osu-stable` provides a script that installs/runs osu! automatically, in
-addition to a desktop entry.
-Installation will take a bit of time. It will download and install about 400MB
-of files. In any case, **do not stop the command!**
-If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
-directory and re-run `osu-stable`.
-
-* `technic-launcher` will guide you through the install process, just like it
-normally would. Some modpacks will complain about libraries, and that is
-expected. In such cases you may want to enable the `withSteamRun = true;`
-override flag. This will run `technic-launcher` with `steam-run` and prevent
-those errors.
-
-* `wine-discord-ipc-bridge` provides bridging between games under Wine and
-Discord running on Linux.
-
-* `wine-ge` is the wine equivalent of the famous Proton-GE. It is based on
-`wine-tkg`, and is expected to work better than it.
-
-* `wine-osu` is wine-staging, with patches applied to make it low-latency.
-The patches can be found
-[here](https://drive.google.com/drive/folders/17MVlyXixv7uS3JW4B-H8oS4qgLn7eBw5).
-
-* `wine-tkg` is a special wine version, tailored for the best gaming experience.
-It consists of a wine tree generated with
-[the tkg patches](https://github.com/Frogging-Family/wine-tkg-git).
-
-* `winestreamproxy` provides bridging between games under Wine and Discord
-running on Linux. (**currently broken, help with building would be appreciated**)
-
-* To use `proton-ge`, you must add it to your steam compatibility tools path.
-More info can be found [here](https://github.com/NixOS/nixpkgs/issues/73323#issuecomment-1079939987).
-
 ## Install & Run
 
 It's recommended to set up [Cachix](https://app.cachix.org/cache/nix-gaming) so
-you don't have to build packages.
+you don't have to build packages (most useful for wine).
 ```nix
 # configuration.nix
 {
@@ -104,13 +64,13 @@ Then, add the package(s):
 ```nix
 {pkgs, config, inputs, ...}: {
   environment.systemPackages = [ # or home.packages
-    inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.<package> # installs a package
+    inputs.nix-gaming.packages.${pkgs.system}.<package> # installs a package
   ];
 }
 ```
 
 If you want to install packages to your profile instead, do it like this
-```
+```console
   nix profile install github:fufexan/nix-gaming#<package>
 ```
 
@@ -176,7 +136,7 @@ Import the module in your configuration and enable it along with PipeWire:
 If you get no sound, you may want to increase `quantum`, usually to an even
 number or the prefix of the `rate` (`48/48000` is exactly 1ms).
 
-### Game overrides
+### ⚙ Game overrides
 
 The game derivations were written with versatility in mind. There are arguments
 that can be modified in order to get the desired result.
@@ -209,7 +169,7 @@ Sometimes you want to override `wine` for various reasons. Here's how to do it:
 }
 ```
 
-## Tips
+## 📝 Tips
 
 In order to get the most performance out of your machine, you could use the
 following tweaks:
@@ -219,7 +179,7 @@ it provides many patches that aid wine and other games. It also provides a
 better desktop experience due to its preemptive build and tickless scheduler.
 - [gamemode](https://github.com/FeralInteractive/gamemode): lets you achieve
 lower nice values and higher realtime privileges at game start. It can either
-detect games or be told to start with `gamemode-run`.
+detect games or be started with `gamemode-run`.
 
 ## 👥 Credits & Resources
  
