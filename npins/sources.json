@@ -9,10 +9,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v2.1",
-      "revision": "fa49ca7cefb4fdc9c29da613293a8442ea15810b",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.1",
-      "hash": "1db9gmy63wjbml7yd7zhw78352fpp1cpymxxza8sn6xhfl0r6qyf"
+      "version": "v2.2",
+      "revision": "922ce7b2ded0b8142a8fa428ac19c2ab265d963f",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.2",
+      "hash": "107w8jgchvg9fs68j2w5x2c2xda0f47qhiq2913vblmd2dqb0d7m"
     },
     "dxvk-async": {
       "type": "GitRelease",
@@ -90,9 +90,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "6cd6b07d13e0111cf746231ea1d817f3b588e7c9",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/6cd6b07d13e0111cf746231ea1d817f3b588e7c9.tar.gz",
-      "hash": "0cmy64a08b2lraca20mjp1r5s4z926363bprv9knpck7ndx52jyk"
+      "revision": "c1528e244d31cad6e616a510363e5a9cfbf188cb",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/c1528e244d31cad6e616a510363e5a9cfbf188cb.tar.gz",
+      "hash": "1wcjivpq92byyxg2wkv0j3yi9h2hm7brs587r9ixfl29px21ir0p"
     }
   },
   "version": 3
