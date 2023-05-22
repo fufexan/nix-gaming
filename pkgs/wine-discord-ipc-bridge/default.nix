@@ -2,7 +2,6 @@
   lib,
   stdenv,
   pins,
-  fetchFromGitHub,
   wine,
   pkgsCross,
 }: let
@@ -24,6 +23,6 @@ in
       homepage = "https://github.com/0e4ef622/wine-discord-ipc-bridge";
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [fufexan];
-      platforms = with lib.platforms; ["x86_64-linux"];
+      platforms = ["x86_64-linux"];
     };
   }

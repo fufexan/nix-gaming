@@ -1,7 +1,6 @@
 {
   # native inputs:
   lib,
-  fetchFromGitHub,
   meson,
   ninja,
   glslang,

@@ -61,6 +61,6 @@ in
       homepage = "https://rocketleague.com";
       license = lib.licenses.unfree;
       maintainers = with lib.maintainers; [fufexan];
-      platforms = with lib.platforms; ["x86_64-linux"];
+      platforms = ["x86_64-linux"];
     };
   }
