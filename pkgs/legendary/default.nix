@@ -14,7 +14,6 @@
   meta ? {},
   pname ? "",
   tricks ? [],
-  wineFlags ? "",
   preCommands ? "",
   postCommands ? "",
   discordIntegration ? true,

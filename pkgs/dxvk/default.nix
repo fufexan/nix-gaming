@@ -1,6 +1,5 @@
 {
   # native inputs:
-  fetchFromGitHub,
   lib,
   meson,
   ninja,

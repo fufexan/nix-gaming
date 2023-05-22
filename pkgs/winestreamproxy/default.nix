@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Program for Wine that forwards messages between a named pipe client and a unix socket server";
     homepage = "https://github.com/openglfreak/winestreamproxy";
     maintainers = with lib.maintainers; [fufexan];
-    platforms = with lib.platforms; ["i686-linux" "x86_64-linux"];
+    platforms = ["i686-linux" "x86_64-linux"];
     broken = true;
   };
 }
