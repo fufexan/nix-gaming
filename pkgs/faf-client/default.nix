@@ -14,15 +14,15 @@
 }: let
   pname = "faf-client";
 
-  versionStable = "2023.4.0";
-  sha256Stable = "10mvygz164sih0f046vr5gpg1sb7rffqjrwz6ih1nrypsihz4zkn";
+  versionStable = "2023.5.0";
+  sha256Stable = "0w26lplnfph8hs9jxvs4xa5rrx3jpbgl6vdk2w8qfpcgxv9ym8i6";
   srcStable = builtins.fetchTarball {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionStable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionStable}.tar.gz";
     sha256 = sha256Stable;
   };
 
-  versionUnstable = "2023.5.0-alpha-2";
-  sha256Unstable = "126vwd5n3k7mwj8j1z2iar9pnhxpd7765bmvww57ny6xzdh48vfi";
+  versionUnstable = "2023.5.0";
+  sha256Unstable = "0w26lplnfph8hs9jxvs4xa5rrx3jpbgl6vdk2w8qfpcgxv9ym8i6";
   srcUnstable = builtins.fetchTarball {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionUnstable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionUnstable}.tar.gz";
     sha256 = sha256Unstable;
