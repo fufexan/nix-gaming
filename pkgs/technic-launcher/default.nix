@@ -39,7 +39,7 @@
   '';
 in
   symlinkJoin {
-    name = "pname-${version}";
+    name = "${pname}-${version}";
     paths = [desktopItems script];
 
     meta = {

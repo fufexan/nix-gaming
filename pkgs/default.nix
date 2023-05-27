@@ -45,10 +45,13 @@
       };
 
       proton-ge = pkgs.callPackage ./proton-ge {};
+
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;
         inherit (config.packages) wine-discord-ipc-bridge;
       };
+
+      rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
       technic-launcher = pkgs.callPackage ./technic-launcher {};
 
