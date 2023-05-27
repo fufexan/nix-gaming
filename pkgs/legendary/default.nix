@@ -10,7 +10,7 @@
   wine-discord-ipc-bridge,
   desktopName ? "",
   icon ? null,
-  location ? "$HOME/Games/${desktopName}",
+  location ? "$HOME/Games",
   meta ? {},
   pname ? "",
   tricks ? [],
@@ -29,7 +29,7 @@
     export DXVK_HUD=compiler
     export WINEESYNC=1
     export WINEFSYNC=1
-    export WINEPREFIX="${location}"
+    export WINEPREFIX="${location}/${desktopName}"
 
     PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:$PATH
 
@@ -41,9 +41,9 @@
 
     ${preCommands}
 
-    legendary update "${desktopName}" --base-path "${location}"
+    legendary update "${desktopName}" --base-path "${location}/${desktopName}"
     ${lib.optionalString discordIntegration "wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &"}
-    ${lib.optionalString gamemodeIntegration "${gamemode}/bin/gamemoderun"} legendary launch "${desktopName}" --base-path "${location}"
+    ${lib.optionalString gamemodeIntegration "${gamemode}/bin/gamemoderun"} legendary launch "${desktopName}" --base-path "${location}/${desktopName}"
     wineserver -w
 
     ${postCommands}
