@@ -74,8 +74,8 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:xNCpoQNg0ppIRFiXzitPyWYM4nrXuMdrhmRER/Vo528=";
-  depsHashUnstable = "sha256:xNCpoQNg0ppIRFiXzitPyWYM4nrXuMdrhmRER/Vo528=";
+  depsHashStable = "sha256-3WnkO24ohnhYqNXpZAVgXu2zYhyumVPBlkjz0KyvUqs=";
+  depsHashUnstable = "sha256-3WnkO24ohnhYqNXpZAVgXu2zYhyumVPBlkjz0KyvUqs=";
 
   deps =
     if deps' != null
@@ -85,40 +85,36 @@ in let
         pname = "${pname}-deps";
         java_home = openjdk17-bootstrap;
         inherit src version;
+        init_deps = ./init-deps.gradle;
+        buildscript_gradle_lockfile =
+          if unstable
+          then ./buildscript-gradle-unstable.lockfile
+          else ./buildscript-gradle-stable.lockfile;
         gradle_lockfile =
           if unstable
           then ./gradle-unstable.lockfile
           else ./gradle-stable.lockfile;
         postPatch = ''
           cp $gradle_lockfile gradle.lockfile
+          cp $buildscript_gradle_lockfile buildscript-gradle.lockfile
         '';
         nativeBuildInputs = [gradle perl];
         preBuild = ''
           export GRADLE_USER_HOME=$(mktemp -d)
+          export TERM=dumb
           sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
-          sed -i "s/mavenLocal()//g" build.gradle
-          cat <<END >> build.gradle
-          dependencyLocking {
-            lockAllConfigurations()
-          }
-          task downloadDependencies {
-            doLast {
-              configurations.findAll{it.canBeResolved}.each{it.resolve()}
-              buildscript.configurations.findAll{it.canBeResolved}.each{it.resolve()}
-            }
-          }
-          END
         '';
         buildPhase = ''
           runHook preBuild
-          gradle --no-daemon -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
+          gradle --info --no-daemon --init-script $init_deps -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
           runHook postBuild
         '';
         installPhase = ''
           find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
             | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
+            | sort \
             | sh
-          cp gradle.lockfile $out
+          cp gradle.lockfile buildscript-gradle.lockfile $out
         '';
         outputHashMode = "recursive";
         outputHash =
@@ -127,15 +123,16 @@ in let
           else depsHashStable;
         passthru.updateLockfile = deps.overrideAttrs (old: {
           gradle_lockfile = "";
+          buildscript_gradle_lockfile = "";
           postPatch = "";
           # sadly, we have to do it twice to make sure the hashes match
           # (we have to download more pom files than we will need at build time before we can generate the lockfile)
           buildPhase = ''
             runHook preBuild
-            gradle --write-locks --no-daemon -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
+            gradle --write-locks --no-daemon --init-script $init_deps -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
             rm -rf $GRADLE_USER_HOME
             export GRADLE_USER_HOME=$(mktemp -d)
-            gradle --no-daemon -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
+            gradle --no-daemon --init-script $init_deps -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
             runHook postBuild
           '';
         });
@@ -171,8 +168,8 @@ in
     libs = lib.makeLibraryPath libs;
 
     postPatch = ''
-      cp ${deps}/gradle.lockfile gradle.lockfile
-      chmod +w gradle.lockfile
+      cp ${deps}/gradle.lockfile ${deps}/buildscript-gradle.lockfile ./
+      chmod +w gradle.lockfile buildscript-gradle.lockfile
       sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
     '';
 

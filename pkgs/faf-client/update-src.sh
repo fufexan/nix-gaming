@@ -9,6 +9,10 @@ lockfileStable="pkgs/faf-client/gradle-stable.lockfile"
 lockfileUnstable="pkgs/faf-client/gradle-unstable.lockfile"
 lockfileIce="pkgs/faf-client/gradle-ice.lockfile"
 
+blockfileStable="pkgs/faf-client/buildscript-gradle-stable.lockfile"
+blockfileUnstable="pkgs/faf-client/buildscript-gradle-unstable.lockfile"
+blockfileIce="pkgs/faf-client/buildscript-gradle-ice.lockfile"
+
 info="pkgs/faf-client/info.json"
 
 dry_run=
@@ -108,11 +112,13 @@ if [ "$oldVersionIce" != "$versionIce" ]; then
         fi
         hashIce=$(calcHash "packages.$system.faf-client.ice-adapter.deps.updateLockfile")
         replaceInIce "$fakeHash_1" "$hashIce"
-        rm -f $lockfileIce
-        cp "$(outPath "packages.$system.faf-client.ice-adapter.deps.updateLockfile")/gradle.lockfile" $lockfileIce
+        rm -f $lockfileIce $blockfileIce
         if [ -n "$verbose" ]; then
             echo "copying $(outPath "packages.$system.faf-client.ice-adapter.deps.updateLockfile")/gradle.lockfile"
+            echo "copying $(outPath "packages.$system.faf-client.ice-adapter.deps.updateLockfile")/buildscript-gradle.lockfile"
         fi
+        cp "$(outPath "packages.$system.faf-client.ice-adapter.deps.updateLockfile")/gradle.lockfile" $lockfileIce
+        cp "$(outPath "packages.$system.faf-client.ice-adapter.deps.updateLockfile")/buildscript-gradle.lockfile" $blockfileIce
         echo "{\"versionStable\":\"$oldVersionStable\",\"versionUnstable\":\"$oldVersionUnstable\",\"versionIce\":\"$versionIce\"}" > $info
         echo "Updated ice from $oldVersionIce to $versionIce"
     else
@@ -132,8 +138,13 @@ if [ "$oldVersionStable" != "$versionStable" ]; then
         fi
         hashStable=$(calcHash "packages.$system.faf-client.deps.updateLockfile")
         replaceInFile "$fakeHash_1" "$hashStable"
-        rm -f $lockfileStable
+        rm -f $lockfileStable $blockfileStable
+        if [ -n "$verbose" ]; then
+            echo "copying $(outPath "packages.$system.faf-client.deps.updateLockfile")/gradle.lockfile"
+            echo "copying $(outPath "packages.$system.faf-client.deps.updateLockfile")/buildscript-gradle.lockfile"
+        fi
         cp "$(outPath "packages.$system.faf-client.deps.updateLockfile")/gradle.lockfile" $lockfileStable
+        cp "$(outPath "packages.$system.faf-client.deps.updateLockfile")/buildscript-gradle.lockfile" $blockfileStable
         echo "{\"versionStable\":\"$versionStable\",\"versionUnstable\":\"$oldVersionUnstable\",\"versionIce\":\"$versionIce\"}" > $info
         echo "Updated stable from $oldVersionStable to $versionStable"
     else
@@ -153,8 +164,13 @@ if [ "$oldVersionUnstable" != "$versionUnstable" ]; then
         fi
         hashUnstable=$(calcHash "packages.$system.faf-client-unstable.deps.updateLockfile")
         replaceInFile "$fakeHash_2" "$hashUnstable"
-        rm -f $lockfileUnstable
+        rm -f $lockfileUnstable $blockfileUnstable
+        if [ -n "$verbose" ]; then
+            echo "copying $(outPath "packages.$system.faf-client-unstable.deps.updateLockfile")/gradle.lockfile"
+            echo "copying $(outPath "packages.$system.faf-client-unstable.deps.updateLockfile")/buildscript-gradle.lockfile"
+        fi
         cp "$(outPath "packages.$system.faf-client-unstable.deps.updateLockfile")/gradle.lockfile" $lockfileUnstable
+        cp "$(outPath "packages.$system.faf-client-unstable.deps.updateLockfile")/buildscript-gradle.lockfile" $blockfileUnstable
         echo "{\"versionStable\":\"$versionStable\",\"versionUnstable\":\"$versionUnstable\",\"versionIce\":\"$versionIce\"}" > $info
         echo "Updated unstable from $oldVersionUnstable to $versionUnstable"
     else
