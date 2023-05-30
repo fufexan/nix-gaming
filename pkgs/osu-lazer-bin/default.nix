@@ -17,10 +17,14 @@
   openssl,
   stdenvNoCC,
   symlinkJoin,
-  writeShellScript,
   vulkan-loader,
   pipewire_latency ? "64/48000", # reasonable default
-  gmrun_enable ? true, # won't hurt users even if they don't have it set up
+  gmrun_enable ? true, # keep this flag for compatibility
+  command_prefix ?
+    if gmrun_enable
+    # won't hurt users even if they don't have it set up
+    then "${gamemode}/bin/gamemoderun"
+    else null,
 }: let
   pname = "osu-lazer-bin";
   inherit (pins.osu) version;
@@ -53,13 +57,7 @@
       makeWrapper
     ];
     autoPatchelfIgnoreMissingDeps = true;
-    installPhase = let
-      # dirty hack to infiltrate gamemoderun in the wrapper
-      gmrun = writeShellScript "gmrun" ''
-        shift
-        exec ${gamemode}/bin/gamemoderun "''$@"
-      '';
-    in ''
+    installPhase = ''
       runHook preInstall
       install -d $out/bin $out/lib
       install osu\!.png $out/osu.png
@@ -68,10 +66,12 @@
         --set COMPlus_GCGen0MaxBudget "600000" \
         --set PIPEWIRE_LATENCY "${pipewire_latency}" \
         --set vblank_mode "0" \
-        --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}" ${
-        if gmrun_enable
-        then ''--run "${gmrun} \\"''
-        else ""
+        --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
+      ${
+        # a hack to infiltrate the command in the wrapper
+        lib.optionalString (builtins.isString command_prefix) ''
+          sed -i '$s:exec :exec ${command_prefix} :' $out/bin/osu-lazer
+        ''
       }
       runHook postInstall
     '';
