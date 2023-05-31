@@ -37,6 +37,8 @@
       faf-client = pkgs.callPackage ./faf-client {};
       faf-client-unstable = pkgs.callPackage ./faf-client {unstable = true;};
 
+      osu-mime = pkgs.callPackage ./osu-mime {};
+
       osu-lazer-bin = pkgs.callPackage ./osu-lazer-bin {inherit pins;};
 
       osu-stable = pkgs.callPackage ./osu-stable {
