@@ -25,6 +25,7 @@
     # won't hurt users even if they don't have it set up
     then "${gamemode}/bin/gamemoderun"
     else null,
+  osu-mime,
 }: let
   pname = "osu-lazer-bin";
   inherit (pins.osu) version;
@@ -83,16 +84,26 @@
   };
   desktopItem = makeDesktopItem {
     name = pname;
-    exec = "${derivation.outPath}/bin/osu-lazer";
+    exec = "${derivation.outPath}/bin/osu-lazer %U";
     icon = "${derivation.outPath}/osu.png";
     comment = "A free-to-win rhythm game. Rhythm is just a *click* away!";
     desktopName = "osu!";
     categories = ["Game"];
+    mimeTypes = [
+      "application/x-osu-skin-archive"
+      "application/x-osu-replay"
+      "application/x-osu-beatmap-archive"
+      "x-scheme-handler/osu"
+    ];
   };
 in
   symlinkJoin {
     name = "${pname}-${version}";
-    paths = [derivation desktopItem];
+    paths = [
+      derivation
+      desktopItem
+      osu-mime
+    ];
 
     meta = {
       description = "Rhythm is just a *click* away";
