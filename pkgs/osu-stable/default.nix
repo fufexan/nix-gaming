@@ -21,13 +21,6 @@
     sha256 = (builtins.fromJSON (builtins.readFile ./info.json)).hash;
   };
 
-  icon = builtins.fetchurl {
-    # original url = "https://i.ppy.sh/013ed2c11b34720790e74035d9f49078d5e9aa64/68747470733a2f2f6f73752e7070792e73682f77696b692f696d616765732f4272616e645f6964656e746974795f67756964656c696e65732f696d672f75736167652d66756c6c2d636f6c6f75722e706e67";
-    url = "https://user-images.githubusercontent.com/36706276/203341604-085a1896-539e-4401-a458-ad6ee4209df8.png";
-    name = "osu.png";
-    sha256 = "00qka8pn5d5jrlsadwn30aywqn60xqb1nsx2qiqsd73i4xbha0rn";
-  };
-
   # concat winetricks args
   tricksFmt = with builtins;
     if (length tricks) > 0
@@ -69,7 +62,7 @@
   desktopItems = makeDesktopItem {
     name = pname;
     exec = "${script}/bin/${pname} %U";
-    inherit icon;
+    icon = "osu!"; # icon comes from the osu-mime package
     comment = "Rhythm is just a *click* away";
     desktopName = "osu!stable";
     categories = ["Game"];
