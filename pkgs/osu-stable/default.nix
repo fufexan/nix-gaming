@@ -13,6 +13,7 @@
   tricks ? ["gdiplus" "dotnet40" "meiryo"],
   preCommands ? "",
   postCommands ? "",
+  osu-mime,
 }: let
   src = builtins.fetchurl rec {
     url = "https://m1.ppy.sh/r/osu!install.exe";
@@ -67,16 +68,26 @@
 
   desktopItems = makeDesktopItem {
     name = pname;
-    exec = "${script}/bin/${pname}";
+    exec = "${script}/bin/${pname} %U";
     inherit icon;
     comment = "Rhythm is just a *click* away";
     desktopName = "osu!stable";
     categories = ["Game"];
+    mimeTypes = [
+      "application/x-osu-skin-archive"
+      "application/x-osu-replay"
+      "application/x-osu-beatmap-archive"
+      "x-scheme-handler/osu"
+    ];
   };
 in
   symlinkJoin {
     name = pname;
-    paths = [desktopItems script];
+    paths = [
+      desktopItems
+      script
+      osu-mime
+    ];
 
     meta = {
       description = "osu!stable installer and runner";
