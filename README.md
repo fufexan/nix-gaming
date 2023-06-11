@@ -13,8 +13,6 @@ Package                                                     | Description
 [`faf-client-unstable`](./pkgs/faf-client)                  | Same as above, but use unstable version if available
 [`faf-client-bin`](./pkgs/faf-client)                       | Forged Alliance Forever client (official binary build)
 [`faf-client-unstable-bin`](./pkgs/faf-client)              | Same as above, but use unstable version if available
-[`faf-client-bin`](./pkgs/faf-client)                       | Forged Alliance Forever client (using the official binary build)
-[`faf-client-bin-unstable`](./pkgs/faf-client)              | Same as above, but use unstable version if available
 [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
 [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
 `rocket-league`                                             | Rocket League from Epic Games
