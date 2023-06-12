@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2023.5.0",
-      "revision": "984fae6ecb94b242fcb1ca943a96983310d6c9f7",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.5.0",
-      "hash": "1rvs683fxrb6ynj1vkw0vk4z6llww3js35w14i5vckjf359dig85"
+      "version": "v2023.6.0-alpha-2",
+      "revision": "e86e0c3d481cd1ee94af50da96550636cae307ec",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.6.0-alpha-2",
+      "hash": "15lwilivl2895kgrn8sq7ii33sdcv4a7v795cnfk1zn6k727m4hn"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -65,10 +65,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v3.3.1",
-      "revision": "64634afacb1a077eb87fcfe84684b6c160dfad7c",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.1",
-      "hash": "1kwszvhbn8ir5a4yzhf9bix9628l7dw1hxgf21zgp6qcks5pnhi6"
+      "version": "v3.3.2",
+      "revision": "2807bf94ad0dea9df950cd0277918c72c15ea3ee",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.2",
+      "hash": "0fqdvwagdjyshs3i6dm46kz29184dj473j4arpvv0gq9wlvva17j"
     },
     "faf-uid": {
       "type": "GitRelease",
