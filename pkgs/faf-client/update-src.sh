@@ -46,7 +46,7 @@ function calcHash()
 }
 function outPath()
 {
-    nix build --accept-flake-config ".#$1" --print-out-paths
+    nix build --accept-flake-config ".#$1" --print-out-paths --no-link
 }
 function replaceInFile()
 {
