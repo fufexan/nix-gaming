@@ -55,7 +55,7 @@ adding `nix-gaming` as an input:
 ```nix
 # flake.nix
 {
-  inputs.nix-gaming.url = github:fufexan/nix-gaming;
+  inputs.nix-gaming.url = "github:fufexan/nix-gaming";
 }
 ```
 
