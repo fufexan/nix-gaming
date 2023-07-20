@@ -33,7 +33,11 @@
     export WINEFSYNC=1
     export WINEESYNC=1
     export WINEPREFIX="${location}"
-
+    # Anti-cheat
+    export SteamGameId="starcitizen"
+    __GL_SHADER_DISK_CACHE=1
+    __GL_SHADER_DISK_CACHE_SIZE=1073741824
+    __GL_THREADED_OPTIMIZATIONS=1
     PATH=$PATH:${wine}/bin:${winetricks}/bin
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
