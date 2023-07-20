@@ -14,11 +14,11 @@
   preCommands ? "",
   postCommands ? "",
 }: let
-  version = "1.6.6";
+  version = "1.6.7";
   src = builtins.fetchurl rec {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
-    name = "RSI-Setup-${sha256}.exe";
-    sha256 = "1lkv4nn4qmm9x5lgggvmcl2wvg94qk3r3sc2r7jzgwfchv3sfg42";
+    name = "RSI-Setup-${version}.exe";
+    sha256 = "07l0585xxyqczqdyfg3zah1sbavkyl1ybjay6mc9xrxr6mhmm4xm";
   };
 
   # concat winetricks args
