@@ -47,7 +47,9 @@
 
 
       # install launcher
-      wine ${src} -S
+      # Use silent install
+      wine ${src} /S
+
       wineserver -k
     fi
 
