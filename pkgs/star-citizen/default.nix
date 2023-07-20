@@ -38,7 +38,7 @@
     __GL_SHADER_DISK_CACHE=1
     __GL_SHADER_DISK_CACHE_SIZE=1073741824
     __GL_THREADED_OPTIMIZATIONS=1
-    PATH=$PATH:${wine}/bin:${winetricks}/bin
+    PATH=$PATH:${lib.makeBinPath [wine winetricks]}
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
 
@@ -48,7 +48,6 @@
       wineserver -k
 
       mkdir -p "$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/StarCitizen/"{LIVE,PTU}
-
 
       # install launcher
       # Use silent install
@@ -74,10 +73,16 @@
     ${postCommands}
   '';
 
+  icon = builtins.fetchurl {
+    # Source: https://lutris.net/games/icon/star-citizen.png
+    url = "https://github-production-user-asset-6210df.s3.amazonaws.com/17859309/255031314-2fac3a8d-a927-4aa9-a9ad-1c3e14466c20.png";
+    sha256 = "0pa4h0b9qf329rilx5ciflbskrwpwrpvvg2qpp8cahfh487kbl6p";
+  };
+
   desktopItems = makeDesktopItem {
     name = pname;
     exec = "${script}/bin/${pname} %U";
-    icon = "RSI";
+    inherit icon;
     comment = "Star Citizen - Alpha";
     desktopName = "Star Ctizien";
     categories = ["Game"];
