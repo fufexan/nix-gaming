@@ -16,6 +16,7 @@ Package                                                     | Description
 [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
 [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
 `rocket-league`                                             | Rocket League from Epic Games
+[`star-citizen`](./pkgs/star-citizen)                       | Star Citizen
 [`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher
 [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge
 [`wine-ge`](./pkgs/wine)                                    | Wine version of Proton-GE

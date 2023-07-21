@@ -64,6 +64,8 @@
 
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
+      star-citizen = pkgs.callPackage ./star-citizen {wine = config.packages.wine-ge;};
+
       technic-launcher = pkgs.callPackage ./technic-launcher {};
 
       vkd3d-proton = pkgs.callPackage ./vkd3d-proton {inherit pins;};
