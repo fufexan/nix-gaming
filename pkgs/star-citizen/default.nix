@@ -13,12 +13,13 @@
   tricks ? ["arial" "vcrun2019" "win10"],
   preCommands ? "",
   postCommands ? "",
+  pkgs,
 }: let
   version = "1.6.7";
-  src = builtins.fetchurl rec {
+  src = pkgs.fetchurl rec {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
     name = "RSI-Setup-${version}.exe";
-    sha256 = "07l0585xxyqczqdyfg3zah1sbavkyl1ybjay6mc9xrxr6mhmm4xm";
+    hash = "sha256-tZNaYTW5555YNV7J5QP1c6ulA1R/POcb/gz73gsqgB4=";
   };
 
   # concat winetricks args
@@ -73,10 +74,10 @@
     ${postCommands}
   '';
 
-  icon = builtins.fetchurl {
+  icon = pkgs.fetchurl {
     # Source: https://lutris.net/games/icon/star-citizen.png
     url = "https://github-production-user-asset-6210df.s3.amazonaws.com/17859309/255031314-2fac3a8d-a927-4aa9-a9ad-1c3e14466c20.png";
-    sha256 = "0pa4h0b9qf329rilx5ciflbskrwpwrpvvg2qpp8cahfh487kbl6p";
+    hash = "sha256-19A1DyLQQcXQvVi8vW/ml+epF3WRlU5jTmI4nBaARF0=";
   };
 
   desktopItems = makeDesktopItem {
