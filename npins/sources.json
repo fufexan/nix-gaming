@@ -93,10 +93,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "2023.621.0",
-      "revision": "88e2fa399d30da088d6416612e3f3f43712de5ba",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.621.0",
-      "hash": "0ksz9n41k9dsgcgy0ki0wmj8a5k3mdxzap5f2l2cchai70rnsfks"
+      "version": "2023.717.0",
+      "revision": "a472fe6789eb1369be5fa14808a0a562fb98eded",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.717.0",
+      "hash": "11n73jd0izm3hz57rsjwl50mvv5544sfvz73dwaai3bhl84zdav2"
     },
     "proton-wine": {
       "type": "Git",
@@ -105,10 +105,10 @@
         "owner": "GloriousEggroll",
         "repo": "proton-wine"
       },
-      "branch": "Proton8-8",
-      "revision": "d48c657a1364248c1aaed099e5cbee30c1d8c09e",
-      "url": "https://github.com/GloriousEggroll/proton-wine/archive/d48c657a1364248c1aaed099e5cbee30c1d8c09e.tar.gz",
-      "hash": "12mk91smkjlcr7dfjpkdqkql9r98dpxmsl0gmf08avqwppscxljn"
+      "branch": "Proton8-12",
+      "revision": "60227516f6eecb358cfb5533367c3ee0218c4954",
+      "url": "https://github.com/GloriousEggroll/proton-wine/archive/60227516f6eecb358cfb5533367c3ee0218c4954.tar.gz",
+      "hash": "0jimd05day1ds3wz0gy9g5n80adcwxay40zmh90f690wh48p41ga"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -146,9 +146,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "91887128170a78d80a03b35d0f0572f5b115f484",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/91887128170a78d80a03b35d0f0572f5b115f484.tar.gz",
-      "hash": "1xmyppfsyprfbwlmzhx2rb4ajz2vzgcba7nwzsp7ambrxfn2drxw"
+      "revision": "10cd441e280d2b7cb0ec65b108eaa48c84d3f615",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/10cd441e280d2b7cb0ec65b108eaa48c84d3f615.tar.gz",
+      "hash": "1s3vaxiq6wvzzzj568w4f2941xx4c588km1bll8r167wi61m3lkx"
     }
   },
   "version": 3

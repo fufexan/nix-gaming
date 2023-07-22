@@ -14,12 +14,23 @@
   supportFlags,
   stdenv_32bit,
 }: let
+  nixpkgs-wine = builtins.path {
+    path = inputs.nixpkgs;
+    name = "source";
+    filter = path: type: let
+      wineDir = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/";
+    in (
+      (type == "directory" && (lib.hasPrefix path wineDir))
+      || (type != "directory" && (lib.hasPrefix wineDir path))
+    );
+  };
+
   defaults = let
     sources = (import "${inputs.nixpkgs}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
   in {
     inherit supportFlags moltenvk;
     patches = [];
-    buildScript = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/builder-wow.sh";
+    buildScript = "${nixpkgs-wine}/pkgs/applications/emulators/wine/builder-wow.sh";
     configureFlags = ["--disable-tests"];
     geckos = with sources; [gecko32 gecko64];
     mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
@@ -32,7 +43,7 @@
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 in {
   wine-ge =
-    (callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
+    (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
       // {
         pname = pnameGen "wine-ge";
         version = pins.proton-wine.branch;
@@ -42,7 +53,7 @@ in {
       meta = old.meta // {passthru.updateScript = ./update-wine-ge.sh;};
     });
 
-  wine-tkg = callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
+  wine-tkg = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
     rec {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
@@ -60,7 +71,7 @@ in {
       sha256 = "sha256-2gBfsutKG0ok2ISnnAUhJit7H2TLPDpuP5gvfMVE44o=";
     };
   in
-    (callPackage "${inputs.nixpkgs}/pkgs/applications/emulators/wine/base.nix" (defaults
+    (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
       // rec {
         inherit version pname;
         src = fetchFromGitHub {
@@ -69,7 +80,7 @@ in {
           rev = "wine-${version}";
           sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
         };
-        patches = ["${inputs.nixpkgs}/pkgs/applications/emulators/wine/cert-path.patch"] ++ self.lib.mkPatches ./patches;
+        patches = ["${nixpkgs-wine}/pkgs/applications/emulators/wine/cert-path.patch"] ++ self.lib.mkPatches ./patches;
       }))
     .overrideDerivation (old: {
       nativeBuildInputs = with pkgs; [autoconf perl hexdump] ++ old.nativeBuildInputs;
