@@ -74,8 +74,8 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:cRjhVSW/nguUOCsVynP4aaTyoDgGr2THFYn0nOzSRkM=";
-  depsHashUnstable = "sha256:cRjhVSW/nguUOCsVynP4aaTyoDgGr2THFYn0nOzSRkM=";
+  depsHashStable = "sha256:F49UAk4S+B+o06WaJ8HEFvaAHzzTaO7hYTpBDwUpcQc=";
+  depsHashUnstable = "sha256:F49UAk4S+B+o06WaJ8HEFvaAHzzTaO7hYTpBDwUpcQc=";
 
   deps =
     if deps' != null
