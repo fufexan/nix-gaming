@@ -3,6 +3,7 @@
 # ^ this isn't a package dependency because the script only basically runs once per system
 
 from os.path import expanduser, isfile, isdir, islink, join
+from typing import Optional
 from xdg import xdg_data_home, xdg_cache_home, xdg_config_home
 
 import json
@@ -16,11 +17,11 @@ def exit(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
     sys.exit(1)
 
-steam_paths = map(expanduser, [
-    "~/.local/share/Steam",
-    "~/.steam/steam",
-    "~/.var/app/com.valvesoftware.Steam/.local/share/Steam",
-])
+steam_paths = [
+    os.path.join(xdg_data_home(), 'Steam'),
+    expanduser("~/.steam/steam"),
+    expanduser("~/.var/app/com.valvesoftware.Steam/.local/share/Steam"),
+]
 
 steam_path = None
 for path in steam_paths:
@@ -137,8 +138,7 @@ else:
     prefix_type = None
     proton_path = None
 
-if steam_path != None:
-    # config can be added but I doubt most people care about that
+if steam_path is not None:
     reaper_path = ensure(isfile, join(steam_path, 'ubuntu12_32', 'reaper'))
     launch_wrapper_path = ensure(isfile, join(steam_path, 'ubuntu12_32', 'steam-launch-wrapper'))
 else:
@@ -189,7 +189,7 @@ def find_base(name, id, human_name, path):
 
     return ret
 
-def find_proton(name, id):
+def find_proton2(name, id):
     rt_name = 'Proton ' + name.capitalize()
     rt_path = rt_name
     if name == 'experimental':
@@ -237,7 +237,7 @@ for name, id in RUNTIMES:
     runtimes.extend(find_runtime(name, id))
 protons = []
 for name, id in PROTONS:
-    protons.extend(find_proton(name, id))
+    protons.extend(find_proton2(name, id))
 
 if len(runtimes):
     runtime_path = runtimes[0]
@@ -265,135 +265,152 @@ def command(proton, runtime, wrapper, reaper, launcher, prepend):
         return command(None, None, None, None, None, prepend + f'{shlex.quote(proton)} waitforexitandrun ')
     return prepend + '"%s"'
 
-launcher = 'steam-run'
-env = {'PROTON_NO_ESYNC':'1','PROTON_NO_FSYNC':'1'} if proton_path else {}
-def cur_cmd():
-    env_s = ''
-    for k, v in env.items():
-        env_s += f'{shlex.quote(k)}={shlex.quote(v)} '
-    if env_s:
-        env_s = 'env ' + env_s
-    return command(proton_path, runtime_path, launch_wrapper_path, reaper_path, launcher, env_s)
+old_setup = not ask_yn('Use the new setup wizard for Steam+Proton? Answer no if you plan to use Wine.', True)
 
-cmd = cur_cmd()
+if not old_setup:
+    input("1. Set Supreme Commander: Forged Alliance's launch options in Steam to `PROTON_NO_ESYNC=1 PROTON_DUMP_DEBUG_COMMANDS=1 %command%` and press enter. ")
+    input("2. Run Supreme Commander: Forged Alliance at least once and press enter. ")
+    source_path = f'/tmp/proton_{os.environ.get("USER", "")}/run'
+    while not os.path.exists(source_path):
+        if ask_yn(f'Failed to locate {source_path}. Switch to legacy wizard instead? If not, run Supreme Commander again and answer no to try again.', True):
+            old_setup = True
+            break
 
-print('\nAutodetected launch command:')
-print(cmd)
-if not ask_yn('\nCorrect?', True):
-    cmd = None
+if not old_setup:
+    os.makedirs(expanduser('~/.local/share/faforever'), exist_ok=True)
+    target_path = expanduser('~/.local/share/faforever/run.sh')
+    shutil.copy2(source_path, target_path)
+    print(f'Launch command will be set to `steam-run {target_path} "%s"`. You may modify the `run.sh` script as necessary.')
+    cmd: Optional[str] = f'steam-run {target_path} "%s"'
+else:
+    launcher: Optional[str] = 'steam-run'
+    env = {'PROTON_NO_ESYNC':'1'} if proton_path else {}
+    def cur_cmd():
+        env_s = ''
+        for k, v in env.items():
+            env_s += f'{shlex.quote(k)}={shlex.quote(v)} '
+        if env_s:
+            env_s = 'env ' + env_s
+        return command(proton_path, runtime_path, launch_wrapper_path, reaper_path, launcher, env_s)
 
-def ask_cmd():
-    val = cur_cmd()
-    print('Launch command:', val)
-    if ask_yn('\nCorrect?', True):
-        return val
+    cmd = cur_cmd()
 
-if cmd is None:
-    env_s = ''
-    for k, v in env.items():
-        env_s += f'{shlex.quote(k)}={shlex.quote(v)} '
-    print('Env vars:', env_s if env_s else 'none')
+    print('\nAutodetected launch command:')
+    print(cmd)
     if not ask_yn('\nCorrect?', True):
-        while True:
-            vars = input('Enter your own env vars: ')
-            vars = shlex.split(vars)
-            env = {}
-            try:
-                for var in vars:
-                    k, v = var.split('=')
-                    env[k] = v
-                break
-            except IndexError:
-                print('Invalid environment variable list!')
-        cmd = ask_cmd()
+        cmd = None
 
-if cmd is None and (runtime_path is None or not ask_yn('Use Steam runtime?', True)):
-    runtime_path = None
-    launch_wrapper_path = None
-    reaper_path = None
-    if steam_path and ask_yn('Use Proton?', True):
-        env['STEAM_COMPAT_CLIENT_INSTALL_PATH'] = steam_path
-        if prefix_path is not None and os.path.split(prefix_path)[-1] == 'pfx':
-            pfx = os.path.split(prefix_path)[0]
-            pfx1 = expanduser(input(f'Enter prefix path (Default: {prefix_path}): '))
-            if pfx1:
-                pfx = pfx1
-        else:
-            pfx = expanduser(input('Enter prefix path: '))
-        needs_setup = True
-        env['STEAM_COMPAT_DATA_PATH'] = pfx
-        prefix_path = join(pfx, 'pfx')
-        if proton_path is not None:
+    def ask_cmd():
+        val = cur_cmd()
+        print('Launch command:', val)
+        if ask_yn('\nCorrect?', True):
+            return val
+
+    if cmd is None:
+        env_s = ''
+        for k, v in env.items():
+            env_s += f'{shlex.quote(k)}={shlex.quote(v)} '
+        print('Env vars:', env_s if env_s else 'none')
+        if not ask_yn('\nCorrect?', True):
+            while True:
+                vars = shlex.split(input('Enter your own env vars: '))
+                env = {}
+                try:
+                    for var in vars:
+                        k, v = var.split('=')
+                        env[k] = v
+                    break
+                except IndexError:
+                    print('Invalid environment variable list!')
             cmd = ask_cmd()
-        if cmd is None:
-            proton_path = expanduser(input('Enter path to proton binary: '))
-    elif ask_yn('Use Wine?', True):
-        if 'PROTON_NO_ESYNC' in env.keys():
-            del env['PROTON_NO_ESYNC']
-        if 'PROTON_NO_FSYNC' in env.keys():
-            del env['PROTON_NO_FSYNC']
-        proton_path = None
-        if ask_yn('Use 32-bit WINEARCH?', True):
-            env['WINEARCH'] = 'win32'
-        prefix_path = expanduser(input('Enter prefix path (default: ~/.wine): '))
-        if prefix_path:
-            env['WINEPREFIX'] = prefix_path
-        else:
-            prefix_path = expanduser('~/.wine')
-        needs_setup = True
-        launcher = 'wine'
-        cmd = ask_cmd()
-        if cmd is None:
-            launcher = expanduser(input('Enter custom path to wine binary: '))
-            cmd = ask_cmd()
-    else:
-        launcher = None
-        prefix_path = None
-        if 'PROTON_NO_ESYNC' in env.keys():
-            del env['PROTON_NO_ESYNC']
-        if 'PROTON_NO_FSYNC' in env.keys():
-            del env['PROTON_NO_FSYNC']
-        proton_path = None
-elif cmd is None:
-    # use steam runtime, implying proton
-    if not ask_yn('Is the correct Proton version being used?', True):
-        opts = ['Custom']
-        opts.extend(protons)
-        proton_path = choose(opts, 'Choose the Proton version.', 1)
-        if proton_path == 'Custom':
-            proton_path = expanduser(input('Enter custom path to proton binary: '))
-        cmd = ask_cmd()
-    if cmd is None and not ask_yn('Is the correct Steam Runtime being used?', True):
-        opts = ['Custom']
-        opts.extend(runtimes)
-        runtime_path = choose(opts, 'Choose the Steam Runtime', 1)
-        if runtime_path == 'Custom':
-            runtime_path = expanduser(input('Enter custom Steam runtime path (must have a _v2-entry-point binary inside): '))
-        cmd = ask_cmd()
-    if cmd is None and not ask_yn('Use steam-launch-wrapper?', True):
+
+    if cmd is None and (runtime_path is None or not ask_yn('Use Steam runtime?', True)):
+        runtime_path = None
         launch_wrapper_path = None
-        cmd = ask_cmd()
-    if cmd is None and not ask_yn('Use reaper?', True):
         reaper_path = None
-        cmd = ask_cmd()
-    if cmd is None and (launch_wrapper_path is not None or reaper_path is not None) and not ask_yn('Use 32-bit steam-launch-wrapper/reaper?', True):
-        if reaper_path is not None:
-            reaper_path = ensure(isfile, join(steam_path, 'ubuntu12_64', 'reaper'))
-        if launch_wrapper_path is not None:
-            launch_wrapper_path = ensure(isfile, join(steam_path, 'ubuntu12_64', 'steam-launch-wrapper'))
-        cmd = ask_cmd()
+        if steam_path and ask_yn('Use Proton?', True):
+            env['STEAM_COMPAT_CLIENT_INSTALL_PATH'] = steam_path
+            if prefix_path is not None and os.path.split(prefix_path)[-1] == 'pfx':
+                pfx = os.path.split(prefix_path)[0]
+                pfx1 = expanduser(input(f'Enter prefix path (Default: {prefix_path}): '))
+                if pfx1:
+                    pfx = pfx1
+            else:
+                pfx = expanduser(input('Enter prefix path: '))
+            needs_setup = True
+            env['STEAM_COMPAT_DATA_PATH'] = pfx
+            prefix_path = join(pfx, 'pfx')
+            if proton_path is not None:
+                cmd = ask_cmd()
+            if cmd is None:
+                proton_path = expanduser(input('Enter path to proton binary: '))
+        elif ask_yn('Use Wine?', True):
+            if 'PROTON_NO_ESYNC' in env.keys():
+                del env['PROTON_NO_ESYNC']
+            if 'PROTON_NO_FSYNC' in env.keys():
+                del env['PROTON_NO_FSYNC']
+            proton_path = None
+            if ask_yn('Use 32-bit WINEARCH?', True):
+                env['WINEARCH'] = 'win32'
+            prefix_path = expanduser(input('Enter prefix path (default: ~/.wine): '))
+            if prefix_path:
+                env['WINEPREFIX'] = prefix_path
+            else:
+                prefix_path = expanduser('~/.wine')
+            needs_setup = True
+            launcher = 'wine'
+            cmd = ask_cmd()
+            if cmd is None:
+                launcher = expanduser(input('Enter custom path to wine binary: '))
+                cmd = ask_cmd()
+        else:
+            launcher = None
+            prefix_path = None
+            if 'PROTON_NO_ESYNC' in env.keys():
+                del env['PROTON_NO_ESYNC']
+            if 'PROTON_NO_FSYNC' in env.keys():
+                del env['PROTON_NO_FSYNC']
+            proton_path = None
+    elif cmd is None:
+        # use steam runtime, implying proton
+        if not ask_yn('Is the correct Proton version being used?', True):
+            opts = ['Custom']
+            opts.extend(protons)
+            proton_path = choose(opts, 'Choose the Proton version.', 1)
+            if proton_path == 'Custom':
+                proton_path = expanduser(input('Enter custom path to proton binary: '))
+            cmd = ask_cmd()
+        if cmd is None and not ask_yn('Is the correct Steam Runtime being used?', True):
+            opts = ['Custom']
+            opts.extend(runtimes)
+            runtime_path = choose(opts, 'Choose the Steam Runtime', 1)
+            if runtime_path == 'Custom':
+                runtime_path = expanduser(input('Enter custom Steam runtime path (must have a _v2-entry-point binary inside): '))
+            cmd = ask_cmd()
+        if cmd is None and not ask_yn('Use steam-launch-wrapper?', True):
+            launch_wrapper_path = None
+            cmd = ask_cmd()
+        if cmd is None and not ask_yn('Use reaper?', True):
+            reaper_path = None
+            cmd = ask_cmd()
+        if cmd is None and (launch_wrapper_path is not None or reaper_path is not None) and not ask_yn('Use 32-bit steam-launch-wrapper/reaper?', True):
+            if reaper_path is not None and steam_path is not None:
+                reaper_path = ensure(isfile, join(steam_path, 'ubuntu12_64', 'reaper'))
+            if launch_wrapper_path is not None and steam_path is not None:
+                launch_wrapper_path = ensure(isfile, join(steam_path, 'ubuntu12_64', 'steam-launch-wrapper'))
+            cmd = ask_cmd()
 
-if cmd is None:
-    needs_setup = True
-    print("Couldn't automatically guess the launch command.")
-    cmd = input('Enter custom launch command (don\'t forget to use "%s" instead of exe path): ')
+    if cmd is None:
+        needs_setup = True
+        print("Couldn't automatically guess the launch command.")
+        cmd = input('Enter custom launch command (don\'t forget to use "%s" instead of exe path): ')
 
 if needs_setup:
     print("Don't forget to set the prefix up for SupCom!")
 
-save_path = None
-save_base = None
-if prefix_path is not None:
+save_path = ''
+save_base = ''
+if prefix_path:
     users = join(prefix_path, 'drive_c', 'users')
     if proton_path:
         user = join(users, 'steamuser')
@@ -402,18 +419,21 @@ if prefix_path is not None:
     save_base = join(user, 'AppData', 'Local', 'Gas Powered Games', 'Supreme Commander Forged Alliance')
     save_path = join(save_base, 'Game.prefs')
 
-print('\nAutomatically inferred Game.prefs save path:')
-print(save_path)
-if not isfile(save_path):
-    print('\n!!! Warning: file does not exist!', end='')
+if save_path:
+    print('\nAutomatically inferred Game.prefs save path:')
+    print(save_path)
+    if not isfile(save_path):
+        print('\n!!! Warning: file does not exist!', end='')
+
 save_is_default = True
-if not ask_yn('\nCorrect?', True):
+if not save_path or not ask_yn('\nCorrect?', True):
     save_is_default = False
     save_path = expanduser(input('Enter Game.prefs save path (will be inside the Wine prefix): '))
+    save_base = os.path.split(save_path)[0]
 
 config = {'forgedAlliance':{'installationPath': game_path, 'preferencesFile': save_path, 'executableDecorator': cmd}}
 
-if ask_yn('Enable Ipv6 support?', True):
+if ask_yn('Enable IPv6 support?', True):
     config['forgedAlliance']['allowIpv6'] = True
 
 changed_dirs = False
@@ -439,7 +459,7 @@ if ask_yn('Change FAF config to use XDG_DATA_HOME (~/.local/share)?', True):
         os.symlink(save_path, old_save_path)
 
     old_sup_cache = join(save_base, 'cache') if save_is_default else None
-    if save_is_default and not islink(old_sup_cache):
+    if save_is_default and old_sup_cache and not islink(old_sup_cache):
         os.makedirs(join(cache, 'Gas Powered Games'), exist_ok=True)
         if isdir(old_sup_cache):
             shutil.move(old_sup_cache, sup_cache)

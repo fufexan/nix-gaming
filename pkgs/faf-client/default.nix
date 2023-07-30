@@ -47,6 +47,7 @@ in let
     description = "Official client for Forged Alliance Forever";
     homepage = "https://github.com/FAForever/downlords-faf-client";
     license = licenses.mit;
+    maintainers = with maintainers; [chayleaf];
   };
 
   icon = "faf-client";
@@ -171,6 +172,7 @@ in
       cp ${deps}/gradle.lockfile ${deps}/buildscript-gradle.lockfile ./
       chmod +w gradle.lockfile buildscript-gradle.lockfile
       sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
+      sed -i 's/dependencies {/dependencies{modules{module("com.google.guava:listenablefuture"){replacedBy("com.google.guava:guava","listenablefuture is part of guava")}}/g' build.gradle
     '';
 
     patches = lib.optionals (!enableUpdateCheck) [./disable-update-check.patch];
