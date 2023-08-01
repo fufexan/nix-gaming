@@ -12,7 +12,7 @@ latest_minor=0
 
 # Find the latest version
 for branch in $branches; do
-  if [[ $branch =~ ^Proton([0-9]+)-([0-9]+) ]]; then
+  if [[ $branch =~ ^Proton([0-9]+)-([0-9]+)$ ]]; then
     major=${BASH_REMATCH[1]}
     minor=${BASH_REMATCH[2]}
     if (( major > latest_major )) || (( major == latest_major && minor > latest_minor )); then
