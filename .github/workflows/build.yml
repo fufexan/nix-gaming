@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        package:
+          - faf-client
+          - faf-client-unstable
+          - proton-ge
+          - wine-ge
+          - wine-osu
+          - wine-tkg
+
+    uses: ./.github/workflows/nix.yml
+    with:
+      command: nix build -L .#${{ matrix.package }}
