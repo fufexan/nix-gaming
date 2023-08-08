@@ -5,19 +5,28 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  cachix:
-    name: Update sources
-    runs-on: ubuntu-latest
+  update:
+    strategy:
+      matrix:
+        command:
+          - nix run nixpkgs#npins update
+          - pkgs/faf-client/update.sh
+          - pkgs/faf-client/update-src.sh
+          - pkgs/osu-lazer-bin/update.sh
+          - pkgs/osu-stable/update.sh
+          - pkgs/wine/update-wine-ge.sh
+
+    uses: ./.github/workflows/nix.yml
+    with:
+      command: ${{ matrix.command }}
+
+  build:
+    needs: update
+    uses: ./.github/workflows/build.yml
+
+  push:
+    needs: build
     steps:
-      - uses: actions/checkout@v3.0.2
-      - uses: cachix/install-nix-action@v20
-        with:
-          install_url: https://nixos.org/nix/install
-          extra_nix_config: |
-            auto-optimise-store = true
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            experimental-features = nix-command flakes
-      - run: nix run nixpkgs#npins update; pkgs/osu-lazer-bin/update.sh; pkgs/osu-stable/update.sh; pkgs/faf-client/update.sh; pkgs/wine/update-wine-ge.sh; pkgs/faf-client/update-src.sh
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "[gha] bump npins inputs"
+          commit_message: "Update inputs"

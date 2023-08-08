@@ -3,21 +3,17 @@ name: Checks
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  checks:
-    name: Check expressions
-    runs-on: ubuntu-latest
+  check:
     strategy:
       matrix:
         command:
-          - 'nix flake check --accept-flake-config'
-          - 'nix run nixpkgs#alejandra -- -c . -e ./npins'
-    steps:
-      - uses: actions/checkout@v3.0.2
-      - uses: cachix/install-nix-action@v20
-        with:
-          install_url: https://nixos.org/nix/install
-          extra_nix_config: |
-            auto-optimise-store = true
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            experimental-features = nix-command flakes
-      - run: ${{ matrix.command }}
+          - nix flake check --accept-flake-config
+          - nix run nixpkgs#alejandra -- -c . -e ./npins
+
+    uses: ./.github/workflows/nix.yml
+    with:
+      command: ${{ matrix.command }}
+
+  build:
+    needs: check
+    uses: ./.github/workflows/build.yml
