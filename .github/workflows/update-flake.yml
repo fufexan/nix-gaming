@@ -1,0 +1,23 @@
+name: Update flake
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+jobs:
+  update:
+    uses: ./.github/workflows/nix.yml
+    with:
+      command: nix flake update
+
+  build:
+    needs: update
+    uses: ./.github/workflows/build.yml
+
+  push:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update flake"
