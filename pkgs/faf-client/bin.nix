@@ -17,15 +17,15 @@
 }: let
   pname = "faf-client-bin";
 
-  versionStable = "2023.6.1";
-  sha256Stable = "1vhrva3drrclvjfw5nfsnshzrzy7pzgsfawdw6v796i04j5wvhyg";
+  versionStable = "2023.7.1";
+  sha256Stable = "097qgvb1qp5ys4ipxl2qj6klf25vhy69jji6kgqmrw1y0vi2a3p7";
   srcStable = builtins.fetchTarball {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionStable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionStable}.tar.gz";
     sha256 = sha256Stable;
   };
 
-  versionUnstable = "2023.6.1";
-  sha256Unstable = "1vhrva3drrclvjfw5nfsnshzrzy7pzgsfawdw6v796i04j5wvhyg";
+  versionUnstable = "2023.7.1";
+  sha256Unstable = "097qgvb1qp5ys4ipxl2qj6klf25vhy69jji6kgqmrw1y0vi2a3p7";
   srcUnstable = builtins.fetchTarball {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionUnstable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionUnstable}.tar.gz";
     sha256 = sha256Unstable;
@@ -35,6 +35,7 @@
     description = "Official client for Forged Alliance Forever";
     homepage = "https://github.com/FAForever/downlords-faf-client";
     license = licenses.mit;
+    maintainers = with maintainers; [chayleaf];
   };
 
   icon = "faf-client";

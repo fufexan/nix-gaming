@@ -47,6 +47,7 @@ in let
     description = "Official client for Forged Alliance Forever";
     homepage = "https://github.com/FAForever/downlords-faf-client";
     license = licenses.mit;
+    maintainers = with maintainers; [chayleaf];
   };
 
   icon = "faf-client";
@@ -74,8 +75,8 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:cRjhVSW/nguUOCsVynP4aaTyoDgGr2THFYn0nOzSRkM=";
-  depsHashUnstable = "sha256:cRjhVSW/nguUOCsVynP4aaTyoDgGr2THFYn0nOzSRkM=";
+  depsHashStable = "sha256:F49UAk4S+B+o06WaJ8HEFvaAHzzTaO7hYTpBDwUpcQc=";
+  depsHashUnstable = "sha256:F49UAk4S+B+o06WaJ8HEFvaAHzzTaO7hYTpBDwUpcQc=";
 
   deps =
     if deps' != null
@@ -171,6 +172,7 @@ in
       cp ${deps}/gradle.lockfile ${deps}/buildscript-gradle.lockfile ./
       chmod +w gradle.lockfile buildscript-gradle.lockfile
       sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
+      sed -i 's/dependencies {/dependencies{modules{module("com.google.guava:listenablefuture"){replacedBy("com.google.guava:guava","listenablefuture is part of guava")}}/g' build.gradle
     '';
 
     patches = lib.optionals (!enableUpdateCheck) [./disable-update-check.patch];

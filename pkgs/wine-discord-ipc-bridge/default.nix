@@ -16,7 +16,11 @@ in
 
     nativeBuildInputs = [pkgsCross.mingw32.stdenv.cc wine];
 
-    installPhase = "mkdir -p $out/bin; cp winediscordipcbridge.exe $out/bin";
+    installPhase = ''
+      mkdir -p $out/bin
+      cp winediscordipcbridge.exe $out/bin
+      cp winediscordipcbridge-steam.sh $out/bin
+    '';
 
     meta = {
       description = "Enable games running under wine to use Discord Rich Presence";
