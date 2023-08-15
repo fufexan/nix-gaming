@@ -15,11 +15,11 @@
   postCommands ? "",
   pkgs,
 }: let
-  version = "1.6.7";
+  version = "1.6.8";
   src = pkgs.fetchurl rec {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
     name = "RSI-Setup-${version}.exe";
-    hash = "sha256-tZNaYTW5555YNV7J5QP1c6ulA1R/POcb/gz73gsqgB4=";
+    hash = "sha256-mL6bhNyYgaBVSq5RVBg5GLtSwaQmQdrXBKHz1LyMG4I=";
   };
 
   # concat winetricks args
@@ -52,6 +52,11 @@
 
       # install launcher
       # Use silent install
+      wine ${src} /S
+
+      wineserver -k
+    elif !( ${pkgs.exiftool}/bin/exiftool $RSI_LAUNCHER | grep -q ${version} ); then
+      # Launcher doesn't auto update due to EAC work around.
       wine ${src} /S
 
       wineserver -k
