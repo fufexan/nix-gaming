@@ -1,22 +1,13 @@
-name: Update
+name: Update packages
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * *' # daily
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        command:
-          - nix run nixpkgs#npins update
-          - pkgs/faf-client/update.sh
-          - pkgs/faf-client/update-src.sh
-          - pkgs/osu-lazer-bin/update.sh
-          - pkgs/osu-stable/update.sh
-          - pkgs/wine/update-wine-ge.sh
-
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v22
@@ -32,11 +23,12 @@ jobs:
           name: nix-gaming
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - run: ${{ matrix.command }}
+      - run: nix run nixpkgs#npins update; pkgs/faf-client/update.sh; pkgs/faf-client/update-src.sh; pkgs/osu-lazer-bin/update.sh; pkgs/osu-stable/update.sh; pkgs/wine/update-wine-ge.sh
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Update inputs"
+          commit_message: "Update packages"
+
   build:
     needs: update
     uses: ./.github/workflows/build.yml
