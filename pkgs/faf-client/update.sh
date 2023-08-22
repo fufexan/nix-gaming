@@ -5,10 +5,12 @@ set -euo pipefail
 filePath="pkgs/faf-client/bin.nix"
 
 dry_run=
+force=
 while test $# != 0
 do
     case "$1" in
     -d|--dry-run) dry_run=1 ;;
+    -f|--force) force=1 ;;
     esac
     shift
 done
@@ -56,7 +58,7 @@ fakeSha256_2="0000000000000000000000000000000000000000000000000000000000000002"
 oldVersionStable=$(getValue versionStable)
 oldSha256Stable=$(getValue sha256Stable)
 
-if [[ "$oldVersionStable" = "$versionStable" ]]; then
+if [ -z "$force" ] && [[ "$oldVersionStable" = "$versionStable" ]]; then
     echo "no stable faf updates"
 else
     echo "updating stable: $oldVersionStable->$versionStable"
@@ -75,7 +77,7 @@ fi
 oldVersionUnstable=$(getValue versionUnstable)
 oldSha256Unstable=$(getValue sha256Unstable)
 
-if [[ "$oldVersionUnstable" = "$versionUnstable" ]]; then
+if [ -z "$force" ] &&  [[ "$oldVersionUnstable" = "$versionUnstable" ]]; then
     echo "no unstable faf updates"
 else
     echo "updating unstable: $oldVersionUnstable->$versionUnstable"
