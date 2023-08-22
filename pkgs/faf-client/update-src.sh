@@ -16,11 +16,13 @@ blockfileIce="pkgs/faf-client/buildscript-gradle-ice.lockfile"
 info="pkgs/faf-client/info.json"
 
 dry_run=
+force=
 verbose=
 while test $# != 0
 do
     case "$1" in
     -d|--dry-run) dry_run=1 ;;
+    -f|--force) force=1 ;;
     -v|--verbose) verbose=1 ;;
     esac
     shift
@@ -102,7 +104,7 @@ if [ -n "$verbose" ]; then
     echo "New versions: $versionIce $versionStable $versionUnstable"
 fi
 
-if [ "$oldVersionIce" != "$versionIce" ]; then
+if [ -n "$force" ] || [ "$oldVersionIce" != "$versionIce" ]; then
     oldHashIce=$(getValueIce outputHash)
     replaceInIce "outputHash = \"$oldHashIce" "outputHash = \"$fakeHash_1"
 
@@ -128,7 +130,7 @@ else
     echo "ICE adapter version is up to date: $versionIce"
 fi
 
-if [ "$oldVersionStable" != "$versionStable" ]; then
+if [ -n "$force" ] || [ "$oldVersionStable" != "$versionStable" ]; then
     oldHashStable=$(getValue depsHashStable)
     replaceInFile "depsHashStable = \"$oldHashStable" "depsHashStable = \"$fakeHash_1"
 
@@ -154,7 +156,7 @@ else
     echo "Stable version is up to date: $versionStable"
 fi
 
-if [ "$oldVersionUnstable" != "$versionUnstable" ]; then
+if [ -n "$force" ] || [ "$oldVersionUnstable" != "$versionUnstable" ]; then
     oldHashUnstable=$(getValue depsHashUnstable)
     replaceInFile "depsHashUnstable = \"$oldHashUnstable" "depsHashUnstable = \"$fakeHash_2"
 
