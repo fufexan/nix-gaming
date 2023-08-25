@@ -1,4 +1,4 @@
-<h1 align="center">nix-gaming</h1>
+<h1 align="center">🎮 nix-gaming</h1>
 
 Gaming related stuff for Nix and NixOS.
 
@@ -9,19 +9,14 @@ See an overview of the flake outputs by running
 
 Package                                                     | Description
 ------------------------------------------------------------|------------
-[`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (built from source)
-[`faf-client-unstable`](./pkgs/faf-client)                  | Same as above, but use unstable version if available
-[`faf-client-bin`](./pkgs/faf-client)                       | Forged Alliance Forever client (official binary build)
-[`faf-client-unstable-bin`](./pkgs/faf-client)              | Same as above, but use unstable version if available
+[`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)
 [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
 [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
 `rocket-league`                                             | Rocket League from Epic Games
 [`star-citizen`](./pkgs/star-citizen)                       | Star Citizen
 [`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher
 [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge
-[`wine-ge`](./pkgs/wine)                                    | Wine version of Proton-GE
-[`wine-osu`](./pkgs/wine)                                   | Wine optimized for low latency
-[`wine-tkg`](./pkgs/wine)                                   | Wine optimized for games
+[`wine`](./pkgs/wine)                                       | Multiple Wine packages
 [`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)
 [`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
 
@@ -56,16 +51,44 @@ adding `nix-gaming` as an input:
 ```nix
 # flake.nix
 {
-  inputs.nix-gaming.url = "github:fufexan/nix-gaming";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+  };
+
+  outputs = {self, nixpkgs, ...}@inputs: {
+    # set up for NixOS 
+    nixosConfigurations.HOSTNAME = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./configuration.nix
+        # ...
+      ];
+    };
+
+    # or for Home Manager
+    homeConfigurations.HOSTNAME = inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+
+      extraSpecialArgs = {inherit inputs;};
+
+      modules = [
+        ./home.nix
+        # ...
+      ];
+    }
+  };
 }
 ```
 
-Also, add `inputs` or `nix-gaming` to `specialArgs` when building your system
-config, or to `extraSpecialArgs` when building your Home Manager configuration.
-
 Then, add the package(s):
 ```nix
-{pkgs, config, inputs, ...}: {
+{pkgs, inputs, ...}: {
   environment.systemPackages = [ # or home.packages
     inputs.nix-gaming.packages.${pkgs.system}.<package> # installs a package
   ];
@@ -88,19 +111,10 @@ To install packages to `environment.systemPackages`, add this in
 {pkgs, ...}: let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
 in {
-  # import the low latency module
-  imports = [
-    ...
-    "${nix-gaming}/modules/pipewireLowLatency.nix"
-  ];
-  
   # install packages
   environment.systemPackages = [ # or home.packages
     nix-gaming.packages.${pkgs.hostPlatform.system}.<package>
   ];
-  
-  # enable module (see below)
-  services.pipewire = ...;
 }
 ```
 
@@ -113,7 +127,40 @@ use as Pulse.
 This module extends the PipeWire module from Nixpkgs and makes it easy to enable
 the low latency settings in a few lines.
 
+### Flakes
+
+Assuming you've followed the [Install/Flakes](#️-flakes) instructions, all you
+need to do is add the module to your configuration like this:
+
+```nix
+{inputs, ...}: {
+  imports = [
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
+  ];
+}
+```
+
+Now you can skip to [Usage](#usage).
+
+### Stable
+
+Assuming you've followed the [Install/Nix Stable](#nix-stable) instructions, all
+you need to do is add the module to your configuration like this:
+
+```nix
+{pkgs, ...}: let
+  nix-gaming = /* ... */;
+in {
+  imports = [
+    nix-gaming.nixosModules.pipewireLowLatency
+  ];
+}
+```
+
+### Usage
+
 Import the module in your configuration and enable it along with PipeWire:
+
 ```nix
 {
   services.pipewire = {
@@ -136,20 +183,24 @@ Import the module in your configuration and enable it along with PipeWire:
 }
 ```
 
-If you get no sound, you may want to increase `quantum`, usually to an even
-number or the prefix of the `rate` (`48/48000` is exactly 1ms).
+If you get no sound, you may want to increase `quantum`.
+
+You can calculate the theoretical latency by dividing `quantum` by `rate`
+(`48/48000` is exactly 1ms).
 
 ### ⚙ Game overrides
 
-The game derivations were written with versatility in mind. There are arguments
-that can be modified in order to get the desired result.
+Wine-based game derivations were written with versatility in mind.
+
+These arguments can be modified in order to get the desired results.
+
 ```nix
 {
-  wine      ? wine-tkg,         # controls the wine package used to run wine games
-  wineFlags ? null,             # which flags to run wine with
+  wine      ? wine-ge,          # controls the wine package used to run wine games
+  wineFlags ? "",               # which flags to run wine with (literal)
   pname     ? "game-name",      # name of the script and package
   location  ? "$HOME/${pname}", # where to install the game/wine prefix
-  tricks    ? null,             # which wine tricks to install
+  tricks    ? [],               # which wine tricks to install
 
   preCommands  ? "",            # run commands before the game is started
   postCommands ? "",            # run commands after the game is closed
@@ -162,11 +213,11 @@ Sometimes you want to override `wine` for various reasons. Here's how to do it:
 ```nix
 {
   environment.systemPackages = let
-    nix-gaming = inputs.nix-gaming.packages.${pkgs.hostPlatform.system};
+    gamePkgs = inputs.nix-gaming.packages.${pkgs.hostPlatform.system};
   in [ # or home.packages
-    nix-gaming.osu-stable.override rec {
+    gamePkgs.osu-stable.override rec {
       wine = <your-wine>;
-      wine-discord-ipc-bridge = nix-gaming.wine-discord-ipc-bridge.override {inherit wine;}; # or override this one as well
+      wine-discord-ipc-bridge = gamePkgs.wine-discord-ipc-bridge.override {inherit wine;}; # or override this one as well
     };
   ];
 }

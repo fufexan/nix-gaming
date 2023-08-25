@@ -7,7 +7,6 @@
   legendary-gl,
   winetricks,
   wine,
-  wineFlags ? "",
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
   tricks ? ["dxvk" "win10"],
@@ -31,7 +30,7 @@
     export WINEFSYNC=1
     export WINEESYNC=1
 
-    PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:$PATH
+    PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
     if [ ! -d "$WINEPREFIX" ]; then
       # install tricks
