@@ -33,3 +33,4 @@ jobs:
   build:
     needs: update
     uses: ./.github/workflows/build.yml
+    secrets: inherit
