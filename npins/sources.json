@@ -119,10 +119,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v2.9",
-      "revision": "6365efeba253807beecaed0eaa963295522c6b70",
-      "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.9",
-      "hash": "0wgiis0kw6ijjs46f4a6w4g6whhhmv6d952pwfcdrliv569d2az9"
+      "version": "v2.10",
+      "revision": "88e4f300cc0b5b6f0880c1233d562cf506b546fb",
+      "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.10",
+      "hash": "12835ym6hvf29l4a5giysxr79z6kn134zx4i10cwc2g2qirlyz9p"
     },
     "wine-discord-ipc-bridge": {
       "type": "GitRelease",
