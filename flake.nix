@@ -10,7 +10,11 @@
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       flake.nixosModules = {
         pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
-        default = inputs.self.nixosModules.pipewireLowLatency;
+        steamCompat = import ./modules/steamCompat.nix;
+        default = throw ''
+          The usage of default module is deprecated as multiple modules are provided by nix-gaming. Please use
+          the exact name of the module you would like to use.
+        '';
       };
 
       imports = [
