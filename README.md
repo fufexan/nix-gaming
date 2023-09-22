@@ -8,7 +8,7 @@ See an overview of the flake outputs by running
 ## 🗃️ What's in here?
 
 Package                                                     | Description
-------------------------------------------------------------|------------
+----------------------------------------------------------- | -----------
 [`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)
 [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
 [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
@@ -19,18 +19,21 @@ Package                                                     | Description
 [`wine`](./pkgs/wine)                                       | Multiple Wine packages
 [`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)
 [`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
+[`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck
+[`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client
 
-* `legendaryBuilder` is a function that installs games with `legendary-gl`. You
-are expected to log in before using it, with `legendary auth`.
-The function takes an attrset containing at least the attrset `games` which
-includes the games you want installed. Optionally, you can set an `opts`
-attrset that will set the options you set inside for all games listed.
-You can find a usage example in [example.nix](./example.nix).
+- `legendaryBuilder` is a function that installs games with `legendary-gl`. You
+  are expected to log in before using it, with `legendary auth`.
+  The function takes an attrset containing at least the attrset `games` which
+  includes the games you want installed. Optionally, you can set an `opts`
+  attrset that will set the options you set inside for all games listed.
+  You can find a usage example in [example.nix](./example.nix).
 
 ## Install & Run
 
 It's recommended to set up [Cachix](https://app.cachix.org/cache/nix-gaming) so
 you don't have to build packages (most useful for wine).
+
 ```nix
 # configuration.nix
 {
@@ -40,6 +43,7 @@ you don't have to build packages (most useful for wine).
   };
 }
 ```
+
 Now, rebuild your configuration and continue reading for install instructions.
 
 #### If you're not using flakes, [go here](#nix-stable).
@@ -48,6 +52,7 @@ Now, rebuild your configuration and continue reading for install instructions.
 
 Add these packages to your `home.packages` or `environment.systemPackages` by
 adding `nix-gaming` as an input:
+
 ```nix
 # flake.nix
 {
@@ -59,7 +64,7 @@ adding `nix-gaming` as an input:
   };
 
   outputs = {self, nixpkgs, ...}@inputs: {
-    # set up for NixOS 
+    # set up for NixOS
     nixosConfigurations.HOSTNAME = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
@@ -87,6 +92,7 @@ adding `nix-gaming` as an input:
 ```
 
 Then, add the package(s):
+
 ```nix
 {pkgs, inputs, ...}: {
   environment.systemPackages = [ # or home.packages
@@ -96,6 +102,7 @@ Then, add the package(s):
 ```
 
 If you want to install packages to your profile instead, do it like this
+
 ```console
   nix profile install github:fufexan/nix-gaming#<package>
 ```
@@ -107,6 +114,7 @@ may greatly differ from the packages.
 
 To install packages to `environment.systemPackages`, add this in
 `configuration.nix`:
+
 ```nix
 {pkgs, ...}: let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
@@ -170,14 +178,14 @@ Import the module in your configuration and enable it along with PipeWire:
     pulse.enable = true;
 
     lowLatency = {
-      # enable this module      
+      # enable this module
       enable = true;
       # defaults (no need to be set unless modified)
       quantum = 64;
       rate = 48000;
     };
   };
-  
+
   # make pipewire realtime-capable
   security.rtkit.enable = true;
 }
@@ -210,6 +218,7 @@ These arguments can be modified in order to get the desired results.
 ### `osu-stable` `wine-discord-ipc-bridge` wine overriding
 
 Sometimes you want to override `wine` for various reasons. Here's how to do it:
+
 ```nix
 {
   environment.systemPackages = let
@@ -229,13 +238,13 @@ In order to get the most performance out of your machine, you could use the
 following tweaks:
 
 - custom/gaming kernel: `linux_xanmod` is the recommended one for games, since
-it provides many patches that aid wine and other games. It also provides a
-better desktop experience due to its preemptive build and tickless scheduler.
+  it provides many patches that aid wine and other games. It also provides a
+  better desktop experience due to its preemptive build and tickless scheduler.
 - [gamemode](https://github.com/FeralInteractive/gamemode): lets you achieve
-lower nice values and higher realtime privileges at game start. It can either
-detect games or be started with `gamemode-run`.
+  lower nice values and higher realtime privileges at game start. It can either
+  detect games or be started with `gamemode-run`.
 
 ## 👥 Credits & Resources
- 
+
 Thank you: boppyt - gonX - InfinityGhost - LavaDesu - openglfreak - yusdacra
 and to all the contributors and users of this repo!
