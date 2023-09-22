@@ -42,6 +42,10 @@
       faf-client-bin = pkgs.callPackage ./faf-client/bin.nix {};
       faf-client-unstable-bin = pkgs.callPackage ./faf-client/bin.nix {unstable = true;};
 
+      flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
+
+      northstar-proton = pkgs.callPackage ./titanfall/northstar-proton.nix {};
+
       osu-mime = pkgs.callPackage ./osu-mime {};
 
       osu-lazer-bin = pkgs.callPackage ./osu-lazer-bin {
