@@ -196,6 +196,64 @@ If you get no sound, you may want to increase `quantum`.
 You can calculate the theoretical latency by dividing `quantum` by `rate`
 (`48/48000` is exactly 1ms).
 
+## Steam Compatibility Tools
+
+
+nix-gaming provides a batch of compatibility tools for Steam that you may want to use. 
+Additionally, it also provides a `steam-compat` module that will extend `programs.steam`
+with an `extraCompatPackages = []` option that you may use to automatically append your
+favorite compatibility tools to Steam's compat tools path.
+
+### Flakes
+
+Assuming you've followed the [Install/Flakes](#️-flakes) instructions, all you
+need to do is add the module to your configuration like this:
+
+```nix
+{inputs, ...}: {
+  imports = [
+    inputs.nix-gaming.nixosModules.steam-compat
+  ];
+}
+```
+
+Now you can skip to [Usage](#usage).
+
+### Stable
+
+Assuming you've followed the [Install/Nix Stable](#nix-stable) instructions, all
+you need to do is add the module to your configuration like this:
+
+```nix
+{pkgs, ...}: let
+  nix-gaming = /* ... */;
+in {
+  imports = [
+    nix-gaming.nixosModules.steam-compat
+  ];
+}
+```
+
+### Usage
+
+```nix
+{
+  programs.steam = {
+    # enable steam as usual
+    enable = true;
+
+    # add extra compatibility tools to your STEAM_EXTRA_COMPAT_TOOLS_PATHS using the newly added `extraCompatPackages` option
+    extraCompatPackages = [
+      # add the packages that you would like to have in Steam's extra compatibility packages list
+      # pkgs.luxtorpeda
+      # inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+      # etc.
+    ];
+  };
+}
+```
+
+
 ### ⚙ Game overrides
 
 Wine-based game derivations were written with versatility in mind.
