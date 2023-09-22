@@ -42,7 +42,8 @@
       faf-client-bin = pkgs.callPackage ./faf-client/bin.nix {};
       faf-client-unstable-bin = pkgs.callPackage ./faf-client/bin.nix {unstable = true;};
 
-      flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
+      # broken upstream, thanks tauri
+      # flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
 
       northstar-proton = pkgs.callPackage ./titanfall/northstar-proton.nix {};
 
@@ -71,6 +72,8 @@
       star-citizen = pkgs.callPackage ./star-citizen {wine = config.packages.wine-ge;};
 
       technic-launcher = pkgs.callPackage ./technic-launcher {};
+
+      viper = pkgs.callPackage ./titanfall/viper.nix {};
 
       vkd3d-proton = pkgs.callPackage ./vkd3d-proton {inherit pins;};
       vkd3d-proton-w32 = pkgs.pkgsCross.mingw32.callPackage ./vkd3d-proton {inherit pins;};
