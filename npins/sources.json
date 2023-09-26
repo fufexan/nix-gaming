@@ -93,10 +93,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "2023.924.0",
-      "revision": "561f66400a1311daf7e8124efa9017dc186bb6d9",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.924.0",
-      "hash": "10mkfr29qs3zv5337pq237z4ibrvdb069wnsygizzczdm6rm64jg"
+      "version": "2023.924.1",
+      "revision": "9cbfdacd800ca7280e5fb3ae80f1fcd8b7530257",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.924.1",
+      "hash": "1j1jhsvhjhximxym5iy4szd9j85hyynp4nj9fmxb4zkmvbqnhnpp"
     },
     "proton-wine": {
       "type": "Git",
@@ -105,7 +105,7 @@
         "owner": "GloriousEggroll",
         "repo": "proton-wine"
       },
-      "branch": "Proton8-16",
+      "branch": "Proton8-17",
       "revision": "2ee069136ca32be6817e11400fc9d64a04e81c7d",
       "url": "https://github.com/GloriousEggroll/proton-wine/archive/2ee069136ca32be6817e11400fc9d64a04e81c7d.tar.gz",
       "hash": "0ips77vjl1r6wzxa5347mdccdrb3zndc15nlcp9fq2bnjdsg696r"
