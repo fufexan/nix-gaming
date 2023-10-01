@@ -45,6 +45,8 @@
       # broken upstream, thanks tauri
       # flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
 
+      modrinth-app = pkgs.callPackage ./modrinth-app {};
+
       northstar-proton = pkgs.callPackage ./titanfall/northstar-proton.nix {};
 
       osu-mime = pkgs.callPackage ./osu-mime {};
