@@ -61,7 +61,7 @@ in
         desktopName = "Darkest Dungeon";
         genericName = "Loosing your will to live; the game.";
         exec = "darkest";
-        #icon = "CCicon";  # The proper icon needs to be set instead.
+        icon = pname;
         comment = "Darkest Dungeon GoG version.";
         categories = ["Game"];
       })
@@ -78,9 +78,13 @@ in
 
     installPhase = ''
       mkdir -p $out/share/${pname}
+      mkdir -p $out/share/icons/hicolor
 
       # Only copies this folder since the rest is useless.
       mv data/noarch/game/* $out/share/${pname}
+
+      # Installs the icon.
+      mv data/noarch/support/icon.png $out/share/icons/hicolor/${pname}.png
 
       # Creates the wrapper for the game.
       makeBinaryWrapper $out/share/${pname}/darkest.bin.x86_64 $out/bin/darkest \
