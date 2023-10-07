@@ -8,6 +8,7 @@
   stdenvNoCC,
   zip,
   unzip,
+  # Runtime deps.
   SDL2,
   libcxx,
   libGL,
