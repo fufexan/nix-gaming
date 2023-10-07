@@ -106,6 +106,6 @@ in
       license = licenses.unfree;
       mainProgram = "darkest";
       maintainers = with maintainers; [notevil];
-      platforms = platforms.linux;
+      platforms = ["x86_64-linux"];
     };
   }
