@@ -81,9 +81,6 @@ in
       # Only copies this folder since the rest is useless.
       mv data/noarch/game/* $out/share/${pname}
 
-      # Create .desktop entries.
-      copyDesktopItems
-
       # Creates the wrapper for the game.
       makeBinaryWrapper $out/share/${pname}/darkest.bin.x86_64 $out/bin/darkest \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath commonDeps}
