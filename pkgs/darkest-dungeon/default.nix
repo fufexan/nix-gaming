@@ -76,6 +76,12 @@ in
       ${unzip}/bin/unzip fixed-src.zip
     '';
 
+    postUnpack = ''
+      # Removes the original installer to reduce the total ammount of RAM being
+      # used during the process.
+      rm $src
+    '';
+
     installPhase = ''
       mkdir -p $out/share/${pname}
       mkdir -p $out/share/icons/hicolor
