@@ -99,9 +99,9 @@ in
 
     # Metadata
     meta = with lib; {
-      description = "The game that would drive you into utter maddness.";
-      longDescription = "Darkest Dungeon GoG version. Without any DLCs.";
-      homepage = "https://www.darkestdungeon.com/";
+      description = "The game that would drive you into utter maddness";
+      longDescription = "Darkest Dungeon GoG version. Without any DLCs";
+      homepage = "https://www.darkestdungeon.com";
       downloadPage = "https://www.gog.com/game/darkest_dungeon";
       license = licenses.unfree;
       mainProgram = "darkest";
