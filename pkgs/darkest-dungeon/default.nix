@@ -69,10 +69,10 @@ in
     # FIXME: I know this is curserd, but for some reason, it is required.
     unpackPhase = ''
       # First, creates a new fixed zip archive from the original installer.
-      zip -F $src --out fixed-src.zip
+      ${zip}/bin/zip -F $src --out fixed-src.zip
 
       # Then extracts that one instead.
-      unzip  fixed-src.zip
+      ${unzip}/bin/unzip fixed-src.zip
     '';
 
     installPhase = ''
