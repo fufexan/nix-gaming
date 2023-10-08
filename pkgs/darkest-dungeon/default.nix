@@ -66,7 +66,7 @@ in
         categories = ["Game"];
       })
     ];
-    
+
     unpackCmd = "${unzip}/bin/unzip $src 'data/noarch/game/*' 'data/noarch/support/icon.png' -d . || true";
 
     sourceRoot = ".";
