@@ -59,10 +59,10 @@ in
       (makeDesktopItem {
         name = pname;
         desktopName = "Darkest Dungeon";
-        genericName = "Loosing your will to live; the game.";
+        genericName = "Loosing your will to live; the game";
         exec = "darkest";
         icon = pname;
-        comment = "Darkest Dungeon GoG version.";
+        comment = "Darkest Dungeon GoG version";
         categories = ["Game"];
       })
     ];
