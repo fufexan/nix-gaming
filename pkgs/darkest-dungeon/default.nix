@@ -66,21 +66,10 @@ in
         categories = ["Game"];
       })
     ];
+    
+    unpackCmd = "${unzip}/bin/unzip $src 'data/noarch/game/*' 'data/noarch/support/icon.png' -d . || true";
 
-    # FIXME: I know this is curserd, but for some reason, it is required.
-    unpackPhase = ''
-      # First, creates a new fixed zip archive from the original installer.
-      ${zip}/bin/zip -F $src --out fixed-src.zip
-
-      # Then extracts that one instead.
-      ${unzip}/bin/unzip fixed-src.zip
-    '';
-
-    postUnpack = ''
-      # Removes the original installer to reduce the total ammount of RAM being
-      # used during the process.
-      rm $src
-    '';
+    sourceRoot = ".";
 
     installPhase = ''
       mkdir -p $out/share/${pname}
