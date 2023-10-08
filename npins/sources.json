@@ -93,10 +93,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "2023.1004.0",
-      "revision": "72cbc3b9cf3d74204fa89222eac2553801223337",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.1004.0",
-      "hash": "1c10c4phzmj2iwlyfmf2dk08mq2dik511mvxyyhafcv1yljfxbkb"
+      "version": "2023.1008.0",
+      "revision": "e5207167c810ea924fe27781ec1f31acb96a7a69",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.1008.0",
+      "hash": "0kb1y3xibs6pqnssvbn63h469qbmpm75d7rsvk0nr2cb2i5l6vrv"
     },
     "proton-wine": {
       "type": "Git",
