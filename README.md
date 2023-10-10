@@ -217,7 +217,7 @@ need to do is add the module to your configuration like this:
 }
 ```
 
-Now you can skip to [Usage](#usage).
+Now you can skip to [Usage](#usage-1).
 
 ### Stable
 
