@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2023.10.0-alpha-1",
-      "revision": "83a3eaa5dc5bf25a992835c223cfc42fb327363f",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.10.0-alpha-1",
-      "hash": "0y79brgap5qskwzz4siwkha6lkmpx5aq0svh4ah40lc1npmxr7rd"
+      "version": "v2023.10.0-alpha-2",
+      "revision": "c88aa46d8e3744716cbbca5188347fc9be215f10",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.10.0-alpha-2",
+      "hash": "0a07jifwgq4nv0nf72hdbk1mhp2yzi3591ryw7cmzs00ziq9za3w"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -93,10 +93,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "2023.1012.0",
-      "revision": "d2044fc2ccb3df48a103865bbe44b577553a3c8c",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.1012.0",
-      "hash": "1162r6mc2mn8gwfzbam1bjyqp1w6agh47z1z6q5bjz53b8sdxlkj"
+      "version": "2023.1013.0",
+      "revision": "d5557bbbfbcf500d18c167cc804f02edf7b57ca6",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2023.1013.0",
+      "hash": "1syh3x5pv5dmxv0zkgja63z7bfid0z31haq7s8r2rmg1jnfq82a9"
     },
     "proton-wine": {
       "type": "Git",
