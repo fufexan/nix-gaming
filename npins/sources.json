@@ -9,10 +9,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v2023.8.0",
-      "revision": "8da6989fe928f55b1a382541718611e53c84925e",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.8.0",
-      "hash": "17mcbaqzwk7jn7y59vqrwjmlk9wqmimrp1vvsjpq9h30aw4wirxp"
+      "version": "v2023.10.0",
+      "revision": "3cea4439c25285c282bc2a7e7caa989780a1bdeb",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.10.0",
+      "hash": "167xh2lrn0nz8a9jfi9rym192q6zvjk9pppzgk9kpd5ix66lxniq"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2023.10.0-alpha-4",
-      "revision": "8374d7bf0643624ddba08d58dcebf54b993f52e2",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.10.0-alpha-4",
-      "hash": "0kcv172yf230wdprqlwxkylzk0ywxpna2hyfchhlc2v4dhry8b3w"
+      "version": "v2023.10.0",
+      "revision": "3cea4439c25285c282bc2a7e7caa989780a1bdeb",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.10.0",
+      "hash": "167xh2lrn0nz8a9jfi9rym192q6zvjk9pppzgk9kpd5ix66lxniq"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -105,10 +105,10 @@
         "owner": "GloriousEggroll",
         "repo": "proton-wine"
       },
-      "branch": "Proton8-18",
-      "revision": "c420ddca295a3a1807e475a302fed828d8e2aeb2",
-      "url": "https://github.com/GloriousEggroll/proton-wine/archive/c420ddca295a3a1807e475a302fed828d8e2aeb2.tar.gz",
-      "hash": "1ghli7z4yiwabjspk66wlcxcsly0hflmzm0jxrq5v9mnk73h3ij6"
+      "branch": "Proton8-20",
+      "revision": "52794be3453e2f6045db1bd37e351dd2827a18a1",
+      "url": "https://github.com/GloriousEggroll/proton-wine/archive/52794be3453e2f6045db1bd37e351dd2827a18a1.tar.gz",
+      "hash": "02xffsnvlhhj2wm0n0irf39kvyv5sp5a6fhigwbz3zcj206wf9af"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
