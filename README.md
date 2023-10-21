@@ -198,9 +198,8 @@ You can calculate the theoretical latency by dividing `quantum` by `rate`
 
 ## Steam Compatibility Tools
 
-
 nix-gaming provides a batch of compatibility tools for Steam that you may want to use. 
-Additionally, it also provides a `steam-compat` module that will extend `programs.steam`
+Additionally, it also provides a `steamCompat` module that will extend `programs.steam`
 with an `extraCompatPackages = []` option that you may use to automatically append your
 favorite compatibility tools to Steam's compat tools path.
 
@@ -212,7 +211,7 @@ need to do is add the module to your configuration like this:
 ```nix
 {inputs, ...}: {
   imports = [
-    inputs.nix-gaming.nixosModules.steam-compat
+    inputs.nix-gaming.nixosModules.steamCompat
   ];
 }
 ```
@@ -229,7 +228,7 @@ you need to do is add the module to your configuration like this:
   nix-gaming = /* ... */;
 in {
   imports = [
-    nix-gaming.nixosModules.steam-compat
+    nix-gaming.nixosModules.steamCompat
   ];
 }
 ```
