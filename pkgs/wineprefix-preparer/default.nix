@@ -36,7 +36,7 @@ writeShellScriptBin "wineprefix-preparer"
   echo "Found 32 bit path $win32_sys_path and 64 bit path $win64_sys_path"
 
   echo "Removing existing dxvk and vkd3d-proton DLLs"
-  rm -rf {"$win32_sys_path","$win64_sys_path"}/{dxgi,d3d9,d3d10core,d3d11,d3d12}.dll
+  rm -rf {"$win32_sys_path","$win64_sys_path"}/{dxgi,d3d9,d3d10core,d3d11,d3d12,d3d12core}.dll
 
   echo "Installing dxvk DLLs"
   install -v -D -m644 -t "$win64_sys_path" ${dxvk-w64}/bin/*.dll
@@ -47,7 +47,7 @@ writeShellScriptBin "wineprefix-preparer"
   install -v -D -m644 -t "$win32_sys_path" ${vkd3d-proton-w32}/bin/*.dll
 
   echo "Adding native DllOverrides"
-  for dll in dxgi d3d9 d3d10core d3d11 d3d12; do
+  for dll in dxgi d3d9 d3d10core d3d11 d3d12 d3d12core; do
     wine reg add 'HKEY_CURRENT_USER\Software\Wine\DllOverrides' /v $dll /d native /f >/dev/null 2>&1
   done
 ''
