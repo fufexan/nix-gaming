@@ -36,7 +36,8 @@ in
     mesonFlags = ["--buildtype=release"];
 
     postInstall = lib.optionalString stdenv.targetPlatform.isWindows ''
-      ln -s ${windows.mcfgthreads}/bin/mcfgthread-12.dll $out/bin/mcfgthread-12.dll
+      [ -f ${windows.mcfgthreads_pre_gcc_13}/bin/mcfgthread-12.dll ]
+      ln -s ${windows.mcfgthreads_pre_gcc_13}/bin/mcfgthread-12.dll $out/bin/mcfgthread-12.dll
     '';
 
     src = dxvk;
