@@ -76,7 +76,7 @@ in let
   ];
 
   depsHashStable = "sha256:OBp9lltx7WcktcLx0CcqMf0/ZSews9UMtIcmhPeF2MU=";
-  depsHashUnstable = "sha256:OBp9lltx7WcktcLx0CcqMf0/ZSews9UMtIcmhPeF2MU=";
+  depsHashUnstable = "sha256:K59HXOy7F+RXiJCk1Dk0OcTkSHNHW4Qziv0q2VIekf4=";
 
   deps =
     if deps' != null
