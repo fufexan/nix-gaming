@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2023.11.2-alpha-1",
-      "revision": "59b3e401ad485056c4e8f30efcba287b46d230df",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.11.2-alpha-1",
-      "hash": "0g5jfnwzj5nbdbxiip3kd4bdm812if08bnvnx7na143wsfjs4z7k"
+      "version": "v2023.11.2-alpha-3",
+      "revision": "8ddd12ca3b5adf0884bfcdc5a51e2bd4e6847d49",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.11.2-alpha-3",
+      "hash": "12ynbnsnc000zvfnk1x26spisms0xf79mi04hc8mqiilvvqwfl2m"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -65,10 +65,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v3.3.5",
-      "revision": "42a6ac67d96b60b7a7cbd08b4f706783ac6c2d3b",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.5",
-      "hash": "0dl8zli479xnmfqs555q6nlhr8wpfig1dlqnc0lp2byx5y6a2miy"
+      "version": "v3.3.6",
+      "revision": "e4ba1b9e6c815eaeccfe0cf7473bce7d3ff16b21",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.6",
+      "hash": "189i5v41aab0yc7sr6d0z2y06fbpnihv707ncvhndxmrc7xcnnhd"
     },
     "faf-uid": {
       "type": "GitRelease",
@@ -105,10 +105,10 @@
         "owner": "GloriousEggroll",
         "repo": "proton-wine"
       },
-      "branch": "Proton8-22",
-      "revision": "d5a97061ec96dbbceccec3a7f3ba54b39738fbdd",
-      "url": "https://github.com/GloriousEggroll/proton-wine/archive/d5a97061ec96dbbceccec3a7f3ba54b39738fbdd.tar.gz",
-      "hash": "1fdj8jawh7jip4i0aiqr1x0hln5hydrrnzx2yacyv6d4fwhjnvvx"
+      "branch": "Proton8-23",
+      "revision": "07e7c86327b7ccaeee04877b4e1f94e271e9bd07",
+      "url": "https://github.com/GloriousEggroll/proton-wine/archive/07e7c86327b7ccaeee04877b4e1f94e271e9bd07.tar.gz",
+      "hash": "0v65m3bmnzxzxp5883425hkyv8bh72i2xgzv51yjl4ds5gfk72f1"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
