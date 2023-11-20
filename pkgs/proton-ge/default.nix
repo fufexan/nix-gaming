@@ -6,11 +6,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "proton-ge-custom";
-  version = "GE-Proton8-23";
+  version = "GE-Proton8-24";
 
   src = fetchurl {
     url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
-    hash = "sha256-gi+oDJSmA3hb70vvtr6KAq5Ri3SM9Is33sPX9DAFu/Y=";
+    hash = "sha256-72jxUJdn4j0FV1qFH0r7UEVrAvSwrWgWsxCXyT1N/1A=";
   };
 
   buildCommand = ''
@@ -22,11 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script {};
 
-  meta = with lib; {
+  meta = {
     description = "Compatibility tool for Steam Play based on Wine and additional components";
     homepage = "https://github.com/GloriousEggroll/proton-ge-custom";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [NotAShelf];
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [NotAShelf];
     platforms = ["x86_64-linux"];
   };
 })
