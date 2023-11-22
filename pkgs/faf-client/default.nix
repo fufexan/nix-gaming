@@ -75,7 +75,7 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:OBp9lltx7WcktcLx0CcqMf0/ZSews9UMtIcmhPeF2MU=";
+  depsHashStable = "sha256:iTNo+kMrvGxEkOgJ7Qc2ssxKEmz+dBBMwz5GHYrZ6OM=";
   depsHashUnstable = "sha256:iTNo+kMrvGxEkOgJ7Qc2ssxKEmz+dBBMwz5GHYrZ6OM=";
 
   deps =
