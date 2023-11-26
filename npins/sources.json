@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2023.11.2",
-      "revision": "8ddd12ca3b5adf0884bfcdc5a51e2bd4e6847d49",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.11.2",
-      "hash": "12ynbnsnc000zvfnk1x26spisms0xf79mi04hc8mqiilvvqwfl2m"
+      "version": "v2023.12.0-snapshot",
+      "revision": "d83e7c7a1b7398c17bcccddc0c78768f787eed46",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.12.0-snapshot",
+      "hash": "0npmvnlrniw1pgj70j6156frxiby754sz87mldyc04yyb05gzxd4"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -146,9 +146,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "7174e32530fb87af6e7c632005b24062706655e0",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/7174e32530fb87af6e7c632005b24062706655e0.tar.gz",
-      "hash": "0mxykqknblyqhc04rmcrl0x56a53z2mr69gcndlvfpaaqjgx2r01"
+      "revision": "8added683725b07a374cbc6843a2b893194b4028",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/8added683725b07a374cbc6843a2b893194b4028.tar.gz",
+      "hash": "1bj0fwjy3f000nnwvfpwm6ykn9002ji13gr6qs47040f4qiy0kd2"
     }
   },
   "version": 3

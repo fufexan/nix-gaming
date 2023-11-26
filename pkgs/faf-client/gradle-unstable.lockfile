@@ -240,7 +240,6 @@ org.springframework:spring-web:6.0.13=compileClasspath,productionRuntimeClasspat
 org.springframework:spring-webflux:6.0.13=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.springframework:spring-webmvc:6.0.13=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.springframework:spring-websocket:6.0.13=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-org.testfx:openjfx-monocle:jdk-12.0.1+2=testCompileClasspath,testRuntimeClasspath
 org.testfx:testfx-core:4.0.17=testCompileClasspath,testRuntimeClasspath
 org.testfx:testfx-junit5:4.0.17=testCompileClasspath,testRuntimeClasspath
 org.typelevel:macro-compat_2.12:1.1.1=codacy
