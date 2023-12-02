@@ -73,8 +73,8 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:iTNo+kMrvGxEkOgJ7Qc2ssxKEmz+dBBMwz5GHYrZ6OM=";
-  depsHashUnstable = "sha256:r0+n+ZKYpAvZ/9oQAxWr2erjVzkK+1u+gvErWkbSEoo=";
+  depsHashStable = "sha256:Wz97QAQxsmVNdRP1QigcFS72V0EmWtP/3z+ktxTgjf8=";
+  depsHashUnstable = "sha256:dA/KFaeL1Mr5tLefpFxaNNDiyhzEIuy9S5ETBf1v4TU=";
 
   deps =
     if deps' != null
@@ -114,6 +114,20 @@ in let
             | sort \
             | sh
           cp gradle.lockfile buildscript-gradle.lockfile $out
+          ${
+            # HACK: allow using deprecated package names
+            builtins.concatStringsSep "\n" (lib.flip lib.mapAttrsToList {
+                "com/squareup/okio/okio" = "com/squareup/okio/okio-jvm";
+                "org/jetbrains/kotlin/kotlin-stdlib-common" = "org/jetbrains/kotlin/kotlin-stdlib";
+              } (alias: real: let
+                aliasName = lib.last (lib.splitString "/" alias);
+                realName = lib.last (lib.splitString "/" real);
+              in ''
+                for ver in $(ls "$out/${alias}" || true); do
+                  ln -s "$out/${real}/$ver/${realName}-$ver.jar" "$out/${alias}/$ver/${aliasName}-$ver.jar" || true
+                done
+              ''))
+          }
         '';
         outputHashMode = "recursive";
         outputHash =
