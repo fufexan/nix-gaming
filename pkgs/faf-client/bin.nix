@@ -3,8 +3,7 @@
   stdenvNoCC,
   makeWrapper,
   makeDesktopItem,
-  # regular jdk doesnt work due to problems with JavaFX even with .override { enableJavaFX = true; }
-  openjdk17-bootstrap,
+  openjdk21,
   xorg,
   libGL,
   gtk3,
@@ -102,7 +101,7 @@ in
         --chdir $out/lib/faf-client \
         --set-default INSTALL4J_ADD_VM_PARAMS '~/.cache/openjfx' \
         --set-default LOG_DIR '~/.faforever/logs' \
-        --set INSTALL4J_JAVA_HOME ${openjdk17-bootstrap} \
+        --set INSTALL4J_JAVA_HOME ${openjdk21} \
         --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs}
       sed -i "s#'~/.faforever/logs'#"'"$HOME/.faforever/logs"#' $out/bin/faf-client
       sed -i "s#'~/.cache/openjfx'#"'"-Djavafx.cachedir=''${XDG_CACHE_HOME:-$HOME/.cache}/openjfx"#' $out/bin/faf-client

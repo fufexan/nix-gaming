@@ -3,9 +3,7 @@
   pins,
   stdenvNoCC,
   makeDesktopItem,
-  # TODO: preferably get rid of this and use regular openjdk
-  # might require patches to nixpkgs
-  openjdk17-bootstrap,
+  openjdk21,
   gradle,
   perl,
   substituteAll,
@@ -84,7 +82,7 @@ in let
     else
       stdenvNoCC.mkDerivation {
         pname = "${pname}-deps";
-        java_home = openjdk17-bootstrap;
+        java_home = openjdk21;
         inherit src version;
         init_deps = ./init-deps.gradle;
         buildscript_gradle_lockfile =
@@ -165,7 +163,7 @@ in let
 in
   stdenvNoCC.mkDerivation {
     inherit pname version meta src desktopItem gawk runtimeShell;
-    java_home = openjdk17-bootstrap;
+    java_home = openjdk21;
     libs = lib.makeLibraryPath libs;
 
     postPatch = ''
