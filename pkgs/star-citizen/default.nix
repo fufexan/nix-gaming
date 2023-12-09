@@ -15,11 +15,11 @@
   postCommands ? "",
   pkgs,
 }: let
-  version = "1.6.8";
+  version = "1.6.9";
   src = pkgs.fetchurl rec {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
     name = "RSI-Setup-${version}.exe";
-    hash = "sha256-mL6bhNyYgaBVSq5RVBg5GLtSwaQmQdrXBKHz1LyMG4I=";
+    hash = "sha256-h/JBhtYRV4XbPYPq+A8UcELmr/1inVWiV+A5/bCLLWM=";
   };
 
   # concat winetricks args
@@ -30,16 +30,16 @@
 
   script = writeShellScriptBin pname ''
     export WINEARCH="win64"
-    export DXVK_HUD=fps,compiler
     export WINEFSYNC=1
     export WINEESYNC=1
     export WINEPREFIX="${location}"
+    export WINEDLLOVERRIDES="libglesv2=b,nvapi,nvapi64=,powershell.exe="
     # Anti-cheat
     export SteamGameId="starcitizen"
     __GL_SHADER_DISK_CACHE=1
     __GL_SHADER_DISK_CACHE_SIZE=1073741824
     __GL_THREADED_OPTIMIZATIONS=1
-    PATH=$PATH:${lib.makeBinPath [wine winetricks]}
+    PATH=${lib.makeBinPath [wine winetricks]}:$PATH
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
 
@@ -52,11 +52,6 @@
 
       # install launcher
       # Use silent install
-      wine ${src} /S
-
-      wineserver -k
-    elif !( ${pkgs.exiftool}/bin/exiftool $RSI_LAUNCHER | grep -q ${version} ); then
-      # Launcher doesn't auto update due to EAC work around.
       wine ${src} /S
 
       wineserver -k

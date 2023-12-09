@@ -3,9 +3,7 @@
   pins,
   stdenvNoCC,
   makeDesktopItem,
-  # TODO: preferably get rid of this and use regular openjdk
-  # might require patches to nixpkgs
-  openjdk17-bootstrap,
+  openjdk21,
   gradle,
   perl,
   substituteAll,
@@ -75,8 +73,8 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:Vvx5awzu1x70hm0oJe4CyNaT/Gt2po2HRNClcKJbrlg=";
-  depsHashUnstable = "sha256:Vvx5awzu1x70hm0oJe4CyNaT/Gt2po2HRNClcKJbrlg=";
+  depsHashStable = "sha256:Wz97QAQxsmVNdRP1QigcFS72V0EmWtP/3z+ktxTgjf8=";
+  depsHashUnstable = "sha256:dA/KFaeL1Mr5tLefpFxaNNDiyhzEIuy9S5ETBf1v4TU=";
 
   deps =
     if deps' != null
@@ -84,7 +82,7 @@ in let
     else
       stdenvNoCC.mkDerivation {
         pname = "${pname}-deps";
-        java_home = openjdk17-bootstrap;
+        java_home = openjdk21;
         inherit src version;
         init_deps = ./init-deps.gradle;
         buildscript_gradle_lockfile =
@@ -116,6 +114,20 @@ in let
             | sort \
             | sh
           cp gradle.lockfile buildscript-gradle.lockfile $out
+          ${
+            # HACK: allow using deprecated package names
+            builtins.concatStringsSep "\n" (lib.flip lib.mapAttrsToList {
+                "com/squareup/okio/okio" = "com/squareup/okio/okio-jvm";
+                "org/jetbrains/kotlin/kotlin-stdlib-common" = "org/jetbrains/kotlin/kotlin-stdlib";
+              } (alias: real: let
+                aliasName = lib.last (lib.splitString "/" alias);
+                realName = lib.last (lib.splitString "/" real);
+              in ''
+                for ver in $(ls "$out/${alias}" || true); do
+                  ln -s "$out/${real}/$ver/${realName}-$ver.jar" "$out/${alias}/$ver/${aliasName}-$ver.jar" || true
+                done
+              ''))
+          }
         '';
         outputHashMode = "recursive";
         outputHash =
@@ -165,7 +177,7 @@ in let
 in
   stdenvNoCC.mkDerivation {
     inherit pname version meta src desktopItem gawk runtimeShell;
-    java_home = openjdk17-bootstrap;
+    java_home = openjdk21;
     libs = lib.makeLibraryPath libs;
 
     postPatch = ''
