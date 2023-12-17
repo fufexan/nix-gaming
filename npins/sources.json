@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2023.12.0-alpha-3",
-      "revision": "47ef44e410b346ca9dfa96d01d814b31ba8a8548",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.12.0-alpha-3",
-      "hash": "1j82c21c020clyjx22ljyznb2yh419fx9v1iw2yvp61qx08jdbzp"
+      "version": "v2023.12.0-alpha-4",
+      "revision": "7e1f13da04bc8215b50ab106334e815757b31e39",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2023.12.0-alpha-4",
+      "hash": "11lnfds48j1gl4k326g9b7ljabh8l3zivcqfwalaf165rbvf3455"
     },
     "dxvk": {
       "type": "GitRelease",
