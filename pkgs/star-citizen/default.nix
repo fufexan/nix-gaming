@@ -15,11 +15,11 @@
   postCommands ? "",
   pkgs,
 }: let
-  version = "1.6.9";
+  version = "1.6.10";
   src = pkgs.fetchurl rec {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
     name = "RSI-Setup-${version}.exe";
-    hash = "sha256-h/JBhtYRV4XbPYPq+A8UcELmr/1inVWiV+A5/bCLLWM=";
+    hash = "sha256-axttJvw3MFmhLC4e+aqtf4qx0Z0x4vz78LElyGkMAbs=";
   };
 
   # concat winetricks args
@@ -36,9 +36,6 @@
     export WINEDLLOVERRIDES="libglesv2=b,nvapi,nvapi64=,powershell.exe="
     # Anti-cheat
     export SteamGameId="starcitizen"
-    __GL_SHADER_DISK_CACHE=1
-    __GL_SHADER_DISK_CACHE_SIZE=1073741824
-    __GL_THREADED_OPTIMIZATIONS=1
     PATH=${lib.makeBinPath [wine winetricks]}:$PATH
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
