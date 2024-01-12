@@ -18,6 +18,8 @@
       config.allowUnfree = true;
     };
 
+    overlayAttrs = config.packages;
+
     packages = let
       pins = import ../npins;
 
