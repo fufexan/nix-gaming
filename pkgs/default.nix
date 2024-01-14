@@ -77,6 +77,10 @@
 
       technic-launcher = pkgs.callPackage ./technic-launcher {};
 
+      tmodloader = pkgs.callPackage ./tmodloader {
+        dotnet = pkgs.dotnet-runtime_6;
+      };
+
       viper = pkgs.callPackage ./titanfall/viper.nix {};
 
       vkd3d-proton = pkgs.callPackage ./vkd3d-proton {inherit pins;};
