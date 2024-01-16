@@ -82,7 +82,7 @@
     exec = "${script}/bin/${pname} %U";
     inherit icon;
     comment = "Star Citizen - Alpha";
-    desktopName = "Star Ctizien";
+    desktopName = "Star Citizen";
     categories = ["Game"];
     mimeTypes = ["application/x-star-citizen-launcher"];
   };
