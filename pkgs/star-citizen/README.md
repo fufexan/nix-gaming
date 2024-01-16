@@ -20,6 +20,16 @@ boot.kernel.sysctl = {
 
 Currently recommended to have at least 40GB RAM + swap. If you have less than 40GB enable zram.
 
+## Tips
+
+To access the wine control panel please run the following:
+
+```bash
+# Adjust WINEPREFIX to your location
+# this is the default path
+WINEPREFIX=$HOME/Games/star-citizen nix run github:fufexan/nix-gaming#wine-ge -- control
+```
+
 ### Credits
 
 * [Linux User Group](https://starcitizen-lug.github.io) - A lot of the testing of requirements has been done there
