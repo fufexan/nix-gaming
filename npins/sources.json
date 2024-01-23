@@ -9,10 +9,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v2024.1.1",
-      "revision": "2bfdc244d366222c8fb0aff8ac01ac47dd72571c",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.1.1",
-      "hash": "0yz48nrq0xnz16kv53p75zdgz04v62x25whfwq8ygfcd08r8ad1p"
+      "version": "v2024.1.2",
+      "revision": "61b5567009fd0788b9899e89050752ee79ae56cf",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.1.2",
+      "hash": "1zj8g4r96jz1dxlifq6r5mid4ngjv31ldvsaqymlp126ha1n0pxa"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2024.1.2-alpha-2",
-      "revision": "1338574f3e3f9811c2b431c43fbc91df7d4974ff",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.1.2-alpha-2",
-      "hash": "1hxxvn9dlmidp8w7smy2xd9q54rdilx8fgjadsf1vffgvxhsdqlp"
+      "version": "v2024.1.2",
+      "revision": "61b5567009fd0788b9899e89050752ee79ae56cf",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.1.2",
+      "hash": "1zj8g4r96jz1dxlifq6r5mid4ngjv31ldvsaqymlp126ha1n0pxa"
     },
     "dxvk": {
       "type": "GitRelease",
