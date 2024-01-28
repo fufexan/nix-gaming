@@ -38,6 +38,7 @@
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
     stdenv = stdenv_32bit;
+    wineRelease = "";
   };
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
@@ -59,6 +60,7 @@ in {
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
       src = pins.wine-tkg;
       supportFlags.waylandSupport = true;
+      wineRelease = "wayland";
     });
 
   wine-osu = let
