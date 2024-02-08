@@ -16,20 +16,21 @@ osu-lazer-bin.overrideAttrs (oldAttrs: rec {
   #       but I don't know how to do it in bash, at the moment it just works (tm).
   src = let
     baseUrl = "https://github.com/ppy/osu/releases/download/${version}";
+    infoFile = builtins.fromJSON (builtins.readFile ./info.json);
   in
     {
       aarch64-darwin = fetchzip {
-        inherit (builtins.elemAt (builtins.fromJSON (builtins.readFile ./info.json)) 2) hash;
+        inherit (builtins.elemAt infoFile 2) hash;
         url = "${baseUrl}/osu.app.Apple.Silicon.zip";
         striproot = false;
       };
       x86_64-darwin = fetchzip {
-        inherit (builtins.elemAt (builtins.fromJSON (builtins.readFile ./info.json)) 1) hash;
+        inherit (builtins.elemAt infoFile 1) hash;
         url = "${baseUrl}/osu.app.Intel.zip";
         striproot = false;
       };
       x86_64-linux = fetchurl {
-        inherit (builtins.elemAt (builtins.fromJSON (builtins.readFile ./info.json)) 0) hash;
+        inherit (builtins.elemAt infoFile 0) hash;
         url = "${baseUrl}/osu.AppImage";
       };
     }
