@@ -5,15 +5,15 @@ version=$(jq -r '.pins.osu.version' npins/sources.json)
 oldversion=$(jq -r '.[0].version' "$packagePath/info.json")
 
 # Concat them to make a new url
-#baseUrl="https://github.com/ppy/osu/releases/download/${version}/"
-baseUrl="file:///nix/store"
+baseUrl="https://github.com/ppy/osu/releases/download/${version}/"
+#baseUrl="file:///nix/store"
 declare -A filenames=(
-  #[aarch64darwin]="osu.app.Apple.Silicon.zip"
-  #[x86_64darwin]="osu.app.Intel.zip"
-  #[x86_64linux]="osu.AppImage"
-  [aarch64darwin]="xwnckc0a6cvw6xd99m110sr5vginysjy-osu.app.Apple.Silicon.zip"
-  [x86_64darwin]="p4rrmqnn35hsjwihpdvhjy0kxmspxmgn-osu.app.Intel.zip"
-  [x86_64linux]="svxz8clgl17k8wl40f0bblsl8nj3pbw1-osu.AppImage"
+  [aarch64darwin]="osu.app.Apple.Silicon.zip"
+  [x86_64darwin]="osu.app.Intel.zip"
+  [x86_64linux]="osu.AppImage"
+  #[aarch64darwin]="xwnckc0a6cvw6xd99m110sr5vginysjy-osu.app.Apple.Silicon.zip"
+  #[x86_64darwin]="p4rrmqnn35hsjwihpdvhjy0kxmspxmgn-osu.app.Intel.zip"
+  #[x86_64linux]="svxz8clgl17k8wl40f0bblsl8nj3pbw1-osu.AppImage"
 )
 
 #if [ "$oldversion" != "$version" ]; then
