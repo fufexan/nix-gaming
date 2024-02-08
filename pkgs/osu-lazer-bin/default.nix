@@ -1,121 +1,40 @@
 {
-  lib,
-  pins,
-  SDL2,
-  alsa-lib,
-  appimageTools,
-  autoPatchelfHook,
   fetchurl,
-  ffmpeg_4,
-  gamemode,
-  icu,
-  libkrb5,
-  lttng-ust,
-  makeDesktopItem,
-  makeWrapper,
-  numactl,
-  openssl,
-  stdenvNoCC,
-  symlinkJoin,
-  vulkan-loader,
-  pipewire_latency ? "64/48000", # reasonable default
-  gmrun_enable ? true, # keep this flag for compatibility
-  command_prefix ?
-    if gmrun_enable
-    # won't hurt users even if they don't have it set up
-    then "${gamemode}/bin/gamemoderun"
-    else null,
-  osu-mime,
-}: let
-  pname = "osu-lazer-bin";
+  fetchzip,
+  osu-lazer-bin,
+  pins,
+  stdenv,
+}:
+osu-lazer-bin.overrideAttrs (oldAttrs: rec {
   inherit (pins.osu) version;
 
-  appimageBin = fetchurl {
-    url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    inherit (builtins.fromJSON (builtins.readFile ./info.json)) hash;
-  };
-  extracted = appimageTools.extract {
-    inherit version;
-    pname = "osu.AppImage";
-    src = appimageBin;
-  };
-  derivation = stdenvNoCC.mkDerivation rec {
-    inherit version pname;
-    src = extracted;
-    buildInputs = [
-      SDL2
-      alsa-lib
-      ffmpeg_4
-      icu
-      libkrb5
-      lttng-ust
-      numactl
-      openssl
-      vulkan-loader
-    ];
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-    ];
-    autoPatchelfIgnoreMissingDeps = true;
-    installPhase = ''
-      runHook preInstall
-      install -d $out/bin $out/lib
-      install osu\!.png $out/osu.png
-      cp -r usr/bin $out/lib/osu
-      makeWrapper $out/lib/osu/osu\! $out/bin/osu-lazer \
-        --set COMPlus_GCGen0MaxBudget "600000" \
-        --set PIPEWIRE_LATENCY "${pipewire_latency}" \
-        --set vblank_mode "0" \
-        --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
-      ${
-        # a hack to infiltrate the command in the wrapper
-        lib.optionalString (builtins.isString command_prefix) ''
-          sed -i '$s:exec :exec ${command_prefix} :' $out/bin/osu-lazer
-        ''
-      }
-      runHook postInstall
-    '';
-    fixupPhase = ''
-      runHook preFixup
-      ln -sft $out/lib/osu ${SDL2}/lib/libSDL2${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
-      runHook postFixup
-    '';
-  };
-  desktopItem = makeDesktopItem {
-    name = pname;
-    exec = "${derivation.outPath}/bin/osu-lazer %U";
-    icon = "${derivation.outPath}/osu.png";
-    comment = "A free-to-win rhythm game. Rhythm is just a *click* away!";
-    desktopName = "osu!";
-    categories = ["Game"];
-    mimeTypes = [
-      "application/x-osu-skin-archive"
-      "application/x-osu-replay"
-      "application/x-osu-beatmap-archive"
-      "x-scheme-handler/osu"
-    ];
-  };
-in
-  symlinkJoin {
-    name = "${pname}-${version}";
-    paths = [
-      derivation
-      desktopItem
-      osu-mime
-    ];
+  # TODO: I didn't figure out how to use lib.resursiveUpdate here,
+  #       so I ended up copying the entire thing.
 
-    meta = {
-      description = "Rhythm is just a *click* away";
-      longDescription = "osu-lazer extracted from the official AppImage to retain multiplayer support.";
-      homepage = "https://osu.ppy.sh";
-      license = with lib.licenses; [
-        mit
-        cc-by-nc-40
-        unfreeRedistributable # osu-framework contains libbass.so in repository
-      ];
-      mainProgram = "osu-lazer";
-      passthru.updateScript = ./update.sh;
-      platforms = ["x86_64-linux"];
-    };
-  }
+  # TODO: ./info.json's order is wrong, for some reason.
+  #       we should make it a set instead of a list, like `jq -r '.aarch64-darwin.hash'`
+  #       but I don't know how to do it in bash, at the moment it just works (tm).
+  src = let
+    baseUrl = "https://github.com/ppy/osu/releases/download/${version}";
+  in
+    {
+      aarch64-darwin = fetchzip {
+        inherit (builtins.elemAt (builtins.fromJSON (builtins.readFile ./info.json)) 2) hash;
+        url = "${baseUrl}/osu.app.Apple.Silicon.zip";
+        striproot = false;
+      };
+      x86_64-darwin = fetchzip {
+        inherit (builtins.elemAt (builtins.fromJSON (builtins.readFile ./info.json)) 1) hash;
+        url = "${baseUrl}/osu.app.Intel.zip";
+        striproot = false;
+      };
+      x86_64-linux = fetchurl {
+        inherit (builtins.elemAt (builtins.fromJSON (builtins.readFile ./info.json)) 0) hash;
+        url = "${baseUrl}/osu.AppImage";
+      };
+    }
+    .${stdenv.system}
+    or (throw "${oldAttrs.pname}-${version}: ${stdenv.system} is unsupported.");
+
+  passthru.updateScript = ./update.sh;
+})

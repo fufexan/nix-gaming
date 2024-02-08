@@ -55,7 +55,6 @@
 
       osu-lazer-bin = pkgs.callPackage ./osu-lazer-bin {
         inherit pins;
-        inherit (config.packages) osu-mime;
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {

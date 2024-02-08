@@ -1,5 +1,17 @@
-{
-  "hash": "sha256-aNG6s942iTKyvM1XolMqmMs8XxoRYC/ZddCCJl0OtTE=",
-  "storePath": "/nix/store/svxz8clgl17k8wl40f0bblsl8nj3pbw1-osu.AppImage",
-  "version": "2024.131.0"
-}
+[
+  {
+    "hash": "sha256-aNG6s942iTKyvM1XolMqmMs8XxoRYC/ZddCCJl0OtTE=",
+    "storePath": "/nix/store/1s1kzc8bry7kb3m5vi7gqd0lmlvgf94p-svxz8clgl17k8wl40f0bblsl8nj3pbw1-osu.AppImage",
+    "version": "2024.131.0"
+  },
+  {
+    "hash": "sha256-oiWQp7c9//W4g0csNIseDU0R5l26SuaDWmq9NoYLWgc=",
+    "storePath": "/nix/store/qkbsxxpn56l38kik6wg6n2bskbh1h8sf-p4rrmqnn35hsjwihpdvhjy0kxmspxmgn-osu.app.Intel.zip",
+    "version": "2024.131.0"
+  },
+  {
+    "hash": "sha256-ohZ6Cmhjlc57/tu0l/3vUz3RfHJzj2sFhM+L9xoICGk=",
+    "storePath": "/nix/store/8sbz67psx4xbw9nm1jcqw5sbpd7prwys-xwnckc0a6cvw6xd99m110sr5vginysjy-osu.app.Apple.Silicon.zip",
+    "version": "2024.131.0"
+  }
+]
