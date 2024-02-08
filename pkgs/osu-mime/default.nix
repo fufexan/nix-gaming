@@ -51,10 +51,10 @@ in
           # Generate icon
           rsvg-convert -w "$size" -h "$size" -f png -o "osu-logo-triangles.png" "''${srcs[0]}"
           rsvg-convert -w "$size" -h "$size" -f png -o "osu-logo-white.png" "''${srcs[1]}"
-          convert -composite "osu-logo-triangles.png" "osu-logo-white.png" -gravity center 'osu!.png'
+          convert -composite "osu-logo-triangles.png" "osu-logo-white.png" -gravity center 'osu-stable.png'
 
           mkdir -p "$icon_dir"
-          mv 'osu!.png' "$icon_dir"
+          mv 'osu-stable.png' "$icon_dir"
       done
 
       cp "''${srcs[2]}" "$mime_dir/osu.xml"
