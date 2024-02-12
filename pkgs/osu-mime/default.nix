@@ -63,7 +63,7 @@ in
     meta = with lib; {
       description = "MIME types for osu!";
       license = licenses.agpl3Only; # osu-web uses AGPL v3.0
-      maintainers = with lib.maintainers; [PlayerNameHere];
+      maintainers = with lib.maintainers; [dixslyf];
       platforms = ["x86_64-linux"];
     };
   }
