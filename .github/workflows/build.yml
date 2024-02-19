@@ -15,9 +15,18 @@ jobs:
           - faf-client
           - faf-client-unstable
           - proton-ge
+          - northstar-proton
           - wine-ge
           - wine-osu
           - wine-tkg
+          - wine-discord-ipc-bridge
+          - winestreamproxy
+          - osu-stable
+          - osu-lazer-bin
+          - rocket-league
+          - star-citizen
+          - technic-launcher
+          - viper
 
     uses: ./.github/workflows/nix.yml
     with:
