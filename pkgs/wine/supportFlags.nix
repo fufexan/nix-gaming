@@ -29,7 +29,6 @@ rec {
     krb5Support = false;
     embedInstallers = false;
     x11Support = true;
-    waylandSupport = false;
     usbSupport = true;
   };
 
