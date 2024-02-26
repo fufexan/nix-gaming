@@ -30,6 +30,19 @@ To access the wine control panel please run the following:
 WINEPREFIX=$HOME/Games/star-citizen nix run github:fufexan/nix-gaming#wine-ge -- control
 ```
 
+## Additional Overrides
+
+This package has an additional override `wineDllOverrides`
+
+Example:
+
+```nix
+star-citizen = pkgs.star-citizen.override (prev: {
+  # Recommended to keep the previous overrides
+  wineDllOverrides = prev.wineDllOverrides ++ [ "dxgi=n" ];
+})
+```
+
 ### Credits
 
 * [Linux User Group](https://starcitizen-lug.github.io) - A lot of the testing of requirements has been done there
