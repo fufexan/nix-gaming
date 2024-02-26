@@ -11,12 +11,13 @@
   pname ? "star-citizen",
   location ? "$HOME/Games/star-citizen",
   tricks ? ["arial" "vcrun2019" "win10"],
+  wineDllOverrides ? ["libglesv2=b" "nvapi,nvapi64=" "powershell.exe="],
   preCommands ? "",
   postCommands ? "",
   pkgs,
 }: let
   version = "1.6.10";
-  src = pkgs.fetchurl rec {
+  src = pkgs.fetchurl {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
     name = "RSI-Setup-${version}.exe";
     hash = "sha256-axttJvw3MFmhLC4e+aqtf4qx0Z0x4vz78LElyGkMAbs=";
@@ -33,9 +34,11 @@
     export WINEFSYNC=1
     export WINEESYNC=1
     export WINEPREFIX="${location}"
-    export WINEDLLOVERRIDES="libglesv2=b,nvapi,nvapi64=,powershell.exe="
+    export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
     # Anti-cheat
     export SteamGameId="starcitizen"
+    export EOS_USE_ANTICHEATCLIENTNULL=1
+
     PATH=${lib.makeBinPath [wine winetricks]}:$PATH
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
