@@ -1,73 +1,79 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}:
-# low-latency PipeWire configuration
-# extends the nixpkgs module
-let
+}: let
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) int;
+
   cfg = config.services.pipewire.lowLatency;
   qr = "${toString cfg.quantum}/${toString cfg.rate}";
-  json = pkgs.formats.json {};
 in {
+  # low-latency PipeWire configuration
+  # extends the nixpkgs module
+  meta.maintainers = with lib.maintainers; [fufexan];
+
   options = {
     services.pipewire.lowLatency = {
-      enable = lib.mkEnableOption (lib.mdDoc "Enable low latency");
+      enable = mkEnableOption "low latency for PipeWire";
 
-      quantum = lib.mkOption {
-        description = lib.mdDoc "Minimum quantum to set";
-        type = lib.types.int;
+      quantum = mkOption {
+        description = "Minimum quantum to set";
+        type = int;
         default = 64;
         example = 32;
       };
 
-      rate = lib.mkOption {
-        description = lib.mdDoc "Rate to set";
-        type = lib.types.int;
+      rate = mkOption {
+        description = "Rate to set";
+        type = int;
         default = 48000;
         example = 96000;
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    # pipewire native config
-    environment.etc = {
-      "pipewire/pipewire.d/99-lowlatency.conf".source = json.generate "99-lowlatency.conf" {
-        context.properties.default.clock.min-quantum = cfg.quantum;
-      };
+  config = mkIf cfg.enable {
+    services.pipewire.extraConfig.pipewire = {
+      "99-lowlatency" = {
+        context = {
+          properties.default.clock.min-quantum = cfg.quantum;
+          modules = [
+            {
+              name = "libpipewire-module-rtkit";
+              flags = ["ifexists" "nofail"];
+              args = {
+                nice.level = -15;
+                rt = {
+                  prio = 88;
+                  time.soft = 200000;
+                  time.hard = 200000;
+                };
+              };
+            }
+            {
+              name = "libpipewire-module-protocol-pulse";
+              args = {
+                server.address = ["unix:native"];
+                pulse.min = {
+                  req = qr;
+                  quantum = qr;
+                  frag = qr;
+                };
+              };
+            }
+          ];
 
-      # pulse clients config
-      "pipewire/pipewire-pulse.d/99-lowlatency.conf".source = json.generate "99-lowlatency.conf" {
-        context.modules = [
-          {
-            name = "libpipewire-module-rtkit";
-            args = {
-              nice.level = -15;
-              rt.prio = 88;
-              rt.time.soft = 200000;
-              rt.time.hard = 200000;
-            };
-            flags = ["ifexists" "nofail"];
-          }
-          {
-            name = "libpipewire-module-protocol-pulse";
-            args = {
-              pulse.min.req = qr;
-              pulse.min.quantum = qr;
-              pulse.min.frag = qr;
-              server.address = ["unix:native"];
-            };
-          }
-        ];
-
-        stream.properties = {
-          node.latency = qr;
-          resample.quality = 1;
+          stream.properties = {
+            node.latency = qr;
+            resample.quality = 1;
+          };
         };
       };
+    };
 
+    environment.etc = {
       "wireplumber/main.lua.d/99-alsa-lowlatency.lua".text = ''
         alsa_monitor.rules = {
           {
