@@ -13,12 +13,12 @@
       in {
         pipewireLowLatency = import ./modules/pipewireLowLatency.nix;
         steamCompat = import ./modules/steamCompat.nix;
-        default = throw (lib.mdDoc ''
+        default = throw ''
           The usage of default module is deprecated as multiple modules are provided by nix-gaming. Please use
           the exact name of the module you would like to use. Available modules are:
 
           ${builtins.concatStringsSep "\n" (lib.filter (name: name != "default") (lib.attrNames self.nixosModules))}
-        '');
+        '';
       };
 
       imports = [
