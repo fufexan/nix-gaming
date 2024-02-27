@@ -6,6 +6,7 @@
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int;
+  inherit (lib.generators) toLua mkLuaInline;
 
   cfg = config.services.pipewire.lowLatency;
   qr = "${toString cfg.quantum}/${toString cfg.rate}";
@@ -16,7 +17,10 @@ in {
 
   options = {
     services.pipewire.lowLatency = {
-      enable = mkEnableOption "low latency for PipeWire";
+      enable = mkEnableOption ''
+        low latency for PipeWire. This will also set `services.pipewire.enable` and
+        `services.pipewire.wireplumber.enable` to true.
+      '';
 
       quantum = mkOption {
         description = "Minimum quantum to set";
@@ -35,57 +39,65 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.pipewire.extraConfig.pipewire = {
-      "99-lowlatency" = {
-        context = {
-          properties.default.clock.min-quantum = cfg.quantum;
-          modules = [
-            {
-              name = "libpipewire-module-rtkit";
-              flags = ["ifexists" "nofail"];
-              args = {
-                nice.level = -15;
-                rt = {
-                  prio = 88;
-                  time.soft = 200000;
-                  time.hard = 200000;
-                };
-              };
-            }
-            {
-              name = "libpipewire-module-protocol-pulse";
-              args = {
-                server.address = ["unix:native"];
-                pulse.min = {
-                  req = qr;
-                  quantum = qr;
-                  frag = qr;
-                };
-              };
-            }
-          ];
+    services.pipewire = {
+      # make sure pipewire and wireplumber are enabled
+      # while the module is imported and lowlatency is set to true
+      enable = true;
+      wireplumber.enable = true;
 
-          stream.properties = {
-            node.latency = qr;
-            resample.quality = 1;
+      # write extra config
+      extraConfig.pipewire = {
+        "99-lowlatency" = {
+          context = {
+            properties.default.clock.min-quantum = cfg.quantum;
+            modules = [
+              {
+                name = "libpipewire-module-rtkit";
+                flags = ["ifexists" "nofail"];
+                args = {
+                  nice.level = -15;
+                  rt = {
+                    prio = 88;
+                    time.soft = 200000;
+                    time.hard = 200000;
+                  };
+                };
+              }
+              {
+                name = "libpipewire-module-protocol-pulse";
+                args = {
+                  server.address = ["unix:native"];
+                  pulse.min = {
+                    req = qr;
+                    quantum = qr;
+                    frag = qr;
+                  };
+                };
+              }
+            ];
+
+            stream.properties = {
+              node.latency = qr;
+              resample.quality = 1;
+            };
           };
         };
       };
-    };
 
-    environment.etc = {
-      "wireplumber/main.lua.d/99-alsa-lowlatency.lua".text = ''
-        alsa_monitor.rules = {
-          {
-            matches = {{{ "node.name", "matches", "alsa_output.*" }}};
-            apply_properties = {
-              ["audio.format"] = "S32LE",
-              ["audio.rate"] = ${toString (cfg.rate * 2)},
-              ["api.alsa.period-size"] = 2,
+      environment.etc = {
+        "wireplumber/main.lua.d/99-alsa-lowlatency.lua".text = ''
+          alsa_monitor.rules = {
+            {
+              matches = {{{ "node.name", "matches", "alsa_output.*" }}};
+              apply_properties = {
+                ["audio.format"] = "S32LE",
+                ["audio.rate"] = ${toString (cfg.rate * 2)},
+                ["api.alsa.period-size"] = 2,
+              },
             },
-          },
-        }
-      '';
+          }
+        '';
+      };
     };
   };
 }
