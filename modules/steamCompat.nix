@@ -3,7 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib) types mkIf mkOption literalExpression mdDoc makeBinPath;
+  inherit (lib.modules) mkIf;
+  inherit (lib.types) listOf package;
+  inherit (lib.options) mkOption literalExpression;
+  inherit (lib.strings) makeBinPath;
 
   cfg = config.programs.steam;
 in {
@@ -11,7 +14,7 @@ in {
 
   options.programs.steam = {
     extraCompatPackages = mkOption {
-      type = with types; listOf package;
+      type = listOf package;
       default = [];
       defaultText = literalExpression "[]";
       example = literalExpression ''
@@ -20,7 +23,7 @@ in {
           inputs.nix-gaming.packages.$${pkgs.system}.proton-ge
         ]
       '';
-      description = mdDoc ''
+      description = ''
         Extra packages to be used as compatibility tools for Steam on Linux. Added packages will be included
         in the `STEAM_EXTRA_COMPAT_TOOLS_PATHS` environmental variable. For more information see
         <https://github.com/ValveSoftware/steam-for-linux/issues/6310>.
