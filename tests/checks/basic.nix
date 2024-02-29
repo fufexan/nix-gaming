@@ -1,7 +1,6 @@
 {
   nixosTest,
   nixosModules,
-  writeShellScriptBin,
   lib,
   ...
 }:
@@ -27,22 +26,15 @@ nixosTest {
       pulse.enable = true;
       jack.enable = true;
     };
+
+    systemd.user.services = {
+      pipewire.wantedBy = ["default.target"];
+      pipewire-pulse.wantedBy = ["default.target"];
+    };
   };
 
-  testScript = let
-    checkDir = writeShellScriptBin "checkDir" ''
-      if [ -e "$1" ]; then
-        echo "File $1 exists."
-      else
-        echo "File $1 does not exist."
-      fi
-    '';
-  in ''
+  testScript = ''
     machine.wait_for_unit("multi-user.target")
-
-    # lets see if our files are properly generated
-    machine.succeed("${lib.getExe checkDir} /etc/wireplumber/main.lua.d/99-alsa-lowlatency.lua")
-    machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire.conf.d/99-lowlatency.conf")
 
     # make sure quantum is set properly
     # TODO: can this be done better?
