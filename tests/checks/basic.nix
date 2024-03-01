@@ -1,6 +1,7 @@
 {
   nixosTest,
   nixosModules,
+  writeShellScriptBin,
   lib,
   ...
 }:
@@ -14,8 +15,6 @@ nixosTest {
       # get local pipewire low latency module
       nixosModules.pipewireLowLatency
     ];
-
-    hardware.pulseaudio.enable = lib.mkForce false;
 
     # pipewire config
     security.rtkit.enable = true;
@@ -33,11 +32,18 @@ nixosTest {
     };
   };
 
-  testScript = ''
+  testScript = let
+    checkDir = writeShellScriptBin "checkDir" ''
+      if [ -e "$1" ]; then
+        echo "File $1 exists."
+      else
+        echo "File $1 does not exist."
+      fi
+    '';
+  in ''
     machine.wait_for_unit("multi-user.target")
 
-    # make sure quantum is set properly
-    # TODO: can this be done better?
-    machine.succeed("pw-cli i all | grep min-quantum | grep 32")
+    machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire.d/99-lowlatency.conf")
+    machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire-pulse.d/99-lowlatency.conf")
   '';
 }
