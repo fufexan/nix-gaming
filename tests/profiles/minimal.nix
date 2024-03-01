@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   virtualisation = {
     cores = 4;
     memorySize = 4096;
@@ -10,17 +10,7 @@
     password = "";
   };
 
-  services.xserver = {
-    enable = true;
-
-    displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "test";
-      };
-      gdm.enable = true;
-    };
-
-    desktopManager.gnome.enable = true;
+  services.greetd.settings.default_session = {
+    command = "${pkgs.greetd.greetd}/bin/agreety --cmd /bin/sh";
   };
 }
