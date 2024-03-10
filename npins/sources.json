@@ -23,10 +23,10 @@
       },
       "pre_releases": true,
       "version_upper_bound": null,
-      "version": "v2024.1.2",
-      "revision": "61b5567009fd0788b9899e89050752ee79ae56cf",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.1.2",
-      "hash": "1zj8g4r96jz1dxlifq6r5mid4ngjv31ldvsaqymlp126ha1n0pxa"
+      "version": "v2024.3.0-alpha-1",
+      "revision": "31536fb2fcf9833a443c19b37e4d2bdd8d5dec5e",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.3.0-alpha-1",
+      "hash": "13vf7fj7cpjcsxazpy9li8d4ns3hj7spvjql1g07lyxg6r00il55"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -65,10 +65,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v3.3.6",
-      "revision": "e4ba1b9e6c815eaeccfe0cf7473bce7d3ff16b21",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.6",
-      "hash": "189i5v41aab0yc7sr6d0z2y06fbpnihv707ncvhndxmrc7xcnnhd"
+      "version": "v3.3.7",
+      "revision": "99280188e82bab3355f1c6a154775ec21802b04c",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.7",
+      "hash": "0w64c6cbjywvk82x998zpcv76dhd7wcyqw823jy1q3kafg0f21xk"
     },
     "faf-uid": {
       "type": "GitRelease",
@@ -146,9 +146,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "369c928cf9b1bf2b5b46c0c927c8691d2cd59bef",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/369c928cf9b1bf2b5b46c0c927c8691d2cd59bef.tar.gz",
-      "hash": "1lvlj5nhv760drs4922xjjyw2icgfaf8njs6h3nzm1isysq61b0w"
+      "revision": "471bb366bfe729d6090a337835cf1c9ede1f5921",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/471bb366bfe729d6090a337835cf1c9ede1f5921.tar.gz",
+      "hash": "1kfq2ljwyzz70hm2dkmdqvj94a8bj27jaxxpypv7b2vvmb05ssq5"
     }
   },
   "version": 3
