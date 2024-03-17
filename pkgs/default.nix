@@ -64,11 +64,11 @@
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
 
-      proton-ge = self.lib.mkDeprecated {
+      proton-ge = self.lib.mkDeprecated "warn" {
         name = "proton-ge";
-        variant = "package";
+        target = "package";
         date = "2024-03-17";
-        message = ''
+        instructions = ''
           You should use proton-ge-bin from Nixpkgs, which conforms to
           the new `extraCompatTools` module option under `programs.steam`
           For details, see the relevant pull request:

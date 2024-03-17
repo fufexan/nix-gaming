@@ -1,13 +1,13 @@
-{inputs, ...}: {
+{inputs, ...}: let
+  inherit (builtins) throw;
+  inherit (inputs.nixpkgs.lib) warn hasSuffix filesystem optionalString assertOneOf;
+in {
   flake.lib = {
-    mkPatches = let
-      inherit (inputs.nixpkgs.lib) hasSuffix filesystem;
-    in
-      dir:
-        map (e: /. + e)
-        (builtins.filter
-          (hasSuffix ".patch")
-          (filesystem.listFilesRecursive dir));
+    mkPatches = dir:
+      map (e: /. + e)
+      (builtins.filter
+        (hasSuffix ".patch")
+        (filesystem.listFilesRecursive dir));
 
     legendaryBuilder = pkgs: {
       games ? {},
@@ -24,5 +24,33 @@
               // value)
         )
         games);
+
+    mkDeprecated = variant: {
+      target, # what to deprecate: "package" or "module"
+      name, # name of the deprecated component
+      instructions, # instructions to migrate away from the deprecated component
+      repo ? "nix-gaming", # not likely to change, but just in case
+      date ? "", # optionally allow supplying a date
+    }: let
+      optionalDate = optionalString (date != "") " as of ${date}";
+
+      # constructed warning message
+      message = assert assertOneOf "target" target ["package" "module"]; ''
+        The ${target} ${name} in ${repo} has been deprecated${optionalDate}.
+
+        ${instructions}
+      '';
+    in
+      if variant == "warn"
+      then warn message
+      else if variant == "throw"
+      then throw message
+      else
+        # could this be asserted earlier?
+        throw ''
+          Unknown variant: ${variant}. Must be one of:
+            - warn
+            - throw
+        '';
   };
 }
