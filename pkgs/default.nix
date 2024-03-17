@@ -64,7 +64,18 @@
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
 
-      proton-ge = pkgs.callPackage ./proton-ge {};
+      proton-ge = self.lib.mkDeprecated {
+        name = "proton-ge";
+        variant = "package";
+        date = "2024-03-17";
+        message = ''
+          You should use proton-ge-bin from Nixpkgs, which conforms to
+          the new `extraCompatTools` module option under `programs.steam`
+          For details, see the relevant pull request:
+
+          <https://github.com/NixOS/nixpkgs/pull/296009>
+        '';
+      };
 
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;
