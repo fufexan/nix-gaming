@@ -64,7 +64,7 @@
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
 
-      proton-ge = self.lib.mkDeprecated "warn" {
+      proton-ge = self.lib.mkDeprecated "warn" pkgs.emptyFile {
         name = "proton-ge";
         target = "package";
         date = "2024-03-17";

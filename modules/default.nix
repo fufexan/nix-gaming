@@ -8,7 +8,7 @@
   in {
     pipewireLowLatency = import ./pipewireLowLatency.nix;
 
-    steamCompat = self.lib.mkDeprecated "warn" {
+    steamCompat = self.lib.mkDeprecated "warn" {} {
       name = "steamCompat";
       target = "module";
       instructions = ''

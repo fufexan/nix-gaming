@@ -25,7 +25,7 @@ in {
         )
         games);
 
-    mkDeprecated = variant: {
+    mkDeprecated = variant: return: {
       target, # what to deprecate: "package" or "module"
       name, # name of the deprecated component
       instructions, # instructions to migrate away from the deprecated component
@@ -42,7 +42,7 @@ in {
       '';
     in
       if variant == "warn"
-      then warn message
+      then warn message return
       else if variant == "throw"
       then throw message
       else
