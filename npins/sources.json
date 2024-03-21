@@ -37,10 +37,10 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v2.3",
-      "revision": "f328343a23c9ad4af9148c06a0f75a77242c0457",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.3",
-      "hash": "1ykqbgsp22fsaca24ryiav9mgvqvw10rjbgi264mx1nl3yj6w0pi"
+      "version": "v2.3.1",
+      "revision": "704ab21465ef6760591b21d9eae0b65ff8664639",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.3.1",
+      "hash": "17jcgnv60aqvjn3g4yakapvrqpz7rk6griajs9b2nplj2xzyb0s7"
     },
     "dxvk-async": {
       "type": "GitRelease",
