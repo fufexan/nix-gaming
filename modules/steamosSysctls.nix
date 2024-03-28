@@ -4,12 +4,12 @@
   ...
 }: {
   options = {
-    programs.steam.setSysctls = lib.mkEnableOption ''
+    programs.steam.steamosSysctls.enable = lib.mkEnableOption ''
       set the same sysctl settings as are set on SteamOS.
     '';
   };
 
-  config = lib.mkIf config.programs.steam.setSysctls {
+  config = lib.mkIf config.programs.steam.steamosSysctls.enable {
     # taken from https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steamos-customizations-jupiter-20230911.1-1-any.pkg.tar.zst
     boot.kernel.sysctl = {
       # 20-shed.conf
