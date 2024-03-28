@@ -23,6 +23,8 @@
       '';
     };
 
+    steamosSysctls = import ./steamosSysctls;
+
     default = throw ''
       The usage of default module is deprecated as multiple modules are provided by nix-gaming. Please use
       the exact name of the module you would like to use. Available modules are:
