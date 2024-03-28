@@ -10,7 +10,7 @@
   };
 
   config = lib.mkIf config.programs.steam.steamosSysctls.enable {
-    # taken from https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steamos-customizations-jupiter-20230911.1-1-any.pkg.tar.zst
+    # last cheched with https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steamos-customizations-jupiter-20240219.1-2-any.pkg.tar.zst
     boot.kernel.sysctl = {
       # 20-shed.conf
       "kernel.sched_cfs_bandwidth_slice_us" = 3000;
