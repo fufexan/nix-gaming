@@ -128,7 +128,7 @@ in {
 
 ## Modules
 
-Here are some NixOS modules for settings gaming related options.
+Here are some NixOS modules for setting gaming related options.
 
 ### Installation
 
@@ -206,11 +206,11 @@ You can calculate the theoretical latency by dividing `quantum` by `rate`
 ### SteamOS sysctl settings
 
 [SteamOS](https://store.steampowered.com/steamos) on the steam deck has set some
-specific sysctl settings. These include settings to enable some games to run at all,
-or perform better.
+specific sysctl settings, so that some games can be run at all, or perform better under 
+certain circumstances.
 
-This module extends the Steam module from Nixpkgs but can be set as a standalone
-by just enabling them.
+This module extends the Steam module from Nixpkgs but can be enabled as a 
+standalone option.
 
 #### Usage
 
