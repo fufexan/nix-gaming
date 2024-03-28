@@ -5,7 +5,7 @@
 }: {
   options = {
     programs.steam.steamosSysctls.enable = lib.mkEnableOption ''
-      set the same sysctl settings as are set on SteamOS.
+      set the same sysctl settings as are set on SteamOS
     '';
   };
 
