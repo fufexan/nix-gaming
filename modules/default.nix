@@ -23,7 +23,7 @@
       '';
     };
 
-    steamosSysctls = import ./steamosSysctls;
+    platformOptimizations = import ./platformOptimizations.nix;
 
     default = throw ''
       The usage of default module is deprecated as multiple modules are provided by nix-gaming. Please use

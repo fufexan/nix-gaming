@@ -4,12 +4,12 @@
   ...
 }: {
   options = {
-    programs.steam.steamosSysctls.enable = lib.mkEnableOption ''
+    programs.steam.platformOptimizations.enable = lib.mkEnableOption ''
       set the same sysctl settings as are set on SteamOS
     '';
   };
 
-  config = lib.mkIf config.programs.steam.steamosSysctls.enable {
+  config = lib.mkIf config.programs.steam.platformOptimizations.enable {
     # last cheched with https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steamos-customizations-jupiter-20240219.1-2-any.pkg.tar.zst
     boot.kernel.sysctl = {
       # 20-shed.conf

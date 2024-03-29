@@ -7,20 +7,20 @@ See an overview of the flake outputs by running
 
 ## 🗃️ What's in here?
 
-Package                                                     | Description
------------------------------------------------------------ | -----------
-[`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)
-[`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
-[`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
-`rocket-league`                                             | Rocket League from Epic Games
-[`star-citizen`](./pkgs/star-citizen)                       | Star Citizen
-[`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher
-[`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge
-[`wine`](./pkgs/wine)                                       | Multiple Wine packages
-[`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)
-[`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
-[`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck
-[`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client
+| Package                                                     | Description                                                                                            |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)                                                     |
+| [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage                                                       |
+| [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version                                                                                    |
+| `rocket-league`                                             | Rocket League from Epic Games                                                                          |
+| [`star-citizen`](./pkgs/star-citizen)                       | Star Citizen                                                                                           |
+| [`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher                                                                                       |
+| [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge                                                                                |
+| [`wine`](./pkgs/wine)                                       | Multiple Wine packages                                                                                 |
+| [`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)                                                                              |
+| [`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE                     |
+| [`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck |
+| [`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client                                                       |
 
 - `legendaryBuilder` is a function that installs games with `legendary-gl`. You
   are expected to log in before using it, with `legendary auth`.
@@ -206,10 +206,10 @@ You can calculate the theoretical latency by dividing `quantum` by `rate`
 ### SteamOS sysctl settings
 
 [SteamOS](https://store.steampowered.com/steamos) on the steam deck has set some
-specific sysctl settings, so that some games can be run at all, or perform better under 
+specific sysctl settings, so that some games can be run at all, or perform better under
 certain circumstances.
 
-This module extends the Steam module from Nixpkgs but can be enabled as a 
+This module extends the Steam module from Nixpkgs but can be enabled as a
 standalone option.
 
 #### Usage
@@ -218,7 +218,7 @@ After importing the module in your configuration like described above, enable it
 
 ```nix
 {
-  programs.steam.steamosSysctls.enable = true;
+  programs.steam.platformOptimizations.enable = true;
 }
 ```
 
