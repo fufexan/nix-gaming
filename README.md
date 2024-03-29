@@ -7,20 +7,20 @@ See an overview of the flake outputs by running
 
 ## 🗃️ What's in here?
 
-Package                                                     | Description
------------------------------------------------------------ | -----------
-[`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)
-[`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage
-[`osu-stable`](./pkgs/osu-stable)                           | osu! stable version
-`rocket-league`                                             | Rocket League from Epic Games
-[`star-citizen`](./pkgs/star-citizen)                       | Star Citizen
-[`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher
-[`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge
-[`wine`](./pkgs/wine)                                       | Multiple Wine packages
-[`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)
-[`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE
-[`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck
-[`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client
+| Package                                                     | Description                                                                                            |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)                                                     |
+| [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage                                                       |
+| [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version                                                                                    |
+| `rocket-league`                                             | Rocket League from Epic Games                                                                          |
+| [`star-citizen`](./pkgs/star-citizen)                       | Star Citizen                                                                                           |
+| [`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher                                                                                       |
+| [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge                                                                                |
+| [`wine`](./pkgs/wine)                                       | Multiple Wine packages                                                                                 |
+| [`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)                                                                              |
+| [`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE                     |
+| [`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck |
+| [`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client                                                       |
 
 - `legendaryBuilder` is a function that installs games with `legendary-gl`. You
   are expected to log in before using it, with `legendary auth`.
@@ -126,16 +126,13 @@ in {
 }
 ```
 
-## PipeWire low latency
+## Modules
 
-[PipeWire](https://nixos.wiki/wiki/PipeWire) is a new audio backend that
-replaces ALSA, PulseAudio and JACK. It is as low latency as JACK and as easy to
-use as Pulse.
+Here are some NixOS modules for setting gaming related options.
 
-This module extends the PipeWire module from Nixpkgs and makes it easy to enable
-the low latency settings in a few lines.
+### Installation
 
-### Flakes
+#### Flakes
 
 Assuming you've followed the [Install/Flakes](#️-flakes) instructions, all you
 need to do is add the module to your configuration like this:
@@ -143,14 +140,14 @@ need to do is add the module to your configuration like this:
 ```nix
 {inputs, ...}: {
   imports = [
-    inputs.nix-gaming.nixosModules.pipewireLowLatency
+    inputs.nix-gaming.nixosModules.<module name>
   ];
 }
 ```
 
-Now you can skip to [Usage](#usage).
+Now you can skip to the Usage section of a specific module.
 
-### Stable
+#### Stable
 
 Assuming you've followed the [Install/Nix Stable](#nix-stable) instructions, all
 you need to do is add the module to your configuration like this:
@@ -160,14 +157,24 @@ you need to do is add the module to your configuration like this:
   nix-gaming = /* ... */;
 in {
   imports = [
-    nix-gaming.nixosModules.pipewireLowLatency
+    nix-gaming.nixosModules.<module name>
   ];
 }
 ```
 
-### Usage
+### PipeWire low latency
 
-Import the module in your configuration and enable it along with PipeWire:
+[PipeWire](https://nixos.wiki/wiki/PipeWire) is a new audio backend that
+replaces ALSA, PulseAudio and JACK. It is as low latency as JACK and as easy to
+use as Pulse.
+
+This module extends the PipeWire module from Nixpkgs and makes it easy to enable
+the low latency settings in a few lines.
+
+#### Usage
+
+After importing the module in your configuration like described above, enable it
+along with PipeWire:
 
 ```nix
 {
@@ -196,8 +203,26 @@ If you get no sound, you may want to increase `quantum`.
 You can calculate the theoretical latency by dividing `quantum` by `rate`
 (`48/48000` is exactly 1ms).
 
+### Platform optimizations
 
-### ⚙ Game overrides
+[SteamOS](https://store.steampowered.com/steamos) on the steam deck has set some
+specific sysctl settings, so that some games can be run at all, or perform better under
+certain circumstances.
+
+This module extends the Steam module from Nixpkgs but can be enabled as a
+standalone option.
+
+#### Usage
+
+After importing the module in your configuration like described above, enable it like this:
+
+```nix
+{
+  programs.steam.platformOptimizations.enable = true;
+}
+```
+
+## ⚙ Game overrides
 
 Wine-based game derivations were written with versatility in mind.
 
