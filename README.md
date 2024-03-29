@@ -203,7 +203,7 @@ If you get no sound, you may want to increase `quantum`.
 You can calculate the theoretical latency by dividing `quantum` by `rate`
 (`48/48000` is exactly 1ms).
 
-### SteamOS sysctl settings
+### Platform optimizations
 
 [SteamOS](https://store.steampowered.com/steamos) on the steam deck has set some
 specific sysctl settings, so that some games can be run at all, or perform better under
