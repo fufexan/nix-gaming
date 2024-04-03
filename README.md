@@ -18,16 +18,15 @@ See an overview of the flake outputs by running
 | [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge                                                                                |
 | [`wine`](./pkgs/wine)                                       | Multiple Wine packages                                                                                 |
 | [`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)                                                                              |
-| [`proton-ge`](./pkgs/proton-ge)                             | Custom build of Proton with the most recent bleeding-edge Proton Experimental WINE                     |
 | [`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck |
 | [`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client                                                       |
 
 - `legendaryBuilder` is a function that installs games with `legendary-gl`. You
-  are expected to log in before using it, with `legendary auth`.
-  The function takes an attrset containing at least the attrset `games` which
-  includes the games you want installed. Optionally, you can set an `opts`
-  attrset that will set the options you set inside for all games listed.
-  You can find a usage example in [example.nix](./example.nix).
+  are expected to log in before using it, with `legendary auth`. The function
+  takes an attrset containing at least the attrset `games` which includes the
+  games you want installed. Optionally, you can set an `opts` attrset that will
+  set the options you set inside for all games listed. You can find a usage
+  example in [example.nix](./example.nix).
 
 ## Install & Run
 
@@ -104,7 +103,7 @@ Then, add the package(s):
 If you want to install packages to your profile instead, do it like this
 
 ```console
-  nix profile install github:fufexan/nix-gaming#<package>
+nix profile install github:fufexan/nix-gaming#<package>
 ```
 
 Everything is available as an overlay if you prefer that, though your results
@@ -206,15 +205,16 @@ You can calculate the theoretical latency by dividing `quantum` by `rate`
 ### Platform optimizations
 
 [SteamOS](https://store.steampowered.com/steamos) on the steam deck has set some
-specific sysctl settings, so that some games can be run at all, or perform better under
-certain circumstances.
+specific sysctl settings, so that some games can be run at all, or perform
+better under certain circumstances.
 
 This module extends the Steam module from Nixpkgs but can be enabled as a
 standalone option.
 
 #### Usage
 
-After importing the module in your configuration like described above, enable it like this:
+After importing the module in your configuration like described above, enable it
+like this:
 
 ```nix
 {
@@ -272,5 +272,5 @@ following tweaks:
 
 ## 👥 Credits & Resources
 
-Thank you: boppyt - gonX - InfinityGhost - LavaDesu - openglfreak - yusdacra
-and to all the contributors and users of this repo!
+Thank you: boppyt - gonX - InfinityGhost - LavaDesu - openglfreak - yusdacra and
+to all the contributors and users of this repo!
