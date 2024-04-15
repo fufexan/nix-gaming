@@ -11,7 +11,7 @@
   pname ? "star-citizen",
   location ? "$HOME/Games/star-citizen",
   tricks ? ["arial" "vcrun2019" "win10"],
-  wineDllOverrides ? ["libglesv2=b" "nvapi,nvapi64=" "powershell.exe="],
+  wineDllOverrides ? ["libglesv2=b" "nvapi,nvapi64=" "powershell.exe=n"],
   preCommands ? "",
   postCommands ? "",
   pkgs,
@@ -22,6 +22,9 @@
     name = "RSI-Setup-${version}.exe";
     hash = "sha256-axttJvw3MFmhLC4e+aqtf4qx0Z0x4vz78LElyGkMAbs=";
   };
+
+  # Powershell stub for star-citizen
+  powershell-stub = pkgs.callPackage ./powershell-stub.nix {};
 
   # concat winetricks args
   tricksFmt = with builtins;
@@ -65,6 +68,7 @@
     cd $WINEPREFIX
 
     ${dxvk}/bin/setup_dxvk.sh install --symlink
+    ${powershell-stub}/bin/install.sh
 
     ${preCommands}
 
