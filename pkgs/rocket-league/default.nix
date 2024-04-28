@@ -10,6 +10,7 @@
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
   tricks ? ["dxvk" "win10"],
+  dxvk_hud ? "compiler",
 }: let
   icon = builtins.fetchurl {
     # original url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
@@ -26,7 +27,7 @@
 
   script = writeShellScriptBin pname ''
     export WINEPREFIX="${location}"
-    export DXVK_HUD=compiler
+    export DXVK_HUD=${dxvk_hud}
     export WINEFSYNC=1
     export WINEESYNC=1
 
