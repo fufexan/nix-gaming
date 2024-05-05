@@ -73,8 +73,8 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:l+mGyRYyJUnwUs/NMth8HWEvdG5qYvujRpxkKQUdrek=";
-  depsHashUnstable = "sha256:l+mGyRYyJUnwUs/NMth8HWEvdG5qYvujRpxkKQUdrek=";
+  depsHashStable = "sha256:KJIqVgWjds/8p4ZGlLVwdTcBWdWBgDoQZubPW55kMDE=";
+  depsHashUnstable = "sha256:KJIqVgWjds/8p4ZGlLVwdTcBWdWBgDoQZubPW55kMDE=";
 
   deps =
     if deps' != null
