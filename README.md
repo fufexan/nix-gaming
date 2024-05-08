@@ -163,7 +163,7 @@ in {
 
 ### PipeWire low latency
 
-[PipeWire](https://nixos.wiki/wiki/PipeWire) is a new audio backend that
+[PipeWire](https://wiki.nixos.org/wiki/PipeWire) is a new audio backend that
 replaces ALSA, PulseAudio and JACK. It is as low latency as JACK and as easy to
 use as Pulse.
 
