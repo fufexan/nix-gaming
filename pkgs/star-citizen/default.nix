@@ -10,10 +10,12 @@
   wineFlags ? "",
   pname ? "star-citizen",
   location ? "$HOME/Games/star-citizen",
-  tricks ? ["arial" "vcrun2019" "win10"],
-  wineDllOverrides ? ["libglesv2=b" "nvapi,nvapi64=" "powershell.exe=n"],
+  tricks ? [],
+  wineDllOverrides ? ["powershell.exe=n"],
   preCommands ? "",
   postCommands ? "",
+  enableGlCache ? true,
+  glCacheSize ? 1073741824,
   pkgs,
 }: let
   version = "1.6.10";
@@ -38,9 +40,22 @@
     export WINEESYNC=1
     export WINEPREFIX="${location}"
     export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
+    # ID for umu, not used for now
+    export GAMEID="umu-starcitizen"
+    export STORE="none"
     # Anti-cheat
-    export SteamGameId="starcitizen"
     export EOS_USE_ANTICHEATCLIENTNULL=1
+    # Nvidia tweaks
+    export WINE_HIDE_NVIDIA_GPU=1
+    export __GL_SHADER_DISK_CACHE=${
+      if enableGlCache
+      then "1"
+      else "0"
+    }
+    export __GL_SHADER_DISK_CACHE_SIZE=${toString glCacheSize}
+    export WINE_HIDE_NVIDIA_GPU=1
+    # AMD
+    export dual_color_blend_by_location=1
 
     PATH=${lib.makeBinPath [wine winetricks]}:$PATH
     USER="$(whoami)"
