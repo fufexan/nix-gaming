@@ -155,9 +155,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "3a19c54b83267077efc501666bb7774a7dd7d2cd",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/3a19c54b83267077efc501666bb7774a7dd7d2cd.tar.gz",
-      "hash": "1fkcppf7mqah1g52x56p4glkj7fwlpk9922ay9dxklfg3xafi5mx"
+      "revision": "8810dcefec81be8e457affba9c64507ed93fb85f",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/8810dcefec81be8e457affba9c64507ed93fb85f.tar.gz",
+      "hash": "1s12p6i0kr46mfb19ajnnkgcxgsh2j2fb4mayadpls9lcqm40smg"
     }
   },
   "version": 3
