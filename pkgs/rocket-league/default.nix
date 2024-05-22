@@ -9,7 +9,7 @@
   wine,
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
-  tricks ? ["dxvk" "win10"],
+  tricks ? ["arial" "cjkfonts" "vcrun2019" "d3dcompiler_43" "d3dcompiler_47" "d3dx9"],
   dxvk_hud ? "compiler",
 }: let
   icon = builtins.fetchurl {
@@ -28,6 +28,7 @@
   script = writeShellScriptBin pname ''
     export WINEPREFIX="${location}"
     export DXVK_HUD=${dxvk_hud}
+    export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
     export WINEFSYNC=1
     export WINEESYNC=1
 
