@@ -31,6 +31,8 @@
     export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
     export WINEFSYNC=1
     export WINEESYNC=1
+    export __GL_SHADER_DISK_CACHE=1
+    export __GL_SHADER_DISK_CACHE_PATH="${location}"
 
     PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
