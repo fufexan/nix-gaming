@@ -57,7 +57,7 @@ in let
           rmdir $out/share
         '';
         outputHashMode = "recursive";
-        outputHash = "sha256:YNxzDFjxbJlfVdOGhenNb0VOg0HJKqpESIozRdKF/tk=";
+        outputHash = "sha256:Pk3FB9uM7rWYZnMiVQUhe0o9kzs9WvRtxqYC6lTlxsg=";
         passthru.updateLockfile = deps.overrideAttrs (old: {
           gradle_lockfile = "";
           buildscript_gradle_lockfile = "";

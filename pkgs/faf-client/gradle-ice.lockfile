@@ -47,6 +47,6 @@ org.openjfx:javafx-web:18.0.2=compileClasspath
 org.opentelecoms.sdp:java-sdp-nist-bridge:1.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.opentelecoms.sdp:sdp-api:1.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.ow2.asm:asm:9.1=runtimeClasspath,testRuntimeClasspath
-org.projectlombok:lombok:1.18.24=annotationProcessor,compileClasspath,runtimeClasspath,testAnnotationProcessor,testCompileClasspath,testRuntimeClasspath
+org.projectlombok:lombok:1.18.32=annotationProcessor,compileClasspath,runtimeClasspath,testAnnotationProcessor,testCompileClasspath,testRuntimeClasspath
 org.slf4j:slf4j-api:2.0.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 empty=shadow

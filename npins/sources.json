@@ -10,10 +10,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.6.0",
-      "revision": "3a32f7d645aa6f48607d224ac71103ac21c53c4e",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.0",
-      "hash": "1l7waf8ydl10fv9mzvzjjnj2mv9n7yisdpmwcy2yss0wr3zaq5yj"
+      "version": "v2024.6.1",
+      "revision": "ade524ee6a0dfee41bac389780b57b1c7cba9d01",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.1",
+      "hash": "00rbdrhyy6zns14y3pkkp07fql3ysr7vpj4cl6w8cq6rhdif2mgd"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -25,10 +25,10 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.6.0",
-      "revision": "3a32f7d645aa6f48607d224ac71103ac21c53c4e",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.0",
-      "hash": "1l7waf8ydl10fv9mzvzjjnj2mv9n7yisdpmwcy2yss0wr3zaq5yj"
+      "version": "v2024.6.1",
+      "revision": "ade524ee6a0dfee41bac389780b57b1c7cba9d01",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.1",
+      "hash": "00rbdrhyy6zns14y3pkkp07fql3ysr7vpj4cl6w8cq6rhdif2mgd"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -70,10 +70,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v3.3.8",
-      "revision": "d38b78c148fa3b7dcbc4c064e27f27552a50e992",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/v3.3.8",
-      "hash": "1zp79avdcfmdjiym86fwn624j2fjaly63634sj2ygf9faaxqlmpb"
+      "version": "3.3.9",
+      "revision": "0173f58aa777457ba7cc1d60ba0d59a191318133",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.9",
+      "hash": "1906p7z3qk4npfqp66zpw4jmpcg9ds6cn8j0cw3cpi8lpk9ms9mm"
     },
     "faf-uid": {
       "type": "GitRelease",
