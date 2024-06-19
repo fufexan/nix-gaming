@@ -10,7 +10,7 @@
   wineFlags ? "",
   pname ? "osu-stable",
   location ? "$HOME/.osu",
-  tricks ? ["gdiplus" "dotnet40" "meiryo"],
+  tricks ? ["gdiplus" "dotnet45" "meiryo"],
   preCommands ? "",
   postCommands ? "",
   osu-mime,
