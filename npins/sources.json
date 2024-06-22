@@ -10,10 +10,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.6.1",
-      "revision": "ade524ee6a0dfee41bac389780b57b1c7cba9d01",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.1",
-      "hash": "00rbdrhyy6zns14y3pkkp07fql3ysr7vpj4cl6w8cq6rhdif2mgd"
+      "version": "v2024.6.2",
+      "revision": "7c903c884c8840f572e5d6f691c82bd314a07b77",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.2",
+      "hash": "0cgmvbfdcaxj5ylyna77wsajajhbzsag4i4qx788wbnw9fg4q45q"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -25,10 +25,10 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.6.2-alpha-2",
-      "revision": "339162e2737db00bda57c9a3e8e6db7dc9121958",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.2-alpha-2",
-      "hash": "0sbhmd34ndkv80ms855q26c0vjvcznvhq2gay5vcbr0a9lgqsdza"
+      "version": "v2024.6.2",
+      "revision": "7c903c884c8840f572e5d6f691c82bd314a07b77",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.2",
+      "hash": "0cgmvbfdcaxj5ylyna77wsajajhbzsag4i4qx788wbnw9fg4q45q"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -127,10 +127,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2.12",
-      "revision": "7460c70de0dff08de2f4a78a7ac7c71fd7f0ea6e",
-      "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.12",
-      "hash": "1wfr97ispwlj1qsdw15sqllkc3l026qn74a3p4w4kw67qwh9zzsq"
+      "version": "v2.13",
+      "revision": "81ac2f2cc689fe6b0b729bf4eebfc3580b4b4fb9",
+      "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.13",
+      "hash": "1zyqich0wji6sbfbr9p9rzkk4b74y1bbcck3xqly5fjm1isd2byj"
     },
     "wine-discord-ipc-bridge": {
       "type": "GitRelease",
