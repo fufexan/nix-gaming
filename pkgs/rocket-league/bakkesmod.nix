@@ -17,18 +17,21 @@
 
   bakkesmodExePath = "${location}/drive_c/Program Files/BakkesMod/BakkesMod.exe";
 
-  installBakkesmod = writeShellScriptBin "install-bakkesmod" ''
-    # Fetch bakkesmod installer and unzip it
-    curl -L https://github.com/bakkesmodorg/BakkesModInjectorCpp/releases/latest/download/BakkesModSetup.zip --output ~/Downloads/BakkesModSetup.zip
+  bakkesmodInstaller = writeShellScriptBin "install-bakkesmod" ''
+    # Create a temp dir for the installer file
+    export TEMP_DIR=$(mktemp -d)
 
-    ${unzip}/bin/unzip ~/Downloads/BakkesModSetup.zip -d ~/Downloads/
+    # Fetch bakkesmod installer and unzip it
+    curl -L https://github.com/bakkesmodorg/BakkesModInjectorCpp/releases/latest/download/BakkesModSetup.zip --output $TEMP_DIR/BakkesModSetup.zip
+
+    ${unzip}/bin/unzip $TEMP_DIR/BakkesModSetup.zip -d $TEMP_DIR
 
     # Run the bakkesmod installer
-    WINEPREFIX="${location}" ${wine}/bin/wine ~/Downloads/BakkesModSetup.exe
+    WINEPREFIX="${location}" ${wine}/bin/wine $TEMP_DIR/BakkesModSetup.exe
 
     # Clean up
-    rm ~/Downloads/BakkesModSetup.zip
-    rm ~/Downloads/BakkesModSetup.exe
+    rm $TEMP_DIR/BakkesModSetup.zip
+    rm $TEMP_DIR/BakkesModSetup.exe
     '';
 
   bakkesmodScript = writeShellScriptBin "bakkesmod" ''
@@ -37,7 +40,9 @@
 
     if [ ! -f "${bakkesmodExePath}" ]; then
         echo "${bakkesmodExePath} does not exist, installing bakkesmod..."
-        ${installBakkesmod}/bin/install-bakkesmod
+        ${bakkesmodInstaller}/bin/install-bakkesmod
+        echo "done installing, run 'bakkesmod' again to start bakkesmod"
+        exit 0
     fi
 
     WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine c:/Program\ Files/BakkesMod/BakkesMod.exe
