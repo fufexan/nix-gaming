@@ -83,7 +83,6 @@
       };
 
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
-      bakkesmod = pkgs.callPackage ./rocket-league/bakkesmod.nix {wine = config.packages.wine-tkg;};
 
       star-citizen = pkgs.callPackage ./star-citizen {wine = config.packages.wine-ge;};
 
