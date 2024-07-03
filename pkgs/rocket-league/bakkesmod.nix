@@ -27,7 +27,7 @@
     ${unzip}/bin/unzip $TEMP_DIR/BakkesModSetup.zip -d $TEMP_DIR
 
     # Run the bakkesmod installer
-    WINEPREFIX="${location}" ${wine}/bin/wine $TEMP_DIR/BakkesModSetup.exe
+    WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine $TEMP_DIR/BakkesModSetup.exe
 
     # Clean up
     rm $TEMP_DIR/BakkesModSetup.zip
@@ -41,10 +41,10 @@
     if [ ! -f "${bakkesmodExePath}" ]; then
         echo "${bakkesmodExePath} does not exist, installing bakkesmod..."
         ${bakkesmodInstaller}/bin/install-bakkesmod
-        echo "done installing, run 'bakkesmod' again to start bakkesmod"
-        exit 0
+        echo "finished installing bakkesmod"
     fi
 
+    echo "Starting bakkesmod..."
     WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine c:/Program\ Files/BakkesMod/BakkesMod.exe
 
     '';
