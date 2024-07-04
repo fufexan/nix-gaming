@@ -57,12 +57,11 @@
     categories = ["Game"];
   };
 
-  bakkesmod = callPackage ./bakkesmod.nix {location = location; wine = wine;};
-
-in 
-symlinkJoin {
+  bakkesmod = callPackage ./bakkesmod.nix {inherit location wine;};
+in
+  symlinkJoin {
     name = pname;
-    paths = [desktopItems script ] ++ lib.optionals enableBakkesmod [ bakkesmod ];
+    paths = [desktopItems script] ++ lib.optionals enableBakkesmod [bakkesmod];
 
     meta = {
       description = "Rocket League installer and runner (using legendary)";
