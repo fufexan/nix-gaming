@@ -11,6 +11,8 @@
   location ? "$HOME/Games/${pname}",
   tricks ? ["arial" "cjkfonts" "vcrun2019" "d3dcompiler_43" "d3dcompiler_47" "d3dx9"],
   dxvk_hud ? "compiler",
+  callPackage,
+  enableBakkesmod ? false,
 }: let
   icon = builtins.fetchurl {
     # original url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
@@ -54,10 +56,12 @@
     desktopName = "Rocket League";
     categories = ["Game"];
   };
+
+  bakkesmod = callPackage ./bakkesmod.nix {inherit location wine;};
 in
   symlinkJoin {
     name = pname;
-    paths = [desktopItems script];
+    paths = [desktopItems script] ++ lib.optionals enableBakkesmod [bakkesmod];
 
     meta = {
       description = "Rocket League installer and runner (using legendary)";
