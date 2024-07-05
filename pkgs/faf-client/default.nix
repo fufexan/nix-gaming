@@ -5,8 +5,6 @@
   makeDesktopItem,
   openjdk21,
   gradle,
-  perl,
-  substituteAll,
   runtimeShell,
   gawk,
   # can't we somehow patchelf the openjfx runtime during build phase?
@@ -19,7 +17,6 @@
   freetype,
   pango,
   callPackage,
-  deps ? null,
   uid ? callPackage ./uid.nix {inherit pins;},
   ice-adapter ?
     callPackage ./ice-adapter.nix {
@@ -30,9 +27,9 @@
   enablePatches ? true,
   enableUpdateCheck ? (!enablePatches),
 }: let
-  deps' = deps;
-in let
   pname = "faf-client";
+
+  jdk = openjdk21;
 
   version = builtins.replaceStrings ["v"] [""] src.version;
 
@@ -40,6 +37,11 @@ in let
     if unstable
     then pins.downlords-faf-client-unstable
     else pins.downlords-faf-client;
+
+  depsPath =
+    if unstable
+    then ./deps-unstable.json
+    else ./deps-stable.json;
 
   meta = with lib; {
     description = "Official client for Forged Alliance Forever";
@@ -60,7 +62,7 @@ in let
     keywords = ["FAF" "Supreme Commander"];
   };
 
-  libs = [
+  libs = lib.optionals stdenvNoCC.isLinux [
     alsa-lib
     fontconfig
     freetype
@@ -73,87 +75,6 @@ in let
     xorg.libXxf86vm
   ];
 
-  depsHashStable = "sha256:yywbO9yJ/7sJCrnYdV3foXndLRJFGmf9qBE2QYea+R8=";
-  depsHashUnstable = "sha256:yywbO9yJ/7sJCrnYdV3foXndLRJFGmf9qBE2QYea+R8=";
-
-  deps =
-    if deps' != null
-    then deps'
-    else
-      stdenvNoCC.mkDerivation {
-        pname = "${pname}-deps";
-        java_home = openjdk21;
-        inherit src version;
-        init_deps = ./init-deps.gradle;
-        buildscript_gradle_lockfile =
-          if unstable
-          then ./buildscript-gradle-unstable.lockfile
-          else ./buildscript-gradle-stable.lockfile;
-        gradle_lockfile =
-          if unstable
-          then ./gradle-unstable.lockfile
-          else ./gradle-stable.lockfile;
-        postPatch = ''
-          cp $gradle_lockfile gradle.lockfile
-          cp $buildscript_gradle_lockfile buildscript-gradle.lockfile
-        '';
-        nativeBuildInputs = [gradle perl];
-        preBuild = ''
-          export GRADLE_USER_HOME=$(mktemp -d)
-          export TERM=dumb
-          sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
-        '';
-        buildPhase = ''
-          runHook preBuild
-          gradle --info --no-daemon --init-script $init_deps -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
-          runHook postBuild
-        '';
-        installPhase = ''
-          find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
-            | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
-            | sort \
-            | sh
-          cp gradle.lockfile buildscript-gradle.lockfile $out
-          ${
-            # HACK: allow using deprecated package names
-            builtins.concatStringsSep "\n" (lib.flip lib.mapAttrsToList {
-                "com/squareup/okio/okio" = "com/squareup/okio/okio-jvm";
-                "org/jetbrains/kotlin/kotlin-stdlib-common" = "org/jetbrains/kotlin/kotlin-stdlib";
-              } (alias: real: let
-                aliasName = lib.last (lib.splitString "/" alias);
-                realName = lib.last (lib.splitString "/" real);
-              in ''
-                for ver in $(ls "$out/${alias}" || true); do
-                  ln -s "$out/${real}/$ver/${realName}-$ver.jar" "$out/${alias}/$ver/${aliasName}-$ver.jar" || true
-                done
-              ''))
-          }
-        '';
-        outputHashMode = "recursive";
-        outputHash =
-          if unstable
-          then depsHashUnstable
-          else depsHashStable;
-        passthru.updateLockfile = deps.overrideAttrs (old: {
-          gradle_lockfile = "";
-          buildscript_gradle_lockfile = "";
-          postPatch = "";
-          # sadly, we have to do it twice to make sure the hashes match
-          # (we have to download more pom files than we will need at build time before we can generate the lockfile)
-          buildPhase = ''
-            runHook preBuild
-            gradle --write-locks --no-daemon --init-script $init_deps -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
-            rm -rf $GRADLE_USER_HOME
-            export GRADLE_USER_HOME=$(mktemp -d)
-            gradle --no-daemon --init-script $init_deps -Dorg.gradle.java.home=$java_home -PjavafxPlatform=${jfxPlatform} downloadDependencies
-            runHook postBuild
-          '';
-        });
-      };
-  gradleInit = substituteAll {
-    src = ./init.gradle;
-    inherit deps;
-  };
   jfxPlatform =
     if stdenvNoCC.isDarwin
     then
@@ -174,18 +95,10 @@ in let
         else null
       )
     else null;
-in
-  stdenvNoCC.mkDerivation {
-    inherit pname version meta src desktopItem gawk runtimeShell;
-    java_home = openjdk21;
-    libs = lib.makeLibraryPath libs;
 
-    postPatch = ''
-      cp ${deps}/gradle.lockfile ${deps}/buildscript-gradle.lockfile ./
-      chmod +w gradle.lockfile buildscript-gradle.lockfile
-      sed -i "s/-SNAPSHOT/latest.integration/g" build.gradle
-      sed -i 's/dependencies {/dependencies{modules{module("com.google.guava:listenablefuture"){replacedBy("com.google.guava:guava","listenablefuture is part of guava")}}/g' build.gradle
-    '';
+  self = stdenvNoCC.mkDerivation {
+    inherit pname version meta src desktopItem gawk runtimeShell;
+    libs = lib.makeLibraryPath libs;
 
     patches = lib.optionals (!enableUpdateCheck) [./disable-update-check.patch];
 
@@ -193,33 +106,30 @@ in
       gradle
     ];
 
-    buildPhase = ''
-      runHook preBuild
-      export GRADLE_USER_HOME=$(mktemp -d)
-      sed -i "s#downloadWindowsUid, ##" build.gradle
-      sed -i "s#downloadWindowsUid.outputs.files##" build.gradle
+    postPatch = ''
+      sed -i '/.*\.outputs\.files,\?/d' build.gradle
+      sed -i "s#compileJava\\.dependsOn 'downloadNativeDependencies'##" build.gradle
+      sed -i "s#codacy-coverage-reporter:-SNAPSHOT#codacy-coverage-reporter:latest.integration#" build.gradle
+    '';
+    gradleFlags = ["-Dorg.gradle.java.home=${jdk}" "-Pversion=${version}" "-PjavafxPlatform=${jfxPlatform}"];
+
+    preBuild = ''
       mkdir -p build/resources/native
       cp ${uid}/bin/faf-uid build/resources/native/
       cp ${ice-adapter} build/resources/native/faf-ice-adapter.jar
-      gradle --offline --no-daemon \
-        -Dorg.gradle.java.home=$java_home \
-        -Pversion=$version \
-        -PjavafxPlatform=${jfxPlatform} \
-        --init-script ${gradleInit} \
-        installDist
-      runHook postBuild
     '';
+
+    gradleBuildTask = "installDist";
 
     # tests are somewhat unstable so they're disabled by default
     # nonetheless, they are helpful to see if something is very wrong
     doCheck = false;
-    checkPhase = ''
-      LD_LIBRARY_PATH=${lib.makeLibraryPath libs} gradle --offline --no-daemon \
-        -Dorg.gradle.java.home=$java_home \
-        -Pversion=$version \
-        -PjavafxPlatform=${jfxPlatform} \
-        test
+
+    preCheck = ''
+      export LD_LIBRARY_PATH=${lib.makeLibraryPath libs}
     '';
+
+    java_home = jdk;
 
     installPhase = ''
       runHook preInstall
@@ -227,9 +137,10 @@ in
       mkdir -p $out/bin $out/lib/faf-client/lib $out/lib/faf-client/natives $out/share
       cp build/install/faf-client/* $out/lib/faf-client/lib
 
-      mv $out/lib/faf-client/lib/faf-uid $out/lib/faf-client/lib/faf-ice-adapter.jar $out/lib/faf-client/natives
-      ln -s ../natives/faf-uid $out/lib/faf-client/lib/faf-uid
-      ln -s ../natives/faf-ice-adapter.jar $out/lib/faf-client/lib/faf-ice-adapter.jar
+      ln -s ${uid}/bin/faf-uid $out/lib/faf-client/natives/faf-uid
+      ln -s ${uid}/bin/faf-uid $out/lib/faf-client/lib/faf-uid
+      ln -s ${ice-adapter} $out/lib/faf-client/natives/faf-ice-adapter.jar
+      ln -s ${ice-adapter} $out/lib/faf-client/lib/faf-ice-adapter.jar
 
       cp -r $desktopItem/share/* $out/share/
       pushd src/media/appicon
@@ -240,7 +151,7 @@ in
       done
       popd
 
-      cp build/resources/main/steam_appid.txt $out/lib/faf-client
+      cp build/resources/main/steam_appid.txt $out/lib/faf-client/
 
       substituteAll ${./start.sh} $out/bin/faf-client
       chmod +x $out/bin/faf-client
@@ -250,8 +161,27 @@ in
       runHook postInstall
     '';
 
+    mitmCache = gradle.fetchDeps {
+      inherit pname;
+      data = depsPath;
+      pkg = self;
+    };
+    __darwinAllowLocalNetworking = true;
+
+    gradleUpdateScript = ''
+      runHook preBuild
+      for jfxPlatform in {mac,linux}{,-aarch64}; do
+        gradleFlags="-Dorg.gradle.java.home=${jdk} -Pversion=${version} -PjavafxPlatform=$jfxPlatform"
+        gradle nixDownloadDeps
+        gradleFlags="-Dorg.gradle.java.home=${jdk} -Pversion=${version} -PjavafxPlatform=$jfxPlatform -PjavafxClasspath=compileOnly"
+        gradle nixDownloadDeps
+      done
+    '';
+
     passthru = {
-      inherit deps uid ice-adapter;
+      inherit uid ice-adapter;
       updateScript = ./update-src.sh;
     };
-  }
+  };
+in
+  self
