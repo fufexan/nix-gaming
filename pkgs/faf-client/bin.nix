@@ -12,6 +12,9 @@
   fontconfig,
   freetype,
   pango,
+  coreutils,
+  pciutils,
+  util-linux,
   unstable ? false,
 }: let
   pname = "faf-client-bin";
@@ -63,6 +66,20 @@
     keywords = ["FAF" "Supreme Commander"];
   };
 
+  path =
+    [
+      # uname
+      coreutils
+      # lspci
+      pciutils
+    ]
+    ++ lib.optionals stdenvNoCC.isLinux [
+      # lsblk
+      util-linux
+      # xrandr
+      xorg.xrandr
+    ];
+
   libs = [
     alsa-lib
     fontconfig
@@ -102,6 +119,7 @@ in
         --set-default INSTALL4J_ADD_VM_PARAMS '~/.cache/openjfx' \
         --set-default LOG_DIR '~/.faforever/logs' \
         --set INSTALL4J_JAVA_HOME ${openjdk21} \
+        --suffix PATH : ${lib.makeBinPath path} \
         --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs}
       sed -i "s#'~/.faforever/logs'#"'"$HOME/.faforever/logs"#' $out/bin/faf-client
       sed -i "s#'~/.cache/openjfx'#"'"-Djavafx.cachedir=''${XDG_CACHE_HOME:-$HOME/.cache}/openjfx"#' $out/bin/faf-client
