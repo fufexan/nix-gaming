@@ -32,6 +32,8 @@
           // extra))
         .${wine};
     in {
+      darkest-dungeon = pkgs.callPackage ./darkest-dungeon {};
+
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
