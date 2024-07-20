@@ -7,10 +7,15 @@
   winetricks,
   wine,
   dxvk,
+  umu,
+  proton-ge-bin,
   wineFlags ? "",
   pname ? "star-citizen",
   location ? "$HOME/Games/star-citizen",
   tricks ? [],
+  useUmu ? false,
+  protonPath ? "${proton-ge-bin.steamcompattool}/",
+  protonVerbs ? ["waitforexitandrun"],
   wineDllOverrides ? ["powershell.exe=n"],
   preCommands ? "",
   postCommands ? "",
@@ -18,6 +23,7 @@
   glCacheSize ? 1073741824,
   pkgs,
 }: let
+  inherit (lib.strings) concatStringsSep optionalString;
   version = "1.6.10";
   src = pkgs.fetchurl {
     url = "https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-${version}.exe";
@@ -29,17 +35,21 @@
   powershell-stub = pkgs.callPackage ./powershell-stub.nix {};
 
   # concat winetricks args
-  tricksFmt = with builtins;
-    if (length tricks) > 0
+  tricksFmt =
+    if (builtins.length tricks) > 0
     then concatStringsSep " " tricks
     else "-V";
 
   script = writeShellScriptBin pname ''
     export WINEARCH="win64"
-    export WINEFSYNC=1
-    export WINEESYNC=1
     export WINEPREFIX="${location}"
-    export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
+    ${optionalString
+      #this option doesn't work on umu, an umu TOML config file will be needed instead
+      (!useUmu) ''
+        export WINEFSYNC=1
+        export WINEESYNC=1
+        export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
+      ''}
     # ID for umu, not used for now
     export GAMEID="umu-starcitizen"
     export STORE="none"
@@ -55,26 +65,39 @@
     export __GL_SHADER_DISK_CACHE_SIZE=${toString glCacheSize}
     export WINE_HIDE_NVIDIA_GPU=1
     # AMD
-    export dual_color_blend_by_location=1
+    export dual_color_blend_by_location="true"
 
-    PATH=${lib.makeBinPath [wine winetricks]}:$PATH
+    PATH=${lib.makeBinPath (
+      if useUmu
+      then [umu]
+      else [wine winetricks]
+    )}:$PATH
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
+    ${
+      if useUmu
+      then ''
+        export PROTON_VERBS="${concatStringsSep "," protonVerbs}"
+        export PROTONPATH="${protonPath}"
+        if [ ! -f "$RSI_LAUNCHER" ]; then umu "${src}" /S; fi
+      ''
+      else ''
+        if [ ! -d "$WINEPREFIX" ]; then
+          # install tricks
+          winetricks -q -f ${tricksFmt}
+          wineserver -k
 
-    if [ ! -d "$WINEPREFIX" ]; then
-      # install tricks
-      winetricks -q -f ${tricksFmt}
-      wineserver -k
+          mkdir -p "$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/StarCitizen/"{LIVE,PTU}
 
-      mkdir -p "$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/StarCitizen/"{LIVE,PTU}
+          # install launcher
+          # Use silent install
+          wine ${src} /S
 
-      # install launcher
-      # Use silent install
-      wine ${src} /S
-
-      wineserver -k
-    fi
-
+          wineserver -k
+        fi
+        ${dxvk}/bin/setup_dxvk.sh install --symlink
+      ''
+    }
     # EAC Fix
     if [ -d "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat" ]
     then
@@ -82,14 +105,19 @@
     fi
     cd $WINEPREFIX
 
-    ${dxvk}/bin/setup_dxvk.sh install --symlink
     ${powershell-stub}/bin/install.sh
 
     ${preCommands}
-
-    ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@"
-    wineserver -w
-
+    ${
+      if useUmu
+      then ''
+        ${gamemode}/bin/gamemoderun umu "$RSI_LAUNCHER" "$@"
+      ''
+      else ''
+        ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@"
+        wineserver -w
+      ''
+    }
     ${postCommands}
   '';
 

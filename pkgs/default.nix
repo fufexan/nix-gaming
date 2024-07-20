@@ -32,6 +32,7 @@
           // extra))
         .${wine};
     in {
+      umu = inputs.umu.packages.${system}.umu;
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
@@ -84,7 +85,10 @@
 
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
-      star-citizen = pkgs.callPackage ./star-citizen {wine = config.packages.wine-ge;};
+      star-citizen = pkgs.callPackage ./star-citizen {
+        wine = config.packages.wine-ge;
+        inherit (config.packages) umu;
+      };
 
       technic-launcher = pkgs.callPackage ./technic-launcher {};
 
