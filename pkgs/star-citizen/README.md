@@ -32,7 +32,12 @@ WINEPREFIX=$HOME/Games/star-citizen nix run github:fufexan/nix-gaming#wine-ge --
 
 ## Additional Overrides
 
-This package has an additional override `wineDllOverrides`
+This package has an additional overrides
+
+- `wineDllOverrides` (not compatible with useUmu)
+- `tricks` additional wine tricks (non-umu only)
+- `protonPath` Proton compatibility tool if umu is used. use Ge-Proton for latest
+- `protonVerbs`
 
 Example:
 
@@ -42,6 +47,8 @@ star-citizen = pkgs.star-citizen.override (prev: {
   wineDllOverrides = prev.wineDllOverrides ++ [ "dxgi=n" ];
 })
 ```
+
+Example:
 
 ### Credits
 

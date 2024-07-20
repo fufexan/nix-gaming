@@ -18,6 +18,7 @@ jobs:
           - wine-ge
           - wine-osu
           - wine-tkg
+          - umu
 
     uses: ./.github/workflows/nix.yml
     with:
