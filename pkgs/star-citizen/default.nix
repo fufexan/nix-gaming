@@ -9,12 +9,14 @@
   dxvk,
   umu,
   proton-ge-bin,
+  steamPackages,
   wineFlags ? "",
   pname ? "star-citizen",
   location ? "$HOME/Games/star-citizen",
   tricks ? [],
   useUmu ? false,
   protonPath ? "${proton-ge-bin.steamcompattool}/",
+  steamRuntime ? "${steamPackages.steam-runtime}/",
   protonVerbs ? ["waitforexitandrun"],
   wineDllOverrides ? ["powershell.exe=n"],
   preCommands ? "",
@@ -79,7 +81,8 @@
       then ''
         export PROTON_VERBS="${concatStringsSep "," protonVerbs}"
         export PROTONPATH="${protonPath}"
-        if [ ! -f "$RSI_LAUNCHER" ]; then umu "${src}" /S; fi
+        export STEAM_RUNTIME_LIBRARY_PATH="${steamRuntime}"
+        if [ ! -f "$RSI_LAUNCHER" ]; then umu-run "${src}" /S; fi
       ''
       else ''
         if [ ! -d "$WINEPREFIX" ]; then
@@ -111,7 +114,7 @@
     ${
       if useUmu
       then ''
-        ${gamemode}/bin/gamemoderun umu "$RSI_LAUNCHER" "$@"
+        ${gamemode}/bin/gamemoderun umu-run "$RSI_LAUNCHER" "$@"
       ''
       else ''
         ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@"
