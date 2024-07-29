@@ -89,6 +89,7 @@
         wine = config.packages.wine-ge;
         inherit (config.packages) umu;
       };
+      star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
 
       technic-launcher = pkgs.callPackage ./technic-launcher {};
 
