@@ -83,7 +83,10 @@
         inherit (config.packages) wine-discord-ipc-bridge;
       };
 
-      rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
+      rocket-league = pkgs.callPackage ./rocket-league {
+        wine = config.packages.wine-tkg;
+        inherit (config.packages) umu;
+      };
 
       star-citizen = pkgs.callPackage ./star-citizen {
         wine = config.packages.wine-ge;

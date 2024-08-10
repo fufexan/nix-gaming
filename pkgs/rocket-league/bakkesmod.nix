@@ -8,6 +8,8 @@
   wine,
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
+  umu,
+  useUmu,
 }: let
   bakkesmodIcon = fetchurl {
     url = "https://bp-prod.nyc3.digitaloceanspaces.com/site-assets/static/bm-transparent.png";
@@ -15,7 +17,10 @@
     sha256 = "18n6hcab25n9i4v2vmq6p8v7ii17p4x9i9jx3b300lfqm56239y7";
   };
 
-  bakkesmodExePath = "${location}/drive_c/Program Files/BakkesMod/BakkesMod.exe";
+  bakkesmodExePath =
+    if useUmu
+    then "$HOME/Games/umu/umu-252950/drive_c/Program Files/BakkesMod/BakkesMod.exe"
+    else "${location}/drive_c/Program Files/BakkesMod/BakkesMod.exe";
 
   bakkesmodInstaller = writeShellScriptBin "install-bakkesmod" ''
     # Create a temp dir for the installer file
@@ -27,7 +32,21 @@
     ${unzip}/bin/unzip $TEMP_DIR/BakkesModSetup.zip -d $TEMP_DIR
 
     # Run the bakkesmod installer
-    WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine $TEMP_DIR/BakkesModSetup.exe
+    ${
+      if useUmu
+      then ''
+        export GAMEID=umu-252950
+        export STORE=egs
+        export PROTON_VERB=runinprefix
+
+        PATH=${umu}/bin:$PATH
+
+        umu-run $TEMP_DIR/BakkesModSetup.exe
+      ''
+      else ''
+        WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine $TEMP_DIR/BakkesModSetup.exe
+      ''
+    }
 
     # Clean up
     rm $TEMP_DIR/BakkesModSetup.zip
@@ -45,7 +64,22 @@
     fi
 
     echo "Starting bakkesmod..."
-    WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine c:/Program\ Files/BakkesMod/BakkesMod.exe
+
+    ${
+      if useUmu
+      then ''
+        export GAMEID=umu-252950
+        export STORE=egs
+        export PROTON_VERB=runinprefix
+
+        PATH=${umu}/bin:$PATH
+
+        umu-run c:/Program\ Files/BakkesMod/BakkesMod.exe
+      ''
+      else ''
+        WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine c:/Program\ Files/BakkesMod/BakkesMod.exe
+      ''
+    }
 
   '';
 

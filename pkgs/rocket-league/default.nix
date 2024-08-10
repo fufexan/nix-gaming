@@ -13,6 +13,8 @@
   dxvk_hud ? "compiler",
   callPackage,
   enableBakkesmod ? false,
+  umu,
+  useUmu ? false,
 }: let
   icon = builtins.fetchurl {
     # original url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
@@ -28,25 +30,40 @@
     else "-V";
 
   script = writeShellScriptBin pname ''
-    export WINEPREFIX="${location}"
     export DXVK_HUD=${dxvk_hud}
-    export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
-    export WINEFSYNC=1
-    export WINEESYNC=1
-    export __GL_SHADER_DISK_CACHE=1
-    export __GL_SHADER_DISK_CACHE_PATH="${location}"
+    ${
+      if useUmu
+      then ''
+        export GAMEID=umu-252950
+        export STORE=egs
+        export PROTON_VERB=runinprefix
 
-    PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+        PATH=${umu}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
-    if [ ! -d "$WINEPREFIX" ]; then
-      # install tricks
-      winetricks -q ${tricksString}
-      wineserver -k
-    fi
+        legendary update Sugar --base-path ${location}
+        legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"
+      ''
+      else ''
+        export WINEPREFIX="${location}"
+        export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
+        export WINEFSYNC=1
+        export WINEESYNC=1
+        export __GL_SHADER_DISK_CACHE=1
+        export __GL_SHADER_DISK_CACHE_PATH="${location}"
 
-    legendary update Sugar --base-path ${location}
-    gamemoderun legendary launch Sugar --base-path ${location}
-    wineserver -w
+        PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+
+        if [ ! -d "$WINEPREFIX" ]; then
+          # install tricks
+          winetricks -q ${tricksString}
+          wineserver -k
+        fi
+
+        legendary update Sugar --base-path ${location}
+        gamemoderun legendary launch Sugar --base-path ${location}
+        wineserver -w
+      ''
+    }
   '';
 
   desktopItems = makeDesktopItem {
@@ -57,7 +74,7 @@
     categories = ["Game"];
   };
 
-  bakkesmod = callPackage ./bakkesmod.nix {inherit location wine;};
+  bakkesmod = callPackage ./bakkesmod.nix {inherit location wine umu useUmu;};
 in
   symlinkJoin {
     name = pname;
