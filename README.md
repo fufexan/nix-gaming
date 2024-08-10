@@ -12,7 +12,7 @@ See an overview of the flake outputs by running
 | [`faf-client`](./pkgs/faf-client)                           | Forged Alliance Forever client (multiple packages)                                                     |
 | [`osu-lazer-bin`](./pkgs/osu-lazer-bin)                     | osu! lazer, extracted from the official AppImage                                                       |
 | [`osu-stable`](./pkgs/osu-stable)                           | osu! stable version                                                                                    |
-| `rocket-league`                                             | Rocket League from Epic Games                                                                          |
+| [`rocket-league`](./pkgs/rocket-league)                     | Rocket League from Epic Games                                                                          |
 | [`star-citizen`](./pkgs/star-citizen)                       | Star Citizen                                                                                           |
 | [`technic-launcher`](./pkgs/technic-launcher)               | Technic Launcher                                                                                       |
 | [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge                                                                                |
