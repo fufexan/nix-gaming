@@ -6,6 +6,7 @@
   writeShellScriptBin,
   gamemode,
   legendary-gl,
+  umu-launcher-git,
   winetricks,
   wine,
   eac-runtime,
@@ -23,6 +24,7 @@
   callPackage,
   enableEAC ? true,
   enableBakkesmod ? false,
+  useUmu ? false,
 }:
 let
   icon = fetchurl {
@@ -36,26 +38,42 @@ let
   tricksString = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
 
   script = writeShellScriptBin pname ''
-    export WINEPREFIX="${location}"
     export DXVK_HUD=${dxvk_hud}
-    export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
-    export WINEFSYNC=1
-    export WINEESYNC=1
-    export __GL_SHADER_DISK_CACHE=1
-    export __GL_SHADER_DISK_CACHE_PATH="${location}"
     ${lib.optionalString enableEAC "export PROTON_EAC_RUNTIME=\"${eac-runtime}\""}
+    ${
+      if useUmu then
+        ''
+          export GAMEID=umu-252950
+          export STORE=egs
+          export PROTON_VERB=runinprefix
 
-    PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+          PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
-    if [ ! -d "$WINEPREFIX" ]; then
-      # install tricks
-      winetricks -q ${tricksString}
-      wineserver -k
-    fi
+          legendary update Sugar --base-path ${location}
+          legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"
+        ''
+      else
+        ''
+          export WINEPREFIX="${location}"
+          export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
+          export WINEFSYNC=1
+          export WINEESYNC=1
+          export __GL_SHADER_DISK_CACHE=1
+          export __GL_SHADER_DISK_CACHE_PATH="${location}"
 
-    legendary update Sugar --base-path ${location}
-    gamemoderun legendary launch Sugar --base-path ${location}
-    wineserver -w
+          PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+
+          if [ ! -d "$WINEPREFIX" ]; then
+            # install tricks
+            winetricks -q ${tricksString}
+            wineserver -k
+          fi
+
+          legendary update Sugar --base-path ${location}
+          gamemoderun legendary launch Sugar --base-path ${location}
+          wineserver -w
+        ''
+    }
   '';
 
   desktopItems = makeDesktopItem {
@@ -66,7 +84,14 @@ let
     categories = [ "Game" ];
   };
 
-  bakkesmod = callPackage ./bakkesmod.nix { inherit location wine; };
+  bakkesmod = callPackage ./bakkesmod.nix {
+    inherit
+      location
+      wine
+      umu-launcher-git
+      useUmu
+      ;
+  };
 in
 symlinkJoin {
   name = pname;
