@@ -16,10 +16,7 @@
     sha256 = "18n6hcab25n9i4v2vmq6p8v7ii17p4x9i9jx3b300lfqm56239y7";
   };
 
-  bakkesmodExePath =
-    if useUmu
-    then "$HOME/Games/umu/umu-252950/drive_c/Program Files/BakkesMod/BakkesMod.exe"
-    else "${location}/drive_c/Program Files/BakkesMod/BakkesMod.exe";
+  bakkesmodExePath = "${location}/drive_c/Program Files/BakkesMod/BakkesMod.exe";
 
   bakkesmodInstaller = writeShellScriptBin "install-bakkesmod" ''
     # Create a temp dir for the installer file
