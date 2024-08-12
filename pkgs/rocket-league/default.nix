@@ -45,7 +45,7 @@
         export STORE=egs
         export PROTON_VERB=runinprefix
 
-        PATH=${umu}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+        PATH=${umu}/bin:${legendary-gl}/bin:${gamemode}/bin:$PATH
 
         legendary update Sugar --base-path ${location}
         legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run" --base-path ${location}
@@ -57,7 +57,7 @@
         export __GL_SHADER_DISK_CACHE=1
         export __GL_SHADER_DISK_CACHE_PATH="${location}"
 
-        PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+        PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}/bin:$PATH
 
         if [ ! -d "$WINEPREFIX" ]; then
           # install tricks
