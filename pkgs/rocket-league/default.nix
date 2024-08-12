@@ -11,7 +11,6 @@
   wine,
   eac-runtime,
   pname ? "rocket-league",
-  location ? "$HOME/Games/${pname}",
   tricks ? [
     "arial"
     "cjkfonts"
