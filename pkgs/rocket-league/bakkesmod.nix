@@ -37,6 +37,7 @@ let
     ${
       if useUmu then
         ''
+          export WINEPREFIX="${location}"
           export GAMEID=umu-252950
           export STORE=egs
           export PROTON_VERB=runinprefix
@@ -71,6 +72,7 @@ let
     ${
       if useUmu then
         ''
+          export WINEPREFIX="${location}"
           export GAMEID=umu-252950
           export STORE=egs
           export PROTON_VERB=runinprefix

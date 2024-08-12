@@ -20,6 +20,7 @@
     "d3dcompiler_47"
     "d3dx9"
   ],
+  location ? (if useUmu then "$HOME/Games/umu/umu-252950" else "$HOME/Games/${pname}"),
   dxvk_hud ? "compiler",
   callPackage,
   enableEAC ? true,
@@ -40,6 +41,7 @@ let
   script = writeShellScriptBin pname ''
     export DXVK_HUD=${dxvk_hud}
     ${lib.optionalString enableEAC "export PROTON_EAC_RUNTIME=\"${eac-runtime}\""}
+    export WINEPREFIX="${location}"
     ${
       if useUmu then
         ''
