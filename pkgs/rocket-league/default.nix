@@ -8,7 +8,11 @@
   winetricks,
   wine,
   pname ? "rocket-league",
-  location ? "$HOME/Games/${pname}",
+  location ? (
+    if useUmu
+    then "$HOME/Games/umu/umu-252950"
+    else "$HOME/Games/${pname}"
+  ),
   tricks ? ["arial" "cjkfonts" "vcrun2019" "d3dcompiler_43" "d3dcompiler_47" "d3dx9"],
   dxvk_hud ? "compiler",
   callPackage,
@@ -30,7 +34,10 @@
     else "-V";
 
   script = writeShellScriptBin pname ''
+
     export DXVK_HUD=${dxvk_hud}
+    export WINEPREFIX="${location}"
+
     ${
       if useUmu
       then ''
@@ -41,10 +48,9 @@
         PATH=${umu}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
         legendary update Sugar --base-path ${location}
-        legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"
+        legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run" --base-path ${location}
       ''
       else ''
-        export WINEPREFIX="${location}"
         export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
         export WINEFSYNC=1
         export WINEESYNC=1

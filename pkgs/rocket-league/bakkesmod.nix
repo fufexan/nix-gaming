@@ -6,8 +6,7 @@
   fetchurl,
   unzip,
   wine,
-  pname ? "rocket-league",
-  location ? "$HOME/Games/${pname}",
+  location,
   umu,
   useUmu,
 }: let
@@ -35,6 +34,7 @@
     ${
       if useUmu
       then ''
+        export WINEPREFIX="${location}"
         export GAMEID=umu-252950
         export STORE=egs
         export PROTON_VERB=runinprefix
@@ -68,6 +68,7 @@
     ${
       if useUmu
       then ''
+        export WINEPREFIX="${location}"
         export GAMEID=umu-252950
         export STORE=egs
         export PROTON_VERB=runinprefix
