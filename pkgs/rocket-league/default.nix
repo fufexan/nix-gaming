@@ -43,7 +43,6 @@
       then ''
         export GAMEID=umu-252950
         export STORE=egs
-        export PROTON_VERB=runinprefix
 
         PATH=${umu}/bin:${legendary-gl}/bin:${gamemode}/bin:$PATH
 
