@@ -7,7 +7,7 @@
 }: let
   steam-redirector = pkgs.callPackage ./steam-redirector.nix {inherit pkgs;};
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation (finalAttrs: {
     pname = "mo2installer";
     version = "5.0.3";
 
