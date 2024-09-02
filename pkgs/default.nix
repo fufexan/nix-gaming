@@ -32,7 +32,7 @@
           // extra))
         .${wine};
     in {
-      umu = inputs.umu.packages.${system}.umu;
+      inherit (inputs.umu.packages.${system}) umu;
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
@@ -88,7 +88,8 @@
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
       star-citizen = pkgs.callPackage ./star-citizen {
-        wine = config.packages.wine-ge;
+        wine = pkgs.wineWowPackages.stable;
+        winetricks = config.packages.winetricks-git;
         inherit (config.packages) umu;
       };
       star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
