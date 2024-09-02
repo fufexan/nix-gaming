@@ -15,7 +15,7 @@ in
       owner = "rockerbacon";
       repo = "modorganizer2-linux-installer";
       rev = "v{finalAttrs.version}";
-      sha256 = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
+      hash = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
     };
 
     nativeBuildInputs = [pkgs.makeWrapper];
