@@ -14,7 +14,7 @@ in
     src = fetchFromGitHub {
       owner = "rockerbacon";
       repo = "modorganizer2-linux-installer";
-      rev = "90d33013aca0deceaadc099be4d682e08f237ef5";
+      rev = "v{finalAttrs.version}";
       sha256 = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
     };
 
