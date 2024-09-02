@@ -2,10 +2,8 @@
   pkgs,
   overrideCC,
   ...
-}:
-let
-  useWin32ThreadModel =
-    stdenv:
+}: let
+  useWin32ThreadModel = stdenv:
     overrideCC stdenv (
       stdenv.cc.override (old: {
         cc = old.cc.override {
@@ -17,30 +15,29 @@ let
       })
     );
 in
+  (useWin32ThreadModel pkgs.pkgsCross.mingwW64.stdenv).mkDerivation {
+    pname = "steam-redirector";
+    version = "5.0.3";
 
-(useWin32ThreadModel pkgs.pkgsCross.mingwW64.stdenv).mkDerivation {
-  pname = "steam-redirector";
-  version = "5.0.3";
+    src = pkgs.fetchFromGitHub {
+      owner = "rockerbacon";
+      repo = "modorganizer2-linux-installer";
+      rev = "90d33013aca0deceaadc099be4d682e08f237ef5";
+      sha256 = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
+    };
 
-  src = pkgs.fetchFromGitHub {
-    owner = "rockerbacon";
-    repo = "modorganizer2-linux-installer";
-    rev = "90d33013aca0deceaadc099be4d682e08f237ef5";
-    sha256 = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
-  };
+    patches = [./fix.patch];
 
-  patches = [ ./fix.patch ];
+    buildPhase = ''
+      cd steam-redirector/
 
-  buildPhase = ''
-    cd steam-redirector/
+      make "main.exe"
+    '';
 
-    make "main.exe"
-  '';
+    installPhase = ''
+      ls
 
-  installPhase = ''
-    ls
+      install -Dm0755 main.exe $out/main.exe
 
-    install -Dm0755 main.exe $out/main.exe
-
-  '';
-}
+    '';
+  }
