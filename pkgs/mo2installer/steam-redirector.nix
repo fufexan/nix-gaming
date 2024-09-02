@@ -1,6 +1,7 @@
 {
-  pkgs,
+  fetchFromGitHub,
   overrideCC,
+  pkgsCross,
   ...
 }: let
   useWin32ThreadModel = stdenv:
@@ -15,17 +16,18 @@
       })
     );
 in
-  (useWin32ThreadModel pkgs.pkgsCross.mingwW64.stdenv).mkDerivation {
+  (useWin32ThreadModel pkgsCross.mingwW64.stdenv).mkDerivation {
     pname = "steam-redirector";
     version = "5.0.3";
 
-    src = pkgs.fetchFromGitHub {
+    src = fetchFromGitHub {
       owner = "rockerbacon";
       repo = "modorganizer2-linux-installer";
       rev = "90d33013aca0deceaadc099be4d682e08f237ef5";
       sha256 = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
     };
 
+    # The .exe won't compile with the -lpthread flag
     patches = [./fix.patch];
 
     buildPhase = ''
@@ -35,9 +37,6 @@ in
     '';
 
     installPhase = ''
-      ls
-
       install -Dm0755 main.exe $out/main.exe
-
     '';
   }
