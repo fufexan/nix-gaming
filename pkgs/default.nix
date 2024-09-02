@@ -48,6 +48,8 @@
       # broken upstream, thanks tauri
       # flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
 
+      mo2installer = pkgs.callPackage ./mo2installer {};
+
       modrinth-app = pkgs.callPackage ./modrinth-app {};
 
       northstar-proton = pkgs.callPackage ./titanfall/northstar-proton.nix {};
