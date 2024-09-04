@@ -3,7 +3,6 @@
   pkgsCross,
   version,
   src,
-  ...
 }: let
   useWin32ThreadModel = stdenv:
     overrideCC stdenv (

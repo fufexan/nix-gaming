@@ -1,22 +1,21 @@
 {
-  bash,
-  callPackage,
-  curl,
-  fetchFromGitHub,
   lib,
+  callPackage,
+  fetchFromGitHub,
   makeWrapper,
+  curl,
+  findutils,
   p7zip,
   protontricks,
   stdenv,
   zenity,
-  ...
 }: let
   version = "5.0.3";
 
   src = fetchFromGitHub {
     owner = "rockerbacon";
     repo = "modorganizer2-linux-installer";
-    rev = "v${version}";
+    rev = "refs/tags/${version}";
     hash = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
   };
 
@@ -26,9 +25,14 @@ in
     pname = "mo2installer";
     inherit version src;
 
-    nativeBuildInputs = [makeWrapper];
+    nativeBuildInputs = [
+      findutils
+      makeWrapper
+    ];
 
-    installPhase = ''
+    installPhase = let
+      path = "$out/share/modorganizer2";
+    in ''
       mkdir -p "$out/bin"
 
       rm -r ci/
@@ -40,13 +44,15 @@ in
 
       mv "install.sh" "${finalAttrs.pname}"
 
-      cp -r ./* "$out/bin"
-      ln -s ${steam-redirector}/main.exe $out/bin/steam-redirector
+      mkdir -p "${path}"
+      mkdir -p "$out/bin"
 
-      wrapProgram $out/bin/${finalAttrs.pname} --prefix PATH : ${
+      cp -r ./* "${path}"
+      ln -s ${steam-redirector}/main.exe ${path}/steam-redirector
+
+      wrapProgram ${path}/${finalAttrs.pname} --prefix PATH : ${
         lib.makeBinPath
         [
-          bash
           curl
           p7zip
           protontricks
@@ -54,12 +60,9 @@ in
         ]
       }
 
-      cd $out/bin/steam-redirector
+      ln -s ${path}/${finalAttrs.pname} $out/bin
 
-      rm *.c
-      rm Makefile
-      rm README.md
-      rm unix_utils.h
-      rm win32_utils.h
+      cd ${path}/steam-redirector
+      find . -type f -not -name "main.exe" | xargs rm
     '';
   })
