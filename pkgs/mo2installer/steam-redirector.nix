@@ -1,7 +1,8 @@
 {
-  fetchFromGitHub,
   overrideCC,
   pkgsCross,
+  version,
+  src,
   ...
 }: let
   useWin32ThreadModel = stdenv:
@@ -18,17 +19,12 @@
 in
   (useWin32ThreadModel pkgsCross.mingwW64.stdenv).mkDerivation {
     pname = "steam-redirector";
-    version = "5.0.3";
+    inherit version src;
 
-    src = fetchFromGitHub {
-      owner = "rockerbacon";
-      repo = "modorganizer2-linux-installer";
-      rev = "90d33013aca0deceaadc099be4d682e08f237ef5";
-      sha256 = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
-    };
-
-    # The .exe won't compile with the -lpthread flag
-    patches = [./fix.patch];
+    patches = [
+      # The .exe won't compile with the -lpthread flag
+      ./fix.patch
+    ];
 
     buildPhase = ''
       cd steam-redirector/

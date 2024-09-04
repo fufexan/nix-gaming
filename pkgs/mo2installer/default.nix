@@ -11,18 +11,20 @@
   zenity,
   ...
 }: let
-  steam-redirector = callPackage ./steam-redirector.nix {};
+  version = "5.0.3";
+
+  src = fetchFromGitHub {
+    owner = "rockerbacon";
+    repo = "modorganizer2-linux-installer";
+    rev = "v${version}";
+    hash = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
+  };
+
+  steam-redirector = callPackage ./steam-redirector.nix {inherit version src;};
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "mo2installer";
-    version = "5.0.3";
-
-    src = fetchFromGitHub {
-      owner = "rockerbacon";
-      repo = "modorganizer2-linux-installer";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
-    };
+    inherit version src;
 
     nativeBuildInputs = [makeWrapper];
 
