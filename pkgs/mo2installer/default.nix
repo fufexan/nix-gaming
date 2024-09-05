@@ -37,7 +37,6 @@ in
 
       rm -r ci/
       rm -r screenshots/
-      rm LICENSE
       rm README.md
       rm pack-release.sh
       rm post-install.md
@@ -65,4 +64,12 @@ in
       cd ${path}/steam-redirector
       find . -type f -not -name "main.exe" | xargs rm
     '';
+
+    meta = {
+      description = "An easy-to-use Mod Organizer 2 installer for Linux";
+      homepage = "https://github.com/rockerbacon/modorganizer2-linux-installer";
+      license = lib.licenses.gpl3Only;
+      mainProgram = "mo2installer";
+      platforms = lib.platforms.linux;
+    };
   })
