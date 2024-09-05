@@ -31,7 +31,7 @@ in
     ];
 
     installPhase = let
-      path = "$out/share/modorganizer2";
+      path = "$out/share/mo2installer";
     in ''
       mkdir -p "$out/bin"
 
