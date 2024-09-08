@@ -117,6 +117,8 @@
 
       wine-tkg = wineBuilder "wine-tkg" "full" {};
 
+      winetricks-git = pkgs.callPackage ./winetricks-git {inherit pins;};
+
       wineprefix-preparer = pkgs.callPackage ./wineprefix-preparer {inherit (config.packages) dxvk-w32 vkd3d-proton-w32 dxvk-w64 vkd3d-proton-w64;};
     };
   };
