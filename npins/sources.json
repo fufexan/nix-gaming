@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "2024.906.1",
-      "revision": "04d133832f5d4d245392f51c3e71bfc818d655d4",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2024.906.1",
-      "hash": "1dnrx9yvvzczxznlxv9g2p9766kmav3h1467bbmv61l73wrlq43d"
+      "version": "2024.906.2",
+      "revision": "e88083adc17a383ae6e285d378988c01c40985ad",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2024.906.2",
+      "hash": "0mhrryrxipn0m475dm6jl9g2wp2j86nsvryxk9p448dwmpx8wh6a"
     },
     "proton-wine": {
       "type": "Git",
@@ -155,9 +155,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "226375289f520886c60cc88e0cb1e4ff0c81c70c",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/226375289f520886c60cc88e0cb1e4ff0c81c70c.tar.gz",
-      "hash": "08an0w3z3gyfxsdjyjmqw17vnxk0f26v29m7jzrhw6q62b9bg5bn"
+      "revision": "2a498afc6287927f046cf165061e5624fc398bbb",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/2a498afc6287927f046cf165061e5624fc398bbb.tar.gz",
+      "hash": "0xvr7bxalakgnpm5kwbfgrq090cqmzi0ih9rmj0q9xwhf9h37024"
     }
   },
   "version": 3
