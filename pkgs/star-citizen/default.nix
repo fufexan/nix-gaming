@@ -5,6 +5,7 @@
   writeShellScriptBin,
   gamemode,
   gamescope,
+  mangohud,
   winetricks,
   wine,
   dxvk,
@@ -22,6 +23,7 @@
   wineDllOverrides ? [],
   gameScopeEnable ? false,
   gameScopeArgs ? [],
+  mangoHudEnable ? false,
   preCommands ? "",
   postCommands ? "",
   enableGlCache ? true,
@@ -46,6 +48,7 @@
     else "-V";
 
   gameScope = lib.strings.optionalString gameScopeEnable "${gamescope}/bin/gamescope ${concatStringsSep " " gameScopeArgs} --";
+  mangoHud = lib.strings.optionalString mangoHudEnable "export MANGOHUD=1";
 
   script = writeShellScriptBin pname ''
     export WINETRICKS_LATEST_VERSION_CHECK=disabled
@@ -83,7 +86,9 @@
       lib.makeBinPath (
         if useUmu
         then [umu]
-        else [wine winetricks]
+        else
+          [wine winetricks]
+          ++ lib.optional mangoHudEnable [mangohud]
       )
     }:$PATH
     USER="$(whoami)"
@@ -119,6 +124,7 @@
       rm -rf "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat";
     fi
     cd $WINEPREFIX
+    ${mangoHud}
 
     ${preCommands}
     ${
