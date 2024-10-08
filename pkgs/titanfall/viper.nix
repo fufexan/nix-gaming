@@ -15,7 +15,7 @@
   libgpg-error,
   libGL,
   makeWrapper,
-  dieHook
+  dieHook,
 }: let
   pname = "viper";
   version = "1.12.1";
@@ -57,7 +57,7 @@ in
       cp -r ${appimageContents}/usr/share/icons $out/share
 
       # cringe hack to get wrapProgram working in extraInstallCommands
-      source "${dieHook}/nix-support/setup-hook" 
+      source "${dieHook}/nix-support/setup-hook"
       source "${makeWrapper}/nix-support/setup-hook"
 
       mv $out/bin/${pname} $out/bin/${pname}-${version}
