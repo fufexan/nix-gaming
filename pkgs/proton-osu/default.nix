@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       (This is intended for use in the `programs.steam.extraCompatPackages` option only.)
     '';
     homepage = "https://github.com/whrvt/umubuilder";
-    license = lib.licenses.gpl3plus;
+    license = lib.licenses.gpl3Plus;
     platforms = [ "x86_64-linux" ];
   };
 })
