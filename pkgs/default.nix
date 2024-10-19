@@ -80,6 +80,8 @@
         '';
       };
 
+      proton-osu = pkgs.callPackage ./proton-osu {};
+
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;
         inherit (config.packages) wine-discord-ipc-bridge;
