@@ -61,11 +61,11 @@
         export PROTONPATH="${protonPath}"
 
         if [ ! -d "$WINEPREFIX" ]; then
-          umu winetricks -q -f ${tricksFmt}
+          umu-run winetricks -q -f ${tricksFmt}
         fi
 
         if [ ! -f "$OSU" ]; then
-          umu ${src}
+          umu-run ${src}
           mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
         fi
       ''
@@ -88,7 +88,7 @@
     ${
       if useUmu
       then ''
-        ${gamemode}/bin/gamemoderun umu "$OSU" "$@"
+        ${gamemode}/bin/gamemoderun umu-run "$OSU" "$@"
       ''
       else ''
         wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
