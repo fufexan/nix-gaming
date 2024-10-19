@@ -62,7 +62,7 @@
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {
-        inherit (config.packages) osu-mime proton-osu;
+        inherit (config.packages) osu-mime proton-osu umu;
         wine = config.packages.wine-osu;
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
