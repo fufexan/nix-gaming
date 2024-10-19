@@ -61,7 +61,7 @@
         export PROTONPATH="${protonPath}"
 
         if [ ! -d "$WINEPREFIX" ]; then
-          umu-run winetricks -q -f ${tricksFmt}
+          umu-run winetricks ${tricksFmt}
         fi
 
         if [ ! -f "$OSU" ]; then
