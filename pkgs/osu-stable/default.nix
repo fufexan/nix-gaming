@@ -12,7 +12,6 @@
   wineFlags ? "",
   pname ? "osu-stable",
   location ? "$HOME/.osu",
-  useIpcBridge ? true,
   useUmu ? false,
   protonPath ? "${proton-osu.steamcompattool}",
   protonVerbs ? ["waitforexitandrun"],
@@ -86,13 +85,13 @@
 
     ${preCommands}
 
-    ${lib.optionalString useIpcBridge "wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &"}
     ${
       if useUmu
       then ''
         ${gamemode}/bin/gamemoderun umu "$OSU" "$@"
       ''
       else ''
+        wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
         ${gamemode}/bin/gamemoderun wine ${wineFlags} "$OSU" "$@"
         wineserver -w
       ''
