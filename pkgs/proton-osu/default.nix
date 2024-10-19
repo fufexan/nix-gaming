@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     url = "https://github.com/whrvt/umubuilder/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.xz";
-    hash = lib.fakeHash;
+    hash = "sha256-SPj7ogWjPxlBILRiGmMXti0fZyyLdzfoA308xbIAn3Q=";
   };
 
   outputs = [
