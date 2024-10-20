@@ -52,11 +52,12 @@
       )
     }:$PATH
     USER="$(whoami)"
-    OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
     ${
       if useUmu
       then ''
+        OSU="$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!/osu!.exe"
+
         export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
         export PROTONPATH="${protonPath}"
 
@@ -65,11 +66,13 @@
         fi
 
         if [ ! -f "$OSU" ]; then
-          umu-run ${src}
-          mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
+          OSU_FIRST_TIME="true"
+          ${gamemode}/bin/gamemoderun umu-run ${src}
         fi
       ''
       else ''
+        OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
+
         if [ ! -d "$WINEPREFIX" ]; then
           # install tricks
           winetricks -q -f ${tricksFmt}
@@ -88,7 +91,9 @@
     ${
       if useUmu
       then ''
+      if [ "$OSU_FIRST_TIME" != "true" ]; then
         ${gamemode}/bin/gamemoderun umu-run "$OSU" "$@"
+      fi
       ''
       else ''
         wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
