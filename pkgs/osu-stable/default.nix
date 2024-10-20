@@ -33,6 +33,7 @@
     else "-V";
 
   script = writeShellScriptBin pname ''
+    export WINEARCH="win32"
     export WINEPREFIX="${location}"
     # sets realtime priority for wine
     export STAGING_RT_PRIORITY_SERVER=1
@@ -56,10 +57,10 @@
     ${
       if useUmu
       then ''
-        export WINEARCH="win64"
-
         export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
         export PROTONPATH="${protonPath}"
+
+        export LD_LIBRARY_PATH="/run/opengl-driver/lib":"/run/opengl-driver-32/lib":$LD_LIBRARY_PATH
 
         if [ ! -d "$WINEPREFIX" ]; then
           umu-run winetricks ${tricksFmt}
@@ -71,8 +72,6 @@
         fi
       ''
       else ''
-        export WINEARCH="win32"
-
         if [ ! -d "$WINEPREFIX" ]; then
           # install tricks
           winetricks -q -f ${tricksFmt}
