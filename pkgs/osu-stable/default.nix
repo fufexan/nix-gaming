@@ -60,8 +60,7 @@
         export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
         export PROTONPATH="${protonPath}"
 
-        export LD_LIBRARY_PATH=/run/opengl-driver-32/lib:/run/opengl-driver-32/lib/dri:$LD_LIBRARY_PATH
-        export LIBGL_DRIVERS_PATH=/run/opengl-driver-32/lib/dri
+        export LD_LIBRARY_PATH=/run/opengl-driver/lib/dri:/run/opengl-driver-32/lib/dri:$LD_LIBRARY_PATH
 
         if [ ! -d "$WINEPREFIX" ]; then
           umu-run winetricks ${tricksFmt}
