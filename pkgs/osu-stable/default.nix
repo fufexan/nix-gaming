@@ -33,7 +33,6 @@
     else "-V";
 
   script = writeShellScriptBin pname ''
-    export WINEARCH="win32"
     export WINEPREFIX="${location}"
     # sets realtime priority for wine
     export STAGING_RT_PRIORITY_SERVER=1
@@ -52,11 +51,12 @@
       )
     }:$PATH
     USER="$(whoami)"
+    OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
     ${
       if useUmu
       then ''
-        OSU="$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!/osu!.exe"
+        export WINEARCH="win64"
 
         export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
         export PROTONPATH="${protonPath}"
@@ -68,10 +68,11 @@
         if [ ! -f "$OSU" ]; then
           OSU_FIRST_TIME="true"
           ${gamemode}/bin/gamemoderun umu-run ${src}
+          mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
         fi
       ''
       else ''
-        OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
+        export WINEARCH="win32"
 
         if [ ! -d "$WINEPREFIX" ]; then
           # install tricks
