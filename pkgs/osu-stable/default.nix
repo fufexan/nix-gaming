@@ -60,14 +60,12 @@
         export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
         export PROTONPATH="${protonPath}"
 
-        export LD_LIBRARY_PATH=/run/opengl-driver-32/lib/dri:/run/opengl-driver/lib/dri:$LD_LIBRARY_PATH
-
         if [ ! -d "$WINEPREFIX" ]; then
           umu-run winetricks ${tricksFmt}
         fi
 
         if [ ! -f "$OSU" ]; then
-          umu-run ${src} /norestart
+          umu-run ${src}
           mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
         fi
       ''
