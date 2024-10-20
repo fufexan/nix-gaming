@@ -66,8 +66,7 @@
         fi
 
         if [ ! -f "$OSU" ]; then
-          OSU_FIRST_TIME="true"
-          ${gamemode}/bin/gamemoderun umu-run ${src}
+          umu-run ${src} /norestart
           mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
         fi
       ''
@@ -92,9 +91,7 @@
     ${
       if useUmu
       then ''
-      if [ "$OSU_FIRST_TIME" != "true" ]; then
         ${gamemode}/bin/gamemoderun umu-run "$OSU" "$@"
-      fi
       ''
       else ''
         wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
