@@ -88,7 +88,7 @@
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
       star-citizen = pkgs.callPackage ./star-citizen {
-        wine = pkgs.wineWowPackages.stable;
+        wine = pkgs.wineWowPackages.staging;
         winetricks = config.packages.winetricks-git;
         inherit (config.packages) umu;
       };
