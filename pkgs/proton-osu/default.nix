@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-osu-bin";
   version = "proton-osu-9-7";
