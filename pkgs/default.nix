@@ -62,7 +62,7 @@
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {
-        inherit (config.packages) osu-mime proton-osu umu;
+        inherit (config.packages) osu-mime proton-osu-bin umu;
         wine = config.packages.wine-osu;
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
@@ -80,7 +80,7 @@
         '';
       };
 
-      proton-osu = pkgs.callPackage ./proton-osu {};
+      proton-osu-bin = pkgs.callPackage ./proton-osu-bin {};
 
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;
