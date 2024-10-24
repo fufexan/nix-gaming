@@ -62,7 +62,7 @@
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {
-        inherit (config.packages) osu-mime;
+        inherit (config.packages) osu-mime proton-osu-bin umu;
         wine = config.packages.wine-osu;
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
@@ -79,6 +79,8 @@
           <https://github.com/NixOS/nixpkgs/pull/296009>
         '';
       };
+
+      proton-osu-bin = pkgs.callPackage ./proton-osu-bin {};
 
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;
