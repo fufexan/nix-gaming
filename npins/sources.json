@@ -142,10 +142,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v0.0.2",
-      "revision": "dd649284cdbb41927e504b122a478aa5ae5ece60",
-      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.2",
-      "hash": "161z7bykh2lj8gsi477qkdg570ygw316fxpdpnknj70igj47shqg"
+      "version": "v0.0.3",
+      "revision": "86fcbddaf654aec40c6fe6a8293f627340331b0c",
+      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.3",
+      "hash": "1a24nvwv2r8bwkwf7i23a36cdizkyj2ql9fk8hxd940slcw1nfwg"
     },
     "wine-tkg": {
       "type": "Git",
