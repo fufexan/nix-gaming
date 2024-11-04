@@ -17,7 +17,7 @@
   useUmu ? false,
   protonPath ? "${proton-ge-bin.steamcompattool}/",
   protonVerbs ? ["waitforexitandrun"],
-  wineDllOverrides ? [],
+  wineDllOverrides ? ["winemenubuilder.exe=d"],
   gameScopeEnable ? false,
   gameScopeArgs ? [],
   preCommands ? "",
@@ -28,11 +28,11 @@
 }: let
   inherit (lib.strings) concatStringsSep optionalString;
   # Latest version can be found: https://install.robertsspaceindustries.com/rel/2/latest.yml
-  version = "2.0.5";
+  version = "2.1.0";
   src = pkgs.fetchurl {
     url = "https://install.robertsspaceindustries.com/rel/2/RSI%20Launcher-Setup-${version}.exe";
     name = "RSI Launcher-Setup-${version}.exe";
-    hash = "sha256-NevMkWdXe3aKFUqBgI32nshp0qZ8c4nSJ1qdV3EGpGk=";
+    hash = "sha256-h/mlOMzDzY0qvEtX6zHox/qlueJZ2IHToxYnTem/V9I=";
   };
 
   # Powershell stub for star-citizen
@@ -63,6 +63,7 @@
         export WINE_HIDE_NVIDIA_GPU=1
         # AMD
         export dual_color_blend_by_location="true"
+        export WINEDEBUG=-all
 
       ''
     }
@@ -124,7 +125,13 @@
         ${gameScope} ${gamemode}/bin/gamemoderun umu-run "$RSI_LAUNCHER" "$@"
       ''
       else ''
-        ${gameScope} ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@"
+        if [[ -t 1 ]]; then
+            ${gameScope} ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@"
+        else
+            export LOG_DIR=$(mktemp -d)
+            echo "Working arround known launcher error by outputting logs to $LOG_DIR"
+            ${gameScope} ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@" >"$LOG_DIR/RSIout" 2>"$LOG_DIR/RSIerr"
+        fi
         wineserver -w
       ''
     }
