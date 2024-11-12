@@ -40,10 +40,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2.4.1",
-      "revision": "5367bd7bd5e52c35364f20829c2c5d22c2b29fb1",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.4.1",
-      "hash": "1bs9j7dkxd5qn4bz3naqibz5qd4f4mbpxizbk8sb4srzn83krrnz"
+      "version": "v2.5",
+      "revision": "6a8333492396f1206c2d11ef8258da5a419bf636",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5",
+      "hash": "0yvr2hr4z0aaipkvyb8qp42l98bf49wbj6miwk0zws4ga403pi1y"
     },
     "dxvk-async": {
       "type": "GitRelease",
@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "2024.1009.1",
-      "revision": "a6f56036a2c5df3f0427200ceb6fb8c321068ad6",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2024.1009.1",
-      "hash": "0vxd44nkb7z4i5sq13xic9ysjvf2yd0gq3kyha2nimkqzhp97md1"
+      "version": "2024.1104.0",
+      "revision": "795477372f5185209ba53274047ba917269e135a",
+      "url": "https://api.github.com/repos/ppy/osu/tarball/2024.1104.0",
+      "hash": "1zpmp1c63hya0rwf2g0ys6626ri3xsbswy0089mc7yf4gxh4c18l"
     },
     "proton-wine": {
       "type": "Git",
