@@ -1,15 +1,16 @@
 {
   lib,
+  pins,
   stdenvNoCC,
   fetchzip,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-osu-bin";
-  version = "proton-osu-9-10";
+  inherit (pins.proton-osu) version;
 
   src = fetchzip {
     url = "https://github.com/whrvt/umubuilder/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.xz";
-    hash = "sha256-wX3ScZu6n1WSNtbKU/7U1oiL9bc+udOCwMVlfqY3p7I=";
+    inherit (builtins.fromJSON (builtins.readFile ./info.json)) hash;
   };
 
   outputs = [
@@ -36,5 +37,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/whrvt/umubuilder";
     license = lib.licenses.gpl3Plus;
     platforms = ["x86_64-linux"];
+    passthru.updateScript = ./update.sh;
   };
 })
