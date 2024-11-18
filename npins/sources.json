@@ -105,6 +105,21 @@
       "url": "https://api.github.com/repos/ppy/osu/tarball/2024.1115.3",
       "hash": "0y5ci3wjzlzl6vpnjp1lkamnlwm9v14csxg7k142gsym0777z4q1"
     },
+    "proton-osu": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "whrvt",
+        "repo": "umubuilder"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": "proton-osu-9-",
+      "version": "proton-osu-9-10",
+      "revision": "b94ca222b3050209310d7c17365070c6d1e5b946",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-10",
+      "hash": "0v6v6gxlvbijqz31317n6p568bdlaf0mf15vqk6byvvisrx3jlsd"
+    },
     "proton-wine": {
       "type": "Git",
       "repository": {

@@ -80,7 +80,7 @@
         '';
       };
 
-      proton-osu-bin = pkgs.callPackage ./proton-osu-bin {};
+      proton-osu-bin = pkgs.callPackage ./proton-osu-bin {inherit pins;};
 
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;

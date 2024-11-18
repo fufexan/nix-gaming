@@ -21,7 +21,7 @@ jobs:
           name: nix-gaming
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - run: nix run nixpkgs#npins update; pkgs/faf-client/update.sh; pkgs/faf-client/update-src.sh; pkgs/osu-lazer-bin/update.sh; pkgs/osu-stable/update.sh; pkgs/wine/update-wine-ge.sh
+      - run: nix run nixpkgs#npins update; pkgs/faf-client/update.sh; pkgs/faf-client/update-src.sh; pkgs/osu-lazer-bin/update.sh; pkgs/osu-stable/update.sh; pkgs/wine/update-wine-ge.sh; pkgs/proton-osu-bin/update.sh
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

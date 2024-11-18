@@ -13,5 +13,5 @@ directory and re-run `osu-stable`.
 This package has the following additional overrides:
 
 - `protonPath` Proton compatibility tool if umu is used.
-Defaults to [`proton-osu`](../proton-osu/README.md).
+Defaults to [`proton-osu-bin`](../proton-osu-bin/README.md).
 - `protonVerbs`
