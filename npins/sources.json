@@ -40,10 +40,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2.5",
-      "revision": "6a8333492396f1206c2d11ef8258da5a419bf636",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5",
-      "hash": "0yvr2hr4z0aaipkvyb8qp42l98bf49wbj6miwk0zws4ga403pi1y"
+      "version": "v2.5.1",
+      "revision": "aa4dab369af662259924eaaeeddaaf0afe13b256",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5.1",
+      "hash": "11lan8mrng0h0qv77grh9miyi0ahkdfy328d8fclzxf6nfhc6g9r"
     },
     "dxvk-async": {
       "type": "GitRelease",
