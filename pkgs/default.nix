@@ -57,7 +57,6 @@
       osu-mime = pkgs.callPackage ./osu-mime {};
 
       osu-lazer-bin = pkgs.callPackage ./osu-lazer-bin {
-        inherit pins;
         inherit (config.packages) osu-mime;
       };
 
