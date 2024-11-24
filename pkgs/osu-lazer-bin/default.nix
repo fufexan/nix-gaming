@@ -1,6 +1,5 @@
 {
   lib,
-  pins,
   SDL2,
   alsa-lib,
   appimageTools,
@@ -28,7 +27,7 @@
   osu-mime,
 }: let
   pname = "osu-lazer-bin";
-  inherit (pins.osu) version;
+  inherit (builtins.fromJSON (builtins.readFile ./info.json)) version;
 
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
