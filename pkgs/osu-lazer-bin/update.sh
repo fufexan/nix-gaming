@@ -9,7 +9,7 @@ if [ "$oldversion" != "$version" ]; then
   if output=$(nix store prefetch-file "$url" --json); then
     jq --arg version "$version" '.version = $version' <<<"$output" >"$info"
   else
-    echo "Failed to fetch new osu!lazer binary, possibly non-release update"
+    echo "osu!lazer has a non-release update"
   fi
 else
   echo "osu!lazer is up to date."
