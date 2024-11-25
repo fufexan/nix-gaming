@@ -90,21 +90,6 @@
       "url": "https://api.github.com/repos/FAForever/uid/tarball/v4.0.6",
       "hash": "04wv34zwi4x08ss4pq1l3bf0rr8chg3bbia7k0yz3g4nwnrffmzg"
     },
-    "osu": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "GitHub",
-        "owner": "ppy",
-        "repo": "osu"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "version": "2024.1122.0",
-      "revision": "6a0ac4c29eca22bdfe134cdd5e51395bbd6e1d49",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2024.1122.0",
-      "hash": "1hyap9rby199lgrz2a81lhdkkpa3hp0qjhsvw2j3br7qkcfabs6d"
-    },
     "proton-osu": {
       "type": "GitRelease",
       "repository": {
