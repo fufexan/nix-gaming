@@ -70,10 +70,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "3.3.9",
-      "revision": "0173f58aa777457ba7cc1d60ba0d59a191318133",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.9",
-      "hash": "1906p7z3qk4npfqp66zpw4jmpcg9ds6cn8j0cw3cpi8lpk9ms9mm"
+      "version": "3.3.10",
+      "revision": "23821e3a6bbdaad88b018e8ff9c9488dea94d4ea",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.10",
+      "hash": "01anhwsbnscifwngn68bjksb3ii6wmhnvar9h6pi0h84bv5l05kr"
     },
     "faf-uid": {
       "type": "GitRelease",
