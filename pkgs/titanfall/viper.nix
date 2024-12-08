@@ -29,8 +29,7 @@
   };
 
   appimageContents = appimageTools.extractType2 {
-    name = "${pname}-${version}";
-    inherit src;
+    inherit pname version src;
   };
 
   libs = [
