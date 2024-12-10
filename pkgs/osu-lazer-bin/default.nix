@@ -60,7 +60,7 @@
     installPhase = ''
       runHook preInstall
       install -d $out/bin $out/lib
-      install osu\!.png $out/osu.png
+      install osu.png $out/osu.png
       cp -r usr/bin $out/lib/osu
       makeWrapper $out/lib/osu/osu\! $out/bin/osu-lazer \
         --set COMPlus_GCGen0MaxBudget "600000" \
