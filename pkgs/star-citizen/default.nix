@@ -45,10 +45,13 @@
 
   gameScope = lib.strings.optionalString gameScopeEnable "${gamescope}/bin/gamescope ${concatStringsSep " " gameScopeArgs} --";
 
+  libs = with pkgs; [freetype vulkan-loader];
+
   script = writeShellScriptBin pname ''
     export WINETRICKS_LATEST_VERSION_CHECK=disabled
     export WINEARCH="win64"
-    export WINEPREFIX="${location}"
+    mkdir -p "${location}"
+    export WINEPREFIX="$(readlink -f "${location}")"
     ${
       optionalString
       #this option doesn't work on umu, an umu TOML config file will be needed instead
@@ -85,6 +88,7 @@
         else [wine winetricks]
       )
     }:$PATH
+    export LD_LIBRARY_PATH=${lib.makeLibraryPath libs}:$LD_LIBRARY_PATH
     USER="$(whoami)"
     RSI_LAUNCHER="$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/RSI Launcher/RSI Launcher.exe"
     ${
@@ -95,7 +99,7 @@
         if [ ! -f "$RSI_LAUNCHER" ]; then umu-run "${src}" /S; fi
       ''
       else ''
-        if [ ! -d "$WINEPREFIX" ]; then
+        if [ ! -d "$RSI_LAUNCHER" ]; then
           # install tricks
           winetricks -q -f ${tricksFmt}
           wineserver -k
