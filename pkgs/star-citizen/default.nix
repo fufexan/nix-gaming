@@ -24,6 +24,7 @@
   postCommands ? "",
   enableGlCache ? true,
   glCacheSize ? 1073741824,
+  disableEac ? true,
   pkgs,
 }: let
   inherit (lib.strings) concatStringsSep optionalString;
@@ -60,8 +61,10 @@
         export WINEFSYNC=1
         export WINEESYNC=1
         export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
-        # Anti-cheat
-        export EOS_USE_ANTICHEATCLIENTNULL=1
+        ${lib.optionalString disableEac ''
+          # Anti-cheat
+          export EOS_USE_ANTICHEATCLIENTNULL=1
+        ''}
         # Nvidia tweaks
         export WINE_HIDE_NVIDIA_GPU=1
         # AMD
@@ -115,11 +118,13 @@
         ${dxvk}/bin/setup_dxvk.sh install --symlink
       ''
     }
-    # EAC Fix
-    if [ -d "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat" ]
-    then
-      rm -rf "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat";
-    fi
+    ${lib.optionalString disableEac ''
+      # EAC Fix
+      if [ -d "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat" ]
+      then
+        rm -rf "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat";
+      fi
+    ''}
     cd $WINEPREFIX
 
     ${preCommands}
