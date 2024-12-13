@@ -15,19 +15,21 @@
   libgpg-error,
   libGL,
   makeWrapper,
+  dieHook,
 }: let
   pname = "viper";
-  version = "1.8.5";
+  version = "1.12.1";
+
+  capitalize = str: (lib.toUpper (builtins.substring 0 1 str)) + ((builtins.substring 1 (builtins.stringLength str)) str);
 
   src = fetchurl {
-    url = "https://github.com/0neGal/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
-    hash = "sha256-jFroi4j2kNEGGU6R9WUvRK+vy26eizjPsZ6Cq6uLe0I=";
+    url = "https://github.com/0neGal/${pname}/releases/download/v${version}/${capitalize pname}-${version}.AppImage";
+    hash = "sha256-VjE3doKnEIS+N97yBz+NnNqHv9xQZb3yRD4hhhn6SKo=";
     name = "${pname}-${version}.AppImage";
   };
 
   appimageContents = appimageTools.extractType2 {
-    name = "${pname}-${version}";
-    inherit src;
+    inherit pname version src;
   };
 
   libs = [
@@ -53,7 +55,11 @@ in
       install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
       cp -r ${appimageContents}/usr/share/icons $out/share
 
-      source "${makeWrapper}/nix-support/setup-hook" # cringe hack to get wrapProgram working in extraInstallCommands
+      # cringe hack to get wrapProgram working in extraInstallCommands
+      source "${dieHook}/nix-support/setup-hook"
+      source "${makeWrapper}/nix-support/setup-hook"
+
+      mv $out/bin/${pname} $out/bin/${pname}-${version}
       makeWrapper $out/bin/${pname}-${version} $out/bin/${pname} \
         --unset APPIMAGE \
         --unset APPDIR

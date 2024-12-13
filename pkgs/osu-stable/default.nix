@@ -7,9 +7,14 @@
   wine-discord-ipc-bridge,
   winetricks,
   wine,
+  umu,
+  proton-osu-bin,
   wineFlags ? "",
   pname ? "osu-stable",
   location ? "$HOME/.osu",
+  useUmu ? false,
+  protonPath ? "${proton-osu-bin.steamcompattool}",
+  protonVerbs ? ["waitforexitandrun"],
   tricks ? ["gdiplus" "dotnet45" "meiryo"],
   preCommands ? "",
   postCommands ? "",
@@ -35,26 +40,62 @@
     # disables vsync for OpenGL
     export vblank_mode=0
 
-    PATH=$PATH:${wine}/bin:${winetricks}/bin
+    # ID for umu
+    export GAMEID="osu-wine-umu"
+    export STORE="none"
+
+    PATH=${
+      lib.makeBinPath (
+        if useUmu
+        then [umu]
+        else [wine winetricks]
+      )
+    }:$PATH
     USER="$(whoami)"
     OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
-    if [ ! -d "$WINEPREFIX" ]; then
-      # install tricks
-      winetricks -q -f ${tricksFmt}
-      wineserver -k
+    ${
+      if useUmu
+      then ''
+        export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
+        export PROTONPATH="${protonPath}"
 
-      # install osu
-      wine ${src}
-      wineserver -k
-      mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
-    fi
+        if [ ! -d "$WINEPREFIX" ]; then
+          umu-run winetricks ${tricksFmt}
+        fi
+
+        if [ ! -f "$OSU" ]; then
+          umu-run ${src}
+          mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
+        fi
+      ''
+      else ''
+        if [ ! -d "$WINEPREFIX" ]; then
+          # install tricks
+          winetricks -q -f ${tricksFmt}
+          wineserver -k
+
+          # install osu
+          wine ${src}
+          wineserver -k
+          mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
+        fi
+      ''
+    }
 
     ${preCommands}
 
-    wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
-    ${gamemode}/bin/gamemoderun wine ${wineFlags} "$OSU" "$@"
-    wineserver -w
+    ${
+      if useUmu
+      then ''
+        ${gamemode}/bin/gamemoderun umu-run "$OSU" "$@"
+      ''
+      else ''
+        wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
+        ${gamemode}/bin/gamemoderun wine ${wineFlags} "$OSU" "$@"
+        wineserver -w
+      ''
+    }
 
     ${postCommands}
   '';

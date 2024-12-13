@@ -10,10 +10,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.6.2",
-      "revision": "7c903c884c8840f572e5d6f691c82bd314a07b77",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.2",
-      "hash": "0cgmvbfdcaxj5ylyna77wsajajhbzsag4i4qx788wbnw9fg4q45q"
+      "version": "v2024.10.0",
+      "revision": "fe8b09f3c6b3903ff9df5d46eec2b5671776a62b",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.10.0",
+      "hash": "03rw8lcs3h0gjrp7hyhp2i2ap6hxkziwjbfjiml8d23an9ikw3nr"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -25,10 +25,10 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.6.2",
-      "revision": "7c903c884c8840f572e5d6f691c82bd314a07b77",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.6.2",
-      "hash": "0cgmvbfdcaxj5ylyna77wsajajhbzsag4i4qx788wbnw9fg4q45q"
+      "version": "v2024.10.0",
+      "revision": "fe8b09f3c6b3903ff9df5d46eec2b5671776a62b",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.10.0",
+      "hash": "03rw8lcs3h0gjrp7hyhp2i2ap6hxkziwjbfjiml8d23an9ikw3nr"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -40,10 +40,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2.4",
-      "revision": "c696d1b11fbd444cc5158d7c15788b3ef10fdda8",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.4",
-      "hash": "1r02bf028sgml97i1kd1349n9jlv9rzvzl476xndwr7gn3hllc6b"
+      "version": "v2.5.1",
+      "revision": "aa4dab369af662259924eaaeeddaaf0afe13b256",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5.1",
+      "hash": "11lan8mrng0h0qv77grh9miyi0ahkdfy328d8fclzxf6nfhc6g9r"
     },
     "dxvk-async": {
       "type": "GitRelease",
@@ -70,10 +70,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "3.3.9",
-      "revision": "0173f58aa777457ba7cc1d60ba0d59a191318133",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.9",
-      "hash": "1906p7z3qk4npfqp66zpw4jmpcg9ds6cn8j0cw3cpi8lpk9ms9mm"
+      "version": "3.3.10",
+      "revision": "23821e3a6bbdaad88b018e8ff9c9488dea94d4ea",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.10",
+      "hash": "01anhwsbnscifwngn68bjksb3ii6wmhnvar9h6pi0h84bv5l05kr"
     },
     "faf-uid": {
       "type": "GitRelease",
@@ -90,20 +90,20 @@
       "url": "https://api.github.com/repos/FAForever/uid/tarball/v4.0.6",
       "hash": "04wv34zwi4x08ss4pq1l3bf0rr8chg3bbia7k0yz3g4nwnrffmzg"
     },
-    "osu": {
+    "proton-osu": {
       "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "ppy",
-        "repo": "osu"
+        "owner": "whrvt",
+        "repo": "umubuilder"
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "release_prefix": null,
-      "version": "2024.731.0",
-      "revision": "cbfb569ad47d17a6de63dd6484d3c9a15cd2d452",
-      "url": "https://api.github.com/repos/ppy/osu/tarball/2024.731.0",
-      "hash": "1h7gdqcnfj60g7viapq0fb3q9wmg5an6n77vkh0vlc3ichhy9cbz"
+      "release_prefix": "proton-osu-9-",
+      "version": "proton-osu-9-11",
+      "revision": "f654dd29047d72a0ff7cd0c3f42bbe7af81aae61",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-11",
+      "hash": "1ypjpd53drbnpp3r1vl9fb76hjmad52qznss9cy5m8rgi8lhfljm"
     },
     "proton-wine": {
       "type": "Git",
@@ -142,10 +142,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v0.0.2",
-      "revision": "dd649284cdbb41927e504b122a478aa5ae5ece60",
-      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.2",
-      "hash": "161z7bykh2lj8gsi477qkdg570ygw316fxpdpnknj70igj47shqg"
+      "version": "v0.0.3",
+      "revision": "86fcbddaf654aec40c6fe6a8293f627340331b0c",
+      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.3",
+      "hash": "1a24nvwv2r8bwkwf7i23a36cdizkyj2ql9fk8hxd940slcw1nfwg"
     },
     "wine-tkg": {
       "type": "Git",
@@ -155,9 +155,21 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "5a80a5963a847175f194a7a11221a90b696aea47",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/5a80a5963a847175f194a7a11221a90b696aea47.tar.gz",
-      "hash": "0v4dvy0whh4vazky7gmxbfygdisyzy2parrc0zramlqxsz9xal10"
+      "revision": "fa09db4ff616036ffbdf15f6dba6842f9a80c899",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/fa09db4ff616036ffbdf15f6dba6842f9a80c899.tar.gz",
+      "hash": "0f9y6rx4rkwvvr7hmj90a5qy0gd8iv5hvgrasmm3b80a6c0npnww"
+    },
+    "winetricks": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "winetricks",
+        "repo": "winetricks"
+      },
+      "branch": "master",
+      "revision": "a06ea8795482d2f49a5461ab5f23e0036e38d12b",
+      "url": "https://github.com/winetricks/winetricks/archive/a06ea8795482d2f49a5461ab5f23e0036e38d12b.tar.gz",
+      "hash": "1wyj0bhgw8j3f3grm6fmkmih1vn66kbyr81pfav65374n5v5h04y"
     }
   },
   "version": 3

@@ -9,13 +9,13 @@ jobs:
     if: github.repository == 'fufexan/nix-gaming'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
 
       - uses: DeterminateSystems/nix-installer-action@main
 
-      - uses: cachix/cachix-action@v12
+      - uses: cachix/cachix-action@v15
         with:
           name: nix-gaming
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'

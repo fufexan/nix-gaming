@@ -18,6 +18,7 @@ See an overview of the flake outputs by running
 | [`wine-discord-ipc-bridge`](./pkgs/wine-discord-ipc-bridge) | Wine-Discord RPC Bridge                                                                                |
 | [`wine`](./pkgs/wine)                                       | Multiple Wine packages                                                                                 |
 | [`winestreamproxy`](./pkgs/winestreamproxy)                 | Wine-Discord RPC (broken)                                                                              |
+| [`mo2installer`](./pkgs/mo2installer)                       | RockerBacon's Mod Organizer 2 installer script                                                         |
 | [`northstar-proton`](./pkgs/titanfall/northstar-proton.nix) | Proton build based on TKG's proton-tkg build system to run the Northstar client on Linux and SteamDeck |
 | [`viper`](./pkgs/titanfall/viper.nix)                       | Launcher+Updater for Titanfall2 Northstar Client                                                       |
 

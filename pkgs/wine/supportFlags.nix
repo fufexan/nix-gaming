@@ -47,5 +47,6 @@ rec {
       v4lSupport = true;
       gphoto2Support = true;
       embedInstallers = true;
+      waylandSupport = true;
     };
 }

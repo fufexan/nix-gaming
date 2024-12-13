@@ -1,6 +1,5 @@
 {
   lib,
-  pins,
   SDL2,
   alsa-lib,
   appimageTools,
@@ -28,7 +27,7 @@
   osu-mime,
 }: let
   pname = "osu-lazer-bin";
-  inherit (pins.osu) version;
+  inherit (builtins.fromJSON (builtins.readFile ./info.json)) version;
 
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
@@ -61,11 +60,12 @@
     installPhase = ''
       runHook preInstall
       install -d $out/bin $out/lib
-      install osu\!.png $out/osu.png
+      install osu.png $out/osu.png
       cp -r usr/bin $out/lib/osu
       makeWrapper $out/lib/osu/osu\! $out/bin/osu-lazer \
         --set COMPlus_GCGen0MaxBudget "600000" \
         --set PIPEWIRE_LATENCY "${pipewire_latency}" \
+        --set OSU_EXTERNAL_UPDATE_PROVIDER "1" \
         --set vblank_mode "0" \
         --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
       ${

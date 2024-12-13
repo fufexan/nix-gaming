@@ -7,3 +7,11 @@ of files. In any case, **do not stop the command!**
 
 If anything goes wrong and for some reason osu! won't start, delete the `~/.osu`
 directory and re-run `osu-stable`.
+
+## Additional Overrides
+
+This package has the following additional overrides:
+
+- `protonPath` Proton compatibility tool if umu is used.
+Defaults to [`proton-osu-bin`](../proton-osu-bin/README.md).
+- `protonVerbs`

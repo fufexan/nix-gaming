@@ -32,7 +32,7 @@
           // extra))
         .${wine};
     in {
-      umu = inputs.umu.packages.${system}.umu;
+      inherit (inputs.umu.packages.${system}) umu;
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
@@ -48,6 +48,8 @@
       # broken upstream, thanks tauri
       # flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
 
+      mo2installer = pkgs.callPackage ./mo2installer {};
+
       modrinth-app = pkgs.callPackage ./modrinth-app {};
 
       northstar-proton = pkgs.callPackage ./titanfall/northstar-proton.nix {};
@@ -55,12 +57,11 @@
       osu-mime = pkgs.callPackage ./osu-mime {};
 
       osu-lazer-bin = pkgs.callPackage ./osu-lazer-bin {
-        inherit pins;
         inherit (config.packages) osu-mime;
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {
-        inherit (config.packages) osu-mime;
+        inherit (config.packages) osu-mime proton-osu-bin umu;
         wine = config.packages.wine-osu;
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
@@ -78,6 +79,8 @@
         '';
       };
 
+      proton-osu-bin = pkgs.callPackage ./proton-osu-bin {inherit pins;};
+
       roblox-player = pkgs.callPackage ./roblox-player {
         wine = config.packages.wine-tkg;
         inherit (config.packages) wine-discord-ipc-bridge;
@@ -89,7 +92,8 @@
       };
 
       star-citizen = pkgs.callPackage ./star-citizen {
-        wine = config.packages.wine-ge;
+        wine = pkgs.wineWowPackages.staging;
+        winetricks = config.packages.winetricks-git;
         inherit (config.packages) umu;
       };
       star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
@@ -119,6 +123,8 @@
       wine-osu = wineBuilder "wine-osu" "base" {};
 
       wine-tkg = wineBuilder "wine-tkg" "full" {};
+
+      winetricks-git = pkgs.callPackage ./winetricks-git {inherit pins;};
 
       wineprefix-preparer = pkgs.callPackage ./wineprefix-preparer {inherit (config.packages) dxvk-w32 vkd3d-proton-w32 dxvk-w64 vkd3d-proton-w64;};
     };
