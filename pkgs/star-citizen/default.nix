@@ -24,7 +24,7 @@
   postCommands ? "",
   enableGlCache ? true,
   glCacheSize ? 1073741824,
-  disableEac ? true,
+  disableEac ? false,
   pkgs,
 }: let
   inherit (lib.strings) concatStringsSep optionalString;
