@@ -167,9 +167,9 @@
         "repo": "winetricks"
       },
       "branch": "master",
-      "revision": "df750bc8b0b7ac77a39c50e852da6f18cfc9402e",
-      "url": "https://github.com/winetricks/winetricks/archive/df750bc8b0b7ac77a39c50e852da6f18cfc9402e.tar.gz",
-      "hash": "1izhwkcx8in53d4ww8n7war6jm96942i623cbai8iv4pgad5wqxv"
+      "revision": "cede5047101299802a9756f0885e24a5b6f2fbb5",
+      "url": "https://github.com/winetricks/winetricks/archive/cede5047101299802a9756f0885e24a5b6f2fbb5.tar.gz",
+      "hash": "08p8n5h595ia9c622c3cli1knpa4r9xsivp5k3gsq1a5x7ai21c4"
     }
   },
   "version": 3
