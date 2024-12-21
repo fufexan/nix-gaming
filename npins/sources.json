@@ -40,10 +40,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2.5.1",
-      "revision": "aa4dab369af662259924eaaeeddaaf0afe13b256",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5.1",
-      "hash": "11lan8mrng0h0qv77grh9miyi0ahkdfy328d8fclzxf6nfhc6g9r"
+      "version": "v2.5.2",
+      "revision": "8362ce19e3de93952c7b1b3a18604a317107f451",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5.2",
+      "hash": "0rwpyhn4720acbyvyfbkivc1gjpqrq1434n6dsq2dwi03p4wl47r"
     },
     "dxvk-async": {
       "type": "GitRelease",
@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": "proton-osu-9-",
-      "version": "proton-osu-9-11",
-      "revision": "f654dd29047d72a0ff7cd0c3f42bbe7af81aae61",
-      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-11",
-      "hash": "1ypjpd53drbnpp3r1vl9fb76hjmad52qznss9cy5m8rgi8lhfljm"
+      "version": "proton-osu-9-12",
+      "revision": "0583f87814239e08fddae43be41ba07cccdd5680",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-12",
+      "hash": "1iba4h2rj183ayhp1b63g1c546cbpnsz80j97psrhxi10raqlnga"
     },
     "proton-wine": {
       "type": "Git",
