@@ -33,11 +33,11 @@
     buildScript = "${nixpkgs-wine}/pkgs/applications/emulators/wine/builder-wow.sh";
     configureFlags = ["--disable-tests"];
     geckos = with sources; [gecko32 gecko64];
-    mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
+    mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc13 mingwW64.buildPackages.gcc13];
     monos = with sources; [mono];
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
-    stdenv = stdenv_32bit;
+    stdenv = pkgs.overrideCC stdenv_32bit pkgs.gcc13;
     wineRelease = "unstable";
   };
 
@@ -58,9 +58,7 @@ in {
     rec {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
-      mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc13 mingwW64.buildPackages.gcc13];
       src = pins.wine-tkg;
-      stdenv = pkgs.overrideCC stdenv_32bit pkgs.gcc13;
     });
 
   wine-osu = let
