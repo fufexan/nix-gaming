@@ -58,7 +58,9 @@ in {
     rec {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
+      mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc13 mingwW64.buildPackages.gcc13];
       src = pins.wine-tkg;
+      stdenv = pkgs.overrideCC stdenv_32bit pkgs.gcc13;
     });
 
   wine-osu = let
