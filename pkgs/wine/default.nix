@@ -37,7 +37,8 @@
     monos = with sources; [mono];
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
-    stdenv = pkgs.overrideCC stdenv_32bit pkgs.gcc13;
+    # stdenv = pkgs.overrideCC stdenv_32bit pkgs.gcc13;
+    stdenv = stdenv_32bit;
     wineRelease = "unstable";
   };
 
