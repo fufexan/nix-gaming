@@ -13,6 +13,10 @@
   moltenvk,
   supportFlags,
   stdenv_32bit,
+  overrideCC,
+  wrapCCMulti,
+  gcc13,
+  stdenv,
 }: let
   nixpkgs-wine = builtins.path {
     path = inputs.nixpkgs;
@@ -37,8 +41,7 @@
     monos = with sources; [mono];
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
-    # stdenv = pkgs.overrideCC stdenv_32bit pkgs.gcc13;
-    stdenv = stdenv_32bit;
+    stdenv = overrideCC stdenv (wrapCCMulti gcc13);
     wineRelease = "unstable";
   };
 

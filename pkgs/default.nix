@@ -26,7 +26,7 @@
       wineBuilder = wine: build: extra:
         (import ./wine ({
             inherit inputs self pkgs build pins;
-            inherit (pkgs) callPackage fetchFromGitHub fetchurl lib moltenvk pkgsCross pkgsi686Linux stdenv_32bit;
+            inherit (pkgs) callPackage fetchFromGitHub fetchurl lib moltenvk pkgsCross pkgsi686Linux stdenv_32bit stdenv wrapCCMulti overrideCC gcc13;
             supportFlags = (import ./wine/supportFlags.nix).${build};
           }
           // extra))
