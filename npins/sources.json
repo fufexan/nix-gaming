@@ -10,10 +10,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.10.0",
-      "revision": "fe8b09f3c6b3903ff9df5d46eec2b5671776a62b",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.10.0",
-      "hash": "03rw8lcs3h0gjrp7hyhp2i2ap6hxkziwjbfjiml8d23an9ikw3nr"
+      "version": "v2025.1.0",
+      "revision": "c3f57c9748ab96b86dca02e3bea5b8d619df5efb",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.1.0",
+      "hash": "0sbdx93da84nd9772g0hv1qx1yvwzcjj0a3575y6mlaxgk3c2gik"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -25,10 +25,10 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2024.10.0",
-      "revision": "fe8b09f3c6b3903ff9df5d46eec2b5671776a62b",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2024.10.0",
-      "hash": "03rw8lcs3h0gjrp7hyhp2i2ap6hxkziwjbfjiml8d23an9ikw3nr"
+      "version": "v2025.1.0",
+      "revision": "c3f57c9748ab96b86dca02e3bea5b8d619df5efb",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.1.0",
+      "hash": "0sbdx93da84nd9772g0hv1qx1yvwzcjj0a3575y6mlaxgk3c2gik"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": "proton-osu-9-",
-      "version": "proton-osu-9-12",
-      "revision": "0583f87814239e08fddae43be41ba07cccdd5680",
-      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-12",
-      "hash": "1iba4h2rj183ayhp1b63g1c546cbpnsz80j97psrhxi10raqlnga"
+      "version": "proton-osu-9-13",
+      "revision": "56c6e16248b817ea02470481fd8f4c316cfbb374",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-13",
+      "hash": "1nyjvfcadbzd708y36vn6d04d1liddx68j99w8h2m016dd390hkc"
     },
     "proton-wine": {
       "type": "Git",
