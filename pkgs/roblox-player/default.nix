@@ -41,7 +41,7 @@
 
     PATH=$PATH:${wine}/bin:${winetricks}/bin
     USER="$(whoami)"
-    ROBLOX="$WINEPREFIX/drive_c/users/$USER/AppData/Local/Roblox/Versions/version-${version}/RobloxPlayerBeta.exe"
+    ROBLOX="$WINEPREFIX/drive_c/Program Files (x86)/Roblox/Versions/version-${version}/RobloxPlayerBeta.exe"
 
     if [ ! -d "$WINEPREFIX" ]; then
       # install tricks
