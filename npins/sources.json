@@ -40,10 +40,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2.5.2",
-      "revision": "8362ce19e3de93952c7b1b3a18604a317107f451",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5.2",
-      "hash": "0rwpyhn4720acbyvyfbkivc1gjpqrq1434n6dsq2dwi03p4wl47r"
+      "version": "v2.5.3",
+      "revision": "3ab74e3c5fffd7e816c53ef0715aa8005d75ea27",
+      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.5.3",
+      "hash": "0v3nq2jc0j1j425620m6vgfsqb6py0y6rwsbn1x2xs4wphhh9xl5"
     },
     "dxvk-async": {
       "type": "GitRelease",
@@ -167,9 +167,9 @@
         "repo": "winetricks"
       },
       "branch": "master",
-      "revision": "b7cf27d70af3dc5ddbd6cd604206d1f932a7f702",
-      "url": "https://github.com/winetricks/winetricks/archive/b7cf27d70af3dc5ddbd6cd604206d1f932a7f702.tar.gz",
-      "hash": "1xlpad7l75air38k3w5qbkafk291c2kg5vbvagby12vivb7ifhh2"
+      "revision": "1d441b422d9a9cc8b0a53fa203557957ca1adc44",
+      "url": "https://github.com/winetricks/winetricks/archive/1d441b422d9a9cc8b0a53fa203557957ca1adc44.tar.gz",
+      "hash": "1ydhswi942jpymbnr21fjmrqvcpw7lkh6l87in3z9hja1y6b14hh"
     }
   },
   "version": 3
