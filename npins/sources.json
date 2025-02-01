@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": "proton-osu-9-",
-      "version": "proton-osu-9-13",
-      "revision": "56c6e16248b817ea02470481fd8f4c316cfbb374",
-      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-13",
-      "hash": "1nyjvfcadbzd708y36vn6d04d1liddx68j99w8h2m016dd390hkc"
+      "version": "proton-osu-9-14",
+      "revision": "f9949ffb1f6fbbfd1e4f67202b1280ee3f87b54d",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-14",
+      "hash": "1cgns6zv8yljr8klwwawbr7bwzdnkcxcksng43q5i9k0ayx1jy8j"
     },
     "proton-wine": {
       "type": "Git",
