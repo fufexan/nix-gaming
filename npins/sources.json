@@ -117,6 +117,18 @@
       "url": "https://github.com/GloriousEggroll/proton-wine/archive/39021e609a24b6aeffdf9c4695a286d71e7dffbc.tar.gz",
       "hash": "000d5kba7vs5nc1sc3946jkpqmch4w09qz74i5zgc7nh7znck6f8"
     },
+    "umu-launcher": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Open-Wine-Components",
+        "repo": "umu-launcher"
+      },
+      "branch": "main",
+      "revision": "7a71163b79e56222fe3f3097d1e71208a91a1a3b",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/7a71163b79e56222fe3f3097d1e71208a91a1a3b.tar.gz",
+      "hash": "1s3fblgbm9cvmv6m93lbvg48dhwjldp46yniwaffx1r7dm7sxmsg"
+    },
     "vkd3d-proton": {
       "type": "GitRelease",
       "repository": {
