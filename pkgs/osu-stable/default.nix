@@ -7,12 +7,12 @@
   wine-discord-ipc-bridge,
   winetricks,
   wine,
-  umu,
+  umu-launcher,
   proton-osu-bin,
   wineFlags ? "",
   pname ? "osu-stable",
   location ? "$HOME/.osu",
-  useUmu ? false,
+  useUmu ? true,
   protonPath ? "${proton-osu-bin.steamcompattool}",
   protonVerbs ? ["waitforexitandrun"],
   tricks ? ["gdiplus" "dotnet45" "meiryo"],
@@ -47,7 +47,7 @@
     PATH=${
       lib.makeBinPath (
         if useUmu
-        then [umu]
+        then [umu-launcher]
         else [wine winetricks]
       )
     }:$PATH

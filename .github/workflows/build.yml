@@ -18,7 +18,7 @@ jobs:
           - wine-ge
           - wine-osu
           - wine-tkg
-          - umu
+          - umu-launcher
 
     uses: ./.github/workflows/nix.yml
     with:

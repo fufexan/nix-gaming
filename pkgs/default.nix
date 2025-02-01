@@ -32,7 +32,23 @@
           // extra))
         .${wine};
     in {
-      inherit (inputs.umu.packages.${system}) umu;
+      umu = self.lib.mkDeprecated "warn" config.packages.umu-launcher {
+        name = "umu";
+        target = "package";
+        date = "2025-02-04";
+        instructions = ''
+          This package has been renamed to `umu-launcher` to
+          match the package name in nixpkgs.
+        '';
+      };
+      umu-launcher-unwrapped = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
+        inherit (pkgs) umu-launcher-unwrapped;
+        version = builtins.substring 0 7 pins.umu-launcher.revision;
+      };
+      umu-launcher = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/package.nix" {
+        inherit (pkgs) umu-launcher;
+        inherit (config.packages) umu-launcher-unwrapped;
+      };
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
@@ -61,7 +77,7 @@
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {
-        inherit (config.packages) osu-mime proton-osu-bin umu;
+        inherit (config.packages) osu-mime proton-osu-bin umu-launcher;
         wine = config.packages.wine-osu;
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {wine = config.packages.wine-osu;};
       };
@@ -91,7 +107,7 @@
       star-citizen = pkgs.callPackage ./star-citizen {
         wine = pkgs.wineWowPackages.staging;
         winetricks = config.packages.winetricks-git;
-        inherit (config.packages) umu;
+        inherit (config.packages) umu-launcher;
       };
       star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
 
