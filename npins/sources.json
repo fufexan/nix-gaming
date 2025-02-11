@@ -125,9 +125,9 @@
         "repo": "umu-launcher"
       },
       "branch": "main",
-      "revision": "a1266d1a4537d9f55936566f24de6a54e60a4df3",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/a1266d1a4537d9f55936566f24de6a54e60a4df3.tar.gz",
-      "hash": "0m74lvwcwjda5w5yndfw09fsc2fawrqd7b19cafsqqdyir4r3njl"
+      "revision": "916c9217a4223beb7e14791b61fb70c70fdf3366",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/916c9217a4223beb7e14791b61fb70c70fdf3366.tar.gz",
+      "hash": "0jzw3mrln820iw2dxhgwfbjhdq5c1b3q3rvp6ggkx7kd2sv0k410"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -167,9 +167,9 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
-      "revision": "33a6451c99012bac4aec1ba2d39321f68dd7baa6",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/33a6451c99012bac4aec1ba2d39321f68dd7baa6.tar.gz",
-      "hash": "0qjbh95d0cfxm6s4zz4q726qi9qylk3hhgx6mg1zzll97wjjk22s"
+      "revision": "9a4496cb9eb7b042ddad6cf52bf5a2d28f0daf42",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/9a4496cb9eb7b042ddad6cf52bf5a2d28f0daf42.tar.gz",
+      "hash": "0rmhnxjs00gi5fnggv4ip569zy6gryhizxmid1kk87ny1wyzbvfn"
     },
     "winetricks": {
       "type": "Git",
