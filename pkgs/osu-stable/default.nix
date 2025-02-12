@@ -13,6 +13,7 @@
   pname ? "osu-stable",
   location ? "$HOME/.osu",
   useUmu ? true,
+  useGameMode ? true,
   protonPath ? "${proton-osu-bin.steamcompattool}",
   protonVerbs ? ["waitforexitandrun"],
   tricks ? ["gdiplus" "dotnet45" "meiryo"],
@@ -31,6 +32,8 @@
     if (length tricks) > 0
     then concatStringsSep " " tricks
     else "-V";
+
+  gameMode = lib.strings.optionalString useGameMode "${gamemode}/bin/gamemoderun";
 
   script = writeShellScriptBin pname ''
     export WINEARCH="win32"
@@ -88,11 +91,11 @@
     ${
       if useUmu
       then ''
-        ${gamemode}/bin/gamemoderun umu-run "$OSU" "$@"
+        ${gameMode} umu-run "$OSU" "$@"
       ''
       else ''
         wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
-        ${gamemode}/bin/gamemoderun wine ${wineFlags} "$OSU" "$@"
+        ${gameMode} wine ${wineFlags} "$OSU" "$@"
         wineserver -w
       ''
     }
