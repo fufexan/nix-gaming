@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         command:
-          - NIXPKGS_ALLOW_INSECURE=1 nix flake check --accept-flake-config --impure
+          - NIXPKGS_ALLOW_INSECURE=1 nix flake check --impure
           - nix run nixpkgs#alejandra -- -c . -e ./npins
 
     uses: ./.github/workflows/nix.yml
