@@ -25,10 +25,10 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2025.1.0",
-      "revision": "c3f57c9748ab96b86dca02e3bea5b8d619df5efb",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.1.0",
-      "hash": "0sbdx93da84nd9772g0hv1qx1yvwzcjj0a3575y6mlaxgk3c2gik"
+      "version": "v2025.2.0-alpha-1",
+      "revision": "e31d28274e4eb52bb70e7e488cd3216781c2ae36",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.2.0-alpha-1",
+      "hash": "1h9280680w736h4i52z6ihfhnaa9x0nd1qzcinz6rwzrll4bvq7q"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": "proton-osu-9-",
-      "version": "proton-osu-9-14",
-      "revision": "f9949ffb1f6fbbfd1e4f67202b1280ee3f87b54d",
-      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-14",
-      "hash": "1cgns6zv8yljr8klwwawbr7bwzdnkcxcksng43q5i9k0ayx1jy8j"
+      "version": "proton-osu-9-15",
+      "revision": "2cf09bd6dd3dad20c8afee358e46636ae3e00488",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-15",
+      "hash": "0inibza6lnhzb254g9avvl1ymi4mxw6fws2kbya4shajbca7kcap"
     },
     "proton-wine": {
       "type": "Git",
@@ -125,9 +125,9 @@
         "repo": "umu-launcher"
       },
       "branch": "main",
-      "revision": "6f7bd23787435777648f95939d9d8df6be292f8b",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/6f7bd23787435777648f95939d9d8df6be292f8b.tar.gz",
-      "hash": "1dpbz3cw1nli5gknpybf7rmfdhjlx1pgi929mr74a8m699lyx4cz"
+      "revision": "c0a94426030f57f965929bb1f48c4f41248bf59f",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/c0a94426030f57f965929bb1f48c4f41248bf59f.tar.gz",
+      "hash": "0idfy326xk8y2l1yk4892c0pfbivw8frc7wkrjw5463nzvkp83bp"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
