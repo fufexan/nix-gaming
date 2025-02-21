@@ -1,6 +1,5 @@
 {
   lib,
-  SDL2,
   alsa-lib,
   appimageTools,
   autoPatchelfHook,
@@ -14,6 +13,7 @@
   makeWrapper,
   numactl,
   openssl,
+  sdl3,
   stdenvNoCC,
   symlinkJoin,
   vulkan-loader,
@@ -42,7 +42,6 @@
     inherit version pname;
     src = extracted;
     buildInputs = [
-      SDL2
       alsa-lib
       ffmpeg_4
       icu
@@ -50,6 +49,7 @@
       lttng-ust
       numactl
       openssl
+      sdl3
       vulkan-loader
     ];
     nativeBuildInputs = [
@@ -78,7 +78,7 @@
     '';
     fixupPhase = ''
       runHook preFixup
-      ln -sft $out/lib/osu ${SDL2}/lib/libSDL2${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
+      ln -sft $out/lib/osu ${sdl3}/lib/libSDL3${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
       runHook postFixup
     '';
   };
