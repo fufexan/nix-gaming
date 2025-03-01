@@ -10,10 +10,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2025.1.0",
-      "revision": "c3f57c9748ab96b86dca02e3bea5b8d619df5efb",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.1.0",
-      "hash": "0sbdx93da84nd9772g0hv1qx1yvwzcjj0a3575y6mlaxgk3c2gik"
+      "version": "v2025.2.1",
+      "revision": "8ff81de051b6d6018bda88d01dccc68afd5dbb82",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.2.1",
+      "hash": "05148gaplcrhc5pc4sngkaq3rj8mrpn273lc8ss262rb50y9yx6j"
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -25,10 +25,10 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v2025.2.0-alpha-1",
-      "revision": "e31d28274e4eb52bb70e7e488cd3216781c2ae36",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.2.0-alpha-1",
-      "hash": "1h9280680w736h4i52z6ihfhnaa9x0nd1qzcinz6rwzrll4bvq7q"
+      "version": "v2025.2.1",
+      "revision": "8ff81de051b6d6018bda88d01dccc68afd5dbb82",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.2.1",
+      "hash": "05148gaplcrhc5pc4sngkaq3rj8mrpn273lc8ss262rb50y9yx6j"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -70,10 +70,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "3.3.10",
-      "revision": "23821e3a6bbdaad88b018e8ff9c9488dea94d4ea",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.10",
-      "hash": "01anhwsbnscifwngn68bjksb3ii6wmhnvar9h6pi0h84bv5l05kr"
+      "version": "3.3.12",
+      "revision": "f21c91b66ecea35c3e13ed9e07c5927a54a22895",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.12",
+      "hash": "0813kpn9yz1k1z8mrniigdkps8i6j2gyqxc11mgd7xc40838hg3n"
     },
     "faf-uid": {
       "type": "GitRelease",
@@ -125,9 +125,9 @@
         "repo": "umu-launcher"
       },
       "branch": "main",
-      "revision": "d5888b8230c0336a070874484f3388eab5aba383",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/d5888b8230c0336a070874484f3388eab5aba383.tar.gz",
-      "hash": "06islw3lc0g48dblpqd1g4bip0yargp84p3xmchcicnw4z390d3v"
+      "revision": "7fe83a38604dfd8778c32ee583401d081a5f4f60",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/7fe83a38604dfd8778c32ee583401d081a5f4f60.tar.gz",
+      "hash": "1pwlpmna2y4shnfjm69jq1bbkrxy2554b8im541nk699p2dbd4mk"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
