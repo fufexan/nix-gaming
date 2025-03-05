@@ -100,10 +100,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": "proton-osu-9-",
-      "version": "proton-osu-9-15",
-      "revision": "2cf09bd6dd3dad20c8afee358e46636ae3e00488",
-      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-15",
-      "hash": "0inibza6lnhzb254g9avvl1ymi4mxw6fws2kbya4shajbca7kcap"
+      "version": "proton-osu-9-16",
+      "revision": "0807a9e09e8606f9336f309f4b3eef270fac770f",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-16",
+      "hash": "0xhxsm01k92gis1vjc7zcy9q2af39fydz5ay48a68xach0qghrr3"
     },
     "proton-wine": {
       "type": "Git",
@@ -125,9 +125,9 @@
         "repo": "umu-launcher"
       },
       "branch": "main",
-      "revision": "7fe83a38604dfd8778c32ee583401d081a5f4f60",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/7fe83a38604dfd8778c32ee583401d081a5f4f60.tar.gz",
-      "hash": "1pwlpmna2y4shnfjm69jq1bbkrxy2554b8im541nk699p2dbd4mk"
+      "revision": "dd5af27b8ff8c53337e2126ed7c1e53590320f3a",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/dd5af27b8ff8c53337e2126ed7c1e53590320f3a.tar.gz",
+      "hash": "12vqgwj5fdd0nkgcqbrki5g86hzz2vr4ykivc4dydy06if9ydfpy"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
