@@ -29,11 +29,11 @@
 }: let
   inherit (lib.strings) concatStringsSep optionalString;
   # Latest version can be found: https://install.robertsspaceindustries.com/rel/2/latest.yml
-  version = "2.1.0";
+  version = "2.3.1";
   src = pkgs.fetchurl {
     url = "https://install.robertsspaceindustries.com/rel/2/RSI%20Launcher-Setup-${version}.exe";
     name = "RSI Launcher-Setup-${version}.exe";
-    hash = "sha256-h/mlOMzDzY0qvEtX6zHox/qlueJZ2IHToxYnTem/V9I=";
+    hash = "sha256-w6o2UQsKlkK4E9luN+PO1mcbsI5nUHG7YEr1ZgcIAZo=";
   };
 
   # Powershell stub for star-citizen
@@ -102,7 +102,7 @@
         if [ ! -f "$RSI_LAUNCHER" ]; then umu-run "${src}" /S; fi
       ''
       else ''
-        if [ ! -d "$RSI_LAUNCHER" ]; then
+        if [ ! -e "$RSI_LAUNCHER" ]; then
           # install tricks
           winetricks -q -f ${tricksFmt}
           wineserver -k
@@ -125,7 +125,7 @@
         rm -rf "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat";
       fi
     ''}
-    cd $WINEPREFIX
+    cd "$WINEPREFIX"
 
     ${preCommands}
     ${
