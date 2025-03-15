@@ -27,7 +27,7 @@
   disableEac ? true,
   pkgs,
 }: let
-  inherit (lib.strings) concatStringsSep optionalString;
+  inherit (lib.strings) concatStringsSep optionalString toShellVars;
   # Latest version can be found: https://install.robertsspaceindustries.com/rel/2/latest.yml
   version = "2.3.1";
   src = pkgs.fetchurl {
@@ -35,14 +35,6 @@
     name = "RSI Launcher-Setup-${version}.exe";
     hash = "sha256-w6o2UQsKlkK4E9luN+PO1mcbsI5nUHG7YEr1ZgcIAZo=";
   };
-
-  # Powershell stub for star-citizen
-
-  # concat winetricks args
-  tricksFmt =
-    if (builtins.length tricks) > 0
-    then concatStringsSep " " tricks
-    else "-V";
 
   gameScope = lib.strings.optionalString gameScopeEnable "${gamescope}/bin/gamescope ${concatStringsSep " " gameScopeArgs} --";
 
@@ -102,15 +94,27 @@
         if [ ! -f "$RSI_LAUNCHER" ]; then umu-run "${src}" /S; fi
       ''
       else ''
-        if [ ! -e "$RSI_LAUNCHER" ]; then
-          # install tricks
-          winetricks -q -f ${tricksFmt}
+        # Ensure all tricks are installed
+        ${toShellVars {
+          inherit tricks;
+          tricksInstalled = 1;
+        }}
+        for trick in "${"\${tricks[@]}"}"; do
+           if ! winetricks list-installed | grep -qw "$trick"; then
+             echo "winetricks: Installing $trick"
+             winetricks -q -f "$trick"
+             tricksInstalled=0
+           fi
+        done
+        if [ "$tricksInstalled" -eq 0 ]; then
+          # Ensure wineserver is restarted after tricks are installed
           wineserver -k
+        fi
 
+        if [ ! -e "$RSI_LAUNCHER" ]; then
           mkdir -p "$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/StarCitizen/"{LIVE,PTU}
 
-          # install launcher
-          # Use silent install
+          # install launcher using silent install
           wine ${src} /S
 
           wineserver -k
