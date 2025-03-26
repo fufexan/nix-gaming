@@ -10,6 +10,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v2025.2.1",
       "revision": "8ff81de051b6d6018bda88d01dccc68afd5dbb82",
       "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.2.1",
@@ -25,6 +26,7 @@
       "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v2025.2.1",
       "revision": "8ff81de051b6d6018bda88d01dccc68afd5dbb82",
       "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.2.1",
@@ -40,6 +42,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v2.6",
       "revision": "b04edb96aacd303a9774b3d300df17b3d9468c9d",
       "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.6",
@@ -55,6 +58,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "2.0",
       "revision": "8665e600c04f9df2958f1b7aa348fa63f2ae24a9",
       "url": "https://api.github.com/repos/Sporif/dxvk-async/tarball/2.0",
@@ -70,6 +74,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "3.3.12",
       "revision": "f21c91b66ecea35c3e13ed9e07c5927a54a22895",
       "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.12",
@@ -85,6 +90,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v4.0.6",
       "revision": "15689c003e274064c9ede97db9fb68e727f2b8b0",
       "url": "https://api.github.com/repos/FAForever/uid/tarball/v4.0.6",
@@ -100,6 +106,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": "proton-osu-9-",
+      "submodules": false,
       "version": "proton-osu-9-16",
       "revision": "0807a9e09e8606f9336f309f4b3eef270fac770f",
       "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-16",
@@ -113,6 +120,7 @@
         "repo": "proton-wine"
       },
       "branch": "Proton8-26",
+      "submodules": false,
       "revision": "39021e609a24b6aeffdf9c4695a286d71e7dffbc",
       "url": "https://github.com/GloriousEggroll/proton-wine/archive/39021e609a24b6aeffdf9c4695a286d71e7dffbc.tar.gz",
       "hash": "000d5kba7vs5nc1sc3946jkpqmch4w09qz74i5zgc7nh7znck6f8"
@@ -125,6 +133,7 @@
         "repo": "umu-launcher"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "28eef5f5638d5660fb2d7c1811c8f2915a5e8c5b",
       "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/28eef5f5638d5660fb2d7c1811c8f2915a5e8c5b.tar.gz",
       "hash": "1kx2bnb2s6sgs2r009847yhrhfdhx4w7559ya7hlknqy3frzszpk"
@@ -139,6 +148,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v2.14.1",
       "revision": "0d66699b1b1e250ef19d793f2649d9288b0808ff",
       "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.14.1",
@@ -154,6 +164,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v0.0.3",
       "revision": "86fcbddaf654aec40c6fe6a8293f627340331b0c",
       "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.3",
@@ -167,6 +178,7 @@
         "repo": "wine-tkg"
       },
       "branch": "master",
+      "submodules": false,
       "revision": "4dc504124b88455c855bfa8cf4dbd9a0d9661273",
       "url": "https://github.com/Kron4ek/wine-tkg/archive/4dc504124b88455c855bfa8cf4dbd9a0d9661273.tar.gz",
       "hash": "0d4pvx5v1ip2znq773yvmqf7dyr01qjzp6ansli51vyxadxz18vg"
@@ -179,10 +191,11 @@
         "repo": "winetricks"
       },
       "branch": "master",
+      "submodules": false,
       "revision": "e73c4d8f71801fe842c0276b603d9c8024d6d957",
       "url": "https://github.com/winetricks/winetricks/archive/e73c4d8f71801fe842c0276b603d9c8024d6d957.tar.gz",
       "hash": "00rvsr9qlyrp58ckimijm8mwznidqzx7wg03f7pbjr3gwaam6jj4"
     }
   },
-  "version": 3
+  "version": 5
 }
