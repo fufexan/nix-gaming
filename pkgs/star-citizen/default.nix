@@ -23,7 +23,7 @@
   preCommands ? "",
   postCommands ? "",
   enableGlCache ? true,
-  glCacheSize ? 1073741824,
+  glCacheSize ? 10737418240, # 10GB
   disableEac ? true,
   pkgs,
 }: let
@@ -53,14 +53,6 @@
         export WINEFSYNC=1
         export WINEESYNC=1
         export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
-        ${lib.optionalString disableEac ''
-          # Anti-cheat
-          export EOS_USE_ANTICHEATCLIENTNULL=1
-        ''}
-        # Nvidia tweaks
-        export WINE_HIDE_NVIDIA_GPU=1
-        # AMD
-        export dual_color_blend_by_location="true"
         export WINEDEBUG=-all
 
       ''
@@ -69,12 +61,17 @@
     export GAMEID="umu-starcitizen"
     export STORE="none"
 
-    export __GL_SHADER_DISK_CACHE=${
-      if enableGlCache
-      then "1"
-      else "0"
-    }
-    export __GL_SHADER_DISK_CACHE_SIZE=${toString glCacheSize}
+    ${optionalString enableGlCache ''
+      # NVIDIA
+      export __GL_SHADER_DISK_CACHE=1;
+      export __GL_SHADER_DISK_CACHE_SIZE=${builtins.toString glCacheSize};
+      export __GL_SHADER_DISK_CACHE_PATH="$WINEPREFIX";
+      export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1;
+      # MESA (Intel & AMD)
+      export MESA_SHADER_CACHE_DIR="$WINEPREFIX";
+      export MESA_SHADER_CACHE_MAX_SIZE="${builtins.toString (builtins.floor (glCacheSize / 1024 / 1024 / 1024))}G";
+    ''}
+
 
     PATH=${
       lib.makeBinPath (
@@ -123,13 +120,15 @@
       ''
     }
     ${lib.optionalString disableEac ''
-      # EAC Fix
-      if [ -d "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat" ]
-      then
-        rm -rf "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/EasyAntiCheat";
-      fi
+      # Anti-cheat
+      export EOS_USE_ANTICHEATCLIENTNULL=1
     ''}
     cd "$WINEPREFIX"
+
+    if [ "${"\${1:-}"}"  = "--shell" ]; then
+      echo "Entered Shell for star-citizen"
+      exec ${lib.getExe pkgs.bash};
+    fi
 
     ${preCommands}
     ${
