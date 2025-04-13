@@ -30,7 +30,9 @@
             supportFlags = (import ./wine/supportFlags.nix).${build};
           }
           // extra))
-        .${wine};
+        .${
+          wine
+        };
     in {
       umu = self.lib.mkDeprecated "warn" config.packages.umu-launcher {
         name = "umu";

@@ -47,16 +47,15 @@
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 in {
-  wine-ge =
-    (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
-      // {
-        pname = pnameGen "wine-ge";
-        version = pins.proton-wine.branch;
-        src = pins.proton-wine;
-      }))
+  wine-ge = (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
+    // {
+      pname = pnameGen "wine-ge";
+      version = pins.proton-wine.branch;
+      src = pins.proton-wine;
+    }))
     .overrideAttrs (old: {
-      meta = old.meta // {passthru.updateScript = ./update-wine-ge.sh;};
-    });
+    meta = old.meta // {passthru.updateScript = ./update-wine-ge.sh;};
+  });
 
   wine-tkg = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
     rec {
