@@ -55,6 +55,10 @@
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
 
+      dxvk-nvapi = pkgs.callPackage ./dxvk {inherit pins;};
+      dxvk-nvapi-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk-nvapi {inherit pins;};
+      dxvk-nvapi-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk-nvapi {inherit pins;};
+
       faf-client = pkgs.callPackage ./faf-client {inherit pins;};
       faf-client-unstable = pkgs.callPackage ./faf-client {
         inherit pins;
