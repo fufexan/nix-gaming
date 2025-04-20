@@ -64,6 +64,22 @@
       "url": "https://api.github.com/repos/Sporif/dxvk-async/tarball/2.0",
       "hash": "0b5vcznrir6h3vzdlylxdw63sspmqai0ah616f2nsa4nfs5y5rcr"
     },
+    "dxvk-nvapi": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "jp7677",
+        "repo": "dxvk-nvapi"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": true,
+      "version": "v0.9.0",
+      "revision": "e870088aa074b031b0f13d7d37500ca9d4834768",
+      "url": null,
+      "hash": "1g7pmlarwa6l406l1yglnksi13fhfvh8zr7qa2q4q83aiws9gk3g"
+    },
     "faf-ice-adapter": {
       "type": "GitRelease",
       "repository": {
