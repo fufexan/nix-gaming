@@ -8,6 +8,8 @@
   winetricks,
   wine,
   dxvk,
+  dxvk-nvapi-w32,
+  dxvk-nvapi-w64,
   umu-launcher,
   proton-ge-bin,
   wineFlags ? "",
@@ -17,7 +19,7 @@
   useUmu ? false,
   protonPath ? "${proton-ge-bin.steamcompattool}/",
   protonVerbs ? ["waitforexitandrun"],
-  wineDllOverrides ? ["winemenubuilder.exe=d"],
+  wineDllOverrides ? ["winemenubuilder.exe=d" "nvapi=n" "nvapi64=n"],
   gameScopeEnable ? false,
   gameScopeArgs ? [],
   preCommands ? "",
@@ -52,7 +54,7 @@
       ''
         export WINEFSYNC=1
         export WINEESYNC=1
-        export WINEDLLOVERRIDES="${lib.strings.concatStringsSep "," wineDllOverrides}"
+        export WINEDLLOVERRIDES="${lib.strings.concatStringsSep ";" wineDllOverrides}"
         export WINEDEBUG=-all
 
       ''
@@ -70,6 +72,8 @@
       # MESA (Intel & AMD)
       export MESA_SHADER_CACHE_DIR="$WINEPREFIX";
       export MESA_SHADER_CACHE_MAX_SIZE="${builtins.toString (builtins.floor (glCacheSize / 1024 / 1024 / 1024))}G";
+
+      export DXVK_ENABLE_NVAPI=1
     ''}
 
 
@@ -96,6 +100,14 @@
           inherit tricks;
           tricksInstalled = 1;
         }}
+
+        # Copy dxvk-nvapi dlls to prefix
+        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/syswow64" ${dxvk-nvapi-w32}/bin/*.dll
+        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/system32" ${dxvk-nvapi-w32}/bin/*.dll
+        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/syswow64" ${dxvk-nvapi-w64}/bin/*.dll
+        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/system32" ${dxvk-nvapi-w64}/bin/*.dll
+
+
         for trick in "${"\${tricks[@]}"}"; do
            if ! winetricks list-installed | grep -qw "$trick"; then
              echo "winetricks: Installing $trick"
@@ -112,7 +124,7 @@
           mkdir -p "$WINEPREFIX/drive_c/Program Files/Roberts Space Industries/StarCitizen/"{LIVE,PTU}
 
           # install launcher using silent install
-          wine ${src} /S
+          WINEDLLOVERRIDES="dxwebsetup.exe,dotNetFx45_Full_setup.exe,winemenubuilder.exe=d" wine ${src} /S
 
           wineserver -k
         fi
@@ -128,6 +140,10 @@
     if [ "${"\${1:-}"}"  = "--shell" ]; then
       echo "Entered Shell for star-citizen"
       exec ${lib.getExe pkgs.bash};
+    fi
+
+    if [ -z "$DISPLAY" ]; then
+      set -- "$@" "--in-process-gpu"
     fi
 
     ${preCommands}
