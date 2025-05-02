@@ -111,9 +111,9 @@
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
       star-citizen = pkgs.callPackage ./star-citizen {
-        wine = pkgs.wineWowPackages.staging;
+        wine = config.packages.wine-tkg;
         winetricks = config.packages.winetricks-git;
-        inherit (config.packages) umu-launcher;
+        inherit (config.packages) umu-launcher dxvk-nvapi-w32 dxvk-nvapi-w64;
       };
       star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
 
