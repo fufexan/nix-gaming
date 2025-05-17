@@ -2,7 +2,6 @@
   lib,
   stdenv,
   pkg-config,
-  vulkan-headers,
   ninja,
   meson,
   windows,
@@ -16,11 +15,6 @@ in
 
     src = dxvk-nvapi;
 
-    postPatch = ''
-      # Use Vulkan Headers from nixpkgs
-      substituteInPlace meson.build \
-        --replace-fail "./external/Vulkan-Headers/include" "${vulkan-headers}/include"
-    '';
     strictDeps = true;
     nativeBuildInputs = [
       pkg-config
