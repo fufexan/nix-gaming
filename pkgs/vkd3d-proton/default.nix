@@ -38,10 +38,6 @@ stdenv.mkDerivation {
     ./explicitly_define_hex_base.patch
   ];
 
-  postInstall = lib.optionalString stdenv.targetPlatform.isWindows ''
-    ln -s ${windows.mcfgthreads}/bin/mcfgthread-12.dll $out/bin/mcfgthread-12.dll
-  '';
-
   mesonFlags =
     [
       "--buildtype=release"
@@ -59,5 +55,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/HansKristian-Work/vkd3d-proton";
     maintainers = with lib.maintainers; [LunNova];
     platforms = platforms.linux ++ platforms.windows;
+    # GCC <13 ends up with an extra dep on mcfg-thread12
+    broken = stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "13";
   };
 }

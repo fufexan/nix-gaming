@@ -164,11 +164,11 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "submodules": false,
+      "submodules": true,
       "version": "v2.14.1",
       "revision": "0d66699b1b1e250ef19d793f2649d9288b0808ff",
-      "url": "https://api.github.com/repos/HansKristian-Work/vkd3d-proton/tarball/v2.14.1",
-      "hash": "07zd3sw6nal9pvwrvwhifx8pcc0fs526gknv3ai1qi4jiarlr1il"
+      "url": null,
+      "hash": "1hdckrc2jkqxgyw28rps9i8jyc3hj6pa2jdzqbifcvp8j7x1cbiq"
     },
     "wine-discord-ipc-bridge": {
       "type": "GitRelease",
