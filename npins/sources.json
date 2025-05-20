@@ -42,27 +42,27 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "submodules": false,
+      "submodules": true,
       "version": "v2.6.1",
       "revision": "fdcdd095f3b721485bee6c4b61f101e52aeecc88",
-      "url": "https://api.github.com/repos/doitsujin/dxvk/tarball/v2.6.1",
-      "hash": "0mq638d8ih1vjffy5mwhbv5q8h0y1pzz3p8haxflyq2nhw9af9s9"
+      "url": null,
+      "hash": "14pmmkbnv8lk8ccfbi9wxggl1kfn86sdyzmqcjacrfqa00jvvnvr"
     },
-    "dxvk-async": {
+    "dxvk-gplasync": {
       "type": "GitRelease",
       "repository": {
-        "type": "GitHub",
-        "owner": "Sporif",
-        "repo": "dxvk-async"
+        "type": "GitLab",
+        "repo_path": "Ph42oN/dxvk-gplasync",
+        "server": "https://gitlab.com/"
       },
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "2.0",
-      "revision": "8665e600c04f9df2958f1b7aa348fa63f2ae24a9",
-      "url": "https://api.github.com/repos/Sporif/dxvk-async/tarball/2.0",
-      "hash": "0b5vcznrir6h3vzdlylxdw63sspmqai0ah616f2nsa4nfs5y5rcr"
+      "version": "v2.1",
+      "revision": "de91f6b59e75446d4a124ce1f87ac99c5e1db33e",
+      "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?ref=v2.1",
+      "hash": "006r555jzr2zsxws0prnhyx7xxiaig750i9bbd9490x58jiqy3gm"
     },
     "dxvk-nvapi": {
       "type": "GitRelease",
