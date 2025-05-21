@@ -3,6 +3,8 @@
   dxvk-w32,
   vkd3d-proton-w64,
   vkd3d-proton-w32,
+  dxvk-nvapi-w32,
+  dxvk-nvapi-w64,
   pkgsCross,
   writeShellScriptBin,
 }:
@@ -47,6 +49,12 @@ writeShellScriptBin "wineprefix-preparer"
   echo "Installing vkd3d-proton DLLs"
   install -v -D -m644 -t "$win64_sys_path" ${vkd3d-proton-w64}/bin/*.dll
   install -v -D -m644 -t "$win32_sys_path" ${vkd3d-proton-w32}/bin/*.dll
+
+  echo "Installing dxvk-nvapi DLLs"
+  install -v -D -m644 -t "$win64_sys_path" ${dxvk-nvapi-w32}/bin/*.dll
+  install -v -D -m644 -t "$win32_sys_path" ${dxvk-nvapi-w32}/bin/*.dll
+  install -v -D -m644 -t "$win64_sys_path" ${dxvk-nvapi-w64}/bin/*.dll
+  install -v -D -m644 -t "$win32_sys_path" ${dxvk-nvapi-w64}/bin/*.dll
 
   echo "Adding native DllOverrides"
   for dll in dxgi d3d9 d3d10core d3d11 d3d12 d3d12core; do
