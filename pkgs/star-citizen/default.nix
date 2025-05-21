@@ -3,13 +3,10 @@
   makeDesktopItem,
   symlinkJoin,
   writeShellScriptBin,
-  gamemode,
   gamescope,
   winetricks,
   wine,
-  dxvk,
-  dxvk-nvapi-w32,
-  dxvk-nvapi-w64,
+  wineprefix-preparer,
   umu-launcher,
   proton-ge-bin,
   wineFlags ? "",
@@ -31,11 +28,11 @@
 }: let
   inherit (lib.strings) concatStringsSep optionalString toShellVars;
   # Latest version can be found: https://install.robertsspaceindustries.com/rel/2/latest.yml
-  version = "2.3.1";
+  version = "2.3.2";
   src = pkgs.fetchurl {
     url = "https://install.robertsspaceindustries.com/rel/2/RSI%20Launcher-Setup-${version}.exe";
     name = "RSI Launcher-Setup-${version}.exe";
-    hash = "sha256-w6o2UQsKlkK4E9luN+PO1mcbsI5nUHG7YEr1ZgcIAZo=";
+    hash = "sha256-BzsO2bHXo7axvW9enll08H5aPA1KCZSLfikE49/EUw0=";
   };
 
   gameScope = lib.strings.optionalString gameScopeEnable "${gamescope}/bin/gamescope ${concatStringsSep " " gameScopeArgs} --";
@@ -101,12 +98,7 @@
           tricksInstalled = 1;
         }}
 
-        # Copy dxvk-nvapi dlls to prefix
-        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/syswow64" ${dxvk-nvapi-w32}/bin/*.dll
-        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/system32" ${dxvk-nvapi-w32}/bin/*.dll
-        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/syswow64" ${dxvk-nvapi-w64}/bin/*.dll
-        install -v -D -m644 -t "$WINEPREFIX/drive_c/windows/system32" ${dxvk-nvapi-w64}/bin/*.dll
-
+        ${lib.getExe wineprefix-preparer}
 
         for trick in "${"\${tricks[@]}"}"; do
            if ! winetricks list-installed | grep -qw "$trick"; then
@@ -128,7 +120,6 @@
 
           wineserver -k
         fi
-        ${dxvk}/bin/setup_dxvk.sh install --symlink
       ''
     }
     ${lib.optionalString disableEac ''
@@ -146,19 +137,26 @@
       set -- "$@" "--in-process-gpu"
     fi
 
+    # Only execute gamemode if it exists on the system
+    if command -v gamemoderun > /dev/null 2>&1; then
+      gamemode="gamemoderun"
+    else
+      gamemode=""
+    fi
+
     ${preCommands}
     ${
       if useUmu
       then ''
-        ${gameScope} ${gamemode}/bin/gamemoderun umu-run "$RSI_LAUNCHER" "$@"
+        ${gameScope} $gamemode umu-run "$RSI_LAUNCHER" "$@"
       ''
       else ''
         if [[ -t 1 ]]; then
-            ${gameScope} ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@"
+            ${gameScope} $gamemode wine ${wineFlags} "$RSI_LAUNCHER" "$@"
         else
             export LOG_DIR=$(mktemp -d)
             echo "Working arround known launcher error by outputting logs to $LOG_DIR"
-            ${gameScope} ${gamemode}/bin/gamemoderun wine ${wineFlags} "$RSI_LAUNCHER" "$@" >"$LOG_DIR/RSIout" 2>"$LOG_DIR/RSIerr"
+            ${gameScope} $gamemode wine ${wineFlags} "$RSI_LAUNCHER" "$@" >"$LOG_DIR/RSIout" 2>"$LOG_DIR/RSIerr"
         fi
         wineserver -w
       ''
