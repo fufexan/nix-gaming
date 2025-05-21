@@ -33,10 +33,14 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  patches = [
-    # Fixes a compiler error with mingw
-    ./explicitly_define_hex_base.patch
-  ];
+  # Manually pass pinned version info through to vcs_tag since we don't have .git
+  postPatch = ''
+    substituteInPlace meson.build \
+      --replace-fail "'git', 'describe', '--always', '--exclude=*', '--abbrev=15', '--dirty=0'" \
+      "'echo', '${builtins.substring 0 15 pins.vkd3d-proton.revision}'" \
+      --replace-fail "'git', 'describe', '--always', '--tags', '--dirty=+'" \
+      "'echo', '${pins.vkd3d-proton.version}'"
+  '';
 
   mesonFlags =
     [
