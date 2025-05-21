@@ -115,7 +115,8 @@
       star-citizen = pkgs.callPackage ./star-citizen {
         wine = config.packages.wine-tkg;
         winetricks = config.packages.winetricks-git;
-        inherit (config.packages) umu-launcher dxvk-nvapi-w32 dxvk-nvapi-w64;
+
+        inherit (config.packages) umu-launcher wineprefix-preparer;
       };
       star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
 
