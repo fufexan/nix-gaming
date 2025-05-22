@@ -55,6 +55,7 @@
       inherit pname;
       data = ./deps-ice.json;
       pkg = self;
+      useBwrap = false;
     };
     __darwinAllowLocalNetworking = true;
 

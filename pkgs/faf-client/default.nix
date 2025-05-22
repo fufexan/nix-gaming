@@ -165,6 +165,7 @@
       inherit pname;
       data = depsPath;
       pkg = self;
+      useBwrap = false;
     };
     __darwinAllowLocalNetworking = true;
 
