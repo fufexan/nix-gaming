@@ -6,6 +6,8 @@
   flake.nixosModules = let
     inherit (inputs.nixpkgs.lib) filter attrNames;
   in {
+    ntsync = import ./ntsync.nix;
+
     pipewireLowLatency = import ./pipewireLowLatency.nix;
 
     steamCompat = self.lib.mkDeprecated "warn" {} {
