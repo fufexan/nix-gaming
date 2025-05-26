@@ -41,7 +41,8 @@ in
     ];
 
     patches = lib.optionals withAsync [
-      (dxvk-gplasync + "/patches/dxvk-gplasync-2.6.1-1.patch")
+      (dxvk-gplasync + "/patches/dxvk-gplasync-${lib.removePrefix "v" dxvk-gplasync.version}.patch")
+      (dxvk-gplasync + "/patches/global-dxvk.conf.patch")
     ];
 
     mesonFlags = ["--buildtype=release"];
