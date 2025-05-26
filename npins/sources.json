@@ -51,18 +51,17 @@
     "dxvk-gplasync": {
       "type": "GitRelease",
       "repository": {
-        "type": "GitLab",
-        "repo_path": "Ph42oN/dxvk-gplasync",
-        "server": "https://gitlab.com/"
+        "type": "Git",
+        "url": "https://gitlab.com/Ph42oN/dxvk-gplasync.git"
       },
-      "pre_releases": false,
+      "pre_releases": true,
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.1",
-      "revision": "de91f6b59e75446d4a124ce1f87ac99c5e1db33e",
-      "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?ref=v2.1",
-      "hash": "006r555jzr2zsxws0prnhyx7xxiaig750i9bbd9490x58jiqy3gm"
+      "version": "v2.6.1-1",
+      "revision": "4b91b345bd54acb0e5ba9d3cad51cf0909545c7f",
+      "url": null,
+      "hash": "0dqaq3qx40rjw75r3k78k7c88lgk6rsc8krfda4csljfkk7agn6x"
     },
     "dxvk-nvapi": {
       "type": "GitRelease",
