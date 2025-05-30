@@ -449,10 +449,6 @@
    "jar": "sha256-T8z/g4Kq/FiZYsTtsmL2qlleNPHhHmEFfRxqluj8cyM=",
    "pom": "sha256-aMKlqm6PNFdDCT5StbngGQuk1aUhXApZtNfTNkcgjLs="
   },
-  "com/google/android/tools#dx/1.7": {
-   "jar": "sha256-kjMC5mbXbhJuTN9xKTGFMrJYsaZuQ1uSzMKekaYDV78=",
-   "pom": "sha256-OFR5Gs5xzW7BvwIoUKbDjTsiwlxZkB17etUNEOh/D2U="
-  },
   "com/google/errorprone#error_prone_annotations/2.36.0": {
    "jar": "sha256-d0QOJwsLyaJJkDxaB2w2pyLEiGyk9CZ18pA6HFPtYaU=",
    "pom": "sha256-15z9N8hfdta3VMdQHuHchEe3smQsI4LXeCUhZr0zHpw="
@@ -510,13 +506,6 @@
   "com/lihaoyi#upickle-core_2.12/1.5.0": {
    "jar": "sha256-5bL6tZqh93XXqXQrYIeARfmZGlOoS4IX/K3Ax1PVC4s=",
    "pom": "sha256-O9TmdZOYVlDBluqKEUSFHfnKtVqSe9F8LpXFGsR1dmE="
-  },
-  "com/nativelibs4java#bridj/0.7.0": {
-   "jar": "sha256-EBvNm2Y35rwW5W3rPa77pisfXo6eN+Gz5W47WGDWWc8=",
-   "pom": "sha256-dIdWuVYqdxr90J26boY878+HBZbrsm2Ne8s0NMy15AU="
-  },
-  "com/nativelibs4java#nativelibs4java-parent/1.9": {
-   "pom": "sha256-EhMqd8qRS4ghXVjl/8xCjdd0KYPFld+OnU3gLrLlYso="
   },
   "com/natpryce/hamcrest#hamcrest-reflection/0.1-2": {
    "jar": "sha256-nEbwljhOgWN8TzimnYCIk6q9QpfkVaenUYqq7mxHt+M=",
