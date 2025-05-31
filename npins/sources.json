@@ -27,10 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2025.5.2",
-      "revision": "d1c0baaffe92f883863a0f5257276f3bd9fa5132",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.5.2",
-      "hash": "0xihwmhknrnwnrvpp80yx6xkshha477ssvjgx0dsnx2hgiq3ipbf"
+      "version": "v2025.6.0-pioneer-beta-1",
+      "revision": "f6f54f0aed820707d508f7ec377a967adcbb6714",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.6.0-pioneer-beta-1",
+      "hash": "1ilr0kkz443gkpw3cnc2w0gmhbdqas7ga86larwvh0s4253sp3h5"
     },
     "dxvk": {
       "type": "GitRelease",
@@ -220,9 +220,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "00427b67de70bfefd282d0abc7edd1daa442e73e",
-      "url": "https://github.com/winetricks/winetricks/archive/00427b67de70bfefd282d0abc7edd1daa442e73e.tar.gz",
-      "hash": "00zigs8wn8my0dclw6jkrw5hbgmbh3lyva5xb16g77n171d2wbf8"
+      "revision": "89e18c2a8c09b97b79e1025fbf5e5b03f1182337",
+      "url": "https://github.com/winetricks/winetricks/archive/89e18c2a8c09b97b79e1025fbf5e5b03f1182337.tar.gz",
+      "hash": "0v2rvl2vsidfxrygrwzjq0zkamdjmhm0xds8jwljzgl118r1i90p"
     }
   },
   "version": 5
