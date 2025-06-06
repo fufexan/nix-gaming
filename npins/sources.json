@@ -27,10 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2025.6.0-pioneer-beta-1",
-      "revision": "f6f54f0aed820707d508f7ec377a967adcbb6714",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.6.0-pioneer-beta-1",
-      "hash": "1ilr0kkz443gkpw3cnc2w0gmhbdqas7ga86larwvh0s4253sp3h5"
+      "version": "v2025.6.0-pioneer-beta-2",
+      "revision": "6a6cd46cbe2d6efc67d9e9cb5727d64d45d073cd",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/v2025.6.0-pioneer-beta-2",
+      "hash": "10npw1khy1qxmysgg1s5xbz67p75slrfxjc1bd1bk3pqf76c6wlw"
     },
     "dxvk": {
       "type": "GitRelease",
