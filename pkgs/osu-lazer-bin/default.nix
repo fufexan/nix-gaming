@@ -24,14 +24,16 @@
     # won't hurt users even if they don't have it set up
     then "${gamemode}/bin/gamemoderun"
     else null,
+  releaseStream ? "lazer",
   osu-mime,
 }: let
   pname = "osu-lazer-bin";
-  inherit (builtins.fromJSON (builtins.readFile ./info.json)) version;
+  info = (builtins.fromJSON (builtins.readFile ./info.json)).${releaseStream};
+  inherit (info) version;
 
   appimageBin = fetchurl {
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    inherit (builtins.fromJSON (builtins.readFile ./info.json)) hash;
+    inherit (info) hash;
   };
   extracted = appimageTools.extract {
     inherit version;
