@@ -84,6 +84,11 @@
         inherit (config.packages) osu-mime;
       };
 
+      osu-lazer-tachyon-bin = pkgs.callPackage ./osu-lazer-bin {
+        inherit (config.packages) osu-mime;
+        releaseStream = "tachyon";
+      };
+
       osu-stable = pkgs.callPackage ./osu-stable {
         inherit (config.packages) osu-mime proton-osu-bin umu-launcher;
         wine = config.packages.wine-osu;
