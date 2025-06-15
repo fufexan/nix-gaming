@@ -149,9 +149,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d43f8d05d710ceedd553997f0f3b18a63078361d",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/d43f8d05d710ceedd553997f0f3b18a63078361d.tar.gz",
-      "hash": "0gqhabxk0spakvcfbi2l632jj2khck0gn5jvpr88z6lyyw27n447"
+      "revision": "5194507371d76025ffbd9199b833dcc55324e372",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/5194507371d76025ffbd9199b833dcc55324e372.tar.gz",
+      "hash": "0isyac3vy8xfm3qafplyf20qqr50c8ihzsv9n5cbdnqmbwvjmhw7"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -194,9 +194,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b014ba14f22fa295314ed9733c045f179ac8edb7",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/b014ba14f22fa295314ed9733c045f179ac8edb7.tar.gz",
-      "hash": "0prwgkqkrnpxmkmvrvjlnjja3zzdbbi6d4z7hb32py42c2ybv7w1"
+      "revision": "5e65bf5fd87d1628ff77e214caded5b4707b6f45",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/5e65bf5fd87d1628ff77e214caded5b4707b6f45.tar.gz",
+      "hash": "0avbmqjvzgivdjhf5j34nbs24gzm5dg83qw69kx44zrbm2fw31vy"
     },
     "wine-tkg-ntsync": {
       "type": "Git",
@@ -207,9 +207,9 @@
       },
       "branch": "ntsync",
       "submodules": false,
-      "revision": "114d078407e75f1bb9a3ea187799cfcf6583a159",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/114d078407e75f1bb9a3ea187799cfcf6583a159.tar.gz",
-      "hash": "058xlzr335v3rbnv79n45cncbdsx13kllhlv44s1cz6d4lrcvjmm"
+      "revision": "b5417fc26c586da6a58d58d74afe8843d2482168",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/b5417fc26c586da6a58d58d74afe8843d2482168.tar.gz",
+      "hash": "15rsl4n23b7pib9lh609pvinrc9qmirzdgw95n0silg34b9kr13h"
     },
     "winetricks": {
       "type": "Git",
