@@ -7,7 +7,7 @@
   autoPatchelfHook,
   wrapGAppsHook,
   gtk3,
-  webkitgtk,
+  webkitgtk_4_0,
   glib-networking,
   openssl_1_1,
   jdk17,
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   nativeBuildInputs = [dpkg autoPatchelfHook wrapGAppsHook];
-  buildInputs = [gtk3 webkitgtk glib-networking openssl_1_1];
+  buildInputs = [gtk3 webkitgtk_4_0 glib-networking openssl_1_1];
 
   installPhase = ''
     runHook preInstall
