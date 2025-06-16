@@ -1,6 +1,7 @@
 {
   lib,
   SDL2,
+  sdl3,
   alsa-lib,
   appimageTools,
   autoPatchelfHook,
@@ -45,6 +46,7 @@
     src = extracted;
     buildInputs = [
       SDL2
+      sdl3
       alsa-lib
       ffmpeg_4
       icu
@@ -81,6 +83,7 @@
     fixupPhase = ''
       runHook preFixup
       ln -sft $out/lib/osu ${SDL2}/lib/libSDL2${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
+      ln -sft $out/lib/osu ${sdl3}/lib/libSDL3${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
       runHook postFixup
     '';
   };
