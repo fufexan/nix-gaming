@@ -38,6 +38,7 @@
       wrapProgram $out/bin/osu! \
         --set PIPEWIRE_LATENCY "${pipewire_latency}" \
         --set OSU_EXTERNAL_UPDATE_PROVIDER "1" \
+        --set OSU_EXTERNAL_UPDATE_STREAM "${releaseStream}" \
         --set vblank_mode "0"
 
       ${
