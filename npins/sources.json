@@ -149,9 +149,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "42f553b2ed8e6c786a10ce05e111f436349af8f4",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/42f553b2ed8e6c786a10ce05e111f436349af8f4.tar.gz",
-      "hash": "106qdjf8y06xj6dgyk35jwczms6z37bwdv2khha1n213hlfcl7jz"
+      "revision": "5b45f7a6958c5a6570366bde479d392ed4b01afe",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/5b45f7a6958c5a6570366bde479d392ed4b01afe.tar.gz",
+      "hash": "0qn7780vv962597jdg2a8rhxw06pc11i2p0nx59mk0iyx59ld9j0"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
