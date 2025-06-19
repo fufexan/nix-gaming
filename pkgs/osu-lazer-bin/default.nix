@@ -44,7 +44,7 @@
       ${
         # a hack to infiltrate the command in the wrapper
         lib.optionalString (builtins.isString command_prefix) ''
-          sed -i '$s:exec -a "$0":exec -a "$0" ${command_prefix} :' $out/bin/osu!
+          sed -i '$s:exec -a "$0":exec ${command_prefix}:' $out/bin/osu!
         ''
       }
 
