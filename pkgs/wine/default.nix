@@ -64,25 +64,12 @@ in {
       src = pins.wine-tkg;
     });
 
-  wine-tkg-ntsync = (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
+  wine-tkg-ntsync = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
     rec {
       pname = pnameGen "wine-tkg-ntsync";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
       src = pins.wine-tkg-ntsync;
-    })).overrideAttrs (old: {
-    buildInputs =
-      [
-        # we need headers from Linux 6.14+
-        (pkgs.makeLinuxHeaders rec {
-          version = "6.14";
-          src = fetchurl {
-            url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-opS2g+exYbsFF7sy7H7R0up2A9+6utE1Fw7RLQDEdnA=";
-          };
-        })
-      ]
-      ++ old.buildInputs;
-  });
+    });
 
   wine-osu = let
     pname = pnameGen "wine-osu";
