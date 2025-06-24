@@ -185,6 +185,22 @@
       "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.3",
       "hash": "1a24nvwv2r8bwkwf7i23a36cdizkyj2ql9fk8hxd940slcw1nfwg"
     },
+    "wine-mono": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "wine-mono",
+        "repo": "wine-mono"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": "wine-mono-",
+      "submodules": false,
+      "version": "wine-mono-10.1.0",
+      "revision": "6b762029248bdcebf998b9d57d4014cd2661e812",
+      "url": "https://api.github.com/repos/wine-mono/wine-mono/tarball/wine-mono-10.1.0",
+      "hash": "0kvp5b6j3gvjq8nrhxvx4i35qy04b8nqivjmqq3vjn71wf9lh6jj"
+    },
     "wine-tkg": {
       "type": "Git",
       "repository": {

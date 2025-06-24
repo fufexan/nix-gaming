@@ -23,6 +23,8 @@
     packages = let
       pins = import ../npins;
 
+      wine-mono = pkgs.callPackage ./wine-mono {inherit pins;};
+
       wineBuilder = wine: build: extra:
         (import ./wine ({
             inherit inputs self pkgs build pins;
@@ -34,6 +36,8 @@
           wine
         };
     in {
+      inherit wine-mono;
+
       umu = self.lib.mkDeprecated "warn" config.packages.umu-launcher {
         name = "umu";
         target = "package";
