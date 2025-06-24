@@ -17,6 +17,7 @@
   wrapCCMulti,
   gcc13,
   stdenv,
+  wine-mono,
 }: let
   nixpkgs-wine = builtins.path {
     path = inputs.nixpkgs;
@@ -62,6 +63,7 @@ in {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
       src = pins.wine-tkg;
+      monos = [wine-mono];
     });
 
   wine-tkg-ntsync = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
@@ -69,6 +71,7 @@ in {
       pname = pnameGen "wine-tkg-ntsync";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
       src = pins.wine-tkg-ntsync;
+      monos = [wine-mono];
     });
 
   wine-osu = let
