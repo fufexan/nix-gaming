@@ -90,10 +90,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "3.3.12",
-      "revision": "f21c91b66ecea35c3e13ed9e07c5927a54a22895",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.12",
-      "hash": "0813kpn9yz1k1z8mrniigdkps8i6j2gyqxc11mgd7xc40838hg3n"
+      "version": "3.3.13",
+      "revision": "fa43ea97df27e4353e4c20c0322c0aba8310bd2a",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/3.3.13",
+      "hash": "14135d54q5pmp5db6ngzvbs2kd77ll2bgsppsw6nqhv9z179a3zr"
     },
     "faf-uid": {
       "type": "GitRelease",
@@ -149,9 +149,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5b45f7a6958c5a6570366bde479d392ed4b01afe",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/5b45f7a6958c5a6570366bde479d392ed4b01afe.tar.gz",
-      "hash": "0qn7780vv962597jdg2a8rhxw06pc11i2p0nx59mk0iyx59ld9j0"
+      "revision": "ea5a14c9201e8ea15dd8d28360d2f58d9cacb7b0",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/ea5a14c9201e8ea15dd8d28360d2f58d9cacb7b0.tar.gz",
+      "hash": "105i63dhkxljynx5nqs2pim9fli0kxwraphjfvkpz057jc8959cn"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
