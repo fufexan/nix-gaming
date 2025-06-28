@@ -58,10 +58,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.6.1-1",
-      "revision": "4b91b345bd54acb0e5ba9d3cad51cf0909545c7f",
+      "version": "v2.6.2-1",
+      "revision": "30c447c0aa4fef151cef8c47dcb94b04b9d97386",
       "url": null,
-      "hash": "0dqaq3qx40rjw75r3k78k7c88lgk6rsc8krfda4csljfkk7agn6x"
+      "hash": "0bc22a5mc26b1a56npfcl9rfw1jgkdv42r4wcwbls68yv1mydbcy"
     },
     "dxvk-nvapi": {
       "type": "GitRelease",
