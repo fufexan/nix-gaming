@@ -43,10 +43,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v2.6.2",
-      "revision": "e2373f9421f2c70583aea75c54219fbdcd67959c",
+      "version": "v2.7",
+      "revision": "0b621361c2b735c86b30940f62b3cf07ef18da1c",
       "url": null,
-      "hash": "1408b0kcnhqkwlrzibl4ysfpwyz22n9s2bp8d4b8v911cvsj54cx"
+      "hash": "179xqb74czsbms9j0k6814vhwq9x86q2vkvqiapj37a55d2zn0gv"
     },
     "dxvk-gplasync": {
       "type": "GitRelease",
@@ -149,9 +149,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "60a786b2b4290ef1e34367c8d53f07a075b140a7",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/60a786b2b4290ef1e34367c8d53f07a075b140a7.tar.gz",
-      "hash": "0xhxhnbvi3lzcb5ams88n5hhqaa3n7sh900r6mi40a239alzq8la"
+      "revision": "ad95a288212caf873059ab92b3ce77a1eed18833",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/ad95a288212caf873059ab92b3ce77a1eed18833.tar.gz",
+      "hash": "10mzdwnfb56kfy0c54lv4l8m6hb3bnnn5b2lviyxi2g91yyiki8v"
     },
     "vkd3d-proton": {
       "type": "GitRelease",
