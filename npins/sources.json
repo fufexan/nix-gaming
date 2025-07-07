@@ -43,10 +43,11 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v2.7",
-      "revision": "0b621361c2b735c86b30940f62b3cf07ef18da1c",
+      "version": "v2.6.2",
+      "revision": "e2373f9421f2c70583aea75c54219fbdcd67959c",
       "url": null,
-      "hash": "179xqb74czsbms9j0k6814vhwq9x86q2vkvqiapj37a55d2zn0gv"
+      "hash": "1408b0kcnhqkwlrzibl4ysfpwyz22n9s2bp8d4b8v911cvsj54cx",
+      "frozen": true
     },
     "dxvk-gplasync": {
       "type": "GitRelease",

@@ -23,6 +23,7 @@ jobs:
 
       - run: |
           nix run nixpkgs#npins update
+          pkgs/dxvk/update.sh
           pkgs/faf-client/update.sh
           pkgs/faf-client/update-src.sh
           pkgs/osu-lazer-bin/update.sh
