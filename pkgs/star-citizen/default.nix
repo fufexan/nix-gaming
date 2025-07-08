@@ -23,7 +23,7 @@
   postCommands ? "",
   enableGlCache ? true,
   glCacheSize ? 10737418240, # 10GB
-  disableEac ? true,
+  disableEac ? false,
   pkgs,
 }: let
   inherit (lib.strings) concatStringsSep optionalString toShellVars;
