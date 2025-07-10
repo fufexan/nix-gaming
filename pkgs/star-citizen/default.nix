@@ -27,12 +27,13 @@
   pkgs,
 }: let
   inherit (lib.strings) concatStringsSep optionalString toShellVars;
-  # Latest version can be found: https://install.robertsspaceindustries.com/rel/2/latest.yml
-  version = "2.3.2";
+  info = builtins.fromJSON (builtins.readFile ./info.json);
+  inherit (info) version;
+
   src = pkgs.fetchurl {
     url = "https://install.robertsspaceindustries.com/rel/2/RSI%20Launcher-Setup-${version}.exe";
-    name = "RSI Launcher-Setup-${version}.exe";
-    hash = "sha256-BzsO2bHXo7axvW9enll08H5aPA1KCZSLfikE49/EUw0=";
+    name = "RSI-Launcher-Setup-${version}.exe";
+    inherit (info) hash;
   };
 
   gameScope = lib.strings.optionalString gameScopeEnable "${gamescope}/bin/gamescope ${concatStringsSep " " gameScopeArgs} --";
