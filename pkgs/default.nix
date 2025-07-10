@@ -55,6 +55,9 @@
         inherit (pkgs) umu-launcher;
         inherit (config.packages) umu-launcher-unwrapped;
       };
+
+      clip-studio-paint-1 = pkgs.callPackage ./clip-studio-paint {wine = config.packages.wine-tkg;};
+
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
