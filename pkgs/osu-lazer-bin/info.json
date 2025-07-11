@@ -1,14 +1,14 @@
 {
   "lazer": {
     "query": "map(select(.prerelease | not)) | first | .tag_name",
-    "hash": "sha256-jG3KedllnVNd5TLSkKYae2V8CzN90g5lJhT4EKI+nuk=",
-    "storePath": "/nix/store/pnxnki8ymkrcbk4k3iimlby3jh8hzljp-osu.AppImage",
-    "version": "2025.607.0"
+    "hash": "sha256-Tfm75+jkSAqyNBkN3cVrx3hyw+Ai3lKa6ZIo47x2Rns=",
+    "storePath": "/nix/store/cjhg9zpar7y0k3cypn3pxfvllib4qibm-osu.AppImage",
+    "version": "2025.710.0-lazer"
   },
   "tachyon": {
     "query": "map(select(.prerelease)) | first | .tag_name",
-    "hash": "sha256-qlL6SZRITpTzur96Ge4AZmxH5pnd6tnuDIm6enppVu4=",
-    "storePath": "/nix/store/49nffp4ssjq3g2sy4hsbyxkhcjgh0j01-osu.AppImage",
-    "version": "2025.702.0-tachyon"
+    "hash": "sha256-OlbTu997xGzJAywtP//tJ+4MnKP/smLfpFaw3NQZ9KU=",
+    "storePath": "/nix/store/4wqw9blnnxw721l0ggi2jmawpcn27x6p-osu.AppImage",
+    "version": "2025.710.0-tachyon"
   }
 }
