@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell nixpkgs#npins -c bash
+#!/usr/bin/env -S nix shell .#npins -c bash
 
 REPO_OWNER="GloriousEggroll"
 REPO_NAME="proton-wine"

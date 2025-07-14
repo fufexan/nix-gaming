@@ -22,7 +22,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - run: |
-          nix run nixpkgs#npins update
+          nix run .#npins update
           pkgs/dxvk/update.sh
           pkgs/faf-client/update.sh
           pkgs/faf-client/update-src.sh

@@ -17,6 +17,8 @@
 
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
+        # Add to legacyPackages to prevent easyOverlay from including this package in the Overlay.
+        legacyPackages.npins = pkgs.callPackage (let pins = import ./npins; in pins.npins + "/npins.nix") {};
       };
     };
 

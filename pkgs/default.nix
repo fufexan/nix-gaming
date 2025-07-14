@@ -21,7 +21,7 @@
     overlayAttrs = config.packages;
 
     packages = let
-      pins = import ../npins;
+      pins = builtins.mapAttrs (_: p: p {inherit pkgs;}) (import ../npins {});
 
       wine-mono = pkgs.callPackage ./wine-mono {inherit pins;};
 
