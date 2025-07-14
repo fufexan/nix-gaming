@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell nixpkgs#npins nixpkgs#jq -c bash
+#!/usr/bin/env -S nix shell .#npins nixpkgs#jq -c bash
 
 NAME="dxvk"
 
