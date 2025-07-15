@@ -48,6 +48,7 @@
     homepage = "https://github.com/FAForever/downlords-faf-client";
     license = licenses.mit;
     maintainers = with maintainers; [chayleaf];
+    platforms = platforms.darwin ++ ["x86_64-linux"];
   };
 
   icon = "faf-client";
@@ -86,14 +87,7 @@
         else null
       )
     else if stdenvNoCC.isLinux
-    then
-      (
-        if stdenvNoCC.isAarch64
-        then "linux-aarch64"
-        else if stdenvNoCC.isx86_64
-        then "linux"
-        else null
-      )
+    then "linux"
     else null;
 
   self = stdenvNoCC.mkDerivation {
@@ -171,7 +165,7 @@
 
     gradleUpdateScript = ''
       runHook preBuild
-      for jfxPlatform in {mac,linux}{,-aarch64}; do
+      for jfxPlatform in {mac,mac-aarch64,linux}; do
         gradleFlags="-Dorg.gradle.java.home=${jdk} -Pversion=${version} -PjavafxPlatform=$jfxPlatform"
         gradle nixDownloadDeps
         gradleFlags="-Dorg.gradle.java.home=${jdk} -Pversion=${version} -PjavafxPlatform=$jfxPlatform -PjavafxClasspath=compileOnly"
