@@ -11,7 +11,7 @@
 in
   stdenv.mkDerivation {
     pname = "dxvk-nvapi-vkreflex-layer";
-    inherit (dxvk-nvapi) version;
+    version = lib.removePrefix "v" dxvk-nvapi.version;
 
     src = dxvk-nvapi;
     mesonFlags = ["./layer"];

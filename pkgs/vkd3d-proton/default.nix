@@ -12,7 +12,7 @@
 }:
 stdenv.mkDerivation {
   pname = "vkd3d-proton";
-  inherit (pins.vkd3d-proton) version;
+  version = lib.removePrefix "v" pins.vkd3d-proton.version;
 
   enableParallelBuilding = true;
   separateDebugInfo = true;

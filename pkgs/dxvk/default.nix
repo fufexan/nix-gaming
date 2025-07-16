@@ -17,7 +17,7 @@
 in
   stdenv.mkDerivation {
     name = "dxvk";
-    inherit (dxvk) version;
+    version = lib.removePrefix "v" dxvk.version;
 
     enableParallelBuilding = true;
     separateDebugInfo = true;
