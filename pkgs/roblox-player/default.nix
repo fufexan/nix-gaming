@@ -1,5 +1,6 @@
 {
   lib,
+  fetchurl,
   makeDesktopItem,
   symlinkJoin,
   writeShellScriptBin,
@@ -16,12 +17,12 @@
 }: let
   version = "37cf60402a5648b4";
 
-  src = builtins.fetchurl rec {
+  src = fetchurl rec {
     url = "https://setup.rbxcdn.com/version-${version}-Roblox.exe";
     name = "robloxinstall-${sha256}.exe";
     sha256 = "1jqsl0qcvkmdmw46zc0xkr9cvpxjhphwg7xwxgk4gcskgyzaqgrx";
   };
-  icon = builtins.fetchurl {
+  icon = fetchurl {
     # original url = "https://static.wikia.nocookie.net/logopedia/images/1/1e/Roblox_2022_%28Icon%29.png/revision/latest/scale-to-width-down/200?cb=20220831193228";
     url = "https://user-images.githubusercontent.com/36706276/203341006-a75060b5-a718-4e30-a78c-ecc39d7ea5e7.png";
     name = "roblox-player.png";
