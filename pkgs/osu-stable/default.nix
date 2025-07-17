@@ -1,5 +1,6 @@
 {
   lib,
+  fetchurl,
   makeDesktopItem,
   symlinkJoin,
   writeShellScriptBin,
@@ -21,7 +22,7 @@
   postCommands ? "",
   osu-mime,
 }: let
-  src = builtins.fetchurl rec {
+  src = fetchurl rec {
     url = "https://m1.ppy.sh/r/osu!install.exe";
     name = "osuinstall-${lib.strings.sanitizeDerivationName sha256}.exe";
     sha256 = (builtins.fromJSON (builtins.readFile ./info.json)).hash;

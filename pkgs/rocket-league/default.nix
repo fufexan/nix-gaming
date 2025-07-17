@@ -1,5 +1,6 @@
 {
   lib,
+  fetchurl,
   makeDesktopItem,
   symlinkJoin,
   writeShellScriptBin,
@@ -14,7 +15,7 @@
   callPackage,
   enableBakkesmod ? false,
 }: let
-  icon = builtins.fetchurl {
+  icon = fetchurl {
     # original url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
     url = "https://user-images.githubusercontent.com/36706276/203341314-eaaa0659-9b79-4f40-8b4a-9bc1f2b17e45.png";
     name = "rocket-league.png";

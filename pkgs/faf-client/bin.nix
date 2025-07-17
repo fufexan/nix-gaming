@@ -1,5 +1,7 @@
 {
   lib,
+  fetchzip,
+  fetchurl,
   stdenvNoCC,
   makeWrapper,
   makeDesktopItem,
@@ -21,14 +23,14 @@
 
   versionStable = "2025.7.1";
   sha256Stable = "1bf6iykzcpfc269q367fdzjik387n9va575rkwp6rss8smpjfz8c";
-  srcStable = builtins.fetchTarball {
+  srcStable = fetchzip {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionStable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionStable}.tar.gz";
     sha256 = sha256Stable;
   };
 
   versionUnstable = "2025.7.1";
   sha256Unstable = "1bf6iykzcpfc269q367fdzjik387n9va575rkwp6rss8smpjfz8c";
-  srcUnstable = builtins.fetchTarball {
+  srcUnstable = fetchzip {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionUnstable}/faf_unix_${builtins.replaceStrings ["."] ["_"] versionUnstable}.tar.gz";
     sha256 = sha256Unstable;
   };
@@ -50,7 +52,7 @@
     "16" = "0sp7k88h1kq6bz8rvz8hyd9dgxbl5db6q1f9ypg3dkg03fh53rjw";
   };
   icons = builtins.mapAttrs (k: v:
-    builtins.fetchurl {
+    fetchurl {
       name = "faf-client-${k}.png";
       url = "https://github.com/FAForever/downlords-faf-client/raw/11f5d9a7a728883374510cdc0bec51c9aa4126d7/src/media/appicon/${k}.png";
       sha256 = v;
