@@ -1,5 +1,6 @@
 {
   lib,
+  fetchurl,
   makeDesktopItem,
   symlinkJoin,
   writeShellScriptBin,
@@ -9,10 +10,10 @@
   withSteamRun ? false,
   pname ? "technic-launcher",
 }: let
-  version = "757";
-  src = builtins.fetchurl {
-    url = "https://launcher.technicpack.net/launcher4/${version}/TechnicLauncher.jar";
-    sha256 = "038dq2gm0v707pjwbg13vyjx56mh0yqv7g9c9hp2m58k8rqhaaxr";
+  info = builtins.fromJSON (builtins.readFile ./info.json);
+  inherit (info) version;
+  src = fetchurl {
+    inherit (info) url hash;
   };
 
   desktopItems = makeDesktopItem {
@@ -24,7 +25,7 @@
     categories = ["Game"];
   };
 
-  icon = builtins.fetchurl {
+  icon = fetchurl {
     # original url = "https://cdn.freebiesupply.com/logos/large/2x/technic-launcher-logo-png-transparent.png";
     url = "https://user-images.githubusercontent.com/36706276/203341849-0b049d7a-8c00-4ff1-b916-1a8aacee7ffb.png";
     sha256 = "0p18sfwaral8f6f5h9r5y9sxrzij2ks9zzyhfmzjldldladrwznq";
