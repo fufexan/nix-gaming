@@ -29,6 +29,7 @@ jobs:
           pkgs/osu-lazer-bin/update.sh
           pkgs/osu-stable/update.sh
           pkgs/proton-osu-bin/update.sh
+          pkgs/technic-launcher/update.sh
           pkgs/wine/update-wine-ge.sh
           pkgs/star-citizen/update.sh
 
