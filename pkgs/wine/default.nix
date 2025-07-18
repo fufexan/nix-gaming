@@ -9,10 +9,9 @@
   pkgsi686Linux,
   callPackage,
   fetchFromGitHub,
-  fetchurl,
   moltenvk,
   supportFlags,
-  stdenv_32bit,
+  gccMultiStdenv,
   overrideCC,
   wrapCCMulti,
   gcc13,
@@ -64,6 +63,8 @@ in {
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg/VERSION));
       src = pins.wine-tkg;
       monos = [wine-mono];
+      stdenv = gccMultiStdenv;
+      mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
     });
 
   wine-tkg-ntsync = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
@@ -72,6 +73,8 @@ in {
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg-ntsync/VERSION));
       src = pins.wine-tkg-ntsync;
       monos = [wine-mono];
+      stdenv = gccMultiStdenv;
+      mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
     });
 
   wine-osu = let
