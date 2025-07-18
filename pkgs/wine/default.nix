@@ -59,17 +59,17 @@ in {
   });
 
   wine-tkg = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
-    rec {
+    {
       pname = pnameGen "wine-tkg";
-      version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
+      version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg/VERSION));
       src = pins.wine-tkg;
       monos = [wine-mono];
     });
 
   wine-tkg-ntsync = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
-    rec {
+    {
       pname = pnameGen "wine-tkg-ntsync";
-      version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile "${src}/VERSION"));
+      version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg-ntsync/VERSION));
       src = pins.wine-tkg-ntsync;
       monos = [wine-mono];
     });

@@ -31,6 +31,7 @@ jobs:
           pkgs/proton-osu-bin/update.sh
           pkgs/technic-launcher/update.sh
           pkgs/wine/update-wine-ge.sh
+          pkgs/wine/update-wine-tkg.sh
           pkgs/star-citizen/update.sh
 
       - uses: stefanzweifel/git-auto-commit-action@v4
