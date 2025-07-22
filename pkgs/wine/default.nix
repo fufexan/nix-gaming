@@ -9,9 +9,9 @@
   pkgsi686Linux,
   callPackage,
   fetchFromGitHub,
+  replaceVars,
   moltenvk,
   supportFlags,
-  gccMultiStdenv,
   overrideCC,
   wrapCCMulti,
   gcc13,
@@ -30,11 +30,13 @@
   };
 
   defaults = let
-    sources = (import "${inputs.nixpkgs}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
+    sources = (import "${nixpkgs-wine}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
   in {
     inherit supportFlags moltenvk;
     patches = [];
-    buildScript = "${nixpkgs-wine}/pkgs/applications/emulators/wine/builder-wow.sh";
+    buildScript = replaceVars "${nixpkgs-wine}/pkgs/applications/emulators/wine/builder-wow.sh" {
+      pkgconfig64remove = lib.makeSearchPathOutput "dev" "lib/pkgconfig" [pkgs.glib pkgs.gst_all_1.gstreamer];
+    };
     configureFlags = ["--disable-tests"];
     geckos = with sources; [gecko32 gecko64];
     mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc13 mingwW64.buildPackages.gcc13];
@@ -43,10 +45,11 @@
     platforms = ["x86_64-linux"];
     stdenv = overrideCC stdenv (wrapCCMulti gcc13);
     wineRelease = "unstable";
+    mainProgram = "wine64";
   };
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
-in {
+in rec {
   wine-ge = (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
     // {
       pname = pnameGen "wine-ge";
@@ -62,20 +65,22 @@ in {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg/VERSION));
       src = pins.wine-tkg;
-      monos = [wine-mono];
-      stdenv = gccMultiStdenv;
+      buildScript = null;
+      configureFlags = ["--enable-archs=x86_64,i386"];
       mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
+      monos = [wine-mono];
+      pkgArches = [pkgs];
+      inherit stdenv;
+      mainProgram = "wine";
     });
 
-  wine-tkg-ntsync = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
+  wine-tkg-ntsync =
+    wine-tkg.override
     {
       pname = pnameGen "wine-tkg-ntsync";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg-ntsync/VERSION));
       src = pins.wine-tkg-ntsync;
-      monos = [wine-mono];
-      stdenv = gccMultiStdenv;
-      mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
-    });
+    };
 
   wine-osu = let
     pname = pnameGen "wine-osu";
