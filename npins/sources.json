@@ -154,7 +154,8 @@
       "submodules": false,
       "revision": "39021e609a24b6aeffdf9c4695a286d71e7dffbc",
       "url": "https://github.com/GloriousEggroll/proton-wine/archive/39021e609a24b6aeffdf9c4695a286d71e7dffbc.tar.gz",
-      "hash": "sha256-yJnJ7D/QHvZ+ieR8nAAnkFV8pzQkDaYDs0Xvo9YsDQA="
+      "hash": "sha256-yJnJ7D/QHvZ+ieR8nAAnkFV8pzQkDaYDs0Xvo9YsDQA=",
+      "frozen": true
     },
     "umu-launcher": {
       "type": "Git",
@@ -184,6 +185,20 @@
       "revision": "0d66699b1b1e250ef19d793f2649d9288b0808ff",
       "url": null,
       "hash": "sha256-OC4W+pHobubiwr9Joa6RcDAvUUz6ZiS4fx1PKVierME="
+    },
+    "wine-cachyos": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "CachyOS",
+        "repo": "wine-cachyos"
+      },
+      "branch": "cachyos_10.0_20250714/main",
+      "submodules": false,
+      "revision": "64a53635e60e728e4831c504f05ba2bd9702785c",
+      "url": "https://github.com/CachyOS/wine-cachyos/archive/64a53635e60e728e4831c504f05ba2bd9702785c.tar.gz",
+      "hash": "sha256-+/fAB9Wj4HzEQ5VpiISvTLPpUKbVC2pCBT7qdtSBn70=",
+      "frozen": true
     },
     "wine-discord-ipc-bridge": {
       "type": "GitRelease",
