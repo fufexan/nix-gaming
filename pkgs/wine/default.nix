@@ -48,8 +48,40 @@
     mainProgram = "wine64";
   };
 
+  # defaults for newer WoW64 builds
+  defaultsWow64 = lib.recursiveUpdate defaults {
+    buildScript = null;
+    configureFlags = ["--disable-tests" "--enable-archs=x86_64,i386"];
+    mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
+    monos = [wine-mono];
+    pkgArches = [pkgs];
+    inherit stdenv;
+    mainProgram = "wine";
+  };
+
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 in rec {
+  wine-cachyos =
+    (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaultsWow64 {
+      pname = pnameGen "wine-cachyos";
+      version = lib.pipe pins.wine-cachyos.branch [
+        (lib.removePrefix "cachyos_")
+        (lib.removeSuffix "/main")
+        (lib.replaceString "_" ".")
+      ];
+      src = pins.wine-cachyos;
+    }))
+    # https://github.com/CachyOS/CachyOS-PKGBUILDS/blob/b76138d70274f3ba6f7e0f7ca62fa2e335b93ad6/wine-cachyos/PKGBUILD#L116
+    .overrideAttrs (_final: prev: {
+      nativeBuildInputs = with pkgs; [autoreconfHook python3 perl] ++ prev.nativeBuildInputs;
+      preAutoreconf = ''
+        patchShebangs --build tools/make_requests tools/make_specfiles dlls/winevulkan/make_vulkan
+        tools/make_requests
+        tools/make_specfiles
+        XDG_CACHE_HOME=$(mktemp -d) dlls/winevulkan/make_vulkan -x vk.xml -X video.xml
+      '';
+    });
+
   wine-ge = (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
     // {
       pname = pnameGen "wine-ge";
@@ -60,18 +92,11 @@ in rec {
     meta = old.meta // {passthru.updateScript = ./update-wine-ge.sh;};
   });
 
-  wine-tkg = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaults
+  wine-tkg = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaultsWow64
     {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg/VERSION));
       src = pins.wine-tkg;
-      buildScript = null;
-      configureFlags = ["--enable-archs=x86_64,i386"];
-      mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
-      monos = [wine-mono];
-      pkgArches = [pkgs];
-      inherit stdenv;
-      mainProgram = "wine";
     });
 
   wine-tkg-ntsync =
