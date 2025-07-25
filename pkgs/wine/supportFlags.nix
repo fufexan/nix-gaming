@@ -16,9 +16,11 @@ rec {
     xineramaSupport = true;
     sdlSupport = true;
     mingwSupport = true;
+    usbSupport = true;
+    waylandSupport = false; # disabled for wine-osu (Wine 7.0 doesn't support Wayland)
+    x11Support = true;
     gtkSupport = false;
     gstreamerSupport = false;
-    openalSupport = false;
     openclSupport = false;
     odbcSupport = false;
     netapiSupport = false;
@@ -28,9 +30,6 @@ rec {
     gphoto2Support = false;
     krb5Support = false;
     embedInstallers = false;
-    x11Support = true;
-    waylandSupport = false;
-    usbSupport = true;
   };
 
   full =
@@ -38,7 +37,6 @@ rec {
     // {
       gtkSupport = true;
       gstreamerSupport = true;
-      openalSupport = true;
       openclSupport = true;
       odbcSupport = true;
       netapiSupport = true;
@@ -46,7 +44,8 @@ rec {
       pcapSupport = true;
       v4lSupport = true;
       gphoto2Support = true;
+      krb5Support = true;
       embedInstallers = true;
-      waylandSupport = true;
+      waylandSupport = true; # re-enabled for newer Wine versions that support Wayland
     };
 }
