@@ -13,8 +13,10 @@
   # cross compile inputs:
   withSdl3 ? true,
   sdl3,
-  withSdl2 ? false,
+  withSdl2 ? true,
   SDL2,
+  withGlfw ? true,
+  glfw,
   windows,
   stdenv,
 }: let
@@ -34,7 +36,7 @@ in
     buildInputs =
       lib.optionals stdenv.targetPlatform.isWindows [windows.pthreads]
       ++ lib.optionals stdenv.targetPlatform.isLinux (
-        lib.optional withSdl3 sdl3 ++ lib.optional withSdl2 SDL2
+        lib.optional withSdl3 sdl3 ++ lib.optional withSdl2 SDL2 ++ lib.optional withGlfw glfw
       );
 
     depsBuildBuild =
@@ -45,9 +47,15 @@ in
       ]
       ++ lib.optional (!stdenv.targetPlatform.isWindows) pkg-config;
 
-    postPatch = ''
-      patchShebangs ./
-    '';
+    postPatch =
+      ''
+        patchShebangs ./
+      ''
+      # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=libdxvk-gplasync#n46
+      + lib.optionalString (stdenv.targetPlatform.isLinux && withGlfw) ''
+        substituteInPlace meson.build \
+          --replace-warn "'glfw'" "'glfw3'"
+      '';
 
     patches =
       lib.optional (lib.strings.compareVersions dxvk.version "v2.7" == 0) (fetchpatch {
@@ -61,9 +69,9 @@ in
 
     mesonFlags = [
       "--buildtype=release"
-      (lib.mesonEnable "native_glfw" false) # can't find glfw from nixpkgs
-      (lib.mesonEnable "native_sdl2" withSdl2)
       (lib.mesonEnable "native_sdl3" withSdl3)
+      (lib.mesonEnable "native_sdl2" withSdl2)
+      (lib.mesonEnable "native_glfw" withGlfw)
     ];
 
     meta = with lib; {
