@@ -107,7 +107,7 @@
   desktopItems = makeDesktopItem {
     name = pname;
     exec = "${script}/bin/${pname} %U";
-    icon = "osu!"; # icon comes from the osu-mime package
+    icon = "osu!mime"; # icon comes from the osu-mime package
     comment = "Rhythm is just a *click* away";
     desktopName = "osu!stable";
     categories = ["Game"];
