@@ -12,6 +12,7 @@
     # won't hurt users even if they don't have it set up
     then "${gamemode}/bin/gamemoderun"
     else null,
+  postExtract ? "",
   releaseStream ? "lazer",
   osu-mime,
 }: let
@@ -24,36 +25,38 @@
     inherit (info) hash;
   };
 
-  derivation = appimageTools.wrapType2 {
-    inherit version pname src;
+  derivation = let
+    contents = appimageTools.extract {inherit pname version src postExtract;};
+  in
+    appimageTools.wrapAppImage {
+      inherit version pname;
+      src = contents;
 
-    extraPkgs = pkgs: [pkgs.icu];
+      extraPkgs = pkgs: [pkgs.icu];
 
-    extraInstallCommands = let
-      contents = appimageTools.extract {inherit pname version src;};
-    in ''
+      extraInstallCommands = ''
         . ${makeWrapper}/nix-support/setup-hook
-      mv -v $out/bin/${pname} $out/bin/osu!
+        mv -v $out/bin/${pname} $out/bin/osu!
 
-      wrapProgram $out/bin/osu! \
-        --set PIPEWIRE_LATENCY "${pipewire_latency}" \
-        --set OSU_EXTERNAL_UPDATE_PROVIDER "1" \
-        --set OSU_EXTERNAL_UPDATE_STREAM "${releaseStream}" \
-        --set vblank_mode "0"
+        wrapProgram $out/bin/osu! \
+          --set PIPEWIRE_LATENCY "${pipewire_latency}" \
+          --set OSU_EXTERNAL_UPDATE_PROVIDER "1" \
+          --set OSU_EXTERNAL_UPDATE_STREAM "${releaseStream}" \
+          --set vblank_mode "0"
 
-      ${
-        # a hack to infiltrate the command in the wrapper
-        lib.optionalString (builtins.isString command_prefix) ''
-          sed -i '$s:exec -a "$0":exec ${command_prefix}:' $out/bin/osu!
-        ''
-      }
+        ${
+          # a hack to infiltrate the command in the wrapper
+          lib.optionalString (builtins.isString command_prefix) ''
+            sed -i '$s:exec -a "$0":exec ${command_prefix}:' $out/bin/osu!
+          ''
+        }
 
-      install -m 444 -D ${contents}/osu!.desktop -t $out/share/applications
-      for i in 16 32 48 64 96 128 256 512 1024; do
-        install -D ${contents}/osu.png $out/share/icons/hicolor/''${i}x$i/apps/osu.png
-      done
-    '';
-  };
+        install -m 444 -D ${contents}/osu!.desktop -t $out/share/applications
+        for i in 16 32 48 64 96 128 256 512 1024; do
+          install -D ${contents}/osu.png $out/share/icons/hicolor/''${i}x$i/apps/osu.png
+        done
+      '';
+    };
 in
   symlinkJoin {
     name = "${pname}-${version}";
