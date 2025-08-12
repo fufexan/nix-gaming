@@ -541,9 +541,6 @@
   "org/openjfx#javafx-base/18.0.2/linux": {
    "jar": "sha256-HC7LOKfDulYbseyHN+5uOZ6lAoSb8Pd1do4Wt4pD0CI="
   },
-  "org/openjfx#javafx-base/18.0.2/linux-aarch64": {
-   "jar": "sha256-Gdmrirl2d4X8uLGGfvepBhELiVUVYDcfzM6HCUv0GJc="
-  },
   "org/openjfx#javafx-base/18.0.2/mac": {
    "jar": "sha256-dGVbhJtmVL0Nz3dhvqXmSLdx4xQ7DLWINbi98RAorgo="
   },
@@ -557,9 +554,6 @@
   "org/openjfx#javafx-controls/18.0.2/linux": {
    "jar": "sha256-PdlNoF1MXKx/K5tq9GAqvA7AOWR4DlWTKIo0kUBRW7Y="
   },
-  "org/openjfx#javafx-controls/18.0.2/linux-aarch64": {
-   "jar": "sha256-oqJJl1S2IFTtrpRlp6LMhpOcoB8uIONGhgJgc/ij9tM="
-  },
   "org/openjfx#javafx-controls/18.0.2/mac": {
    "jar": "sha256-Ty6zG+5ivauF/zdctbEOszTWTnzv5YlncUCrnp9O7SE="
   },
@@ -571,9 +565,6 @@
   },
   "org/openjfx#javafx-fxml/18.0.2/linux": {
    "jar": "sha256-LwiEIoxvmzSGEgQKgsHXrDupOCiqzEPUoS6skOdPZN0="
-  },
-  "org/openjfx#javafx-fxml/18.0.2/linux-aarch64": {
-   "jar": "sha256-3NZ06G3S1YIe0O3PQbyCIJbykl/H1xzpPVB9TS3e/Yo="
   },
   "org/openjfx#javafx-fxml/18.0.2/mac": {
    "jar": "sha256-JJV5EjVd5/pQOHI87TZirhfzQyfkA/+k+rMLBvQKnMs="
@@ -588,9 +579,6 @@
   "org/openjfx#javafx-graphics/18.0.2/linux": {
    "jar": "sha256-wRIGKlbFJw6WVVbDKk0ejc5mWfNPuYofsRPnWo0Wtbs="
   },
-  "org/openjfx#javafx-graphics/18.0.2/linux-aarch64": {
-   "jar": "sha256-oFdGpzNpS3EAOQ8HK473dR3MLOrnYBpIeoraIVzNj/M="
-  },
   "org/openjfx#javafx-graphics/18.0.2/mac": {
    "jar": "sha256-n6smHyvvRkzzQyFlNdXJz4CGyr40qF9ZLVLCalE9nMM="
   },
@@ -604,9 +592,6 @@
   "org/openjfx#javafx-media/18.0.2/linux": {
    "jar": "sha256-upceudEBqHX7CVMhaf1Tmb5T34YJXyA2qvonDRyZgbk="
   },
-  "org/openjfx#javafx-media/18.0.2/linux-aarch64": {
-   "jar": "sha256-9e7jy4xtOl6xX8zNcbJgNf9CMFSB4qjrom0UC6e0/pA="
-  },
   "org/openjfx#javafx-media/18.0.2/mac": {
    "jar": "sha256-f3Cc6RpGmGJ6mQNsA8T+gumLRbQ+uW4fekz5dI13elw="
   },
@@ -618,9 +603,6 @@
   },
   "org/openjfx#javafx-web/18.0.2/linux": {
    "jar": "sha256-cf3jXes4bY2d/zJRbLUHkRiaZrLFTQSEvvH+fWzMIuY="
-  },
-  "org/openjfx#javafx-web/18.0.2/linux-aarch64": {
-   "jar": "sha256-YPKxeo/nj5v8AyuSw6JyA8nAYXu0GEb7Uk0ZBkPXmEg="
   },
   "org/openjfx#javafx-web/18.0.2/mac": {
    "jar": "sha256-EYYr6kgloeCnhipZ3XPUdiRlA5DGdW52Yd0kdiEdC3w="
