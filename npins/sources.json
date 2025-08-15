@@ -84,9 +84,8 @@
     "faf-ice-adapter": {
       "type": "GitRelease",
       "repository": {
-        "type": "GitHub",
-        "owner": "FAForever",
-        "repo": "java-ice-adapter"
+        "type": "Git",
+        "url": "https://github.com/FAForever/java-ice-adapter.git"
       },
       "pre_releases": false,
       "version_upper_bound": null,
@@ -94,7 +93,7 @@
       "submodules": false,
       "version": "3.3.14",
       "revision": "d49f9fe992184716d26c3b5decdd5489f14d8a70",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/refs/tags/3.3.14",
+      "url": null,
       "hash": "sha256-P+HD97EhFQPP0bryK4KO3398jdMrhJQzdHuVLXaMLns="
     },
     "faf-uid": {
