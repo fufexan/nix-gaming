@@ -23,7 +23,7 @@
     packages = let
       pins = builtins.mapAttrs (_: p: p {inherit pkgs;}) (import ../npins {});
 
-      wine-mono = pkgs.callPackage ./wine-mono {inherit pins;};
+      wine-mono = pkgs.callPackage ./wine-mono {};
 
       wineBuilder = wine: build: extra:
         (import ./wine ({
