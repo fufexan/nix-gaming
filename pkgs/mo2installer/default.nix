@@ -10,13 +10,13 @@
   stdenv,
   zenity,
 }: let
-  version = "5.0.3";
+  version = "5.1.4";
 
   src = fetchFromGitHub {
-    owner = "rockerbacon";
+    owner = "furglitch";
     repo = "modorganizer2-linux-installer";
     rev = "refs/tags/${version}";
-    hash = "sha256-RYN5/t5Hmzu+Tol9iJ+xDmLGY9sAkLTU0zY6UduJ4i0=";
+    hash = "sha256-eDrWITS0beJF653K+FhivMfwZlEBTPfB3LAjVVN2Iio=";
   };
 
   steam-redirector = callPackage ./steam-redirector.nix {inherit version src;};
@@ -67,7 +67,7 @@ in
 
     meta = {
       description = "An easy-to-use Mod Organizer 2 installer for Linux";
-      homepage = "https://github.com/rockerbacon/modorganizer2-linux-installer";
+      homepage = "https://github.com/Furglitch/modorganizer2-linux-installer";
       license = lib.licenses.gpl3Only;
       mainProgram = "mo2installer";
       platforms = lib.platforms.linux;
