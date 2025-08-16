@@ -55,6 +55,9 @@
         inherit (pkgs) umu-launcher;
         inherit (config.packages) umu-launcher-unwrapped;
       };
+
+      cnc-ddraw = pkgs.callPackage ./cnc-ddraw {};
+
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
@@ -161,7 +164,7 @@
 
       winetricks-git = pkgs.callPackage ./winetricks-git {inherit pins;};
 
-      wineprefix-preparer = pkgs.callPackage ./wineprefix-preparer {inherit (config.packages) dxvk-w32 vkd3d-proton-w32 dxvk-w64 vkd3d-proton-w64 dxvk-nvapi-w32 dxvk-nvapi-w64;};
+      wineprefix-preparer = pkgs.callPackage ./wineprefix-preparer {inherit (config.packages) dxvk-w32 vkd3d-proton-w32 dxvk-w64 vkd3d-proton-w64 dxvk-nvapi-w32 dxvk-nvapi-w64 cnc-ddraw;};
     };
   };
 }

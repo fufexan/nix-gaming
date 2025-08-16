@@ -23,6 +23,7 @@ jobs:
 
       - run: |
           nix run .#npins update
+          pkgs/cnc-ddraw/update.sh
           pkgs/dxvk/update.sh
           pkgs/faf-client/update.sh
           pkgs/faf-client/update-src.sh
