@@ -71,7 +71,14 @@ let
           fetchGit = args: (builtins.fetchGit args).outPath;
         }
         else {
-          fetchTarball = pkgs.fetchzip;
+          fetchTarball = {
+            url,
+            sha256,
+          }:
+            pkgs.fetchzip {
+              inherit url sha256;
+              extension = "tar";
+            };
           inherit (pkgs) fetchurl;
           fetchGit = {
             url,
