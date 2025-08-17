@@ -5,7 +5,7 @@
   makeWrapper,
   symlinkJoin,
   gamemode,
-  pipewire_latency ? "64/48000", # reasonable default
+  pipewire_latency ? "64/44100", # reasonable default
   gmrun_enable ? true, # keep this flag for compatibility
   command_prefix ?
     if gmrun_enable
