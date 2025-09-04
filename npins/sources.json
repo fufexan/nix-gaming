@@ -251,9 +251,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "9a399f26a42db7c0c8c9c9688c8b98ffc38d22f6",
-      "url": "https://github.com/winetricks/winetricks/archive/9a399f26a42db7c0c8c9c9688c8b98ffc38d22f6.tar.gz",
-      "hash": "sha256-TfimgUJ6bXp3tu3p2b0CEabUb9e0qyWVNMmM57g6PMU="
+      "revision": "75118236ac5cb6f51918460a14f7bc40162a115e",
+      "url": "https://github.com/winetricks/winetricks/archive/75118236ac5cb6f51918460a14f7bc40162a115e.tar.gz",
+      "hash": "sha256-vIUbDZINaBnsSCdQEba6Ym34p/Ww3ApHG/i4Xe34Uck="
     }
   },
   "version": 6
