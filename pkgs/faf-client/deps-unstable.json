@@ -1208,16 +1208,16 @@
   "org/infinispan#infinispan-build-configuration-parent/15.2.5.Final": {
    "pom": "sha256-qCfDuEIoLhZAiXFWulWmDwrDOz+Z0FkNLFpCx64Tn88="
   },
-  "org/instancio#instancio-core/5.5.0": {
-   "jar": "sha256-qeNwNsTZEUEoWnfe3/R0S/kEUmN419gHn7biihQnhXU=",
-   "pom": "sha256-ItLIkAtS38sEA3G8N4zVNdwVf77loH8sT474W0I83yY="
+  "org/instancio#instancio-core/5.5.1": {
+   "jar": "sha256-z5QadNP+e9giIzOFswNCEp6jAOnn0V7c2Zq2wQ7aL40=",
+   "pom": "sha256-KK3cuQZi5sDJWYwN/J1jme8GIJsOAlXWzyhmUGrr16c="
   },
-  "org/instancio#instancio-junit/5.5.0": {
-   "jar": "sha256-IUsGWZXWYKAbbe3MG0Qm7AkkPpO5nmbOH+E2jVm0ypw=",
-   "pom": "sha256-xfHSS0tEp5QAl7Xf5g+Uw+UqbhNb1IwpRyCEttRY95Q="
+  "org/instancio#instancio-junit/5.5.1": {
+   "jar": "sha256-TAZwWAOKb18BOcdoCyHg5NkNVAiZg5vGJzKDw9QlAik=",
+   "pom": "sha256-2HK62i/KrxSt4DWUzlhhqgoHPa4SdomiUNuQruWBaYg="
   },
-  "org/instancio#instancio-parent/5.5.0": {
-   "pom": "sha256-83rVgFHvFtfTwXlFT0btIRBy2j+bb2FNResmgwtjHcg="
+  "org/instancio#instancio-parent/5.5.1": {
+   "pom": "sha256-dz18U1gBKbd4XdCyCXM+5O95W6WMPwZI5Mzk/44d5hE="
   },
   "org/jacoco#org.jacoco.agent/0.8.13": {
    "jar": "sha256-nbPJ1ddPqHCyYbZKMIJBLhvW4i6fqY9HN7G/+K+cxk0=",
