@@ -18,20 +18,7 @@
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
         # Add to legacyPackages to prevent easyOverlay from including this package in the Overlay.
-        legacyPackages.npins =
-          (pkgs.callPackage (let pins = import ./npins; in pins.npins + "/npins.nix") {})
-        # https://github.com/andir/npins/pull/162
-        .overrideAttrs (prev: {
-            patches =
-              [
-                (pkgs.fetchpatch {
-                  name = "fix-fetchzip.patch";
-                  url = "https://github.com/andir/npins/commit/c91f2042a1f97ed950ebda8cb02828c61dc23c33.patch";
-                  hash = "sha256-Wqg89RH7C9ln5CLm+kQRwRWd5VOtAB8QuNVrMjug0qI=";
-                })
-              ]
-              ++ prev.patches;
-          });
+        legacyPackages.npins = pkgs.callPackage (let pins = import ./npins; in pins.npins + "/npins.nix") {};
       };
     };
 
