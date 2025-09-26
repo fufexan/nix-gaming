@@ -11,10 +11,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2025.9.1",
-      "revision": "be9c7eb6bad2345b7aab827bc29a52552f5cbb31",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2025.9.1",
-      "hash": "sha256-zEPcIwTIcSUvQzJGs9CMrY3vFhw1Exo+HEyFGrLJ5nI="
+      "version": "v2025.9.2",
+      "revision": "a1991c77146ea5423eaa683a6e4133080353677b",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2025.9.2",
+      "hash": "sha256-34cqxIhsGPrzh88mMu32nonI5L6JTnXMSo9tNN22Hhk="
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -27,10 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2025.9.2-alpha-1",
-      "revision": "0a79802bceb348662d1562cdf5d80d9c80ce6d25",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2025.9.2-alpha-1",
-      "hash": "sha256-QVP4kMlQvSHpLhoP5As5/WMifKQNs4/o8lSOuj6jK3k="
+      "version": "v2025.9.2",
+      "revision": "a1991c77146ea5423eaa683a6e4133080353677b",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2025.9.2",
+      "hash": "sha256-34cqxIhsGPrzh88mMu32nonI5L6JTnXMSo9tNN22Hhk="
     },
     "dxvk": {
       "type": "GitRelease",
