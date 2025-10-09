@@ -193,11 +193,11 @@
         "owner": "CachyOS",
         "repo": "wine-cachyos"
       },
-      "branch": "cachyos_10.0_20250919/main",
+      "branch": "cachyos_10.0_20251006/main",
       "submodules": false,
-      "revision": "631d98c050f46761ee8a36f6c2e05ddcf56f58a3",
-      "url": "https://github.com/CachyOS/wine-cachyos/archive/631d98c050f46761ee8a36f6c2e05ddcf56f58a3.tar.gz",
-      "hash": "sha256-c6csb42JjO0HXUv8trZpCjoX7nEG/mpc4WyhIbb2Pv0=",
+      "revision": "3d8f06a5816f3532a8f07699cc715dbf9f6fd3d8",
+      "url": "https://github.com/CachyOS/wine-cachyos/archive/3d8f06a5816f3532a8f07699cc715dbf9f6fd3d8.tar.gz",
+      "hash": "sha256-sQReHCHidPK+LolJPyEs7ADXqivhNZLLcedisriKo9o=",
       "frozen": true
     },
     "wine-discord-ipc-bridge": {
