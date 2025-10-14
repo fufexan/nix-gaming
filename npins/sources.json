@@ -166,9 +166,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "23ec7c75bedd282b88105ab30df78ddcfe40d414",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/23ec7c75bedd282b88105ab30df78ddcfe40d414.tar.gz",
-      "hash": "sha256-nqXA9kW4+CV9k9WyIVuDBnB4rGWb+n5dwoSXrNhl61U="
+      "revision": "b5e17fbf2d7dbea259f6d0e26584357ecc1b1e95",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/b5e17fbf2d7dbea259f6d0e26584357ecc1b1e95.tar.gz",
+      "hash": "sha256-+r9DTp1ecK5tb5sf/QfCkxrgUSqhyAhKouMznz3B5Sk="
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -193,11 +193,11 @@
         "owner": "CachyOS",
         "repo": "wine-cachyos"
       },
-      "branch": "cachyos_10.0_20251006/main",
+      "branch": "cachyos_10.0_20251007/main",
       "submodules": false,
-      "revision": "e78d65198727b3e1eb7296b96f609162b2ea110b",
-      "url": "https://github.com/CachyOS/wine-cachyos/archive/e78d65198727b3e1eb7296b96f609162b2ea110b.tar.gz",
-      "hash": "sha256-fm+eOBm9fpap+H01qAYkWbaeOM4FOhxp7MN3SiiK7Ho=",
+      "revision": "8fdce7c00aee06ef8c90a2c863b9960c4bf5dd80",
+      "url": "https://github.com/CachyOS/wine-cachyos/archive/8fdce7c00aee06ef8c90a2c863b9960c4bf5dd80.tar.gz",
+      "hash": "sha256-hiioYbLYC3RjR/+L+iKHanbDtQuFHxyBQBC5TCHwt34=",
       "frozen": true
     },
     "wine-discord-ipc-bridge": {
