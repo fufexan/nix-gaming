@@ -4,7 +4,9 @@
   stdenvNoCC,
   makeDesktopItem,
   openjdk21,
-  gradle,
+  openjdk25,
+  gradle_8,
+  gradle_9,
   runtimeShell,
   gawk,
   # can't we somehow patchelf the openjfx runtime during build phase?
@@ -29,7 +31,15 @@
 }: let
   pname = "faf-client";
 
-  jdk = openjdk21;
+  jdk =
+    if lib.versionAtLeast version "2025.9.3"
+    then openjdk25
+    else openjdk21;
+
+  gradle =
+    if lib.versionAtLeast version "2025.9.3"
+    then gradle_9
+    else gradle_8;
 
   version = builtins.replaceStrings ["v"] [""] src.version;
 

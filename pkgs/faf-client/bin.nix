@@ -6,6 +6,7 @@
   makeWrapper,
   makeDesktopItem,
   openjdk21,
+  openjdk25,
   xorg,
   libGL,
   gtk3,
@@ -95,7 +96,7 @@
     xorg.libXxf86vm
   ];
 in
-  stdenvNoCC.mkDerivation {
+  stdenvNoCC.mkDerivation rec {
     inherit pname meta desktopItem;
     version =
       if unstable
@@ -105,6 +106,11 @@ in
       if unstable
       then srcUnstable
       else srcStable;
+
+    openjdk =
+      if lib.versionAtLeast version "2025.9.3"
+      then openjdk25
+      else openjdk21;
 
     preferLocalBuild = true;
     nativeBuildInputs = [makeWrapper];
@@ -120,7 +126,7 @@ in
         --chdir $out/lib/faf-client \
         --set-default INSTALL4J_ADD_VM_PARAMS '~/.cache/openjfx' \
         --set-default LOG_DIR '~/.faforever/logs' \
-        --set INSTALL4J_JAVA_HOME ${openjdk21} \
+        --set INSTALL4J_JAVA_HOME ${openjdk} \
         --suffix PATH : ${lib.makeBinPath path} \
         --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs}
       sed -i "s#'~/.faforever/logs'#"'"$HOME/.faforever/logs"#' $out/bin/faf-client
