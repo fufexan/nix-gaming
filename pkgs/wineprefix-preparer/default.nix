@@ -64,14 +64,16 @@ writeShellScriptBin "wineprefix-preparer"
   done
 
   ${lib.optionalString withDdraw ''
-    echo "Removing existing DDraw DLL"
-    rm -rf "$win32_sys_path"/ddraw.dll
+    echo "Removing existing DDraw"
+    rm -f "$win32_sys_path/ddraw.dll" || true
+    rm -f "$win32_sys_path/cnc-ddraw config.exe" || true
+    rm -rf "$win32_sys_path/Shaders" || true
 
     echo "Installing DDraw"
     for item in "${cnc-ddraw}"/*; do
       base=$(basename "$item")
       if [[ "$base" != "ddraw.ini" ]]; then
-        cp -r "$item" "$win32_sys_path"
+        cp -r --no-preserve "$item" "$win32_sys_path"
       fi
     done
 
