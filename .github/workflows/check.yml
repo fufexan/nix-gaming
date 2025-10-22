@@ -12,10 +12,9 @@ jobs:
 
     uses: ./.github/workflows/nix.yml
     with:
-      # command: ${{ matrix.command }}
-      command: ls -l
+      command: ${{ matrix.command }}
 
-  # build:
-  #   needs: check
-  #   uses: ./.github/workflows/build.yml
-  #   secrets: inherit
+  build:
+    needs: check
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
