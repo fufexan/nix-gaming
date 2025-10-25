@@ -193,11 +193,11 @@
         "owner": "CachyOS",
         "repo": "wine-cachyos"
       },
-      "branch": "cachyos_10.0_20251017/main",
+      "branch": "cachyos_10.0_20251023/main",
       "submodules": false,
-      "revision": "b9ab98e0dddfcff5b104f4ecabfcb7d46321120a",
-      "url": "https://github.com/CachyOS/wine-cachyos/archive/b9ab98e0dddfcff5b104f4ecabfcb7d46321120a.tar.gz",
-      "hash": "sha256-ZvzAhTSjyAk/oiRt4pSF+be2WoVk5I4VdjFddYHchkU=",
+      "revision": "8724e00b2a676432ad4af23444cb8e5eaf827c54",
+      "url": "https://github.com/CachyOS/wine-cachyos/archive/8724e00b2a676432ad4af23444cb8e5eaf827c54.tar.gz",
+      "hash": "sha256-JXi7lFXKUmexuMrZ4gkRE0r9DbB6PiVUqYzGT9MbCl0=",
       "frozen": true
     },
     "wine-discord-ipc-bridge": {
@@ -238,9 +238,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "5a543dbc7bcb2465f3fb77bcfb28c0fc21d508b5",
-      "url": "https://github.com/winetricks/winetricks/archive/5a543dbc7bcb2465f3fb77bcfb28c0fc21d508b5.tar.gz",
-      "hash": "sha256-05AAQMv5vUCP8x69AMxnOC+NW/AH7tHzBOGQJk5uPyo="
+      "revision": "a5a76f24a5d03697cab0c3192843a4379d6f8ff6",
+      "url": "https://github.com/winetricks/winetricks/archive/a5a76f24a5d03697cab0c3192843a4379d6f8ff6.tar.gz",
+      "hash": "sha256-k+ONTajDLfKJI/ND1MSqAeHTiLDLyy11cuct5GnuEoA="
     }
   },
   "version": 6
