@@ -1,11 +1,11 @@
 {
-  nixosTest,
+  testers,
   nixosModules,
   writeShellScriptBin,
   lib,
   ...
 }:
-nixosTest {
+testers.nixosTest {
   name = "pipewire-low-latency";
 
   nodes.machine = {

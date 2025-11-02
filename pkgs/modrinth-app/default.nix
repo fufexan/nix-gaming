@@ -5,7 +5,7 @@
   fetchurl,
   dpkg,
   autoPatchelfHook,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   gtk3,
   libsoup_3,
   webkitgtk_4_1,
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [dpkg autoPatchelfHook wrapGAppsHook];
+  nativeBuildInputs = [dpkg autoPatchelfHook wrapGAppsHook3];
   buildInputs = [gtk3 libsoup_3 webkitgtk_4_1 glib-networking openssl_1_1];
 
   installPhase = ''
