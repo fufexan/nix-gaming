@@ -223,11 +223,11 @@
         "owner": "Kron4ek",
         "repo": "wine-tkg"
       },
-      "branch": "wow64",
+      "branch": "master",
       "submodules": false,
-      "revision": "aa08f33b4c9b8fff531c48ea255c15c1274fade8",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/aa08f33b4c9b8fff531c48ea255c15c1274fade8.tar.gz",
-      "hash": "sha256-C+8JS+/xEv6rkd5F8VH1KqBfPSk0Eooz2j3LgzBcqc8="
+      "revision": "8c3995e0426196c6b5b4772ba3f372bc99a01a6d",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/8c3995e0426196c6b5b4772ba3f372bc99a01a6d.tar.gz",
+      "hash": "sha256-MJ2hDN5uGvbpaJw4loMTRcnivnFCz661RRkVHtRfngo="
     },
     "winetricks": {
       "type": "Git",
