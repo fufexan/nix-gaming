@@ -60,7 +60,7 @@
   };
 
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
-in rec {
+in {
   wine-cachyos =
     (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaultsWow64 {
       pname = pnameGen "wine-cachyos";
