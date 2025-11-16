@@ -18,7 +18,7 @@ A simple implementation would be to use the overlay, similar to proton-ge:
 nixpkgs.overlays = [
     (_: prev: {
         steam = prev.steam.override {
-            extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.system}.northstar-proton}'";
+            extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.northstar-proton}'";
         };
     })
 ];

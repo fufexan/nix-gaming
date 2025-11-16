@@ -96,7 +96,7 @@ Then, add the package(s):
 ```nix
 {pkgs, inputs, ...}: {
   environment.systemPackages = [ # or home.packages
-    inputs.nix-gaming.packages.${pkgs.system}.<package> # installs a package
+    inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.<package> # installs a package
   ];
 }
 ```
@@ -121,7 +121,7 @@ To install packages to `environment.systemPackages`, add this in
 in {
   # install packages
   environment.systemPackages = [ # or home.packages
-    nix-gaming.packages.${pkgs.hostPlatform.system}.<package>
+    nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.<package>
   ];
 }
 ```
@@ -249,7 +249,7 @@ Sometimes you want to override `wine` for various reasons. Here's how to do it:
 ```nix
 {
   environment.systemPackages = let
-    gamePkgs = inputs.nix-gaming.packages.${pkgs.hostPlatform.system};
+    gamePkgs = inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system};
   in [ # or home.packages
     gamePkgs.osu-stable.override rec {
       wine = <your-wine>;

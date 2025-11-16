@@ -45,7 +45,7 @@
         opts = {
           # same options as above can be provided here, and will be applied to all games
           # NOTE: game-specific options take precedence
-          wine = inputs.nix-gaming.packages.${pkgs.system}.wine-tkg;
+          wine = inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.wine-tkg;
         };
       });
 }
