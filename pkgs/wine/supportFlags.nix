@@ -17,7 +17,6 @@ rec {
     sdlSupport = true;
     mingwSupport = true;
     usbSupport = true;
-    waylandSupport = false; # disabled for wine-osu (Wine 7.0 doesn't support Wayland)
     x11Support = true;
     gtkSupport = false;
     gstreamerSupport = false;
@@ -30,6 +29,9 @@ rec {
     gphoto2Support = false;
     krb5Support = false;
     embedInstallers = false;
+    # disabled for wine-osu (Wine 7.0 doesn't support Wayland and ffmpeg)
+    waylandSupport = false;
+    ffmpegSupport = false;
   };
 
   full =
@@ -46,6 +48,8 @@ rec {
       gphoto2Support = true;
       krb5Support = true;
       embedInstallers = true;
-      waylandSupport = true; # re-enabled for newer Wine versions that support Wayland
+      # re-enabled for newer Wine versions
+      waylandSupport = true;
+      ffmpegSupport = true;
     };
 }
