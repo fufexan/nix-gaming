@@ -17,7 +17,7 @@ in {
           name: value:
             pkgs.callPackage ../pkgs/legendary
             ({
-                inherit (inputs.self.packages.${pkgs.hostPlatform.system}) wine-discord-ipc-bridge;
+                inherit (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}) wine-discord-ipc-bridge;
                 pname = name;
               }
               // opts
