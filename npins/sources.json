@@ -181,10 +181,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v2.14.1",
-      "revision": "0d66699b1b1e250ef19d793f2649d9288b0808ff",
+      "version": "v3.0",
+      "revision": "6d97b022a1c501b8574a2dd5d9e0446c83055043",
       "url": null,
-      "hash": "sha256-OC4W+pHobubiwr9Joa6RcDAvUUz6ZiS4fx1PKVierME="
+      "hash": "sha256-OTq3FmDyJGDUDYRq7PQv3bOXn/gf2qlBVcA9lVfHB3E="
     },
     "wine-cachyos": {
       "type": "Git",
