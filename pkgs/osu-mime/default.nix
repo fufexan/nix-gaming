@@ -21,9 +21,16 @@ in
         url = "https://raw.githubusercontent.com/ppy/osu-web/${osu-web-rev}/public/images/layout/osu-logo-white.svg";
         sha256 = "XvYBIGyvTTfMAozMP9gmr3uYEJaMcvMaIzwO7ZILrkY=";
       })
-      (fetchurl {
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/osu-file-extensions.xml?h=osu-mime&id=${osu-mime-spec-rev}";
-        sha256 = "MgQNW0RpnEYTC0ym6wB8cA6a8GCED1igsjOtHPXNZVo=";
+      (stdenvNoCC.mkDerivation {
+        name = "osu-file-extensions";
+        src = fetchurl {
+          url = "https://aur.archlinux.org/cgit/aur.git/plain/osu-file-extensions.xml?h=osu-mime&id=${osu-mime-spec-rev}";
+          sha256 = "MgQNW0RpnEYTC0ym6wB8cA6a8GCED1igsjOtHPXNZVo=";
+        };
+        unpackPhase = "cp $src ./osu-file-extensions.xml";
+        installPhase = "cp osu-file-extensions.xml $out";
+        # Patch to change the icon names from "osu!" to "osu!mime".
+        patches = [./osu-mime-change-icon.patch];
       })
     ];
 
@@ -51,10 +58,10 @@ in
           # Generate icon
           rsvg-convert -w "$size" -h "$size" -f png -o "osu-logo-triangles.png" "''${srcs[0]}"
           rsvg-convert -w "$size" -h "$size" -f png -o "osu-logo-white.png" "''${srcs[1]}"
-          convert -composite "osu-logo-triangles.png" "osu-logo-white.png" -gravity center 'osu!.png'
+          convert -composite "osu-logo-triangles.png" "osu-logo-white.png" -gravity center 'osu!mime.png'
 
           mkdir -p "$icon_dir"
-          mv 'osu!.png' "$icon_dir"
+          mv 'osu!mime.png' "$icon_dir"
       done
 
       cp "''${srcs[2]}" "$mime_dir/osu.xml"
@@ -63,7 +70,7 @@ in
     meta = with lib; {
       description = "MIME types for osu!";
       license = licenses.agpl3Only; # osu-web uses AGPL v3.0
-      maintainers = with lib.maintainers; [PlayerNameHere];
+      maintainers = with lib.maintainers; [dixslyf];
       platforms = ["x86_64-linux"];
     };
   }
