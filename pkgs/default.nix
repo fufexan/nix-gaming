@@ -38,16 +38,35 @@
     in {
       inherit wine-mono;
 
-      umu = self.lib.mkDeprecated "warn" config.packages.umu-launcher {
+      umu = self.lib.mkDeprecated "warn" config.packages.umu-launcher-git {
         name = "umu";
         target = "package";
         date = "2025-02-04";
         instructions = ''
-          This package has been renamed to `umu-launcher` to
-          match the package name in nixpkgs.
+          This package has been renamed to `umu-launcher-git` to differentiate
+          itself from the package in nixpkgs.
         '';
       };
-      umu-launcher-unwrapped =
+      umu-launcher = self.lib.mkDeprecated "warn" config.packages.umu-launcher-git {
+        name = "umu";
+        target = "package";
+        date = "2025-12-06";
+        instructions = ''
+          This package has been renamed to `umu-launcher-git` to differentiate
+          itself from the package in nixpkgs.
+        '';
+      };
+      umu-launcher-unwrapped = self.lib.mkDeprecated "warn" config.packages.umu-launcher-unwrapped-git {
+        name = "umu";
+        target = "package";
+        date = "2025-12-06";
+        instructions = ''
+          This package has been renamed to `umu-launcher-unwrapped-git` to differentiate
+          itself from the package in nixpkgs.
+        '';
+      };
+
+      umu-launcher-unwrapped-git =
         (pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
           inherit (pkgs) umu-launcher-unwrapped;
           version = builtins.substring 0 7 pins.umu-launcher.revision;
@@ -55,7 +74,7 @@
           # 2025-12-08: Tests and versionCheckHook are currently broken
           doInstallCheck = false;
         };
-      umu-launcher = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/package.nix" {
+      umu-launcher-git = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/package.nix" {
         inherit (pkgs) umu-launcher;
         inherit (config.packages) umu-launcher-unwrapped;
       };
