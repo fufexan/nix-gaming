@@ -19,7 +19,7 @@
   wine-mono,
 }: let
   nixpkgs-wine = builtins.path {
-    path = inputs.nixpkgs;
+    path = pkgs.path;
     name = "source";
     filter = path: type: let
       wineDir = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/";

@@ -13,8 +13,9 @@
     pkgs,
     ...
   }: {
-    _module.args.pkgs = import inputs.nixpkgs {
-      inherit system;
+    imports = ["${inputs.nixpkgs}/nixos/modules/misc/nixpkgs.nix"];
+    nixpkgs = {
+      hostPlatform = system;
       config.allowUnfree = true;
     };
 
