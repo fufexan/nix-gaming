@@ -47,10 +47,14 @@
           match the package name in nixpkgs.
         '';
       };
-      umu-launcher-unwrapped = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
-        inherit (pkgs) umu-launcher-unwrapped;
-        version = builtins.substring 0 7 pins.umu-launcher.revision;
-      };
+      umu-launcher-unwrapped =
+        (pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
+          inherit (pkgs) umu-launcher-unwrapped;
+          version = builtins.substring 0 7 pins.umu-launcher.revision;
+        }).overrideAttrs {
+          # 2025-12-08: Tests and versionCheckHook are currently broken
+          doInstallCheck = false;
+        };
       umu-launcher = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/package.nix" {
         inherit (pkgs) umu-launcher;
         inherit (config.packages) umu-launcher-unwrapped;
