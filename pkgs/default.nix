@@ -223,7 +223,7 @@
       config.allowUnfree = true;
     };
 
-    overlayAttrs = config.packages';
+    overlayAttrs = packages';
 
     packages = packages' // deprecationNotices;
   };
