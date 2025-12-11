@@ -48,7 +48,7 @@ in {
             48 kHz / S16_LE).
           '';
           type = bool;
-          default = true;
+          default = false;
         };
 
         devicePattern = mkOption {
