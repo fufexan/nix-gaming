@@ -5,7 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) int;
+  inherit (lib.types) int str bool;
 
   cfg = config.services.pipewire.lowLatency;
   qr = "${toString cfg.quantum}/${toString cfg.rate}";
@@ -29,10 +29,67 @@ in {
       };
 
       rate = mkOption {
-        description = "Rate to set";
+        description = "Nominal graph sample rate";
         type = int;
         default = 48000;
         example = 96000;
+      };
+
+      alsa = {
+        enable = mkOption {
+          description = ''
+            ALSA-level low-latency overrides via WirePlumber.
+
+            This tweaks format, hardware rate and period size for *matching devices*
+            only.
+
+            WARNING:  Enabling this with default settings may break devices that don't
+            support the specified format/rate (e.g., HDMI sinks that only support
+            48 kHz / S16_LE).
+          '';
+          type = bool;
+          default = true;
+        };
+
+        devicePattern = mkOption {
+          description = ''
+            WirePlumber `node.name` pattern to match devices that should get
+            ALSA low-latency overrides.
+
+            Use `pw-dump | grep node.name | grep alsa_output` or
+            `wpctl status` followed by `wpctl inspect <id>` to find the right names.
+          '';
+          type = str;
+          default = "~alsa_output.*";
+          example = "~alsa_output.usb-Generic_USB_Audio-00.*";
+        };
+
+        format = mkOption {
+          description = "Target audio. format for ALSA (e. g. S16_LE, S24_3LE, S32LE)";
+          type = str;
+          default = "S32LE";
+          example = "S24_3LE";
+        };
+
+        rateMultiplier = mkOption {
+          description = ''
+            Multiplier for the rate when setting `audio.rate`. For example,
+            with `rate = 48000` and `rateMultiplier = 2`, ALSA will run at 96000.
+            Set to 1 if you want ALSA to run at exactly the graph rate.
+          '';
+          type = int;
+          default = 2;
+          example = 1;
+        };
+
+        periodSize = mkOption {
+          description = ''
+            ALSA period size in frames.
+          '';
+          type = int;
+          default = 64;
+          example = 32;
+        };
       };
     };
   };
@@ -40,7 +97,7 @@ in {
   config = mkIf cfg.enable {
     services.pipewire = {
       # make sure PipeWire is enabled if the module is imported
-      # and low latency is enabledd
+      # and low latency is enabled
       enable = true;
 
       # write extra config
@@ -80,19 +137,20 @@ in {
 
       # ensure WirePlumber is enabled explicitly (defaults to true while PW is enabled)
       # and write extra config to ship low latency rules for alsa
-
       wireplumber = {
         enable = true;
-        extraConfig."99-alsa-lowlatency"."monitor.alsa.rules" = [
-          {
-            matches = [{"node.name" = "~alsa_output.*";}];
-            actions.update-props = {
-              "audio.format" = "S32LE";
-              "audio.rate" = cfg.rate * 2;
-              "api.alsa.period-size" = 2;
-            };
-          }
-        ];
+        extraConfig = mkIf cfg.alsa.enable {
+          "99-alsa-lowlatency"."monitor.alsa.rules" = [
+            {
+              matches = [{"node.name" = cfg.alsa.devicePattern;}];
+              actions.update-props = {
+                "audio.format" = cfg.alsa.format;
+                "audio.rate" = cfg.rate * cfg.alsa.rateMultiplier;
+                "api.alsa.period-size" = cfg.alsa.periodSize;
+              };
+            }
+          ];
+        };
       };
     };
   };
