@@ -65,7 +65,7 @@ in {
         };
 
         format = mkOption {
-          description = "Target audio. format for ALSA (e. g. S16_LE, S24_3LE, S32LE)";
+          description = "Target audio format for ALSA (e.g. S16_LE, S24_3LE, S32LE)";
           type = str;
           default = "S32LE";
           example = "S24_3LE";
