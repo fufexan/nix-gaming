@@ -70,26 +70,6 @@ in {
           default = "S32LE";
           example = "S24_3LE";
         };
-
-        rateMultiplier = mkOption {
-          description = ''
-            Multiplier for the rate when setting `audio.rate`. For example,
-            with `rate = 48000` and `rateMultiplier = 2`, ALSA will run at 96000.
-            Set to 1 if you want ALSA to run at exactly the graph rate.
-          '';
-          type = int;
-          default = 2;
-          example = 1;
-        };
-
-        periodSize = mkOption {
-          description = ''
-            ALSA period size in frames.
-          '';
-          type = int;
-          default = 64;
-          example = 32;
-        };
       };
     };
   };
@@ -135,7 +115,7 @@ in {
         };
       };
 
-      # ensure WirePlumber is enabled explicitly (defaults to true while PW is enabled)
+      # ensure WirePlumber is enabled explicitly
       # and write extra config to ship low latency rules for alsa
       wireplumber = {
         enable = true;
@@ -145,8 +125,7 @@ in {
               matches = [{"node.name" = cfg.alsa.devicePattern;}];
               actions.update-props = {
                 "audio.format" = cfg.alsa.format;
-                "audio.rate" = cfg.rate * cfg.alsa.rateMultiplier;
-                "api.alsa.period-size" = cfg.alsa.periodSize;
+                "audio.rate" = cfg.rate;
               };
             }
           ];
