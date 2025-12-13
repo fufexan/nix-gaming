@@ -4,6 +4,7 @@
   fetchurl,
   librsvg,
   imagemagick,
+  fetchgit,
 }: let
   osu-web-rev = "96e384d5932c0113d1ad8fa8c6ac1052d1e22268";
   osu-mime-spec-rev = "a715a74c2188297e61ac629abaed27fa56f0538c";
@@ -21,9 +22,10 @@ in
         url = "https://raw.githubusercontent.com/ppy/osu-web/${osu-web-rev}/public/images/layout/osu-logo-white.svg";
         sha256 = "XvYBIGyvTTfMAozMP9gmr3uYEJaMcvMaIzwO7ZILrkY=";
       })
-      (fetchurl {
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/osu-file-extensions.xml?h=osu-mime&id=${osu-mime-spec-rev}";
-        sha256 = "vAg2ilU+ITaE3KSYKAAqbqq9+M2pTXFp/dSyzWgtNiY=";
+      (fetchgit {
+        url = "https://aur.archlinux.org/osu-mime";
+        rev = osu-mime-spec-rev;
+        sha256 = "sha256-Ef/nApqNOD8mMqTxb0XV6oxgaYGweWsy9zUalgHruDM=";
       })
     ];
 
@@ -57,7 +59,7 @@ in
           mv 'osu!.png' "$icon_dir"
       done
 
-      cp "''${srcs[2]}" "$mime_dir/osu.xml"
+      cp "''${srcs[2]}/osu-file-extensions.xml" "$mime_dir/osu.xml"
     '';
 
     meta = with lib; {
