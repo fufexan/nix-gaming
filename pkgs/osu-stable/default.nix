@@ -8,7 +8,7 @@
   wine-discord-ipc-bridge,
   winetricks,
   wine,
-  umu-launcher,
+  umu-launcher-git,
   proton-osu-bin,
   wineFlags ? "",
   pname ? "osu-stable",
@@ -51,7 +51,7 @@
     PATH=${
       lib.makeBinPath (
         if useUmu
-        then [umu-launcher]
+        then [umu-launcher-git]
         else [wine winetricks]
       )
     }:$PATH
