@@ -137,7 +137,7 @@
       };
 
       osu-stable = pkgs.callPackage ./osu-stable {
-        inherit (config.packages) osu-mime proton-osu-bin umu-launcher;
+        inherit (config.packages) osu-mime proton-osu-bin umu-launcher-git;
         wine = config.packages.wine-osu;
         wine-discord-ipc-bridge = config.packages.wine-discord-ipc-bridge.override {
           wine = config.packages.wine-osu;
@@ -170,7 +170,7 @@
         wine = config.packages.wine-tkg;
         winetricks = config.packages.winetricks-git;
 
-        inherit (config.packages) umu-launcher wineprefix-preparer;
+        inherit (config.packages) umu-launcher-git wineprefix-preparer;
       };
       star-citizen-umu = config.packages.star-citizen.override {useUmu = true;};
 
