@@ -7,7 +7,7 @@
   winetricks,
   wine,
   wineprefix-preparer,
-  umu-launcher,
+  umu-launcher-git,
   proton-ge-bin,
   wineFlags ? "",
   pname ? "star-citizen",
@@ -78,7 +78,7 @@
     PATH=${
       lib.makeBinPath (
         if useUmu
-        then [umu-launcher]
+        then [umu-launcher-git]
         else [wine winetricks]
       )
     }:$PATH
