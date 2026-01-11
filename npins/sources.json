@@ -114,17 +114,20 @@
       "hash": "sha256-71fnsuWWvPE9mEfFtcaDDOUM3Bo04Eu0RqCTyD8ZmxM="
     },
     "npins": {
-      "type": "Git",
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
         "owner": "andir",
         "repo": "npins"
       },
-      "branch": "master",
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
       "submodules": false,
-      "revision": "e49bcf58d66fa7f586aff687feae72c23e429672",
-      "url": "https://github.com/andir/npins/archive/e49bcf58d66fa7f586aff687feae72c23e429672.tar.gz",
-      "hash": "sha256-ZLrVWa7WU+IUXPAd6mR7B9c6FDZSiGgW8ClfW0SxbMs=",
+      "version": "0.4.0",
+      "revision": "52904b878c2db61e062b63beb07784d41f98c765",
+      "url": "https://api.github.com/repos/andir/npins/tarball/refs/tags/0.4.0",
+      "hash": "sha256-ksOXi7u4bpHyWNHwkUR62fdwKowPW5GqBS7MA7Apwh4=",
       "frozen": true
     },
     "proton-osu": {
@@ -243,5 +246,5 @@
       "hash": "sha256-5yUKmLrj/nUFzgRv/afAcOjO3pwQWFWWD9pvKY2upbI="
     }
   },
-  "version": 6
+  "version": 7
 }

@@ -105,6 +105,8 @@ let
         then mkChannelSource fetchers spec
         else if spec.type == "Tarball"
         then mkTarballSource fetchers spec
+        else if spec.type == "Container"
+        then mkContainerSource pkgs spec
         else builtins.throw "Unknown source type ${spec.type}";
     in
       spec // {outPath = mayOverride name path;};
@@ -138,6 +140,8 @@ let
           then "https://github.com/${repository.owner}/${repository.repo}.git"
           else if repository.type == "GitLab"
           then "${repository.server}/${repository.repo_path}.git"
+          else if repository.type == "Forgejo"
+          then "${repository.server}/${repository.owner}/${repository.repo}.git"
           else throw "Unrecognized repository type ${repository.type}";
         urlToName = url: rev: let
           matched = builtins.match "^.*/([^/]*)(\\.git)?$" url;
@@ -192,6 +196,21 @@ let
       url = locked_url;
       sha256 = hash;
     };
+
+  mkContainerSource = pkgs: {
+    image_name,
+    image_tag,
+    image_digest,
+    ...
+  }:
+    if pkgs == null
+    then builtins.throw "container sources require passing in a Nixpkgs value: https://github.com/andir/npins/blob/master/README.md#using-the-nixpkgs-fetchers"
+    else
+      pkgs.dockerTools.pullImage {
+        imageName = image_name;
+        imageDigest = image_digest;
+        finalImageTag = image_tag;
+      };
 in
   mkFunctor (
     {input ? ./sources.json}: let
@@ -209,7 +228,7 @@ in
         else throw "Unsupported input type ${builtins.typeOf input}, must be a path or an attrset";
       version = data.version;
     in
-      if version == 6
+      if version == 7
       then builtins.mapAttrs (name: spec: mkFunctor (mkSource name spec)) data.pins
       else throw "Unsupported format version ${toString version} in sources.json. Try running `npins upgrade`"
   )
