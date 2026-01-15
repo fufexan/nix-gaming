@@ -160,6 +160,22 @@
       "hash": "sha256-yJnJ7D/QHvZ+ieR8nAAnkFV8pzQkDaYDs0Xvo9YsDQA=",
       "frozen": true
     },
+    "rpc-bridge": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "EnderIce2",
+        "repo": "rpc-bridge"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.4.0.1",
+      "revision": "340243a1c9a461ab36b0ab356cff5d1edf17bea1",
+      "url": "https://api.github.com/repos/EnderIce2/rpc-bridge/tarball/refs/tags/v1.4.0.1",
+      "hash": "sha256-NB3GqwlJ1dkI+MmbjDEDhiAvvAtRHOdC/PEEyIP2i28="
+    },
     "umu-launcher": {
       "type": "Git",
       "repository": {

@@ -166,6 +166,8 @@
 
       rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
 
+      rpc-bridge = pkgs.callPackage ./rpc-bridge {inherit pins;};
+
       star-citizen = pkgs.callPackage ./star-citizen {
         wine = config.packages.wine-tkg;
         winetricks = config.packages.winetricks-git;
