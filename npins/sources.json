@@ -1,5 +1,21 @@
 {
   "pins": {
+    "d7vk": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "WinterSnowfall",
+        "repo": "d7vk"
+      },
+      "pre_releases": false,
+      "version_upper_bound": "v2.7.1",
+      "release_prefix": null,
+      "submodules": true,
+      "version": "v1.2",
+      "revision": "9e043bf78093218e5ff5768b7b4e0aead3142a91",
+      "url": null,
+      "hash": "sha256-+lwb/aUDZhJX75x8hnekLxxFgFUd+C/RbAtvpCYxQYE="
+    },
     "downlords-faf-client": {
       "type": "GitRelease",
       "repository": {
