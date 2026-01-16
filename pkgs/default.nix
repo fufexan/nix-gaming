@@ -218,6 +218,7 @@
           dxvk-nvapi-w32
           dxvk-nvapi-w64
           cnc-ddraw
+          d7vk-w32
           ;
       };
     };
