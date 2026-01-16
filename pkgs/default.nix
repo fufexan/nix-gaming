@@ -98,6 +98,8 @@
 
       cnc-ddraw = pkgs.callPackage ./cnc-ddraw {};
 
+      d7vk-w32 = pkgs.pkgsCross.mingw32.callPackage ./d7vk {inherit pins;};
+
       dxvk = pkgs.callPackage ./dxvk {inherit pins;};
       dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk {inherit pins;};
       dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk {inherit pins;};
