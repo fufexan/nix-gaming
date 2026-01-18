@@ -1,6 +1,5 @@
 {
   lib,
-  fetchpatch,
   # Enable an async patch, currently dxvk-gplasync
   withAsync ? true,
   # native inputs:
@@ -57,15 +56,10 @@ in
           --replace-warn "'glfw'" "'glfw3'"
       '';
 
-    patches =
-      lib.optional (lib.strings.compareVersions dxvk.version "v2.7" == 0) (fetchpatch {
-        url = "https://github.com/doitsujin/dxvk/commit/daed0c1ce8d39e6dcc1580b753554deb7fcbd2ae.patch";
-        sha256 = "X+dPgYnyfgK/xYFMIvtQ3eSG/hcr8UXGkQ0uHrRwNxY=";
-      })
-      ++ lib.optionals withAsync [
-        (dxvk-gplasync + "/patches/dxvk-gplasync-${lib.removePrefix "v" dxvk-gplasync.version}.patch")
-        (dxvk-gplasync + "/patches/global-dxvk.conf.patch")
-      ];
+    patches = lib.optionals withAsync [
+      (dxvk-gplasync + "/patches/dxvk-gplasync-${lib.removePrefix "v" dxvk-gplasync.version}.patch")
+      (dxvk-gplasync + "/patches/global-dxvk.conf.patch")
+    ];
 
     mesonFlags = [
       "--buildtype=release"
