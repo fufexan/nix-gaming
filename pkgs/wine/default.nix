@@ -64,11 +64,7 @@ in {
   wine-cachyos =
     (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaultsWow64 {
       pname = pnameGen "wine-cachyos";
-      version = lib.pipe pins.wine-cachyos.branch [
-        (lib.removePrefix "cachyos_")
-        (lib.removeSuffix "/main")
-        (lib.replaceString "_" ".")
-      ];
+      version = lib.removeSuffix "-wine" (lib.removePrefix "cachyos-" pins.wine-cachyos.version);
       src = pins.wine-cachyos;
     }))
     # https://github.com/CachyOS/CachyOS-PKGBUILDS/blob/b76138d70274f3ba6f7e0f7ca62fa2e335b93ad6/wine-cachyos/PKGBUILD#L116
