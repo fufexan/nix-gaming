@@ -93,7 +93,7 @@
         };
       umu-launcher-git = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/package.nix" {
         inherit (pkgs) umu-launcher;
-        inherit (config.packages) umu-launcher-unwrapped;
+        umu-launcher-unwrapped = config.packages.umu-launcher-unwrapped-git;
       };
 
       cnc-ddraw = pkgs.callPackage ./cnc-ddraw {};
