@@ -166,7 +166,10 @@
         inherit (config.packages) wine-discord-ipc-bridge;
       };
 
-      rocket-league = pkgs.callPackage ./rocket-league {wine = config.packages.wine-tkg;};
+      rocket-league = pkgs.callPackage ./rocket-league {
+        wine = config.packages.wine-tkg;
+        inherit (config.packages) umu;
+      };
 
       rpc-bridge = pkgs.callPackage ./rpc-bridge {inherit pins;};
 
