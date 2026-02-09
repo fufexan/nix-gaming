@@ -11,10 +11,10 @@
       "version_upper_bound": "v2.7.1",
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.2",
-      "revision": "9e043bf78093218e5ff5768b7b4e0aead3142a91",
+      "version": "v1.3",
+      "revision": "bdfd09c25404a2fd774ad0c35b09c5f19de5b209",
       "url": null,
-      "hash": "sha256-+lwb/aUDZhJX75x8hnekLxxFgFUd+C/RbAtvpCYxQYE="
+      "hash": "sha256-JU9n63NnnnjOa51D4oPY+1xkM6C8AuDXQwL9kRzv8Gg="
     },
     "downlords-faf-client": {
       "type": "GitRelease",
@@ -263,9 +263,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "05fb571c82b125c79068ff152dfd3a069d2b5550",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/05fb571c82b125c79068ff152dfd3a069d2b5550.tar.gz",
-      "hash": "sha256-lr64szFtxnaL1Y6+beQaEM/9VPUaIB/BBLZH1GX/YGg="
+      "revision": "c32c373b5fd2171e38720e8c2c7dd6e491d40a61",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/c32c373b5fd2171e38720e8c2c7dd6e491d40a61.tar.gz",
+      "hash": "sha256-WNABpW5tVoceZQ9WdV0eZoIB+2ODi3Zk7Oa+KDwdu+M="
     },
     "winetricks": {
       "type": "Git",
