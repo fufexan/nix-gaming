@@ -1,5 +1,4 @@
 {
-  inputs,
   self,
   pins,
   lib,
@@ -18,23 +17,14 @@
   stdenv,
   wine-mono,
 }: let
-  nixpkgs-wine = builtins.path {
-    path = inputs.nixpkgs;
-    name = "source";
-    filter = path: type: let
-      wineDir = "${inputs.nixpkgs}/pkgs/applications/emulators/wine/";
-    in (
-      (type == "directory" && (lib.hasPrefix path wineDir))
-      || (type != "directory" && (lib.hasPrefix wineDir path))
-    );
-  };
+  nixpkgs-wine = pkgs.path;
 
   defaults = let
-    sources = (import "${nixpkgs-wine}/pkgs/applications/emulators/wine/sources.nix" {inherit pkgs;}).unstable;
+    sources = (import (nixpkgs-wine + "/pkgs/applications/emulators/wine/sources.nix") {inherit pkgs;}).unstable;
   in {
     inherit supportFlags moltenvk;
     patches = [];
-    buildScript = replaceVars "${nixpkgs-wine}/pkgs/applications/emulators/wine/builder-wow.sh" {
+    buildScript = replaceVars (nixpkgs-wine + "/pkgs/applications/emulators/wine/builder-wow.sh") {
       pkgconfig64remove = lib.makeSearchPathOutput "dev" "lib/pkgconfig" [pkgs.glib pkgs.gst_all_1.gstreamer];
     };
     configureFlags = ["--disable-tests"];
@@ -44,13 +34,12 @@
     pkgArches = [pkgs pkgsi686Linux];
     platforms = ["x86_64-linux"];
     stdenv = overrideCC stdenv (wrapCCMulti gcc13);
-    wineRelease = "unstable";
+    useStaging = false;
     mainProgram = "wine64";
   };
 
   # defaults for newer WoW64 builds
-  defaultsWow64 = lib.recursiveUpdate defaults {
-    buildScript = null;
+  defaultsWow64 = lib.recursiveUpdate (removeAttrs defaults ["buildScript"]) {
     configureFlags = ["--disable-tests" "--enable-archs=x86_64,i386"];
     mingwGccs = with pkgsCross; [mingw32.buildPackages.gcc mingwW64.buildPackages.gcc];
     monos = [wine-mono];
@@ -62,7 +51,7 @@
   pnameGen = n: n + lib.optionalString (build == "full") "-full";
 in {
   wine-cachyos =
-    (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaultsWow64 {
+    (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (lib.recursiveUpdate defaultsWow64 {
       pname = pnameGen "wine-cachyos";
       version = lib.removeSuffix "-wine" (lib.removePrefix "cachyos-" pins.wine-cachyos.version);
       src = pins.wine-cachyos;
@@ -78,7 +67,7 @@ in {
       '';
     });
 
-  wine-ge = (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
+  wine-ge = (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (defaults
     // {
       pname = pnameGen "wine-ge";
       version = pins.proton-wine.branch;
@@ -88,7 +77,7 @@ in {
     meta = old.meta // {passthru.updateScript = ./update-wine-ge.sh;};
   });
 
-  wine-tkg = callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (lib.recursiveUpdate defaultsWow64
+  wine-tkg = callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (lib.recursiveUpdate defaultsWow64
     {
       pname = pnameGen "wine-tkg";
       version = lib.removeSuffix "\n" (lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg/VERSION));
@@ -105,7 +94,7 @@ in {
       sha256 = "sha256-2gBfsutKG0ok2ISnnAUhJit7H2TLPDpuP5gvfMVE44o=";
     };
   in
-    (callPackage "${nixpkgs-wine}/pkgs/applications/emulators/wine/base.nix" (defaults
+    (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (defaults
       // rec {
         inherit version pname;
         src = fetchFromGitHub {
@@ -114,7 +103,7 @@ in {
           rev = "wine-${version}";
           sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
         };
-        patches = ["${nixpkgs-wine}/pkgs/applications/emulators/wine/cert-path.patch"] ++ self.lib.mkPatches ./patches;
+        patches = [(nixpkgs-wine + "/pkgs/applications/emulators/wine/cert-path.patch")] ++ self.lib.mkPatches ./patches;
       }))
     .overrideDerivation (old: {
       nativeBuildInputs = with pkgs; [autoconf perl hexdump] ++ old.nativeBuildInputs;
