@@ -1,5 +1,5 @@
 {
-  "hash": "sha256-Bx9LKIfhyXoR15H/PWW+lCnu1t7EwnCIiL/VRro1jiM=",
-  "storePath": "/nix/store/26dafp4ws7may71afqhygnc4h91lpywx-wine-mono-10.4.1-x86.msi",
-  "version": "wine-mono-10.4.1"
+  "hash": "sha256-1+/t4Lm9z1ITT4zWztWdn+zpdvcLEaQAvbR7hkVpzSc=",
+  "storePath": "/nix/store/wwarvcpd5f23qh39y9qfv01f5r77vjhg-wine-mono-11.0.0-x86.msi",
+  "version": "wine-mono-11.0.0"
 }
