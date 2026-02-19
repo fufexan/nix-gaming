@@ -7,6 +7,7 @@
   makeDesktopItem,
   openjdk21,
   openjdk25,
+  xrandr,
   libx11,
   libxtst,
   libxxf86vm,
