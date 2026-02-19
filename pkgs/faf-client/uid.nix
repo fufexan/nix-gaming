@@ -11,7 +11,7 @@
   coreutils,
   pciutils,
   util-linux,
-  xorg,
+  xrandr,
 }: let
   path =
     [
@@ -24,7 +24,7 @@
       # lsblk
       util-linux
       # xrandr
-      xorg.xrandr
+      xrandr
     ];
 in
   stdenv.mkDerivation rec {
