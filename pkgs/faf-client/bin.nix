@@ -7,7 +7,9 @@
   makeDesktopItem,
   openjdk21,
   openjdk25,
-  xorg,
+  libx11,
+  libxtst,
+  libxxf86vm,
   libGL,
   gtk3,
   glib,
@@ -79,8 +81,7 @@
     ++ lib.optionals stdenvNoCC.isLinux [
       # lsblk
       util-linux
-      # xrandr
-      xorg.xrandr
+      xrandr
     ];
 
   libs = [
@@ -91,9 +92,9 @@
     gtk3
     libGL
     pango
-    xorg.libX11
-    xorg.libXtst
-    xorg.libXxf86vm
+    libx11
+    libxtst
+    libxxf86vm
   ];
 in
   stdenvNoCC.mkDerivation rec {
