@@ -14,7 +14,9 @@
   libGL,
   glib,
   gtk3,
-  xorg,
+  libx11,
+  libxtst,
+  libxxf86vm,
   fontconfig,
   freetype,
   pango,
@@ -81,9 +83,9 @@
     gtk3
     libGL
     pango
-    xorg.libX11
-    xorg.libXtst
-    xorg.libXxf86vm
+    libx11
+    libxtst
+    libxxf86vm
   ];
 
   jfxPlatform =
