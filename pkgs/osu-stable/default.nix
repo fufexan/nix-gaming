@@ -10,9 +10,11 @@
   wine,
   umu-launcher-git,
   proton-osu-bin,
+  flatpak-xdg-utils,
   wineFlags ? "",
   pname ? "osu-stable",
   location ? "$HOME/.osu",
+  nativeFileManager ? "${flatpak-xdg-utils}/bin/xdg-open",
   useUmu ? true,
   useGameMode ? true,
   protonPath ? "${proton-osu-bin.steamcompattool}",
@@ -36,6 +38,40 @@
 
   gameMode = lib.strings.optionalString useGameMode "${gamemode}/bin/gamemoderun";
 
+  # Based on: https://gist.github.com/maotovisk/1bf3a7c9054890f91b9234c3663c03a2
+  openNativeFolder = writeShellScriptBin "wine-open-native-folder" ''
+    windows_path="$1"
+    windows_path="''${windows_path#\"}"
+    windows_path="''${windows_path%\"}"
+    windows_path="''${windows_path%\'}"
+
+    normalized_path="$(printf '%s' "$windows_path" | tr '\\' '/')"
+
+    case "$normalized_path" in
+      [A-Za-z]:*)
+        drive_letter="$(printf '%s' "$normalized_path" | cut -c1 | tr '[:upper:]' '[:lower:]')"
+        path_part="''${normalized_path#?:}"
+        path_part="''${path_part#/}"
+        case "$drive_letter" in
+          z)
+            linux_path="/$path_part"
+            ;;
+          c)
+            linux_path="$WINEPREFIX/drive_c/$path_part"
+            ;;
+          *)
+            linux_path="$WINEPREFIX/dosdevices/$drive_letter:/$path_part"
+            ;;
+        esac
+        ;;
+      *)
+        linux_path="$normalized_path"
+        ;;
+    esac
+
+    exec "${nativeFileManager}" "$linux_path"
+  '';
+
   script = writeShellScriptBin pname ''
     export WINEARCH="win32"
     export WINEPREFIX="${location}"
@@ -58,6 +94,20 @@
     USER="$(whoami)"
     OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
+    configure_native_file_manager() {
+      local runner="$1"
+      local marker="$WINEPREFIX/.native-file-manager-configured"
+
+      if [ -f "$marker" ]; then
+        return
+      fi
+
+      "$runner" reg add 'HKEY_CLASSES_ROOT\folder\shell\open\command' /ve /d '"/bin/sh" "${openNativeFolder}/bin/wine-open-native-folder" "%1"' /f
+      "$runner" reg delete 'HKEY_CLASSES_ROOT\folder\shell\open\ddeexec' /f || true
+
+      touch "$marker"
+    }
+
     ${
       if useUmu
       then ''
@@ -72,6 +122,8 @@
           umu-run ${src}
           mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
         fi
+
+        configure_native_file_manager umu-run
       ''
       else ''
         if [ ! -d "$WINEPREFIX" ]; then
@@ -84,6 +136,8 @@
           wineserver -k
           mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
         fi
+
+        configure_native_file_manager wine
       ''
     }
 
@@ -125,6 +179,7 @@ in
       desktopItems
       script
       osu-mime
+      openNativeFolder
     ];
 
     meta = {
