@@ -15,3 +15,5 @@ This package has the following additional overrides:
 - `protonPath` Proton compatibility tool if umu is used.
 Defaults to [`proton-osu-bin`](../proton-osu-bin/README.md).
 - `protonVerbs`
+- `nativeFileManager` Native Linux file manager binary used when opening
+folders inside the game. Defaults to `xdg-open`.
