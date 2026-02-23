@@ -1,8 +1,9 @@
 { inputs, ... }:
 let
-  inherit (builtins) throw;
+  inherit (builtins) elem filter throw;
   inherit (inputs.nixpkgs.lib)
     warn
+    hasPrefix
     hasSuffix
     filesystem
     optionalString
@@ -12,7 +13,12 @@ in
 {
   flake.lib = {
     mkPatches =
-      dir: map (e: /. + e) (builtins.filter (hasSuffix ".patch") (filesystem.listFilesRecursive dir));
+      dir: excludes:
+      map (e: if hasPrefix "/nix/store" e then e else /. + e) (
+        builtins.filter (hasSuffix ".patch") (
+          filter (e: !(elem e excludes)) (filesystem.listFilesRecursive dir)
+        )
+      );
 
     legendaryBuilder =
       pkgs:
