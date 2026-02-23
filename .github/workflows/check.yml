@@ -8,7 +8,7 @@ jobs:
       matrix:
         command:
           - NIXPKGS_ALLOW_INSECURE=1 nix flake check --impure
-          - nix run nixpkgs#alejandra -- -c . -e ./npins
+          - nix run nixpkgs#nixfmt-tree -- --ci
 
     uses: ./.github/workflows/nix.yml
     with:
