@@ -18,7 +18,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "winetricks";
-    version = "git+${winetricks.revision}";
+    version = "0-git+${winetricks.revision}";
 
     src = winetricks;
 
