@@ -9,7 +9,8 @@
   steam-run,
   withSteamRun ? false,
   pname ? "technic-launcher",
-}: let
+}:
+let
   info = builtins.fromJSON (builtins.readFile ./info.json);
   inherit (info) version;
   src = fetchurl {
@@ -22,7 +23,7 @@
     inherit icon;
     comment = "Technic Platform Launcher";
     desktopName = "Technic Launcher";
-    categories = ["Game"];
+    categories = [ "Game" ];
   };
 
   icon = fetchurl {
@@ -33,21 +34,22 @@
 
   script = writeShellScriptBin pname ''
     PATH=$PATH:${gamemode} ${
-      if withSteamRun
-      then "${steam-run}/bin/steam-run"
-      else ""
+      if withSteamRun then "${steam-run}/bin/steam-run" else ""
     } ${gamemode}/bin/gamemoderun ${jdk8}/bin/java -jar ${src}
   '';
 in
-  symlinkJoin {
-    name = "${pname}-${version}";
-    paths = [desktopItems script];
+symlinkJoin {
+  name = "${pname}-${version}";
+  paths = [
+    desktopItems
+    script
+  ];
 
-    meta = {
-      description = "Minecraft Launcher with support for Technic Modpacks";
-      homepage = "https://technicpack.net";
-      license = lib.licenses.unfree;
-      maintainers = with lib.maintainers; [fufexan];
-      platforms = lib.platforms.linux;
-    };
-  }
+  meta = {
+    description = "Minecraft Launcher with support for Technic Modpacks";
+    homepage = "https://technicpack.net";
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ fufexan ];
+    platforms = lib.platforms.linux;
+  };
+}

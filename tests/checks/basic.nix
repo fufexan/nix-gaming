@@ -27,23 +27,25 @@ testers.nixosTest {
     };
 
     systemd.user.services = {
-      pipewire.wantedBy = ["default.target"];
-      pipewire-pulse.wantedBy = ["default.target"];
+      pipewire.wantedBy = [ "default.target" ];
+      pipewire-pulse.wantedBy = [ "default.target" ];
     };
   };
 
-  testScript = let
-    checkDir = writeShellScriptBin "checkDir" ''
-      if [ -e "$1" ]; then
-        echo "File $1 exists."
-      else
-        echo "File $1 does not exist."
-      fi
-    '';
-  in ''
-    machine.wait_for_unit("multi-user.target")
+  testScript =
+    let
+      checkDir = writeShellScriptBin "checkDir" ''
+        if [ -e "$1" ]; then
+          echo "File $1 exists."
+        else
+          echo "File $1 does not exist."
+        fi
+      '';
+    in
+    ''
+      machine.wait_for_unit("multi-user.target")
 
-    machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire.d/99-lowlatency.conf")
-    machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire-pulse.d/99-lowlatency.conf")
-  '';
+      machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire.d/99-lowlatency.conf")
+      machine.succeed("${lib.getExe checkDir} /etc/pipewire/pipewire-pulse.d/99-lowlatency.conf")
+    '';
 }

@@ -30,8 +30,18 @@ stdenvNoCC.mkDerivation rec {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [dpkg autoPatchelfHook wrapGAppsHook3];
-  buildInputs = [gtk3 libsoup_3 webkitgtk_4_1 glib-networking openssl_1_1];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    wrapGAppsHook3
+  ];
+  buildInputs = [
+    gtk3
+    libsoup_3
+    webkitgtk_4_1
+    glib-networking
+    openssl_1_1
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -41,8 +51,13 @@ stdenvNoCC.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeSearchPath "bin/java" [jdk17]}
-      --set LD_LIBRARY_PATH ${lib.makeLibraryPath [openal libpulseaudio]}
+      --prefix PATH : ${lib.makeSearchPath "bin/java" [ jdk17 ]}
+      --set LD_LIBRARY_PATH ${
+        lib.makeLibraryPath [
+          openal
+          libpulseaudio
+        ]
+      }
     )
   '';
 }

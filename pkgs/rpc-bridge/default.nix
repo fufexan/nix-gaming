@@ -3,51 +3,53 @@
   lib,
   pins,
   pkgsCross,
-}: let
+}:
+let
   inherit (pins) rpc-bridge;
 in
-  stdenv.mkDerivation {
-    pname = "rpc-bridge";
-    version = lib.removePrefix "v" rpc-bridge.version;
+stdenv.mkDerivation {
+  pname = "rpc-bridge";
+  version = lib.removePrefix "v" rpc-bridge.version;
 
-    src = rpc-bridge;
+  src = rpc-bridge;
 
-    nativeBuildInputs = [
-      pkgsCross.mingwW64.stdenv.cc
-    ];
+  nativeBuildInputs = [
+    pkgsCross.mingwW64.stdenv.cc
+  ];
 
-    makeFlags = [
-      "GIT_COMMIT=${builtins.substring 0 7 rpc-bridge.revision}"
-      "GIT_BRANCH=master"
-    ];
+  makeFlags = [
+    "GIT_COMMIT=${builtins.substring 0 7 rpc-bridge.revision}"
+    "GIT_BRANCH=master"
+  ];
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/bin
+    mkdir -p $out/bin
 
-      cp build/bridge.exe $out/bin
+    cp build/bridge.exe $out/bin
 
-      ${
-        if stdenv.isDarwin
-        then ''
+    ${
+      if stdenv.isDarwin then
+        ''
           cp build/launchd.sh $out/bin
         ''
-        else ''
+      else
+        ''
           cp build/bridge.sh $out/bin
         ''
-      }
+    }
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    meta = {
-      description = "Discord RPC Bridge for Wine";
-      homepage = "https://github.com/EnderIce2/rpc-bridge";
-      maintainers = with lib.maintainers; [ccicnce113424];
-      platforms = lib.platforms.unix;
-      license = lib.licenses.mit;
-    };
-  }
+  meta = {
+    description = "Discord RPC Bridge for Wine";
+    homepage = "https://github.com/EnderIce2/rpc-bridge";
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
+    platforms = lib.platforms.unix;
+    license = lib.licenses.mit;
+  };
+}

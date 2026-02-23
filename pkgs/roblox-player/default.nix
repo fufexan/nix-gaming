@@ -11,10 +11,11 @@
   wineFlags ? "",
   pname ? "roblox-player",
   location ? "$HOME/Games/roblox-player",
-  tricks ? [],
+  tricks ? [ ],
   preCommands ? "",
   postCommands ? "",
-}: let
+}:
+let
   version = "37cf60402a5648b4";
 
   src = fetchurl rec {
@@ -30,10 +31,7 @@
   };
 
   # concat winetricks args
-  tricksFmt = with builtins;
-    if (length tricks) > 0
-    then concatStringsSep " " tricks
-    else "-V";
+  tricksFmt = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
 
   script = writeShellScriptBin pname ''
     export WINEPREFIX="${location}"
@@ -69,19 +67,22 @@
     inherit icon;
     comment = "Roblox Player";
     desktopName = "Roblox Player";
-    categories = ["Game"];
-    mimeTypes = ["x-scheme-handler/roblox-player"];
+    categories = [ "Game" ];
+    mimeTypes = [ "x-scheme-handler/roblox-player" ];
   };
 in
-  symlinkJoin {
-    name = pname;
-    paths = [desktopItems script];
+symlinkJoin {
+  name = pname;
+  paths = [
+    desktopItems
+    script
+  ];
 
-    meta = {
-      description = "Roblox Player installer and runner";
-      homepage = "https://roblox.com";
-      license = lib.licenses.unfree;
-      maintainers = with lib.maintainers; [fufexan];
-      platforms = ["x86_64-linux"];
-    };
-  }
+  meta = {
+    description = "Roblox Player installer and runner";
+    homepage = "https://roblox.com";
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ fufexan ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

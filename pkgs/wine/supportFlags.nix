@@ -34,22 +34,20 @@ rec {
     ffmpegSupport = false;
   };
 
-  full =
-    base
-    // {
-      gtkSupport = true;
-      gstreamerSupport = true;
-      openclSupport = true;
-      odbcSupport = true;
-      netapiSupport = true;
-      vaSupport = true;
-      pcapSupport = true;
-      v4lSupport = true;
-      gphoto2Support = true;
-      krb5Support = true;
-      embedInstallers = true;
-      # re-enabled for newer Wine versions
-      waylandSupport = true;
-      ffmpegSupport = true;
-    };
+  full = base // {
+    gtkSupport = true;
+    gstreamerSupport = true;
+    openclSupport = true;
+    odbcSupport = true;
+    netapiSupport = true;
+    vaSupport = true;
+    pcapSupport = true;
+    v4lSupport = true;
+    gphoto2Support = true;
+    krb5Support = true;
+    embedInstallers = true;
+    # re-enabled for newer Wine versions
+    waylandSupport = true;
+    ffmpegSupport = true;
+  };
 }

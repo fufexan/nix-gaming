@@ -10,11 +10,19 @@
   wine,
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
-  tricks ? ["arial" "cjkfonts" "vcrun2019" "d3dcompiler_43" "d3dcompiler_47" "d3dx9"],
+  tricks ? [
+    "arial"
+    "cjkfonts"
+    "vcrun2019"
+    "d3dcompiler_43"
+    "d3dcompiler_47"
+    "d3dx9"
+  ],
   dxvk_hud ? "compiler",
   callPackage,
   enableBakkesmod ? false,
-}: let
+}:
+let
   icon = fetchurl {
     # original url = "https://www.pngkey.com/png/full/16-160666_rocket-league-png.png";
     url = "https://user-images.githubusercontent.com/36706276/203341314-eaaa0659-9b79-4f40-8b4a-9bc1f2b17e45.png";
@@ -23,10 +31,7 @@
   };
 
   # concat winetricks args
-  tricksString = with builtins;
-    if (length tricks) > 0
-    then concatStringsSep " " tricks
-    else "-V";
+  tricksString = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
 
   script = writeShellScriptBin pname ''
     export WINEPREFIX="${location}"
@@ -55,20 +60,24 @@
     exec = "${script}/bin/${pname}";
     inherit icon;
     desktopName = "Rocket League";
-    categories = ["Game"];
+    categories = [ "Game" ];
   };
 
-  bakkesmod = callPackage ./bakkesmod.nix {inherit location wine;};
+  bakkesmod = callPackage ./bakkesmod.nix { inherit location wine; };
 in
-  symlinkJoin {
-    name = pname;
-    paths = [desktopItems script] ++ lib.optionals enableBakkesmod [bakkesmod];
+symlinkJoin {
+  name = pname;
+  paths = [
+    desktopItems
+    script
+  ]
+  ++ lib.optionals enableBakkesmod [ bakkesmod ];
 
-    meta = {
-      description = "Rocket League installer and runner (using legendary)";
-      homepage = "https://rocketleague.com";
-      license = lib.licenses.unfree;
-      maintainers = with lib.maintainers; [fufexan];
-      platforms = ["x86_64-linux"];
-    };
-  }
+  meta = {
+    description = "Rocket League installer and runner (using legendary)";
+    homepage = "https://rocketleague.com";
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ fufexan ];
+    platforms = [ "x86_64-linux" ];
+  };
+}
