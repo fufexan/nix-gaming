@@ -1,2 +1,3 @@
 # nix-build/nix build symlinks
 result
+.pre-commit-config.yaml
