@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   options = {
     programs.steam.platformOptimizations.enable = lib.mkEnableOption ''
       set the same sysctl settings as are set on SteamOS

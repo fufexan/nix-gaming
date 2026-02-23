@@ -21,46 +21,34 @@
   freetype,
   pango,
   callPackage,
-  uid ? callPackage ./uid.nix {inherit pins;},
-  ice-adapter ?
-    callPackage ./ice-adapter.nix {
-      inherit pins;
-      enableJfx = false;
-    },
+  uid ? callPackage ./uid.nix { inherit pins; },
+  ice-adapter ? callPackage ./ice-adapter.nix {
+    inherit pins;
+    enableJfx = false;
+  },
   unstable ? false,
   enablePatches ? true,
   enableUpdateCheck ? (!enablePatches),
-}: let
+}:
+let
   pname = "faf-client";
 
-  jdk =
-    if lib.versionAtLeast version "2025.9.3"
-    then openjdk25
-    else openjdk21;
+  jdk = if lib.versionAtLeast version "2025.9.3" then openjdk25 else openjdk21;
 
-  gradle =
-    if lib.versionAtLeast version "2025.9.3"
-    then gradle_9
-    else gradle_8;
+  gradle = if lib.versionAtLeast version "2025.9.3" then gradle_9 else gradle_8;
 
-  version = builtins.replaceStrings ["v"] [""] src.version;
+  version = builtins.replaceStrings [ "v" ] [ "" ] src.version;
 
-  src =
-    if unstable
-    then pins.downlords-faf-client-unstable
-    else pins.downlords-faf-client;
+  src = if unstable then pins.downlords-faf-client-unstable else pins.downlords-faf-client;
 
-  depsPath =
-    if unstable
-    then ./deps-unstable.json
-    else ./deps-stable.json;
+  depsPath = if unstable then ./deps-unstable.json else ./deps-stable.json;
 
   meta = with lib; {
     description = "Official client for Forged Alliance Forever";
     homepage = "https://github.com/FAForever/downlords-faf-client";
     license = licenses.mit;
-    maintainers = with maintainers; [chayleaf];
-    platforms = platforms.darwin ++ ["x86_64-linux"];
+    maintainers = with maintainers; [ chayleaf ];
+    platforms = platforms.darwin ++ [ "x86_64-linux" ];
   };
 
   icon = "faf-client";
@@ -71,8 +59,11 @@
     exec = "faf-client";
     comment = meta.description;
     desktopName = "Forged Alliance Forever";
-    categories = ["Game"];
-    keywords = ["FAF" "Supreme Commander"];
+    categories = [ "Game" ];
+    keywords = [
+      "FAF"
+      "Supreme Commander"
+    ];
   };
 
   libs = lib.optionals stdenvNoCC.isLinux [
@@ -89,24 +80,33 @@
   ];
 
   jfxPlatform =
-    if stdenvNoCC.isDarwin
-    then
+    if stdenvNoCC.isDarwin then
       (
-        if stdenvNoCC.isAarch64
-        then "mac-aarch64"
-        else if stdenvNoCC.isx86_64
-        then "mac"
-        else null
+        if stdenvNoCC.isAarch64 then
+          "mac-aarch64"
+        else if stdenvNoCC.isx86_64 then
+          "mac"
+        else
+          null
       )
-    else if stdenvNoCC.isLinux
-    then "linux"
-    else null;
+    else if stdenvNoCC.isLinux then
+      "linux"
+    else
+      null;
 
   self = stdenvNoCC.mkDerivation {
-    inherit pname version meta src desktopItem gawk runtimeShell;
+    inherit
+      pname
+      version
+      meta
+      src
+      desktopItem
+      gawk
+      runtimeShell
+      ;
     libs = lib.makeLibraryPath libs;
 
-    patches = lib.optionals (!enableUpdateCheck) [./disable-update-check.patch];
+    patches = lib.optionals (!enableUpdateCheck) [ ./disable-update-check.patch ];
 
     nativeBuildInputs = [
       gradle
@@ -117,7 +117,11 @@
       sed -i "s#compileJava\\.dependsOn 'downloadNativeDependencies'##" build.gradle
       sed -i "s#codacy-coverage-reporter:-SNAPSHOT#codacy-coverage-reporter:latest.integration#" build.gradle
     '';
-    gradleFlags = ["-Dorg.gradle.java.home=${jdk}" "-Pversion=${version}" "-PjavafxPlatform=${jfxPlatform}"];
+    gradleFlags = [
+      "-Dorg.gradle.java.home=${jdk}"
+      "-Pversion=${version}"
+      "-PjavafxPlatform=${jfxPlatform}"
+    ];
 
     preBuild = ''
       mkdir -p build/resources/native
@@ -191,4 +195,4 @@
     };
   };
 in
-  self
+self

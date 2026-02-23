@@ -2,17 +2,19 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int str bool;
 
   cfg = config.services.pipewire.lowLatency;
   qr = "${toString cfg.quantum}/${toString cfg.rate}";
-in {
+in
+{
   # low-latency PipeWire configuration
   # extends the nixpkgs module
-  meta.maintainers = with lib.maintainers; [fufexan];
+  meta.maintainers = with lib.maintainers; [ fufexan ];
 
   options = {
     services.pipewire.lowLatency = {
@@ -103,7 +105,7 @@ in {
         };
 
         pipewire-pulse."99-lowlatency"."pulse.properties" = {
-          "server.address" = ["unix:native"];
+          "server.address" = [ "unix:native" ];
           "pulse.min.req" = qr;
           "pulse.min.quantum" = qr;
           "pulse.min.frag" = qr;
@@ -122,7 +124,7 @@ in {
         extraConfig = mkIf cfg.alsa.enable {
           "99-alsa-lowlatency"."monitor.alsa.rules" = [
             {
-              matches = [{"node.name" = cfg.alsa.devicePattern;}];
+              matches = [ { "node.name" = cfg.alsa.devicePattern; } ];
               actions.update-props = {
                 "audio.format" = cfg.alsa.format;
                 "audio.rate" = cfg.rate;

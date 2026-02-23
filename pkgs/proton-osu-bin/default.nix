@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/whrvt/umubuilder";
     license = lib.licenses.gpl3Plus;
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
     passthru.updateScript = ./update.sh;
   };
 })

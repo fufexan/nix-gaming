@@ -18,12 +18,17 @@
   useUmu ? true,
   useGameMode ? true,
   protonPath ? "${proton-osu-bin.steamcompattool}",
-  protonVerbs ? ["waitforexitandrun"],
-  tricks ? ["gdiplus" "dotnet45" "meiryo"],
+  protonVerbs ? [ "waitforexitandrun" ],
+  tricks ? [
+    "gdiplus"
+    "dotnet45"
+    "meiryo"
+  ],
   preCommands ? "",
   postCommands ? "",
   osu-mime,
-}: let
+}:
+let
   src = fetchurl rec {
     url = "https://m1.ppy.sh/r/osu!install.exe";
     name = "osuinstall-${lib.strings.sanitizeDerivationName sha256}.exe";
@@ -31,10 +36,7 @@
   };
 
   # concat winetricks args
-  tricksFmt = with builtins;
-    if (length tricks) > 0
-    then concatStringsSep " " tricks
-    else "-V";
+  tricksFmt = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
 
   gameMode = lib.strings.optionalString useGameMode "${gamemode}/bin/gamemoderun";
 
@@ -86,9 +88,13 @@
 
     PATH=${
       lib.makeBinPath (
-        if useUmu
-        then [umu-launcher-git]
-        else [wine winetricks]
+        if useUmu then
+          [ umu-launcher-git ]
+        else
+          [
+            wine
+            winetricks
+          ]
       )
     }:$PATH
     USER="$(whoami)"
@@ -109,50 +115,52 @@
     }
 
     ${
-      if useUmu
-      then ''
-        export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
-        export PROTONPATH="${protonPath}"
+      if useUmu then
+        ''
+          export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
+          export PROTONPATH="${protonPath}"
 
-        if [ ! -d "$WINEPREFIX" ]; then
-          umu-run winetricks ${tricksFmt}
-        fi
+          if [ ! -d "$WINEPREFIX" ]; then
+            umu-run winetricks ${tricksFmt}
+          fi
 
-        if [ ! -f "$OSU" ]; then
-          umu-run ${src}
-          mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
-        fi
+          if [ ! -f "$OSU" ]; then
+            umu-run ${src}
+            mv "$WINEPREFIX/drive_c/users/steamuser/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
+          fi
 
-        configure_native_file_manager umu-run
-      ''
-      else ''
-        if [ ! -d "$WINEPREFIX" ]; then
-          # install tricks
-          winetricks -q -f ${tricksFmt}
-          wineserver -k
+          configure_native_file_manager umu-run
+        ''
+      else
+        ''
+          if [ ! -d "$WINEPREFIX" ]; then
+            # install tricks
+            winetricks -q -f ${tricksFmt}
+            wineserver -k
 
-          # install osu
-          wine ${src}
-          wineserver -k
-          mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
-        fi
+            # install osu
+            wine ${src}
+            wineserver -k
+            mv "$WINEPREFIX/drive_c/users/$USER/AppData/Local/osu!" $WINEPREFIX/drive_c/osu
+          fi
 
-        configure_native_file_manager wine
-      ''
+          configure_native_file_manager wine
+        ''
     }
 
     ${preCommands}
 
     ${
-      if useUmu
-      then ''
-        ${gameMode} umu-run "$OSU" "$@"
-      ''
-      else ''
-        wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
-        ${gameMode} wine ${wineFlags} "$OSU" "$@"
-        wineserver -w
-      ''
+      if useUmu then
+        ''
+          ${gameMode} umu-run "$OSU" "$@"
+        ''
+      else
+        ''
+          wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
+          ${gameMode} wine ${wineFlags} "$OSU" "$@"
+          wineserver -w
+        ''
     }
 
     ${postCommands}
@@ -164,7 +172,7 @@
     icon = "osu!"; # icon comes from the osu-mime package
     comment = "Rhythm is just a *click* away";
     desktopName = "osu!stable";
-    categories = ["Game"];
+    categories = [ "Game" ];
     mimeTypes = [
       "application/x-osu-skin-archive"
       "application/x-osu-replay"
@@ -173,21 +181,21 @@
     ];
   };
 in
-  symlinkJoin {
-    name = pname;
-    paths = [
-      desktopItems
-      script
-      osu-mime
-      openNativeFolder
-    ];
+symlinkJoin {
+  name = pname;
+  paths = [
+    desktopItems
+    script
+    osu-mime
+    openNativeFolder
+  ];
 
-    meta = {
-      description = "osu!stable installer and runner";
-      homepage = "https://osu.ppy.sh";
-      license = lib.licenses.unfree;
-      maintainers = with lib.maintainers; [fufexan];
-      passthru.updateScript = ./update.sh;
-      platforms = ["x86_64-linux"];
-    };
-  }
+  meta = {
+    description = "osu!stable installer and runner";
+    homepage = "https://osu.ppy.sh";
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ fufexan ];
+    passthru.updateScript = ./update.sh;
+    platforms = [ "x86_64-linux" ];
+  };
+}

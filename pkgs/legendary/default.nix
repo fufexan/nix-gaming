@@ -11,19 +11,17 @@
   desktopName ? "",
   icon ? null,
   location ? "$HOME/Games",
-  meta ? {},
+  meta ? { },
   pname ? "",
-  tricks ? [],
+  tricks ? [ ],
   preCommands ? "",
   postCommands ? "",
   discordIntegration ? true,
   gamemodeIntegration ? true,
-}: let
+}:
+let
   # concat winetricks args
-  tricksString = with builtins;
-    if (length tricks) > 0
-    then concatStringsSep " " tricks
-    else "-V";
+  tricksString = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
 
   script = writeShellScriptBin pname ''
     export DXVK_HUD=compiler
@@ -53,12 +51,15 @@
     exec = "${script}/bin/${pname}";
     inherit icon desktopName;
     name = pname;
-    categories = ["Game"];
+    categories = [ "Game" ];
   };
 in
-  symlinkJoin {
-    name = pname;
-    paths = [desktopItems script];
+symlinkJoin {
+  name = pname;
+  paths = [
+    desktopItems
+    script
+  ];
 
-    inherit meta;
-  }
+  inherit meta;
+}

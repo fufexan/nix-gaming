@@ -8,7 +8,8 @@
   wine,
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
-}: let
+}:
+let
   bakkesmodIcon = fetchurl {
     url = "https://bp-prod.nyc3.digitaloceanspaces.com/site-assets/static/bm-transparent.png";
     name = "bakkesmod.png";
@@ -54,16 +55,19 @@
     exec = "${bakkesmodScript}/bin/bakkesmod";
     icon = bakkesmodIcon;
     desktopName = "Bakkesmod (Rocket League mod)";
-    categories = ["Game"];
+    categories = [ "Game" ];
   };
 in
-  symlinkJoin {
-    name = "bakkesmod";
-    paths = [bakkesmodDesktopItem bakkesmodScript];
+symlinkJoin {
+  name = "bakkesmod";
+  paths = [
+    bakkesmodDesktopItem
+    bakkesmodScript
+  ];
 
-    meta = {
-      description = "Rocket League mod";
-      homepage = "https://www.bakkesmod.com";
-      platforms = ["x86_64-linux"];
-    };
-  }
+  meta = {
+    description = "Rocket League mod";
+    homepage = "https://www.bakkesmod.com";
+    platforms = [ "x86_64-linux" ];
+  };
+}
