@@ -133,28 +133,25 @@ in
   wine-osu =
     let
       pname = pnameGen "wine-osu";
-      version = "7.0";
+      version = "11.8";
       staging = fetchFromGitHub {
         owner = "wine-staging";
         repo = "wine-staging";
         rev = "v${version}";
-        sha256 = "sha256-2gBfsutKG0ok2ISnnAUhJit7H2TLPDpuP5gvfMVE44o=";
+        sha256 = "sha256-lW5dfCfsB+z84mlLpfmkR7QDxmhL+RcBufSftUutHto=";
       };
     in
     (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (
-      defaults
-      // rec {
+      lib.recursiveUpdate defaultsWow64 {
         inherit version pname;
-        src = fetchFromGitHub {
-          owner = "wine-mirror";
-          repo = "wine";
-          rev = "wine-${version}";
-          sha256 = "sha256-uDdjgibNGe8m1EEL7LGIkuFd1UUAFM21OgJpbfiVPJs=";
+        src = fetchurl {
+          url = "https://dl.winehq.org/wine/source/11.x/wine-${version}.tar.xz";
+          hash = "sha256-U6qFmV1Ll/ARahxWuKahQXcw71mid4GdLT0xNk6lVrA=";
         };
         patches = [
           (nixpkgs-wine + "/pkgs/applications/emulators/wine/cert-path.patch")
         ]
-        ++ self.lib.mkPatches ./patches;
+        ++ self.lib.mkPatches pins.wine-osu-patches (_: true);
       }
     )).overrideDerivation
       (old: {
@@ -162,18 +159,36 @@ in
           with pkgs;
           [
             autoconf
-            perl
+            # autoreconfHook
+            gitMinimal
             hexdump
+            nasm
+            perl
+            python3
           ]
           ++ old.nativeBuildInputs;
+        buildInputs =
+          with pkgs;
+          [
+            autoconf
+            perl
+            gitMinimal
+          ]
+          ++ old.buildInputs;
+
+        NIX_CFLAGS_COMPILE = "-Wno-incompatible-pointer-types";
+
         prePatch = ''
           patchShebangs tools
-          cp -r ${staging}/patches .
+          cp -r ${staging}/{patches,staging} .
           chmod +w patches
-          cd patches
-          patchShebangs gitapply.sh
-          ./patchinstall.sh DESTDIR="$PWD/.." --all ${lib.concatMapStringsSep " " (ps: "-W ${ps}") [ ]}
-          cd ..
+          patchShebangs ./patches/gitapply.sh
+          python3 ./staging/patchinstall.py DESTDIR="$PWD" --no-autoconf --all
+        '';
+
+        postPatch = ''
+          ./tools/make_requests
+          autoreconf -f
         '';
       });
 }
