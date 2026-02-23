@@ -254,6 +254,19 @@
       "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.3",
       "hash": "sha256-jzsbOKMakNQ6RNMlioX088fGzFBDxOP45Atlsfm2RKg="
     },
+    "wine-osu-patches": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "whrvt",
+        "repo": "wine-osu-patches"
+      },
+      "branch": "winello",
+      "submodules": false,
+      "revision": "a03aec10fc44c9bca83d52f0a5a84e1807b66147",
+      "url": "https://github.com/whrvt/wine-osu-patches/archive/a03aec10fc44c9bca83d52f0a5a84e1807b66147.tar.gz",
+      "hash": "sha256-xiu/HRVbx/WlawgkRCWHbLeyLDkQNroV4Kmq8++fGG8="
+    },
     "wine-tkg": {
       "type": "Git",
       "repository": {
