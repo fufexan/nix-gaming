@@ -11,10 +11,10 @@
       "version_upper_bound": "v2.7.1",
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.3",
-      "revision": "bdfd09c25404a2fd774ad0c35b09c5f19de5b209",
+      "version": "v1.4",
+      "revision": "2e6f6f91c9f475d1d79cacf80b398b2372dc71b0",
       "url": null,
-      "hash": "sha256-JU9n63NnnnjOa51D4oPY+1xkM6C8AuDXQwL9kRzv8Gg="
+      "hash": "sha256-yTg7MY5Akqv7QfWLA/kFJcsYgxf1BjLmk+Vr0IIZ7/Q="
     },
     "downlords-faf-client": {
       "type": "GitRelease",
