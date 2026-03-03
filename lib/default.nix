@@ -13,11 +13,9 @@ in
 {
   flake.lib = {
     mkPatches =
-      dir: excludes:
+      dir: filterPred:
       map (e: if hasPrefix "/nix/store" e then e else /. + e) (
-        builtins.filter (hasSuffix ".patch") (
-          filter (e: !(elem e excludes)) (filesystem.listFilesRecursive dir)
-        )
+        builtins.filter (hasSuffix ".patch") (filter filterPred (filesystem.listFilesRecursive dir))
       );
 
     legendaryBuilder =

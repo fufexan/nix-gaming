@@ -151,7 +151,9 @@ in
         patches = [
           (nixpkgs-wine + "/pkgs/applications/emulators/wine/cert-path.patch")
         ]
-        ++ self.lib.mkPatches pins.wine-osu-patches ;
+        ++ self.lib.mkPatches pins.wine-osu-patches (
+          e: !(lib.hasPrefix "0009-server-optimization/0001-misc/ps0322" e)
+        );
       }
     )).overrideDerivation
       (old: {
@@ -159,7 +161,7 @@ in
           with pkgs;
           [
             autoconf
-            autoreconfHook
+            # autoreconfHook
             gitMinimal
             hexdump
             nasm
