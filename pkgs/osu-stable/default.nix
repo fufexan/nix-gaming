@@ -103,15 +103,20 @@ let
     configure_native_file_manager() {
       local runner="$1"
       local marker="$WINEPREFIX/.native-file-manager-configured"
+      local marker_value="${openNativeFolder}/bin/wine-open-native-folder"
+      local current_value=""
 
       if [ -f "$marker" ]; then
-        return
+        current_value="$(<"$marker")"
+        if [ "$current_value" = "$marker_value" ]; then
+          return
+        fi
       fi
 
       "$runner" reg add 'HKEY_CLASSES_ROOT\folder\shell\open\command' /ve /d '"/bin/sh" "${openNativeFolder}/bin/wine-open-native-folder" "%1"' /f
       "$runner" reg delete 'HKEY_CLASSES_ROOT\folder\shell\open\ddeexec' /f || true
 
-      touch "$marker"
+      printf '%s' "$marker_value" > "$marker"
     }
 
     ${
