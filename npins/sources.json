@@ -263,9 +263,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "634429e732a86c01b1262b541125fa0364a70d51",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/634429e732a86c01b1262b541125fa0364a70d51.tar.gz",
-      "hash": "sha256-XNwLN+tDCmDRDTKVHIHpJD6qdYnS2R8QOTPkd9McqOk="
+      "revision": "b5888561148d4a1d89df7d524ee20cf91ee414d5",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/b5888561148d4a1d89df7d524ee20cf91ee414d5.tar.gz",
+      "hash": "sha256-SiLQExuCyLHXSdyrCezIrlgaiuomDBJlzIrW6h8QXw4="
     },
     "winetricks": {
       "type": "Git",
