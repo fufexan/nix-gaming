@@ -99,6 +99,8 @@
 
           dxvk-nvapi-vkreflex-layer = pkgs.callPackage ./dxvk-nvapi/vkreflex-layer.nix { inherit pins; };
 
+          eac-runtime = pkgs.callPackage ./eac-runtime { };
+
           faf-client = pkgs.callPackage ./faf-client { inherit pins; };
           faf-client-unstable = pkgs.callPackage ./faf-client {
             inherit pins;
@@ -155,7 +157,10 @@
             inherit (config.packages) wine-discord-ipc-bridge;
           };
 
-          rocket-league = pkgs.callPackage ./rocket-league { wine = config.packages.wine-tkg; };
+          rocket-league = pkgs.callPackage ./rocket-league {
+            wine = config.packages.wine-tkg;
+            inherit (config.packages) eac-runtime;
+          };
 
           rpc-bridge = pkgs.callPackage ./rpc-bridge { inherit pins; };
 

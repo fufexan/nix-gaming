@@ -8,6 +8,7 @@
   legendary-gl,
   winetricks,
   wine,
+  eac-runtime,
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
   tricks ? [
@@ -20,6 +21,7 @@
   ],
   dxvk_hud ? "compiler",
   callPackage,
+  enableEAC ? true,
   enableBakkesmod ? false,
 }:
 let
@@ -41,6 +43,7 @@ let
     export WINEESYNC=1
     export __GL_SHADER_DISK_CACHE=1
     export __GL_SHADER_DISK_CACHE_PATH="${location}"
+    ${lib.optionalString enableEAC "export PROTON_EAC_RUNTIME=\"${eac-runtime}\""}
 
     PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
