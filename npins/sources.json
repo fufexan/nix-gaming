@@ -232,10 +232,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "cachyos-10.0-20260227-wine",
-      "revision": "01eeb2f5bb5ac50d9c2ca00b37ac590ac13a08c3",
-      "url": "https://api.github.com/repos/CachyOS/wine-cachyos/tarball/refs/tags/cachyos-10.0-20260227-wine",
-      "hash": "sha256-LmAu8nuTDt+q5QT0vfT1fIlebqIqeeGMpv5bczGeyK4=",
+      "version": "cachyos-10.0-20260312-wine",
+      "revision": "da34d2a7c7e229f926ba147362a17fe822bc431e",
+      "url": "https://api.github.com/repos/CachyOS/wine-cachyos/tarball/refs/tags/cachyos-10.0-20260312-wine",
+      "hash": "sha256-Y8rOQBSGbigWo45MDPxAnYycPThh3o0SttuPbPLOmAg=",
       "frozen": true
     },
     "wine-discord-ipc-bridge": {
