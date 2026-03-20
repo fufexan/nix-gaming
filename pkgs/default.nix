@@ -71,15 +71,12 @@
         {
           inherit wine-mono;
 
-          umu-launcher-unwrapped-git =
-            (pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
-              inherit (pkgs) umu-launcher-unwrapped;
-              version = builtins.substring 0 7 pins.umu-launcher.revision;
-            }).overrideAttrs
-              {
-                # 2025-12-08: Tests and versionCheckHook are currently broken
-                doInstallCheck = false;
-              };
+          umu-launcher-unwrapped-git = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
+            inherit (pkgs) umu-launcher-unwrapped;
+            inherit (builtins.fromJSON (builtins.readFile "${self}/pkgs/umu-launcher/info.json"))
+              lastModifiedDate
+              ;
+          };
           umu-launcher-git = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/package.nix" {
             inherit (pkgs) umu-launcher;
             umu-launcher-unwrapped = config.packages.umu-launcher-unwrapped-git;
