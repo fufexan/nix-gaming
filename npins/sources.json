@@ -187,10 +187,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.4.1.0",
-      "revision": "499e66762cf169e2409ff238be8e0de05b9da7f7",
-      "url": "https://api.github.com/repos/EnderIce2/rpc-bridge/tarball/refs/tags/v1.4.1.0",
-      "hash": "sha256-h7LayEE8yyklpyCOxcZJzJliqzIAPlXv6/YCF8q1kYA="
+      "version": "v1.4.1.1",
+      "revision": "dc87b38da347a5fadc9ec3c0442a877021d3909f",
+      "url": "https://api.github.com/repos/EnderIce2/rpc-bridge/tarball/refs/tags/v1.4.1.1",
+      "hash": "sha256-2hjVDiXcoezC5uEWIs7vYYkdrizrVfk+B4vc67zSA1A="
     },
     "umu-launcher": {
       "type": "Git",
@@ -232,10 +232,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "cachyos-10.0-20260312-wine",
-      "revision": "da34d2a7c7e229f926ba147362a17fe822bc431e",
-      "url": "https://api.github.com/repos/CachyOS/wine-cachyos/tarball/refs/tags/cachyos-10.0-20260312-wine",
-      "hash": "sha256-Y8rOQBSGbigWo45MDPxAnYycPThh3o0SttuPbPLOmAg=",
+      "version": "cachyos-10.0-20260324-wine",
+      "revision": "b8dd75eaa469f10ba60bbb10c2e46b61f1c414ee",
+      "url": "https://api.github.com/repos/CachyOS/wine-cachyos/tarball/refs/tags/cachyos-10.0-20260324-wine",
+      "hash": "sha256-ZHYMbyiXddcsZ7bzUAygquXuGdgzFiuGpchqgotkwgM=",
       "frozen": true
     },
     "wine-discord-ipc-bridge": {
