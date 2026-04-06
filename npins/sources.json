@@ -187,10 +187,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.4.1.1",
-      "revision": "dc87b38da347a5fadc9ec3c0442a877021d3909f",
-      "url": "https://api.github.com/repos/EnderIce2/rpc-bridge/tarball/refs/tags/v1.4.1.1",
-      "hash": "sha256-2hjVDiXcoezC5uEWIs7vYYkdrizrVfk+B4vc67zSA1A="
+      "version": "v1.4.1.2",
+      "revision": "a8a3062936d6c91b1f3dd089ef18be2870b9f9f3",
+      "url": "https://api.github.com/repos/EnderIce2/rpc-bridge/tarball/refs/tags/v1.4.1.2",
+      "hash": "sha256-vcdyjkcKLYTMO15fHfiZBucI3Xf5AeWyinTPeaqwB9o="
     },
     "umu-launcher": {
       "type": "Git",
