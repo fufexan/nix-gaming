@@ -152,7 +152,12 @@
             inherit (config.packages) wine-discord-ipc-bridge;
           };
 
-          rocket-league = pkgs.callPackage ./rocket-league { wine = config.packages.wine-tkg; };
+          eac-runtime = pkgs.callPackage ./eac-runtime { };
+
+          rocket-league = pkgs.callPackage ./rocket-league {
+            wine = config.packages.wine-tkg;
+            inherit (config.packages) eac-runtime;
+          };
 
           rpc-bridge = pkgs.callPackage ./rpc-bridge { inherit pins; };
 
