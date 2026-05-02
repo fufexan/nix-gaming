@@ -50,8 +50,6 @@
         let
           pins = builtins.mapAttrs (_: p: p { inherit pkgs; }) (import ../npins { });
 
-          wine-mono = pkgs.callPackage ./wine-mono { };
-
           wineBuilder =
             wine: build: extra:
             (pkgs.callPackage ./wine (
@@ -61,7 +59,6 @@
                   pkgs
                   build
                   pins
-                  wine-mono
                   ;
                 supportFlags = (import ./wine/supportFlags.nix).${build};
               }
@@ -69,8 +66,6 @@
             )).${wine};
         in
         {
-          inherit wine-mono;
-
           umu-launcher-unwrapped-git = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
             inherit (pkgs) umu-launcher-unwrapped;
             inherit (builtins.fromJSON (builtins.readFile "${self}/pkgs/umu-launcher/info.json"))
