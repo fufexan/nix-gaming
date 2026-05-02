@@ -8,6 +8,7 @@
   pkgsi686Linux,
   callPackage,
   fetchFromGitHub,
+  fetchurl,
   replaceVars,
   moltenvk,
   supportFlags,
@@ -15,7 +16,6 @@
   wrapCCMulti,
   gcc13,
   stdenv,
-  wine-mono,
 }:
 let
   nixpkgs-wine = pkgs.path;
@@ -66,7 +66,6 @@ let
       mingw32.buildPackages.gcc
       mingwW64.buildPackages.gcc
     ];
-    monos = [ wine-mono ];
     pkgArches = [ pkgs ];
     inherit stdenv;
     mainProgram = "wine";
@@ -81,6 +80,7 @@ in
         pname = pnameGen "wine-cachyos";
         version = lib.removeSuffix "-wine" (lib.removePrefix "cachyos-" pins.wine-cachyos.version);
         src = pins.wine-cachyos;
+        monos = [ (fetchurl (lib.importJSON ./wine-cachyos/mono.json)) ];
       }
     ))
     # https://github.com/CachyOS/CachyOS-PKGBUILDS/blob/b76138d70274f3ba6f7e0f7ca62fa2e335b93ad6/wine-cachyos/PKGBUILD#L116
@@ -126,6 +126,7 @@ in
         lib.removePrefix "Wine version " (builtins.readFile ./wine-tkg/VERSION)
       );
       src = pins.wine-tkg;
+      monos = [ (fetchurl (lib.importJSON ./wine-tkg/mono.json)) ];
     }
   );
 
