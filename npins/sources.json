@@ -124,10 +124,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v4.0.6",
-      "revision": "15689c003e274064c9ede97db9fb68e727f2b8b0",
-      "url": "https://api.github.com/repos/FAForever/uid/tarball/v4.0.6",
-      "hash": "sha256-71fnsuWWvPE9mEfFtcaDDOUM3Bo04Eu0RqCTyD8ZmxM="
+      "version": "v4.0.7",
+      "revision": "5670f0c82ffae5c7a8e3acb284e83c71733fa44a",
+      "url": "https://api.github.com/repos/FAForever/uid/tarball/refs/tags/v4.0.7",
+      "hash": "sha256-UjDE3Eyj9Q2S76sIInUNpvCXqB7ahoYyBhwcSg5l1O0="
     },
     "npins": {
       "type": "GitRelease",
@@ -232,10 +232,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "cachyos-10.0-20260407-wine",
-      "revision": "f6506675a068a3562596d8816ce006bb980e89e7",
-      "url": "https://api.github.com/repos/CachyOS/wine-cachyos/tarball/refs/tags/cachyos-10.0-20260407-wine",
-      "hash": "sha256-9YWQ9YO+YQdJcCSpMVik8Kla+ve3TzJTTYU5znSsGKg=",
+      "version": "cachyos-10.0-20260425-wine",
+      "revision": "1b6bef413ade75fa10a1885b3b197cc09511f705",
+      "url": "https://api.github.com/repos/CachyOS/wine-cachyos/tarball/refs/tags/cachyos-10.0-20260425-wine",
+      "hash": "sha256-ZYalZ4ivN0rxhDdzr2IvQznB+UDrO926+yqMx199h2o=",
       "frozen": true
     },
     "wine-discord-ipc-bridge": {
