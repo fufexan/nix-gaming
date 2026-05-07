@@ -11,10 +11,10 @@
       "version_upper_bound": "v2.7.1",
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.8",
-      "revision": "faa57ed9da28b6aeac74924b2465c2b9889b6ac4",
+      "version": "v1.9",
+      "revision": "00798a8f72c52e0855fd606396e6d40a09b6e1b9",
       "url": null,
-      "hash": "sha256-Wgs5fql1fzXfFTCp+vWTLTHhfOPzkhH0oB7iif1rUoc="
+      "hash": "sha256-/9JAimcVYE0vR89E5VYsoOVDOl7hiOFs6/wRmZKrafU="
     },
     "downlords-faf-client": {
       "type": "GitRelease",
@@ -216,10 +216,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v3.0",
-      "revision": "6d97b022a1c501b8574a2dd5d9e0446c83055043",
+      "version": "v3.0.1",
+      "revision": "3b10bd7a7ec6a7347e616cf8bea59333afec2255",
       "url": null,
-      "hash": "sha256-OTq3FmDyJGDUDYRq7PQv3bOXn/gf2qlBVcA9lVfHB3E="
+      "hash": "sha256-7f2Ups5GZMe2vCeb3xveuMnGFSZgk605oy9aUXhvhlk="
     },
     "wine-cachyos": {
       "type": "GitRelease",
