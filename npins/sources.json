@@ -92,10 +92,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v0.9.1",
-      "revision": "c68c35071128c2bda31916c50080c07062f23fe6",
+      "version": "v0.9.2",
+      "revision": "f9fdf268e888d17ae9875a4f01908164ff05f740",
       "url": null,
-      "hash": "sha256-esD6u5PqpQrjjEMqv0fKzVaB09jeYFn06tFuwUF9qwU="
+      "hash": "sha256-VXDh8xWKYYD7fLRJgsAzjGxeqH91coo6x3rQEzLF4HY="
     },
     "faf-ice-adapter": {
       "type": "GitRelease",
