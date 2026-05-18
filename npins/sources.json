@@ -129,6 +129,22 @@
       "url": "https://api.github.com/repos/FAForever/uid/tarball/refs/tags/v4.0.7",
       "hash": "sha256-UjDE3Eyj9Q2S76sIInUNpvCXqB7ahoYyBhwcSg5l1O0="
     },
+    "low_latency_layer": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Korthos-Software",
+        "repo": "low_latency_layer"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.1.0",
+      "revision": "5bfb73f9f85ce3f72d997bb9d72360e344bee0ec",
+      "url": "https://api.github.com/repos/Korthos-Software/low_latency_layer/tarball/refs/tags/v0.1.0",
+      "hash": "sha256-YYQpLC3yCvqbArhqeWkZ8rRhVT69qz31SHr5dxXc0zM="
+    },
     "npins": {
       "type": "GitRelease",
       "repository": {

@@ -104,6 +104,8 @@
           # broken upstream, thanks tauri
           # flight-core = pkgs.callPackage ./titanfall/flight-core.nix {};
 
+          low-latency-layer = pkgs.callPackage ./low-latency-layer { inherit pins; };
+
           mo2installer = pkgs.callPackage ./mo2installer { };
 
           modrinth-app = pkgs.callPackage ./modrinth-app { };
