@@ -23,7 +23,7 @@ let
   inherit (pins) dxvk dxvk-gplasync;
 in
 stdenv.mkDerivation {
-  name = "dxvk";
+  pname = "dxvk";
   version = lib.removePrefix "v" dxvk.version;
   src = dxvk;
 
@@ -45,6 +45,9 @@ stdenv.mkDerivation {
     glslang
   ]
   ++ lib.optional (!stdenv.targetPlatform.isWindows) pkg-config;
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   postPatch = ''
     patchShebangs ./
