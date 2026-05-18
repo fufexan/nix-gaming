@@ -13,7 +13,7 @@ let
   inherit (pins) d7vk;
 in
 stdenv.mkDerivation {
-  name = "d7vk";
+  pname = "d7vk";
   version = lib.removePrefix "v" d7vk.version;
   src = d7vk;
 
@@ -30,6 +30,9 @@ stdenv.mkDerivation {
     ninja
     glslang
   ];
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   postPatch = ''
     patchShebangs ./
