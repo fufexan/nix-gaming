@@ -10,17 +10,32 @@
   python3,
   pins,
   # cross compile inputs:
-  withSdl3 ? true,
+  withSdl3 ? (!stdenv.hostPlatform.isWindows),
   sdl3,
-  withSdl2 ? true,
+  withSdl2 ? (!stdenv.hostPlatform.isWindows),
   SDL2,
-  withGlfw ? true,
+  withGlfw ? (!stdenv.hostPlatform.isWindows),
   glfw,
   windows,
   stdenv,
 }:
 let
   inherit (pins) dxvk dxvk-gplasync;
+
+  inherit (stdenv) hostPlatform;
+  libPrefix = lib.optionalString (!hostPlatform.isWindows) "lib";
+  soVersion =
+    version:
+    if hostPlatform.isDarwin then
+      ".${version}${hostPlatform.extensions.sharedLibrary}"
+    else if hostPlatform.isWindows then
+      hostPlatform.extensions.sharedLibrary
+    else
+      "${hostPlatform.extensions.sharedLibrary}.${version}";
+
+  libglfw = "${libPrefix}glfw${soVersion "3"}";
+  libSDL2 = "${libPrefix}SDL2${lib.optionalString (!hostPlatform.isWindows) "-2.0"}${soVersion "0"}";
+  libsdl3 = "${libPrefix}SDL3${soVersion "0"}";
 in
 stdenv.mkDerivation {
   pname = "dxvk";
@@ -31,13 +46,13 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     python3
-  ];
+  ]
+  ++ lib.optional withSdl3 sdl3
+  ++ lib.optional withSdl2 SDL2
+  ++ lib.optional withGlfw glfw;
 
   buildInputs =
-    lib.optionals stdenv.targetPlatform.isWindows [ windows.pthreads ]
-    ++ lib.optionals stdenv.targetPlatform.isLinux (
-      lib.optional withSdl3 sdl3 ++ lib.optional withSdl2 SDL2 ++ lib.optional withGlfw glfw
-    );
+    lib.optionals stdenv.targetPlatform.isWindows [ windows.pthreads ] ++ lib.optional withGlfw glfw;
 
   depsBuildBuild = [
     meson
@@ -51,11 +66,21 @@ stdenv.mkDerivation {
 
   postPatch = ''
     patchShebangs ./
-  ''
-  # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=libdxvk-gplasync#n46
-  + lib.optionalString (stdenv.targetPlatform.isLinux && withGlfw) ''
+
     substituteInPlace meson.build \
-      --replace-warn "'glfw'" "'glfw3'"
+      --replace-fail "dependency('glfw'" "dependency('glfw3'"
+  ''
+  + lib.optionalString withGlfw ''
+    substituteInPlace src/wsi/glfw/wsi_platform_glfw.cpp \
+      --replace-fail '${libglfw}' '${lib.getLib glfw}/lib/${libglfw}'
+  ''
+  + lib.optionalString withSdl2 ''
+    substituteInPlace src/wsi/sdl2/wsi_platform_sdl2.cpp \
+      --replace-fail '${libSDL2}' '${lib.getLib SDL2}/lib/${libSDL2}'
+  ''
+  + lib.optionalString withSdl3 ''
+    substituteInPlace src/wsi/sdl3/wsi_platform_sdl3.cpp \
+      --replace-fail '${libsdl3}' '${lib.getLib sdl3}/lib/${libsdl3}'
   '';
 
   patches = lib.optionals withAsync [
