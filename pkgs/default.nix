@@ -13,6 +13,7 @@
       config,
       system,
       pkgs,
+      lib,
       ...
     }:
     let
@@ -64,6 +65,25 @@
               }
               // extra
             )).${wine};
+
+          buildDxvkGplAll =
+            callPackage:
+            let
+              src = pins.dxvk-gplasync-lowlatency;
+            in
+            (callPackage ./dxvk {
+              inherit pins;
+              withAsync = false;
+            }).overrideAttrs
+              (old: {
+                pname = "${old.pname}-gplasync-lowlatency";
+                version = lib.removePrefix src.release_prefix src.version;
+                inherit src;
+
+                postPatch = old.postPatch + ''
+                  sed -i "/'-flto=auto',/d" meson.build
+                '';
+              });
         in
         {
           umu-launcher-unwrapped-git = pkgs.callPackage "${pins.umu-launcher}/packaging/nix/unwrapped.nix" {
@@ -84,6 +104,9 @@
           dxvk = pkgs.callPackage ./dxvk { inherit pins; };
           dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk { inherit pins; };
           dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk { inherit pins; };
+
+          dxvk-gplasync-lowlatency-w32 = buildDxvkGplAll pkgs.pkgsCross.mingw32.callPackage;
+          dxvk-gplasync-lowlatency-w64 = buildDxvkGplAll pkgs.pkgsCross.mingwW64.callPackage;
 
           dxvk-nvapi = pkgs.callPackage ./dxvk { inherit pins; };
           dxvk-nvapi-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk-nvapi { inherit pins; };
