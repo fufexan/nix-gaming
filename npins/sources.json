@@ -81,6 +81,22 @@
       "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?sha=v2.7.1-1",
       "hash": "sha256-O2J37Pq3bdGbyl5GyTn6kmo6g9ID39ab6T2JW0OlhvA="
     },
+    "dxvk-gplasync-lowlatency": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Digger1955",
+        "repo": "dxvk-gplasync-lowlatency"
+      },
+      "pre_releases": true,
+      "version_upper_bound": null,
+      "release_prefix": "DXVK-GPLALL-",
+      "submodules": true,
+      "version": "DXVK-GPLALL-2.7.1-3",
+      "revision": "a162593d2f7248ae4941c8bae566768b11af3ea2",
+      "url": null,
+      "hash": "sha256-q9I8gM2kBVwLP7Aoilez/3WarejUhDRLVNMm5nELe5k="
+    },
     "dxvk-nvapi": {
       "type": "GitRelease",
       "repository": {
