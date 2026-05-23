@@ -92,10 +92,10 @@
       "version_upper_bound": null,
       "release_prefix": "DXVK-GPLALL-",
       "submodules": true,
-      "version": "DXVK-GPLALL-2.7.1-3",
-      "revision": "a162593d2f7248ae4941c8bae566768b11af3ea2",
+      "version": "DXVK-GPLALL-2.7.1-4",
+      "revision": "83df10afe5b340c3876dacecfd79383ea368c58d",
       "url": null,
-      "hash": "sha256-q9I8gM2kBVwLP7Aoilez/3WarejUhDRLVNMm5nELe5k="
+      "hash": "sha256-Ac4F3M9RGqHErPn0bIAeKWw4tdP6x/ArOOy2WP/P9i4="
     },
     "dxvk-nvapi": {
       "type": "GitRelease",
