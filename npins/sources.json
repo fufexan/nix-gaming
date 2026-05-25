@@ -156,10 +156,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.1.0",
-      "revision": "5bfb73f9f85ce3f72d997bb9d72360e344bee0ec",
-      "url": "https://api.github.com/repos/Korthos-Software/low_latency_layer/tarball/refs/tags/v0.1.0",
-      "hash": "sha256-YYQpLC3yCvqbArhqeWkZ8rRhVT69qz31SHr5dxXc0zM="
+      "version": "v0.2.0",
+      "revision": "4e7fe12b797d89be07919acf3d2df5cda3f4d89f",
+      "url": "https://api.github.com/repos/Korthos-Software/low_latency_layer/tarball/refs/tags/v0.2.0",
+      "hash": "sha256-mnGAH0m19wOkWEowpcPRHXQSc6HGYW+CFYxjPF2onk4="
     },
     "npins": {
       "type": "GitRelease",
