@@ -46,16 +46,16 @@ let
         ''
           export GAMEID=umu-252950
           export STORE=egs
-          export PROTON_VERB=runinprefix
+          export PROTONPATH=GE-Proton
+          ${lib.optionalString enableBakkesmod "export PROTON_VERB=runinprefix"}
 
           PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
-          legendary update Sugar --base-path ${location}
+          legendary update Sugar --base-path "$WINEPREFIX"
           legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"
         ''
       else
         ''
-          export WINEPREFIX="${location}"
           export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
           export WINEFSYNC=1
           export WINEESYNC=1
