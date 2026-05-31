@@ -295,9 +295,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "e6d6997835d5a85b529a3a5c9d00b9767b5e1da7",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/e6d6997835d5a85b529a3a5c9d00b9767b5e1da7.tar.gz",
-      "hash": "sha256-5XLbXAIZhKljX+TeF23MfXmXdvv9gF9D4y29Gt4PgCI="
+      "revision": "4b12965ca7e78b8e45eee5f835c72963b3ce351d",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/4b12965ca7e78b8e45eee5f835c72963b3ce351d.tar.gz",
+      "hash": "sha256-oo/+jLgobiaNejC4BujLOTVWCdE1idqwQBYZ8eN7kb8="
     },
     "winetricks": {
       "type": "Git",
@@ -308,9 +308,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "14b802e419aff260b9d630e71027d88855e224e7",
-      "url": "https://github.com/winetricks/winetricks/archive/14b802e419aff260b9d630e71027d88855e224e7.tar.gz",
-      "hash": "sha256-Fk+HH6HJMR1yqgHlgKFQK8w30/wOkOZoXuSxOMe5UjQ="
+      "revision": "08304e81f9ac9a83c552a6bd78689040d174bf95",
+      "url": "https://github.com/winetricks/winetricks/archive/08304e81f9ac9a83c552a6bd78689040d174bf95.tar.gz",
+      "hash": "sha256-DYLzT/1ajMakfxWz8aY6w6DgUBCJLFPUf/UQNWVV6aw="
     }
   },
   "version": 7
