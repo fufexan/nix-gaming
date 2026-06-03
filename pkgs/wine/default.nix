@@ -57,7 +57,7 @@ let
     };
 
   # defaults for newer WoW64 builds
-  defaultsWow64 = lib.recursiveUpdate (removeAttrs defaults [ "buildScript" ]) {
+  defaultsWow64 = lib.recursiveUpdate (removeAttrs defaults [ "buildScript" "supportFlags" ]) {
     configureFlags = [
       "--disable-tests"
       "--enable-archs=x86_64,i386"
@@ -106,7 +106,7 @@ in
 
   wine-ge =
     (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (
-      defaults
+      removeAttrs defaults [ "supportFlags" ]
       // {
         pname = pnameGen "wine-ge";
         version = pins.proton-wine.branch;
@@ -142,7 +142,7 @@ in
       };
     in
     (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (
-      defaults
+      removeAttrs defaults [ "supportFlags" ]
       // rec {
         inherit version pname;
         src = fetchFromGitHub {
