@@ -12,9 +12,9 @@
       "release_prefix": null,
       "submodules": true,
       "version": "v1.11",
-      "revision": "02ed4ee04eaad0cd4c905df5bc23befaa127356b",
+      "revision": "2b94b2d5d9604df8bae4efce0e69d9f3731daad1",
       "url": null,
-      "hash": "sha256-aQHQFUNNjdR/OJn7oA/3jCq/aFgDGjOMCwbxFIr846M="
+      "hash": "sha256-UHHocxqDYNXdvTe/eoAvIK3U4RA3Y+iPrY4KJR/F6UA="
     },
     "downlords-faf-client": {
       "type": "GitRelease",
@@ -172,10 +172,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "0.4.0",
-      "revision": "52904b878c2db61e062b63beb07784d41f98c765",
-      "url": "https://api.github.com/repos/andir/npins/tarball/refs/tags/0.4.0",
-      "hash": "sha256-ksOXi7u4bpHyWNHwkUR62fdwKowPW5GqBS7MA7Apwh4=",
+      "version": "0.5.0",
+      "revision": "41a153cdc1aa446480b2b652a967652ad62609bf",
+      "url": "https://api.github.com/repos/andir/npins/tarball/refs/tags/0.5.0",
+      "hash": "sha256-OkPEh0axWs3gUoUyplQexYpEXxyCDYWm5BQpwB2PIqA=",
       "frozen": true
     },
     "proton-osu": {
@@ -191,7 +191,7 @@
       "submodules": false,
       "version": "proton-osu-9-16",
       "revision": "0807a9e09e8606f9336f309f4b3eef270fac770f",
-      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/proton-osu-9-16",
+      "url": "https://api.github.com/repos/whrvt/umubuilder/tarball/refs/tags/proton-osu-9-16",
       "hash": "sha256-I2f4MIBMdWQUIl6V37xLwymBk2f/MLmDjk+kGUDVHXY="
     },
     "proton-wine": {
@@ -283,7 +283,7 @@
       "submodules": false,
       "version": "v0.0.3",
       "revision": "86fcbddaf654aec40c6fe6a8293f627340331b0c",
-      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/v0.0.3",
+      "url": "https://api.github.com/repos/0e4ef622/wine-discord-ipc-bridge/tarball/refs/tags/v0.0.3",
       "hash": "sha256-jzsbOKMakNQ6RNMlioX088fGzFBDxOP45Atlsfm2RKg="
     },
     "wine-tkg": {
@@ -313,5 +313,5 @@
       "hash": "sha256-DYLzT/1ajMakfxWz8aY6w6DgUBCJLFPUf/UQNWVV6aw="
     }
   },
-  "version": 7
+  "version": 8
 }
