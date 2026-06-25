@@ -1,9 +1,9 @@
 {
   "lazer": {
     "query": "map(select(.prerelease | not)) | first | .tag_name",
-    "hash": "sha256-rLom/UwqVOXUk/ayLvekRQMD49p5MB9BA6RCohtuPfg=",
-    "storePath": "/nix/store/hvyvmngnw8fi6sanyrj4y77z9y70cvm9-osu.AppImage",
-    "version": "2026.620.0-lazer"
+    "hash": "sha256-EKmCq656djPGK5I1JqSDcTKtpbQZbO8WGWcPv+PT0q4=",
+    "storePath": "/nix/store/26gpwdhp5w1bb49pfqzgk36wdxhz4l21-osu.AppImage",
+    "version": "2026.624.0-lazer"
   },
   "tachyon": {
     "query": "map(select(.prerelease)) | first | .tag_name",
