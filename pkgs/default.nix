@@ -175,8 +175,7 @@
           };
 
           rocket-league = pkgs.callPackage ./rocket-league {
-            wine = config.packages.wine-tkg;
-            inherit (config.packages) eac-runtime umu-launcher-git;
+            inherit (config.packages) umu-launcher-git;
           };
 
           rpc-bridge = pkgs.callPackage ./rpc-bridge { inherit pins; };
