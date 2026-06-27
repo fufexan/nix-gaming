@@ -39,7 +39,6 @@ let
 
   script = writeShellScriptBin pname ''
     export DXVK_HUD=${dxvk_hud}
-    ${lib.optionalString enableEAC "export PROTON_EAC_RUNTIME=\"${eac-runtime}\""}
     export WINEPREFIX="${location}"
     ${
       if useUmu then
@@ -52,7 +51,7 @@ let
           PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
           legendary update Sugar --base-path "$WINEPREFIX"
-          legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"
+          legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"${lib.optionalString (!enableEAC) " -noeac"}
         ''
       else
         ''
@@ -71,7 +70,7 @@ let
           fi
 
           legendary update Sugar --base-path ${location}
-          gamemoderun legendary launch Sugar --base-path ${location}
+          gamemoderun legendary launch Sugar --base-path ${location}${lib.optionalString (!enableEAC) " -noeac"}
           wineserver -w
         ''
     }
