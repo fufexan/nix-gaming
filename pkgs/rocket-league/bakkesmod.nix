@@ -8,6 +8,7 @@
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
   umu-launcher-git,
+  umuProtonPath,
 }:
 let
   bakkesmodIcon = fetchurl {
@@ -33,6 +34,7 @@ let
       export GAMEID=umu-252950
       export STORE=egs
       export PROTON_VERB=runinprefix
+      export PROTONPATH=${umuProtonPath}
 
       PATH=${umu-launcher-git}/bin:$PATH
 
@@ -61,6 +63,7 @@ let
       export GAMEID=umu-252950
       export STORE=egs
       export PROTON_VERB=runinprefix
+      export PROTONPATH=${umuProtonPath}
 
       PATH=${umu-launcher-git}/bin:$PATH
 

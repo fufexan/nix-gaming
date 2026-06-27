@@ -13,6 +13,7 @@
   callPackage,
   enableEAC ? true,
   enableBakkesmod ? false,
+  umuProtonPath ? "GE-Proton",
 }:
 let
   icon = fetchurl {
@@ -28,7 +29,7 @@ let
     ${''
       export GAMEID=umu-252950
       export STORE=egs
-      export PROTONPATH=GE-Proton
+      export PROTONPATH=${umuProtonPath}
       ${lib.optionalString enableBakkesmod "export PROTON_VERB=runinprefix"}
 
       PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}:$PATH
@@ -52,6 +53,7 @@ let
     inherit
       location
       umu-launcher-git
+      umuProtonPath
       ;
   };
 in
