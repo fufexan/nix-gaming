@@ -100,7 +100,7 @@ stdenv.mkDerivation {
     description = "Vulkan-based implementation of D3D8, D3D9, D3D10 and D3D11 for Linux / Wine";
     homepage = "https://github.com/doitsujin/dxvk";
     maintainers = with lib.maintainers; [ LunNova ];
-    platforms = with lib.platforms; linux ++ windows;
+    platforms = lib.platforms.linux ++ lib.platforms.windows;
     # GCC <13 ends up with an extra dep on mcfg-thread12
     broken = stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "13";
   };

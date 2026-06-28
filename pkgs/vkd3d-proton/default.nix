@@ -61,7 +61,7 @@ stdenv.mkDerivation {
     description = "VKD3D-Proton is a fork of VKD3D, which aims to implement the full Direct3D 12 API on top of Vulkan. The project serves as the development effort for Direct3D 12 support in Proton.";
     homepage = "https://github.com/HansKristian-Work/vkd3d-proton";
     maintainers = with lib.maintainers; [ LunNova ];
-    platforms = with lib.platforms; linux ++ windows;
+    platforms = lib.platforms.linux ++ lib.platforms.windows;
     # GCC <13 ends up with an extra dep on mcfg-thread12
     broken = stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "13";
   };

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     changelog = "https://github.com/jp7677/dxvk-nvapi/releases";
     license = lib.licenses.mit;
     badPlatforms = lib.platforms.darwin;
-    platforms = with lib.platforms; unix ++ windows;
+    platforms = lib.platforms.unix ++ lib.platforms.windows;
     maintainers = with lib.maintainers; [ fuzen ];
   };
 }
