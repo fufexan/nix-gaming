@@ -43,12 +43,12 @@ let
 
   depsPath = if unstable then ./deps-unstable.json else ./deps-stable.json;
 
-  meta = with lib; {
+  meta = {
     description = "Official client for Forged Alliance Forever";
     homepage = "https://github.com/FAForever/downlords-faf-client";
-    license = licenses.mit;
-    maintainers = with maintainers; [ chayleaf ];
-    platforms = platforms.darwin ++ [ "x86_64-linux" ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ chayleaf ];
+    platforms = lib.platforms.darwin ++ [ "x86_64-linux" ];
   };
 
   icon = "faf-client";

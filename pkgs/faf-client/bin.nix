@@ -44,11 +44,11 @@ let
     sha256 = sha256Unstable;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Official client for Forged Alliance Forever";
     homepage = "https://github.com/FAForever/downlords-faf-client";
-    license = licenses.mit;
-    maintainers = with maintainers; [ chayleaf ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ chayleaf ];
   };
 
   icon = "faf-client";
