@@ -113,6 +113,22 @@
       "url": null,
       "hash": "sha256-VXDh8xWKYYD7fLRJgsAzjGxeqH91coo6x3rQEzLF4HY="
     },
+    "dxvk-sarek": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "pythonlover02",
+        "repo": "DXVK-Sarek"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": true,
+      "version": "v1.12.0",
+      "revision": "89f76cd464981721db50cbbdd2ed45320b5c525d",
+      "url": null,
+      "hash": "sha256-rYZtGkv97RAlPHgniPKHxu3XePHmO2aZytmtkFOGG4A="
+    },
     "faf-ice-adapter": {
       "type": "GitRelease",
       "repository": {
