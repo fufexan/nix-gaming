@@ -114,6 +114,9 @@
 
           dxvk-nvapi-vkreflex-layer = pkgs.callPackage ./dxvk-nvapi/vkreflex-layer.nix { inherit pins; };
 
+          dxvk-sarek-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk-sarek { inherit pins; };
+          dxvk-sarek-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk-sarek { inherit pins; };
+
           eac-runtime = pkgs.callPackage ./eac-runtime { };
 
           faf-client = pkgs.callPackage ./faf-client { inherit pins; };
