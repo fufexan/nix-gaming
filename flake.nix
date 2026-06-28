@@ -42,6 +42,7 @@
           ) { };
 
           devShells.default = pkgs.mkShell {
+            packages = [ config.legacyPackages.npins ];
             shellHook = ''
               ${config.pre-commit.installationScript}
             '';
