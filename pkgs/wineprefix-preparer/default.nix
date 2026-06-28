@@ -9,16 +9,19 @@
   writeShellScriptBin,
   withDdraw ? false,
   cnc-ddraw,
-  withCncDdraw ? withDdraw && !withD7vk,
+  withCncDdraw ? withDdraw && !withD7vk && !withDxvkSarek,
   d7vk-w32,
   withD7vk ? false,
+  dxvk-sarek-w32,
+  dxvk-sarek-w64,
+  withDxvkSarek ? false,
 }:
 # This installer is completely custom rather than using upstream scripts.
 # dxvk is getting rid of their install script and vkd3d-proton's failed when ran more than once
 # Since we need a custom one for dxvk it was easiest to just do both in one script
 assert lib.assertMsg (
-  !lib.and withCncDdraw withD7vk
-) "Cannot use both cnc-ddraw and d7vk at the same time";
+  !(withCncDdraw && withD7vk) && !(withCncDdraw && withDxvkSarek) && !(withD7vk && withDxvkSarek)
+) "Cannot use more than one of cnc-ddraw, d7vk, and dxvk-sarek at the same time";
 writeShellScriptBin "wineprefix-preparer" ''
   if ! command -v winepath; then
     >&2 echo "$(basename "$0"): No winepath binary in path. Run with wine available"
@@ -49,9 +52,21 @@ writeShellScriptBin "wineprefix-preparer" ''
   echo "Removing existing dxvk and vkd3d-proton DLLs"
   rm -rf {"$win32_sys_path","$win64_sys_path"}/{dxgi,d3d9,d3d10core,d3d11,d3d12,d3d12core}.dll
 
+  ${lib.optionalString (withDxvkSarek || withCncDdraw || withD7vk) ''
+    echo "Removing existing DDraw"
+    rm -f "$win32_sys_path/ddraw.dll" || true
+    rm -f "$win64_sys_path/ddraw.dll" || true
+    rm -f "$win32_sys_path/cnc-ddraw config.exe" || true
+    rm -rf "$win32_sys_path/Shaders" || true
+  ''}
+
   echo "Installing dxvk DLLs"
-  install -v -D -m644 -t "$win64_sys_path" ${dxvk-w64}/bin/*.dll
-  install -v -D -m644 -t "$win32_sys_path" ${dxvk-w32}/bin/*.dll
+  install -v -D -m644 -t "$win64_sys_path" ${
+    if withDxvkSarek then dxvk-sarek-w64 else dxvk-w64
+  }/bin/*.dll
+  install -v -D -m644 -t "$win32_sys_path" ${
+    if withDxvkSarek then dxvk-sarek-w32 else dxvk-w32
+  }/bin/*.dll
 
   echo "Installing vkd3d-proton DLLs"
   install -v -D -m644 -t "$win64_sys_path" ${vkd3d-proton-w64}/bin/*.dll
@@ -69,11 +84,6 @@ writeShellScriptBin "wineprefix-preparer" ''
   done
 
   ${lib.optionalString (withCncDdraw || withD7vk) ''
-    echo "Removing existing DDraw"
-    rm -f "$win32_sys_path/ddraw.dll" || true
-    rm -f "$win32_sys_path/cnc-ddraw config.exe" || true
-    rm -rf "$win32_sys_path/Shaders" || true
-
     echo "Installing DDraw"
     ${lib.optionalString withCncDdraw ''
       echo "Using cnc-ddraw"
@@ -88,6 +98,9 @@ writeShellScriptBin "wineprefix-preparer" ''
       echo "Using d7vk"
       cp -r --no-preserve=all "${d7vk-w32}/bin/ddraw.dll" "$win32_sys_path/ddraw.dll"
     ''}
+  ''}
+
+  ${lib.optionalString (withDxvkSarek || withCncDdraw || withD7vk) ''
     echo "Adding native DDraw Override"
     wine reg add 'HKEY_CURRENT_USER\Software\Wine\DllOverrides' /v ddraw /d native /f >/dev/null 2>&1
   ''}
