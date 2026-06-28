@@ -57,6 +57,8 @@ let
       ;
   };
 in
+assert lib.assertMsg (!enableBakkesmod)
+  "The option `enableBakkesmod` is set to `true`. BakkesMod does not work through umu yet. See https://github.com/Open-Wine-Components/umu-launcher/issues/283.";
 symlinkJoin {
   name = pname;
   paths = [
