@@ -65,10 +65,10 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/faf-uid --suffix PATH : ${lib.makeBinPath path}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "FA Forever unique id implementation";
     homepage = "https://github.com/FAForever/uid";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ chayleaf ];
+    license = lib.licenses.gpl3;
+    maintainers = with lib.maintainers; [ chayleaf ];
   };
 }
