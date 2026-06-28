@@ -35,6 +35,10 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace-fail "set(CMAKE_EXE_LINKER_FLAGS" "# set(CMAKE_EXE_LINKER_FLAGS"
+    # jsoncpp >= 1.9.7 only exposes operator[](string_view) (C++17), so the
+    # const char* overload faf-uid relies on under -std=c++11 is unresolved.
+    # Build against C++17 to match jsoncpp's ABI.
+    substituteInPlace CMakeLists.txt --replace-fail "-std=c++11" "-std=c++17"
   '';
 
   nativeBuildInputs = [
@@ -61,10 +65,10 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/faf-uid --suffix PATH : ${lib.makeBinPath path}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "FA Forever unique id implementation";
     homepage = "https://github.com/FAForever/uid";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ chayleaf ];
+    license = lib.licenses.gpl3;
+    maintainers = with lib.maintainers; [ chayleaf ];
   };
 }

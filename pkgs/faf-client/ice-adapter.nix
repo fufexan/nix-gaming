@@ -64,12 +64,12 @@ let
       done
     '';
 
-    meta = with lib; {
+    meta = {
       description = "A P2P connection proxy for Supreme Commander: Forged Alliance using ICE";
       homepage = "https://github.com/FAForever/java-ice-adapter";
-      license = with licenses; [ mit ];
-      maintainers = with maintainers; [ chayleaf ];
-      platforms = platforms.darwin ++ [ "x86_64-linux" ];
+      license = with lib.licenses; [ mit ];
+      maintainers = with lib.maintainers; [ chayleaf ];
+      platforms = lib.platforms.darwin ++ [ "x86_64-linux" ];
     };
   };
 in

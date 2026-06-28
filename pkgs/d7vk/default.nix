@@ -42,12 +42,12 @@ stdenv.mkDerivation {
     "--buildtype=release"
   ];
 
-  meta = with lib; {
-    license = licenses.zlib;
+  meta = {
+    license = lib.licenses.zlib;
     description = "Vulkan-based implementation of D3D7, 6 and 5 for Linux / Wine, spun off from DXVK";
     homepage = "https://github.com/WinterSnowfall/d7vk";
     maintainers = with lib.maintainers; [ ccicnce113424 ];
-    platforms = platforms.windows;
+    platforms = lib.platforms.windows;
     # GCC <13 ends up with an extra dep on mcfg-thread12
     broken = stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "13";
   };

@@ -63,9 +63,9 @@ stdenvNoCC.mkDerivation {
     cp "''${srcs[2]}/osu-file-extensions.xml" "$mime_dir/osu.xml"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "MIME types for osu!";
-    license = licenses.agpl3Only; # osu-web uses AGPL v3.0
+    license = lib.licenses.agpl3Only; # osu-web uses AGPL v3.0
     maintainers = with lib.maintainers; [ PlayerNameHere ];
     platforms = [ "x86_64-linux" ];
   };
