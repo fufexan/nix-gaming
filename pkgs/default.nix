@@ -232,6 +232,8 @@
               dxvk-nvapi-w64
               cnc-ddraw
               d7vk-w32
+              dxvk-sarek-w32
+              dxvk-sarek-w64
               ;
           };
         };
