@@ -6,23 +6,14 @@
   writeShellScriptBin,
   gamemode,
   legendary-gl,
-  winetricks,
-  wine,
-  eac-runtime,
+  umu-launcher-git,
   pname ? "rocket-league",
-  location ? "$HOME/Games/${pname}",
-  tricks ? [
-    "arial"
-    "cjkfonts"
-    "vcrun2019"
-    "d3dcompiler_43"
-    "d3dcompiler_47"
-    "d3dx9"
-  ],
+  location ? "$HOME/Games/umu/umu-252950",
   dxvk_hud ? "compiler",
   callPackage,
   enableEAC ? true,
   enableBakkesmod ? false,
+  umuProtonPath ? "GE-Proton",
 }:
 let
   icon = fetchurl {
@@ -32,30 +23,22 @@ let
     sha256 = "0a9ayr3vwsmljy7dpf8wgichsbj4i4wrmd8awv2hffab82fz4ykb";
   };
 
-  # concat winetricks args
-  tricksString = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
-
   script = writeShellScriptBin pname ''
-    export WINEPREFIX="${location}"
     export DXVK_HUD=${dxvk_hud}
-    export MESA_GL_VERSION_OVERRIDE=4.4COMPAT
-    export WINEFSYNC=1
-    export WINEESYNC=1
-    export __GL_SHADER_DISK_CACHE=1
-    export __GL_SHADER_DISK_CACHE_PATH="${location}"
-    ${lib.optionalString enableEAC "export PROTON_EAC_RUNTIME=\"${eac-runtime}\""}
+    export WINEPREFIX="${location}"
+    ${''
+      export GAMEID=umu-252950
+      export STORE=egs
+      export PROTONPATH=${umuProtonPath}
+      ${lib.optionalString enableBakkesmod "export PROTON_VERB=runinprefix"}
 
-    PATH=${wine}/bin:${winetricks}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+      PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}:$PATH
 
-    if [ ! -d "$WINEPREFIX" ]; then
-      # install tricks
-      winetricks -q ${tricksString}
-      wineserver -k
-    fi
-
-    legendary update Sugar --base-path ${location}
-    gamemoderun legendary launch Sugar --base-path ${location}
-    wineserver -w
+      legendary update Sugar --base-path "$WINEPREFIX"
+      legendary launch Sugar --no-wine --wrapper "gamemoderun umu-run"${
+        lib.optionalString (!enableEAC) " -noeac"
+      }
+    ''}
   '';
 
   desktopItems = makeDesktopItem {
@@ -66,8 +49,16 @@ let
     categories = [ "Game" ];
   };
 
-  bakkesmod = callPackage ./bakkesmod.nix { inherit location wine; };
+  bakkesmod = callPackage ./bakkesmod.nix {
+    inherit
+      location
+      umu-launcher-git
+      umuProtonPath
+      ;
+  };
 in
+assert lib.assertMsg (!enableBakkesmod)
+  "The option `enableBakkesmod` is set to `true`. BakkesMod does not work through umu yet. See https://github.com/Open-Wine-Components/umu-launcher/issues/283.";
 symlinkJoin {
   name = pname;
   paths = [

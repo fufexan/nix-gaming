@@ -5,9 +5,10 @@
   writeShellScriptBin,
   fetchurl,
   unzip,
-  wine,
   pname ? "rocket-league",
   location ? "$HOME/Games/${pname}",
+  umu-launcher-git,
+  umuProtonPath,
 }:
 let
   bakkesmodIcon = fetchurl {
@@ -28,7 +29,17 @@ let
     ${unzip}/bin/unzip $TEMP_DIR/BakkesModSetup.zip -d $TEMP_DIR
 
     # Run the bakkesmod installer
-    WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine $TEMP_DIR/BakkesModSetup.exe
+    ${''
+      export WINEPREFIX="${location}"
+      export GAMEID=umu-252950
+      export STORE=egs
+      export PROTON_VERB=runinprefix
+      export PROTONPATH=${umuProtonPath}
+
+      PATH=${umu-launcher-git}/bin:$PATH
+
+      umu-run $TEMP_DIR/BakkesModSetup.exe
+    ''}
 
     # Clean up
     rm $TEMP_DIR/BakkesModSetup.zip
@@ -46,8 +57,18 @@ let
     fi
 
     echo "Starting bakkesmod..."
-    WINEPREFIX="${location}" WINEFSYNC=1 ${wine}/bin/wine c:/Program\ Files/BakkesMod/BakkesMod.exe
 
+    ${''
+      export WINEPREFIX="${location}"
+      export GAMEID=umu-252950
+      export STORE=egs
+      export PROTON_VERB=runinprefix
+      export PROTONPATH=${umuProtonPath}
+
+      PATH=${umu-launcher-git}/bin:$PATH
+
+      umu-run c:/Program\ Files/BakkesMod/BakkesMod.exe
+    ''}
   '';
 
   bakkesmodDesktopItem = makeDesktopItem {
