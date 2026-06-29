@@ -37,7 +37,7 @@ let
   libSDL2 = "${libPrefix}SDL2${lib.optionalString (!hostPlatform.isWindows) "-2.0"}${soVersion "0"}";
   libsdl3 = "${libPrefix}SDL3${soVersion "0"}";
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dxvk";
   version = lib.removePrefix "v" dxvk.version;
   src = dxvk;
@@ -66,7 +66,8 @@ stdenv.mkDerivation {
 
   postPatch = ''
     patchShebangs ./
-
+  ''
+  + lib.optionalString (lib.versionOlder finalAttrs.version "3.0") ''
     substituteInPlace meson.build \
       --replace-fail "dependency('glfw'" "dependency('glfw3'"
   ''
@@ -104,4 +105,4 @@ stdenv.mkDerivation {
     # GCC <13 ends up with an extra dep on mcfg-thread12
     broken = stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "13";
   };
-}
+})
