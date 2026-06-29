@@ -59,10 +59,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v2.7.1",
-      "revision": "ab3631f80d9cd493676d4342bf614028c72e7484",
+      "version": "v3.0",
+      "revision": "a26bacf8f20ae7d2278d169519de35651e7f812e",
       "url": null,
-      "hash": "sha256-c4QlFCUH5SdXT4J3jTGQBAgFXFD8waTjvLUePLAdpFs=",
+      "hash": "sha256-RTioXBXmRE2LJ3Hqa/NndmX5Fu/Mi34V7wUUEoIh70o=",
       "frozen": true
     },
     "dxvk-gplasync": {
@@ -76,10 +76,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.7.1-1",
-      "revision": "209a3069a19d13efb019e111f27114c185e86092",
-      "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?sha=v2.7.1-1",
-      "hash": "sha256-O2J37Pq3bdGbyl5GyTn6kmo6g9ID39ab6T2JW0OlhvA="
+      "version": "v3.0-1",
+      "revision": "886817064e64544e103ce017ab5a49398d517c8a",
+      "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?sha=v3.0-1",
+      "hash": "sha256-b/rOyMnull1Qbg8eTzxkQ35bmPUfQ/XZ54Sari1KWUI="
     },
     "dxvk-gplasync-lowlatency": {
       "type": "GitRelease",
