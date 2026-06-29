@@ -35,6 +35,12 @@ writeShellScriptBin "wineprefix-preparer" ''
   echo "Killing running wine processes/wineserver"
   wineserver -k || true
 
+  ${lib.optionalString (withD7vk || withDxvkSarek) ''
+    echo "Removing existing DDraw to avoid stale DLLs in configured prefixes"
+    rm -f "$WINEPREFIX/drive_c/windows/system32/ddraw.dll" || true
+    rm -f "$WINEPREFIX/drive_c/windows/syswow64/ddraw.dll" || true
+  ''}
+
   echo "Running wineboot -u to update prefix"
   WINEDEBUG=-all wineboot -u || :; sleep 1
 
@@ -52,12 +58,20 @@ writeShellScriptBin "wineprefix-preparer" ''
   echo "Removing existing dxvk and vkd3d-proton DLLs"
   rm -rf {"$win32_sys_path","$win64_sys_path"}/{dxgi,d3d9,d3d10core,d3d11,d3d12,d3d12core}.dll
 
-  ${lib.optionalString (withDxvkSarek || withCncDdraw || withD7vk) ''
+  ${lib.optionalString withCncDdraw ''
     echo "Removing existing DDraw"
     rm -f "$win32_sys_path/ddraw.dll" || true
-    rm -f "$win64_sys_path/ddraw.dll" || true
     rm -f "$win32_sys_path/cnc-ddraw config.exe" || true
     rm -rf "$win32_sys_path/Shaders" || true
+  ''}
+  ${lib.optionalString withD7vk ''
+    echo "Renaming existing DDraw"
+    mv "$win32_sys_path/ddraw.dll" "$win32_sys_path/ddraw_.dll" || true
+  ''}
+  ${lib.optionalString withDxvkSarek ''
+    echo "Renaming existing DDraw"
+    mv "$win32_sys_path/ddraw.dll" "$win32_sys_path/ddraw_.dll" || true
+    mv "$win64_sys_path/ddraw.dll" "$win64_sys_path/ddraw_.dll" || true
   ''}
 
   echo "Installing dxvk DLLs"
