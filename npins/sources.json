@@ -311,9 +311,9 @@
       },
       "branch": "winello",
       "submodules": false,
-      "revision": "79223ceb0cba749a8e6db2d1db5581efadd3e547",
-      "url": "https://github.com/whrvt/wine-osu-patches/archive/79223ceb0cba749a8e6db2d1db5581efadd3e547.tar.gz",
-      "hash": "sha256-7uuRCToxvAtvIulCn3NzuhGr/D3t04NIkScDVtAqQ/c="
+      "revision": "a5fa1de7f67c79039326e162b735bb26241eba4a",
+      "url": "https://github.com/whrvt/wine-osu-patches/archive/a5fa1de7f67c79039326e162b735bb26241eba4a.tar.gz",
+      "hash": "sha256-0e+kZay9vX7SiDKHwnMlxKD2P9ujLSOyBm2JyckCWtY="
     },
     "wine-tkg": {
       "type": "Git",
