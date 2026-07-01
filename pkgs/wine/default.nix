@@ -133,21 +133,16 @@ in
   wine-osu =
     let
       pname = pnameGen "wine-osu";
-      version = "11.8";
-      staging = fetchFromGitHub {
-        owner = "wine-staging";
-        repo = "wine-staging";
-        rev = "v${version}";
-        sha256 = "sha256-lW5dfCfsB+z84mlLpfmkR7QDxmhL+RcBufSftUutHto=";
-      };
+      version = lib.removeSuffix "\n" (
+        lib.removePrefix "Wine version " (builtins.readFile ./wine-osu/VERSION)
+      );
+      staging = pins.wine-osu-staging;
     in
     (callPackage (nixpkgs-wine + "/pkgs/applications/emulators/wine/base.nix") (
       lib.recursiveUpdate defaultsWow64 {
         inherit version pname;
-        src = fetchurl {
-          url = "https://dl.winehq.org/wine/source/11.x/wine-${version}.tar.xz";
-          hash = "sha256-U6qFmV1Ll/ARahxWuKahQXcw71mid4GdLT0xNk6lVrA=";
-        };
+        src = pins.wine-osu;
+        monos = [ (fetchurl (lib.importJSON ./wine-osu/mono.json)) ];
         patches = [
           (nixpkgs-wine + "/pkgs/applications/emulators/wine/cert-path.patch")
         ]
