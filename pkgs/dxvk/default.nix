@@ -20,7 +20,8 @@
   stdenv,
 }:
 let
-  inherit (pins) dxvk dxvk-gplasync;
+  dxvk = if withAsync then pins.dxvk-gplasync-src else pins.dxvk;
+  inherit (pins) dxvk-gplasync;
 
   inherit (stdenv) hostPlatform;
   libPrefix = lib.optionalString (!hostPlatform.isWindows) "lib";

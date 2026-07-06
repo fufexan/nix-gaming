@@ -1,6 +1,6 @@
 #!/usr/bin/env -S nix shell .#npins nixpkgs#jq -c bash
 
-NAME="dxvk"
+NAME="dxvk-gplasync-src"
 
 REPO_OWNER="doitsujin"
 REPO_NAME="dxvk"
