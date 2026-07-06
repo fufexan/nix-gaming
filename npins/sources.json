@@ -11,10 +11,10 @@
       "version_upper_bound": "v2.7.1",
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.11",
-      "revision": "2b94b2d5d9604df8bae4efce0e69d9f3731daad1",
+      "version": "v1.12",
+      "revision": "520a79a80846b69b93218e41f3713e69fb81d85d",
       "url": null,
-      "hash": "sha256-UHHocxqDYNXdvTe/eoAvIK3U4RA3Y+iPrY4KJR/F6UA="
+      "hash": "sha256-UeIHb7kCsKWmfEA/dyi3xDVFnNpNr7uVmfs7cBKDYEM="
     },
     "downlords-faf-client": {
       "type": "GitRelease",
@@ -249,9 +249,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "9325b6d4c87371c8c359f30c0cea7e4afa372060",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/9325b6d4c87371c8c359f30c0cea7e4afa372060.tar.gz",
-      "hash": "sha256-AkwCgToaA0PjBr4J23V1/aYmNmVJRD+eURSEjUtc6pU="
+      "revision": "1c7b7e697dd6ffd316b4c4a7f4854b595a096b99",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/1c7b7e697dd6ffd316b4c4a7f4854b595a096b99.tar.gz",
+      "hash": "sha256-505ufMEfZd2IdZ10jYFyIt+E5oZXyrxR6Ztu4oqT1g0="
     },
     "vkd3d-proton": {
       "type": "GitRelease",
