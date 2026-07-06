@@ -59,11 +59,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v3.0",
-      "revision": "a26bacf8f20ae7d2278d169519de35651e7f812e",
+      "version": "v3.0.1",
+      "revision": "5432235794a56585ea87090be02213d7c94a5fdb",
       "url": null,
-      "hash": "sha256-RTioXBXmRE2LJ3Hqa/NndmX5Fu/Mi34V7wUUEoIh70o=",
-      "frozen": true
+      "hash": "sha256-nG4zplcziqD2/Ezp6SulgkNqWM1bJsoVj9BS2/6PZoA="
     },
     "dxvk-gplasync": {
       "type": "GitRelease",
@@ -96,6 +95,23 @@
       "revision": "83df10afe5b340c3876dacecfd79383ea368c58d",
       "url": null,
       "hash": "sha256-Ac4F3M9RGqHErPn0bIAeKWw4tdP6x/ArOOy2WP/P9i4="
+    },
+    "dxvk-gplasync-src": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "doitsujin",
+        "repo": "dxvk"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": true,
+      "version": "v3.0",
+      "revision": "a26bacf8f20ae7d2278d169519de35651e7f812e",
+      "url": null,
+      "hash": "sha256-RTioXBXmRE2LJ3Hqa/NndmX5Fu/Mi34V7wUUEoIh70o=",
+      "frozen": true
     },
     "dxvk-nvapi": {
       "type": "GitRelease",
