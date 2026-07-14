@@ -11,10 +11,10 @@
       "version_upper_bound": "v2.7.1",
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.12",
-      "revision": "520a79a80846b69b93218e41f3713e69fb81d85d",
+      "version": "v2.0",
+      "revision": "ea9594a6d0684533b275b8d9e87dffc9044808d3",
       "url": null,
-      "hash": "sha256-UeIHb7kCsKWmfEA/dyi3xDVFnNpNr7uVmfs7cBKDYEM="
+      "hash": "sha256-eM18O/y7+C1KGXuTRyUrupajM8KHvnAeGOOAwqgezK4="
     },
     "downlords-faf-client": {
       "type": "GitRelease",
@@ -265,9 +265,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "346cab89c19a3525718be8c5c65d700ab47b432e",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/346cab89c19a3525718be8c5c65d700ab47b432e.tar.gz",
-      "hash": "sha256-ZpYxoXux80QbmJUWyK5P9Om0iKNTWLrWH0RWDFXx5zE="
+      "revision": "0b17996174fed0691022d11a5cbcb4f6583738de",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/0b17996174fed0691022d11a5cbcb4f6583738de.tar.gz",
+      "hash": "sha256-xuCLvEE4vX2dgJjgE8ExQRpHqE0BZWLJGbDMDtTHa5g="
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -341,9 +341,9 @@
       },
       "branch": "winello",
       "submodules": false,
-      "revision": "a05f6049cc67009f8a7b2d8d92025a04ee1949d0",
-      "url": "https://github.com/whrvt/wine-osu-patches/archive/a05f6049cc67009f8a7b2d8d92025a04ee1949d0.tar.gz",
-      "hash": "sha256-bXLT2B1lmEiHkjW/YUwZvEV6dqYKu+8+C7aTi0DcFZA="
+      "revision": "00aa25c351a395eae4b9d7f3e636ec6150b896d8",
+      "url": "https://github.com/whrvt/wine-osu-patches/archive/00aa25c351a395eae4b9d7f3e636ec6150b896d8.tar.gz",
+      "hash": "sha256-9qJUdy486yFXYXD45HP3o/YWZiiDj7ey5jV1o1JgXRg="
     },
     "wine-osu-staging": {
       "type": "Git",
