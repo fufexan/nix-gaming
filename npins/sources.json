@@ -8,13 +8,14 @@
         "repo": "d7vk"
       },
       "pre_releases": false,
-      "version_upper_bound": "v2.7.1",
+      "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v2.0",
-      "revision": "ea9594a6d0684533b275b8d9e87dffc9044808d3",
+      "version": "v1.12",
+      "revision": "520a79a80846b69b93218e41f3713e69fb81d85d",
       "url": null,
-      "hash": "sha256-eM18O/y7+C1KGXuTRyUrupajM8KHvnAeGOOAwqgezK4="
+      "hash": "sha256-UeIHb7kCsKWmfEA/dyi3xDVFnNpNr7uVmfs7cBKDYEM=",
+      "frozen": true
     },
     "downlords-faf-client": {
       "type": "GitRelease",
