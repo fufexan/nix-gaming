@@ -7,8 +7,8 @@
   },
   "tachyon": {
     "query": "map(select(.prerelease)) | first | .tag_name",
-    "hash": "sha256-L0oSIii74N2rrzDdAh+LD7gX9uW5NeAaHIlbSllD+PQ=",
-    "storePath": "/nix/store/hrf8p5fbf67hh1kl6ybiby3d2v5ymn4m-osu.AppImage",
-    "version": "2026.709.0-tachyon"
+    "hash": "sha256-9oEWDvySL66vc2BRZi2IvZF7B2t54eFY/LfbL6AGgS4=",
+    "storePath": "/nix/store/39pv8riqllwbrqynm35h971jzmn255zi-osu.AppImage",
+    "version": "2026.716.0-tachyon"
   }
 }
