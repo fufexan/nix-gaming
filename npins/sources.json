@@ -11,10 +11,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.12",
-      "revision": "520a79a80846b69b93218e41f3713e69fb81d85d",
+      "version": "v2.0",
+      "revision": "151b9b56e9d2284ee4eef6aea6e9fb955e6b1e1f",
       "url": null,
-      "hash": "sha256-UeIHb7kCsKWmfEA/dyi3xDVFnNpNr7uVmfs7cBKDYEM=",
+      "hash": "sha256-VAM5Gygb+zTs1cL9dFteq1StkB3jzHSji42nNNkS/04=",
       "frozen": true
     },
     "downlords-faf-client": {
