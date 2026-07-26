@@ -28,10 +28,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2026.4.1",
-      "revision": "d23c6a77597733d321f16c7be1817741eb0151a5",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.4.1",
-      "hash": "sha256-addr570WCk6nCuM/6qzQ2HxTk5M+bw9Kr5NBJ9+BAU0="
+      "version": "v2026.7.0",
+      "revision": "b3c677b8f02743fbfd4fd8270423afd667c03531",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.7.0",
+      "hash": "sha256-RYTKrYu7F0I6+PTIa4ctKsDrgYrzd4bMjnbd8a+/Aqo="
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -44,10 +44,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2026.4.1",
-      "revision": "d23c6a77597733d321f16c7be1817741eb0151a5",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.4.1",
-      "hash": "sha256-addr570WCk6nCuM/6qzQ2HxTk5M+bw9Kr5NBJ9+BAU0="
+      "version": "v2026.7.0",
+      "revision": "b3c677b8f02743fbfd4fd8270423afd667c03531",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.7.0",
+      "hash": "sha256-RYTKrYu7F0I6+PTIa4ctKsDrgYrzd4bMjnbd8a+/Aqo="
     },
     "dxvk": {
       "type": "GitRelease",
@@ -369,9 +369,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b9fa0e26e4dc77993d638c2f7ae81bacb3ba3a60",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/b9fa0e26e4dc77993d638c2f7ae81bacb3ba3a60.tar.gz",
-      "hash": "sha256-ukTBEPIE97lhUi29fBdX49NEX8HODvO0wv02NsdMt9k="
+      "revision": "7e421cdf3522097eb302a48fc04ab023ab991345",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/7e421cdf3522097eb302a48fc04ab023ab991345.tar.gz",
+      "hash": "sha256-4QAPeHKZ0VhQMri8erTmXvzI5N9+QABXMffLheboV3U="
     },
     "winetricks": {
       "type": "Git",
