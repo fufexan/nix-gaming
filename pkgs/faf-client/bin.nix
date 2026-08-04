@@ -26,8 +26,8 @@
 let
   pname = "faf-client-bin";
 
-  versionStable = "2026.7.0";
-  sha256Stable = "2/NnUiKDziU9RNQXzDMR9PBL9nw5gGtPicasUohusvs=";
+  versionStable = "2026.7.1";
+  sha256Stable = "bv33Xy29AmRSmJWTNlJ1hy4p1PCu4jwRKpERbfE3OZM=";
   srcStable = fetchzip {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionStable}/faf_unix_${
       builtins.replaceStrings [ "." ] [ "_" ] versionStable
@@ -35,8 +35,8 @@ let
     sha256 = sha256Stable;
   };
 
-  versionUnstable = "2026.7.0";
-  sha256Unstable = "2/NnUiKDziU9RNQXzDMR9PBL9nw5gGtPicasUohusvs=";
+  versionUnstable = "2026.7.1";
+  sha256Unstable = "bv33Xy29AmRSmJWTNlJ1hy4p1PCu4jwRKpERbfE3OZM=";
   srcUnstable = fetchzip {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionUnstable}/faf_unix_${
       builtins.replaceStrings [ "." ] [ "_" ] versionUnstable
