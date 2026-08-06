@@ -266,9 +266,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "cf3d1b107147480c447ffbfb3f789dc74335074c",
-      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/cf3d1b107147480c447ffbfb3f789dc74335074c.tar.gz",
-      "hash": "sha256-0KJtJd0tY8ewoaUIJ+1cIDlr7eRTWLGTpkkNMn60JIY="
+      "revision": "e2b203a1fdd2af9f35166f5713cb3f85d72587e2",
+      "url": "https://github.com/Open-Wine-Components/umu-launcher/archive/e2b203a1fdd2af9f35166f5713cb3f85d72587e2.tar.gz",
+      "hash": "sha256-QwgKUCCDiZC7DCwW+Ir5UED0LG3dv/Q+4ACZa89Uw9w="
     },
     "vkd3d-proton": {
       "type": "GitRelease",
@@ -382,9 +382,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "08304e81f9ac9a83c552a6bd78689040d174bf95",
-      "url": "https://github.com/winetricks/winetricks/archive/08304e81f9ac9a83c552a6bd78689040d174bf95.tar.gz",
-      "hash": "sha256-DYLzT/1ajMakfxWz8aY6w6DgUBCJLFPUf/UQNWVV6aw="
+      "revision": "8e6f0d529b0077bc8602c5de62a08583c7cd0f4e",
+      "url": "https://github.com/winetricks/winetricks/archive/8e6f0d529b0077bc8602c5de62a08583c7cd0f4e.tar.gz",
+      "hash": "sha256-cxbm4ilctg3Aa/RgdJsf8TNZJbIrig21WPIH4rcLKwk="
     }
   },
   "version": 8
