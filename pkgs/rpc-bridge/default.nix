@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     cp build/bridge.exe $out/bin
 
     ${
-      if stdenv.isDarwin then
+      if stdenv.hostPlatform.isDarwin then
         ''
           cp build/launchd.sh $out/bin
         ''

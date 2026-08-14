@@ -12,16 +12,16 @@ let
   version = builtins.replaceStrings [ "v" ] [ "" ] src.version;
 
   jfxPlatform =
-    if stdenvNoCC.isDarwin then
+    if stdenvNoCC.hostPlatform.isDarwin then
       (
-        if stdenvNoCC.isAarch64 then
+        if stdenvNoCC.hostPlatform.isAarch64 then
           "mac-aarch64"
-        else if stdenvNoCC.isx86_64 then
+        else if stdenvNoCC.hostPlatform.isx86_64 then
           "mac"
         else
           null
       )
-    else if stdenvNoCC.isLinux then
+    else if stdenvNoCC.hostPlatform.isLinux then
       "linux"
     else
       null;
