@@ -20,7 +20,7 @@ let
     # lspci
     pciutils
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     # lsblk
     util-linux
     # xrandr

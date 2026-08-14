@@ -87,7 +87,7 @@ let
     # lspci
     pciutils
   ]
-  ++ lib.optionals stdenvNoCC.isLinux [
+  ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
     # lsblk
     util-linux
     xrandr
