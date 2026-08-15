@@ -145,7 +145,7 @@ need to do is add the module to your configuration like this:
 }
 ```
 
-Now you can skip to the Usage section of a specific module.
+Now you can skip to the [Usage](#Usage) section of a specific module.
 
 #### Stable
 
@@ -162,7 +162,9 @@ in {
 }
 ```
 
-### PipeWire low latency
+### Usage
+
+#### PipeWire low latency (module name: pipewireLowLatency)
 
 [PipeWire](https://wiki.nixos.org/wiki/PipeWire) is a new audio backend that
 replaces ALSA, PulseAudio and JACK. It is as low latency as JACK and as easy to
@@ -170,8 +172,6 @@ use as Pulse.
 
 This module extends the PipeWire module from Nixpkgs and makes it easy to enable
 the low latency settings in a few lines.
-
-#### Usage
 
 After importing the module in your configuration like described above, enable it
 along with PipeWire:
@@ -203,7 +203,7 @@ If you get no sound, you may want to increase `quantum`.
 You can calculate the theoretical latency by dividing `quantum` by `rate`
 (`48/48000` is exactly 1ms).
 
-### Platform optimizations
+#### Platform optimizations (module name: platformOptimizations)
 
 [SteamOS](https://store.steampowered.com/steamos) on the steam deck has set some
 specific sysctl settings, so that some games can be run at all, or perform
@@ -211,8 +211,6 @@ better under certain circumstances.
 
 This module extends the Steam module from Nixpkgs but can be enabled as a
 standalone option.
-
-#### Usage
 
 After importing the module in your configuration like described above, enable it
 like this:
