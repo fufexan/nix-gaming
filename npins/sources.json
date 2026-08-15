@@ -11,10 +11,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v2.0",
-      "revision": "151b9b56e9d2284ee4eef6aea6e9fb955e6b1e1f",
+      "version": "v2.1",
+      "revision": "91923e35b92d013613f56b9b8f479e0d5cfcec90",
       "url": null,
-      "hash": "sha256-VAM5Gygb+zTs1cL9dFteq1StkB3jzHSji42nNNkS/04=",
+      "hash": "sha256-iPuh/CG7JfVz79n22xfjRZbnaycJLRtqWmlkSznC5sQ=",
       "frozen": true
     },
     "downlords-faf-client": {
@@ -342,9 +342,9 @@
       },
       "branch": "winello",
       "submodules": false,
-      "revision": "00aa25c351a395eae4b9d7f3e636ec6150b896d8",
-      "url": "https://github.com/whrvt/wine-osu-patches/archive/00aa25c351a395eae4b9d7f3e636ec6150b896d8.tar.gz",
-      "hash": "sha256-9qJUdy486yFXYXD45HP3o/YWZiiDj7ey5jV1o1JgXRg="
+      "revision": "210bec41e06e18e94e04b1f91f655648996d0705",
+      "url": "https://github.com/whrvt/wine-osu-patches/archive/210bec41e06e18e94e04b1f91f655648996d0705.tar.gz",
+      "hash": "sha256-RVjMesTNbi/1bU8avM5kyy5QQwdQxxrbmehittucOOA="
     },
     "wine-osu-staging": {
       "type": "Git",
