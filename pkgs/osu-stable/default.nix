@@ -143,7 +143,9 @@ let
             # install tricks
             winetricks -q -f ${tricksFmt}
             wineserver -k
+          fi
 
+          if [ ! -f "$OSU" ]; then
             # install osu
             wine ${src}
             wineserver -k
