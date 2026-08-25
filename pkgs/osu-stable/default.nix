@@ -76,8 +76,6 @@ let
 
   script = writeShellScriptBin pname ''
     export WINEPREFIX="${location}"
-    # required, otherwise installation freezes
-    export WINEDLLOVERRIDES="winemenubuilder.exe=;"
     # sets realtime priority for wine
     export STAGING_RT_PRIORITY_SERVER=1
     # disables vsync for OpenGL
@@ -140,6 +138,8 @@ let
       else
         ''
           if [ ! -d "$WINEPREFIX" ]; then
+            # required, otherwise installation freezes multiple times with wine-osu
+            wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'winemenubuilder.exe' /t REG_SZ /d ""
             # install tricks
             winetricks -q -f ${tricksFmt}
             wineserver -k
