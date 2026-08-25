@@ -163,7 +163,9 @@ let
         ''
       else
         ''
-          wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &
+          ${lib.optionalString (
+            wine-discord-ipc-bridge != null
+          ) "wine ${wine-discord-ipc-bridge}/bin/winediscordipcbridge.exe &"}
           ${gameMode} wine ${wineFlags} "$OSU" "$@"
           wineserver -w
         ''
