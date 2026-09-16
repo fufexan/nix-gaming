@@ -60,10 +60,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v3.1",
-      "revision": "a1596f766f236244686c0c0fffba4416f0e185b1",
+      "version": "v3.1.1",
+      "revision": "1e0f92318d6ec7b7286e050d9e24fd01a2d09c92",
       "url": null,
-      "hash": "sha256-eFcrew1xvMLsFZfpJLM2HCxVuOkHkl3KdeVO8hdVIck="
+      "hash": "sha256-a9BWTdL1ZSA0Rsf2+N/udDPgSEEEU4idWBzXu8C0pY4="
     },
     "dxvk-gplasync": {
       "type": "GitRelease",
