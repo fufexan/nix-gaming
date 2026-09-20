@@ -76,10 +76,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v3.0-1",
-      "revision": "886817064e64544e103ce017ab5a49398d517c8a",
-      "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?sha=v3.0-1",
-      "hash": "sha256-b/rOyMnull1Qbg8eTzxkQ35bmPUfQ/XZ54Sari1KWUI="
+      "version": "v3.1.1-1",
+      "revision": "9a835c18d53e35ddee477709f5b9b31089bf44cd",
+      "url": "https://gitlab.com/api/v4/projects/Ph42oN%2Fdxvk-gplasync/repository/archive.tar.gz?sha=v3.1.1-1",
+      "hash": "sha256-+dSIRncapLoDikQ7ZmRsakXVZ+TCTYmPRp0KNxewS8Q="
     },
     "dxvk-gplasync-lowlatency": {
       "type": "GitRelease",
@@ -108,10 +108,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v3.0",
-      "revision": "a26bacf8f20ae7d2278d169519de35651e7f812e",
+      "version": "v3.1.1",
+      "revision": "1e0f92318d6ec7b7286e050d9e24fd01a2d09c92",
       "url": null,
-      "hash": "sha256-RTioXBXmRE2LJ3Hqa/NndmX5Fu/Mi34V7wUUEoIh70o=",
+      "hash": "sha256-a9BWTdL1ZSA0Rsf2+N/udDPgSEEEU4idWBzXu8C0pY4=",
       "frozen": true
     },
     "dxvk-nvapi": {
@@ -369,9 +369,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "04bfb553618668244e02c8a1337775f0974706fe",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/04bfb553618668244e02c8a1337775f0974706fe.tar.gz",
-      "hash": "sha256-UIvZJqhybyMPWRn0k4tlAp1VrXB0hYt9wiGnM6QQyQI="
+      "revision": "8b96b02eb52aa5c2f94624ea83a356be28d0874a",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/8b96b02eb52aa5c2f94624ea83a356be28d0874a.tar.gz",
+      "hash": "sha256-eCzxfXrVe9xSLzF7p/ZtPm8j6S2EazqVNxJWH8FHs+A="
     },
     "winetricks": {
       "type": "Git",
