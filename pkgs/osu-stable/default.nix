@@ -21,7 +21,7 @@
   protonVerbs ? [ "waitforexitandrun" ],
   tricks ? [
     "gdiplus"
-    "dotnet45"
+    "dotnet48"
     "meiryo"
   ],
   preCommands ? "",
@@ -37,6 +37,9 @@ let
 
   # concat winetricks args
   tricksFmt = with builtins; if (length tricks) > 0 then concatStringsSep " " tricks else "-V";
+
+  # the dotnet verbs need registry fixups before and after they run
+  hasDotnet = lib.any (lib.hasPrefix "dotnet") tricks;
 
   gameMode = lib.strings.optionalString useGameMode "${gamemode}/bin/gamemoderun";
 
@@ -99,6 +102,40 @@ let
     USER="$(whoami)"
     OSU="$WINEPREFIX/drive_c/osu/osu!.exe"
 
+    # $1 runs wine, the remaining arguments run winetricks.
+    # Returns 0 when it installed the tricks, 1 when they were already there.
+    install_tricks() {
+      local runner="$1"
+      shift
+      local marker="$WINEPREFIX/.tricks-installed"
+
+      # the prefix directory existing does not mean winetricks finished: an
+      # interrupted run leaves a half-built prefix behind (issue #381)
+      if [ -f "$marker" ] && [ "$(<"$marker")" = "${tricksFmt}" ]; then
+        return 1
+      fi
+    ${lib.optionalString hasDotnet ''
+      # Proton pre-creates these keys, which makes the .NET 4.x installers abort
+      # with "Same or higher version of .NET Framework 4 has already been
+      # installed on this computer" (winetricks#2367)
+      "$runner" reg delete 'HKLM\Software\Microsoft\NET Framework Setup\NDP\v4' /f || true
+      "$runner" reg delete 'HKLM\Software\Wow6432Node\Microsoft\NET Framework Setup\NDP\v4' /f || true
+    ''}
+      "$@" -q -f ${tricksFmt}
+    ${lib.optionalString hasDotnet ''
+      # the dotnet verbs set winver to winxp and restore it when they finish, so
+      # an interrupted earlier run can leave winxp behind, which breaks TLS 1.2
+      "$@" -q win7
+
+      # osu!stable asks for TLS 1.2, which .NET only honours with these set
+      for key in 'HKLM\Software\Microsoft\.NETFramework\v4.0.30319' 'HKLM\Software\Wow6432Node\Microsoft\.NETFramework\v4.0.30319'; do
+        "$runner" reg add "$key" /v SchUseStrongCrypto /t REG_DWORD /d 1 /f
+        "$runner" reg add "$key" /v SystemDefaultTlsVersions /t REG_DWORD /d 1 /f
+      done
+    ''}
+      printf '%s' "${tricksFmt}" > "$marker"
+    }
+
     configure_native_file_manager() {
       local runner="$1"
       local marker="$WINEPREFIX/.native-file-manager-configured"
@@ -124,9 +161,7 @@ let
           export PROTON_VERBS="${lib.strings.concatStringsSep "," protonVerbs}"
           export PROTONPATH="${protonPath}"
 
-          if [ ! -d "$WINEPREFIX" ]; then
-            umu-run winetricks ${tricksFmt}
-          fi
+          install_tricks umu-run umu-run winetricks
 
           if [ ! -f "$OSU" ]; then
             umu-run ${src}
@@ -140,8 +175,9 @@ let
           if [ ! -d "$WINEPREFIX" ]; then
             # required, otherwise installation freezes multiple times with wine-osu
             wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'winemenubuilder.exe' /t REG_SZ /d ""
-            # install tricks
-            winetricks -q -f ${tricksFmt}
+          fi
+
+          if install_tricks wine winetricks; then
             wineserver -k
           fi
 

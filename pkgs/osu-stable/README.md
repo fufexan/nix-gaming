@@ -17,3 +17,10 @@ Defaults to [`proton-osu-bin`](../proton-osu-bin/README.md).
 - `protonVerbs`
 - `nativeFileManager` Native Linux file manager binary used when opening
 folders inside the game. Defaults to `xdg-open`.
+
+## Prefix setup
+
+The winetricks step is tracked by `$WINEPREFIX/.tricks-installed`, which holds
+the list of tricks that were installed. The script re-runs winetricks when that
+file is missing or lists different tricks, so an interrupted first run repairs
+itself on the next launch instead of leaving a half-built prefix behind.
