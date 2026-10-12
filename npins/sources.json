@@ -141,10 +141,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v1.14.0",
-      "revision": "250ca92938f5a6490feea841fed10452e1edcf0f",
+      "version": "v1.14.1",
+      "revision": "0c0e8f6f62c7cb37dbf5d38413517efa00c08fef",
       "url": null,
-      "hash": "sha256-erfKbF6QE31E6QqAD+dAAR51LRjabG8Y2sc3uG9kdFY="
+      "hash": "sha256-FKXuxMkxwTS6LcYWA4y1/QcI3+j9sWISr0sHqtQqkcQ="
     },
     "faf-ice-adapter": {
       "type": "GitRelease",
@@ -328,9 +328,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "996020f410e7a1aa2dd6b44cf740854ea524d31a",
-      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine/repository/archive.tar.gz?sha=996020f410e7a1aa2dd6b44cf740854ea524d31a",
-      "hash": "sha256-cV+bbZ1mzv1h/ABGhdC0wXXaemPbGiwxx5jpOJhJ0p4=",
+      "revision": "455e3509b98a6919fd4ad1def4803e08c41c03b2",
+      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine/repository/archive.tar.gz?sha=455e3509b98a6919fd4ad1def4803e08c41c03b2",
+      "hash": "sha256-6uUhQJBmXFqJ2SEawnujPUgHKtKXvHpHGiUFL9s1riM=",
       "frozen": true
     },
     "wine-osu-patches": {
@@ -342,9 +342,9 @@
       },
       "branch": "winello",
       "submodules": false,
-      "revision": "6f9a41ec98ffcbfc4ffd9a9c195e6508db925090",
-      "url": "https://github.com/whrvt/wine-osu-patches/archive/6f9a41ec98ffcbfc4ffd9a9c195e6508db925090.tar.gz",
-      "hash": "sha256-5DkFeo9adPt247iJ88PykdUjzoVubvrS/BYhtLr99gU="
+      "revision": "706927c78bf5e62c32cf613eeb727ccb50c4aaec",
+      "url": "https://github.com/whrvt/wine-osu-patches/archive/706927c78bf5e62c32cf613eeb727ccb50c4aaec.tar.gz",
+      "hash": "sha256-OpmTMirRlgXNngdtZr8AzXqKJWOo+C6PDmgbJ7tkDhQ="
     },
     "wine-osu-staging": {
       "type": "Git",
@@ -355,9 +355,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "bc50fb148ca22f8f328e7b75a7a2a7e145d0eec4",
-      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine-staging/repository/archive.tar.gz?sha=bc50fb148ca22f8f328e7b75a7a2a7e145d0eec4",
-      "hash": "sha256-3pE/RVUvH56z9Ilumokl7nNMrhfksuUWzKq6k8behW4=",
+      "revision": "766285c4fc8fcf92e9d7c76f5f8a5f5d65d3fb5f",
+      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine-staging/repository/archive.tar.gz?sha=766285c4fc8fcf92e9d7c76f5f8a5f5d65d3fb5f",
+      "hash": "sha256-Dnb/CjzxWDdMDXfJB/hiWHhQLjU49F6OyM6qqC0g/v0=",
       "frozen": true
     },
     "wine-tkg": {
