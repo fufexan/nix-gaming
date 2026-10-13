@@ -54,7 +54,7 @@ let
       export PROTONPATH=${umuProtonPath}
       ${lib.optionalString useBakkesmod "export PROTON_VERB=run"}
 
-      PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}:$PATH
+      PATH=${umu-launcher-git}/bin:${legendary-gl}/bin:${gamemode}/bin:$PATH
 
       legendary update Sugar --base-path "$WINEPREFIX"
       legendary launch Sugar --no-wine --wrapper "gamemoderun ${
