@@ -125,10 +125,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": true,
-      "version": "v0.9.2",
-      "revision": "f9fdf268e888d17ae9875a4f01908164ff05f740",
+      "version": "v0.9.3",
+      "revision": "158df97a071dc8b9cdba6a8feceb5c90bc27bd6f",
       "url": null,
-      "hash": "sha256-VXDh8xWKYYD7fLRJgsAzjGxeqH91coo6x3rQEzLF4HY="
+      "hash": "sha256-iKdvv4oMgyGHAy/Cxakiq2FlkOAeXxz0bmvPSuIzrhA="
     },
     "dxvk-sarek": {
       "type": "GitRelease",
