@@ -28,10 +28,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2026.7.1",
-      "revision": "e45f644277e3c946846a8dec5c5b9a1030289125",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.7.1",
-      "hash": "sha256-/O0LE5Nc+Ub0p7c1jZ3e76TezC7mwnCkmXjtzBVZm2w="
+      "version": "v2026.10.0",
+      "revision": "5da818ba1ac56d9d28ae68ad1f16d0e67a0d6777",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.10.0",
+      "hash": "sha256-Vsgp406jO+TTBTci/NZEYSAB0Jzzx6i5/x6xc8LMna0="
     },
     "downlords-faf-client-unstable": {
       "type": "GitRelease",
@@ -44,10 +44,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2026.7.1",
-      "revision": "e45f644277e3c946846a8dec5c5b9a1030289125",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.7.1",
-      "hash": "sha256-/O0LE5Nc+Ub0p7c1jZ3e76TezC7mwnCkmXjtzBVZm2w="
+      "version": "v2026.10.0",
+      "revision": "5da818ba1ac56d9d28ae68ad1f16d0e67a0d6777",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.10.0",
+      "hash": "sha256-Vsgp406jO+TTBTci/NZEYSAB0Jzzx6i5/x6xc8LMna0="
     },
     "dxvk": {
       "type": "GitRelease",
@@ -369,9 +369,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "6e3fed2ae3cbc97ff635be33e25ab42ce359ab61",
-      "url": "https://github.com/Kron4ek/wine-tkg/archive/6e3fed2ae3cbc97ff635be33e25ab42ce359ab61.tar.gz",
-      "hash": "sha256-IvdNlVOeaLmiY2DUBbc9IpG76KFu/lqGqWC4ZjH/S3s="
+      "revision": "4dfcbe1b0d36f69ca2da40eb7c01c5681003e939",
+      "url": "https://github.com/Kron4ek/wine-tkg/archive/4dfcbe1b0d36f69ca2da40eb7c01c5681003e939.tar.gz",
+      "hash": "sha256-tn9PzFy9EtMehVHpvqd4XFwCdl6DBzCQVGH6mJQH7As="
     },
     "winetricks": {
       "type": "Git",
