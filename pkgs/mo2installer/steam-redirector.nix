@@ -10,10 +10,8 @@ let
     overrideCC stdenv (
       stdenv.cc.override (old: {
         cc = old.cc.override {
-          threadsCross = {
-            model = "win32";
-            package = null;
-          };
+          # null makes gcc use libc (mingw-w64), which provides the win32 thread model
+          threadsCross = null;
         };
       })
     );
