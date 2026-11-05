@@ -2,10 +2,11 @@
   lib,
   pins,
   stdenvNoCC,
-  gradle,
+  gradle_9,
   enableJfx ? true,
 }:
 let
+  gradle = gradle_9;
   pname = "faf-ice-adapter";
 
   src = pins.faf-ice-adapter;

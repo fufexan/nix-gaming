@@ -157,10 +157,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "3.3.14",
-      "revision": "d49f9fe992184716d26c3b5decdd5489f14d8a70",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/refs/tags/3.3.14",
-      "hash": "sha256-P+HD97EhFQPP0bryK4KO3398jdMrhJQzdHuVLXaMLns="
+      "version": "3.3.15",
+      "revision": "d81b88c604ff3eaffefc67f53ece77fb39c6e9b7",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/refs/tags/3.3.15",
+      "hash": "sha256-RI4GsXxb3Kwpva6M48sToZ6Bg8dcRBW/uvXDYSCwTe0="
     },
     "faf-uid": {
       "type": "GitRelease",
