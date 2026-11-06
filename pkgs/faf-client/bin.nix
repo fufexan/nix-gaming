@@ -35,8 +35,8 @@ let
     sha256 = sha256Stable;
   };
 
-  versionUnstable = "2026.10.0";
-  sha256Unstable = "Y2V04B/4ueJwxfiZZYaDSDAtTZdjxZaxAKID4TxmPpQ=";
+  versionUnstable = "2026.11.0-alpha-1";
+  sha256Unstable = "9ZQPVdoG67MJlBukk70U9WHSkuFGMOtzlqnpH223XM8=";
   srcUnstable = fetchzip {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v${versionUnstable}/faf_unix_${
       builtins.replaceStrings [ "." ] [ "_" ] versionUnstable

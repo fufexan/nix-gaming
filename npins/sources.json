@@ -44,10 +44,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2026.10.0",
-      "revision": "5da818ba1ac56d9d28ae68ad1f16d0e67a0d6777",
-      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.10.0",
-      "hash": "sha256-Vsgp406jO+TTBTci/NZEYSAB0Jzzx6i5/x6xc8LMna0="
+      "version": "v2026.11.0-alpha-1",
+      "revision": "af631ce0e2ac7bcbcb240bd0d4ab9ed74988dbca",
+      "url": "https://api.github.com/repos/FAForever/downlords-faf-client/tarball/refs/tags/v2026.11.0-alpha-1",
+      "hash": "sha256-J8Fn64qmb6O+CtYexnun4lfnxtGALH+O+3QPFLrA5ek="
     },
     "dxvk": {
       "type": "GitRelease",
@@ -157,10 +157,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "3.3.15",
-      "revision": "d81b88c604ff3eaffefc67f53ece77fb39c6e9b7",
-      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/refs/tags/3.3.15",
-      "hash": "sha256-RI4GsXxb3Kwpva6M48sToZ6Bg8dcRBW/uvXDYSCwTe0="
+      "version": "3.3.16",
+      "revision": "19629a4dda2449d2a32a3fcfa71b720c0a4e1779",
+      "url": "https://api.github.com/repos/FAForever/java-ice-adapter/tarball/refs/tags/3.3.16",
+      "hash": "sha256-MtFBdiYUMDjj3RSV5ZWshy7huonm9RCnX3PYsz44Di8="
     },
     "faf-uid": {
       "type": "GitRelease",
