@@ -328,9 +328,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "455e3509b98a6919fd4ad1def4803e08c41c03b2",
-      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine/repository/archive.tar.gz?sha=455e3509b98a6919fd4ad1def4803e08c41c03b2",
-      "hash": "sha256-6uUhQJBmXFqJ2SEawnujPUgHKtKXvHpHGiUFL9s1riM=",
+      "revision": "9f8c4ae4d35c7ff4153267aba9618c026f5f5583",
+      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine/repository/archive.tar.gz?sha=9f8c4ae4d35c7ff4153267aba9618c026f5f5583",
+      "hash": "sha256-u5nJGAQDCfurY/wzLfbdmJvji45YavkDKuhHGNiVY3g=",
       "frozen": true
     },
     "wine-osu-patches": {
@@ -342,9 +342,9 @@
       },
       "branch": "winello",
       "submodules": false,
-      "revision": "26060776d5098852dbcf60a98cafff5135b2634f",
-      "url": "https://github.com/whrvt/wine-osu-patches/archive/26060776d5098852dbcf60a98cafff5135b2634f.tar.gz",
-      "hash": "sha256-lFAVL6M5dKCb4hohg1FIkPJZxeYEhTeF4QAQyceAzKY="
+      "revision": "2dd71bd943a695821642bac68f84aa79e1887a3d",
+      "url": "https://github.com/whrvt/wine-osu-patches/archive/2dd71bd943a695821642bac68f84aa79e1887a3d.tar.gz",
+      "hash": "sha256-gLmrfbWqAyr2Cs2u8IaPdKinf3bAwB1QAWu1rJsFQMg="
     },
     "wine-osu-staging": {
       "type": "Git",
@@ -355,9 +355,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "766285c4fc8fcf92e9d7c76f5f8a5f5d65d3fb5f",
-      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine-staging/repository/archive.tar.gz?sha=766285c4fc8fcf92e9d7c76f5f8a5f5d65d3fb5f",
-      "hash": "sha256-Dnb/CjzxWDdMDXfJB/hiWHhQLjU49F6OyM6qqC0g/v0=",
+      "revision": "7426bb2fd765b7e3a9d37e61f30875ca76fa6098",
+      "url": "https://gitlab.winehq.org/api/v4/projects/wine%2Fwine-staging/repository/archive.tar.gz?sha=7426bb2fd765b7e3a9d37e61f30875ca76fa6098",
+      "hash": "sha256-tBKlPEFVckM8KIE6QJv9OqflH6gPN/zGmem1Frtf6aU=",
       "frozen": true
     },
     "wine-tkg": {
