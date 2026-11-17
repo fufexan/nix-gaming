@@ -172,6 +172,11 @@ let
         ''
       else
         ''
+          # Use Wine's builtin GDI+ instead of the native one from winetricks:
+          # the native one reads every font on the system, which can take literal minutes
+          # on systems with many fonts. Not an issue under umu.
+          export WINEDLLOVERRIDES="gdiplus=b''${WINEDLLOVERRIDES:+;$WINEDLLOVERRIDES}"
+
           if [ ! -d "$WINEPREFIX" ]; then
             # required, otherwise installation freezes multiple times with wine-osu
             wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'winemenubuilder.exe' /t REG_SZ /d ""
