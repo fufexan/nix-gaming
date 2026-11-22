@@ -6,9 +6,9 @@
     "version": "2026.1117.0-lazer"
   },
   "tachyon": {
-    "query": "map(select(.prerelease)) | first | .tag_name",
-    "hash": "sha256-3HtE1ZkXhg2xmObsm4lDGjkajVn5UMEsJYc/uq3mXt8=",
-    "storePath": "/nix/store/5kr9svc056swqvzc1130sv02li3hp6hs-osu.AppImage",
-    "version": "2026.1114.0-tachyon"
+    "query": "first | .tag_name",
+    "hash": "sha256-TrvLW1gcA28WeFUAr1yNE60ebZMZb9Nr6PJFwqDqHS0=",
+    "storePath": "/nix/store/dg6kvgaj510rcvc7j4mbcmmrcfccab25-osu.AppImage",
+    "version": "2026.1117.0-lazer"
   }
 }
