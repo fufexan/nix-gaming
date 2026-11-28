@@ -8,6 +8,7 @@
   pkg-config,
   glslang,
   python3,
+  hwdata,
   pins,
   # cross compile inputs:
   withSdl3 ? (!stdenv.hostPlatform.isWindows),
@@ -59,8 +60,9 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
     glslang
-  ]
-  ++ lib.optional (!stdenv.targetPlatform.isWindows) pkg-config;
+    hwdata
+    pkg-config
+  ];
 
   strictDeps = true;
   __structuredAttrs = true;
