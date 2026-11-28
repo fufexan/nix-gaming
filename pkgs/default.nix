@@ -99,23 +99,23 @@
 
           cnc-ddraw = pkgs.callPackage ./cnc-ddraw { };
 
-          d7vk-w32 = pkgs.pkgsCross.mingw32.callPackage ./d7vk { inherit pins; };
+          d7vk-w32 = pkgs.pkgsCross.mingw-msvcrt-i686.callPackage ./d7vk { inherit pins; };
 
           dxvk = pkgs.callPackage ./dxvk { inherit pins; };
-          dxvk-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk { inherit pins; };
-          dxvk-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk { inherit pins; };
+          dxvk-w32 = pkgs.pkgsCross.mingw-msvcrt-i686.callPackage ./dxvk { inherit pins; };
+          dxvk-w64 = pkgs.pkgsCross.mingw-msvcrt-x86_64.callPackage ./dxvk { inherit pins; };
 
-          dxvk-gplasync-lowlatency-w32 = buildDxvkGplAll pkgs.pkgsCross.mingw32.callPackage;
-          dxvk-gplasync-lowlatency-w64 = buildDxvkGplAll pkgs.pkgsCross.mingwW64.callPackage;
+          dxvk-gplasync-lowlatency-w32 = buildDxvkGplAll pkgs.pkgsCross.mingw-msvcrt-i686.callPackage;
+          dxvk-gplasync-lowlatency-w64 = buildDxvkGplAll pkgs.pkgsCross.mingw-msvcrt-x86_64.callPackage;
 
           dxvk-nvapi = pkgs.callPackage ./dxvk { inherit pins; };
-          dxvk-nvapi-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk-nvapi { inherit pins; };
-          dxvk-nvapi-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk-nvapi { inherit pins; };
+          dxvk-nvapi-w32 = pkgs.pkgsCross.mingw-msvcrt-i686.callPackage ./dxvk-nvapi { inherit pins; };
+          dxvk-nvapi-w64 = pkgs.pkgsCross.mingw-msvcrt-x86_64.callPackage ./dxvk-nvapi { inherit pins; };
 
           dxvk-nvapi-vkreflex-layer = pkgs.callPackage ./dxvk-nvapi/vkreflex-layer.nix { inherit pins; };
 
-          dxvk-sarek-w32 = pkgs.pkgsCross.mingw32.callPackage ./dxvk-sarek { inherit pins; };
-          dxvk-sarek-w64 = pkgs.pkgsCross.mingwW64.callPackage ./dxvk-sarek { inherit pins; };
+          dxvk-sarek-w32 = pkgs.pkgsCross.mingw-msvcrt-i686.callPackage ./dxvk-sarek { inherit pins; };
+          dxvk-sarek-w64 = pkgs.pkgsCross.mingw-msvcrt-x86_64.callPackage ./dxvk-sarek { inherit pins; };
 
           eac-runtime = pkgs.callPackage ./eac-runtime { };
 
@@ -204,8 +204,8 @@
           viper = pkgs.callPackage ./titanfall/viper.nix { };
 
           vkd3d-proton = pkgs.callPackage ./vkd3d-proton { inherit pins; };
-          vkd3d-proton-w32 = pkgs.pkgsCross.mingw32.callPackage ./vkd3d-proton { inherit pins; };
-          vkd3d-proton-w64 = pkgs.pkgsCross.mingwW64.callPackage ./vkd3d-proton { inherit pins; };
+          vkd3d-proton-w32 = pkgs.pkgsCross.mingw-msvcrt-i686.callPackage ./vkd3d-proton { inherit pins; };
+          vkd3d-proton-w64 = pkgs.pkgsCross.mingw-msvcrt-x86_64.callPackage ./vkd3d-proton { inherit pins; };
 
           wine-discord-ipc-bridge = pkgs.callPackage ./wine-discord-ipc-bridge {
             inherit pins;
